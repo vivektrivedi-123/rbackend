@@ -1,55 +1,61 @@
 const Role = require("../models/role");
 const mongoose = require("mongoose");
 const _ = require("lodash");
+
 exports.getRoles = async (req, res, next) => {
   let role = await Role.find();
   if (!role) {
-    res.status(404);
+    res.status(404).send("Role Not Found");
   } else {
-    res.send(role);
+    res.status(200).send(role);
   }
 };
+
 exports.getRolesByID = async (req, res, next) => {
   let role = await Role.findById({ _id: req.params.id });
   if (!role) {
-    res.status(400);
+    res.status(404).send("Role Not Found");
   } else {
-    res.send(role);
+    res.status(200).send(role);
   }
 };
+
 exports.addRoles = async (req, res, next) => {
   let role = await Role.findOne({ role_name: req.body.role_name });
   if (role) {
-    res.status(409);
+    res.status(409).send("Role Already Exists");
   } else {
     let roles = new Role(_.pick(req.body, ["role_id", "role_name"]));
     await roles.save();
-    res.send("Registered");
+    res.status(200).send("Registered");
   }
 };
+
 exports.updateRoles = async (req, res, next) => {
   let id = req.params.id;
-  if (!req.params.id || req.params.id < 0) res.status(400);
+  if (!req.params.id || req.params.id < 0)
+    res.status(400).send("Invalid Request");
   Role.findOne({ _id: req.params.id }, function (err, doc) {
     if (err) console.log(err);
-    else if (doc === null) res.status(400);
+    else if (doc === null) res.status(400).send("Invalid Request");
   });
   let update = await Role.findByIdAndUpdate({ _id: req.params.id }, req.body);
-  res.json(update);
+  res.status(200).json(update);
 };
 
 exports.deleteRoles = async (req, res, next) => {
   let id = await req.params.id;
-  if (!req.params.id || req.params.id < 0) res.status(400);
+  if (!req.params.id || req.params.id < 0)
+    res.status(400).send("Invalid Request");
   Role.findOne({ _id: req.params.id }, (err, doc) => {
     if (err) console.log(err);
-    else if (doc === null) res.status(400);
+    else if (doc === null) res.status(400).send("Invalid Request");
   });
   Role.deleteOne({ _id: req.params.id }).then((result) => {
     if (result.deletedCount > 0) {
-      res.status(200);
+      res.status(200).send({ message: `Deleted ${result.deletedCount} item.` });
     } else {
-      res.status(401);
+      res.status(404).send(`Delete failed `);
     }
   });
 };

@@ -6,7 +6,7 @@ const Comment = require("../models/job_app_comments");
 
 router.get("/api/v1/comment", commentController.getComment);
 
-router.get("/api/v1/comment/:id", commentController.getCommentById);
+//router.get("/api/v1/comment/:id", commentController.getCommentById);
 
 router.post("/api/v1/comment", commentController.addComment);
 

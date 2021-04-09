@@ -6,7 +6,7 @@ const Interview = require("../models/job_app_interview");
 
 router.get("/api/v1/interview", interviewController.getInterview);
 
-router.get("/api/v1/interview/:id", interviewController.getInterviewById);
+//router.get("/api/v1/interview/:id", interviewController.getInterviewById);
 
 router.post("/api/v1/interview", interviewController.addInterview);
 

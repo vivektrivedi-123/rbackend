@@ -11,4 +11,5 @@ router.post("/api/v1/dept", deptController.addDept);
 //update
 router.put("/api/v1/dept/:id", deptController.updateDept);
 //delete
-router.delete("/api/v1/dept/:id", deptController.deleteUser);
+router.delete("/api/v1/dept/:id", deptController.deleteDept);
+module.exports = router;

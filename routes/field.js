@@ -6,7 +6,7 @@ const Field = require("../models/field");
 
 router.get("/api/v1/field", fieldController.getField);
 
-router.get("/api/v1/field/:id", fieldController.getFieldById);
+//router.get("/api/v1/field/:id", fieldController.getFieldById);
 
 router.post("/api/v1/field", fieldController.addField);
 

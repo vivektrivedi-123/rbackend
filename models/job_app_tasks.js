@@ -6,10 +6,10 @@ const jobtasks = new mongoose.Schema(
   {
     application_task_id: { type: Number, required: true },
     application_id: [
-      { type: mongoose.Types.ObjectID, ref: jobapp, required: true },
+      { type: mongoose.Schema.Types.ObjectID, ref: jobapp, required: true },
     ],
     location_id: [
-      { type: mongoose.Types.ObjectID, ref: location, required: true },
+      { type: mongoose.Schema.Types.ObjectID, ref: location, required: true },
     ],
     title: { type: String, required: true },
     description: { type: String, required: true },

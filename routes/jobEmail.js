@@ -6,7 +6,7 @@ const Email = require("../models/job_app_email");
 
 router.get("/api/v1/email", emailController.getEmail);
 
-router.get("/api/v1/email/:id", emailController.getEmailById);
+//router.get("/api/v1/email/:id", emailController.getEmailById);
 
 router.post("/api/v1/email", emailController.addEmail);
 

@@ -4,23 +4,25 @@ const _ = require("lodash");
 exports.getLocation = async (req, res, next) => {
   let location = await Location.find();
   if (!location) {
-    res.status(404);
+    res.status(404).send("No Location Found");
   } else {
-    res.send(location);
+    res.status(200).send(location);
   }
 };
 exports.getLocationByID = async (req, res, next) => {
   let location = await Location.findById({ _id: req.params.id });
   if (!location) {
-    res.status(400);
+    res.status(404).send("No Location Found");
   } else {
-    res.send(location);
+    res.status(200).send(location);
   }
 };
 exports.addLocation = async (req, res, next) => {
-  let location = await Location.findOne({ location_id: req.body.location_id });
+  let location = await Location.findOne({
+    location_address: req.body.location_address,
+  });
   if (location) {
-    res.status(409);
+    res.status(409).send("Location Already Exists");
   } else {
     let locations = new Location(
       _.pick(req.body, [
@@ -39,35 +41,37 @@ exports.addLocation = async (req, res, next) => {
       ])
     );
     await locations.save();
-    res.send("Registered");
+    res.status(200).send("Registered");
   }
 };
 exports.updateLocation = async (req, res, next) => {
   let id = req.params.id;
-  if (!req.params.id || req.params.id < 0) res.status(400);
+  if (!req.params.id || req.params.id < 0)
+    res.status(400).send("Invalid Request");
   Location.findOne({ _id: req.params.id }, function (err, doc) {
     if (err) console.log(err);
-    else if (doc === null) res.status(400);
+    else if (doc === null) res.status(400).send("Invalid Request");
   });
   let update = await Location.findByIdAndUpdate(
     { _id: req.params.id },
     req.body
   );
-  res.json(update);
+  res.status(200).json(update);
 };
 
 exports.deleteLocation = async (req, res, next) => {
   let id = await req.params.id;
-  if (!req.params.id || req.params.id < 0) res.status(400);
+  if (!req.params.id || req.params.id < 0)
+    res.status(400).send("Invalid Request");
   Location.findOne({ _id: req.params.id }, (err, doc) => {
     if (err) console.log(err);
-    else if (doc === null) res.status(400);
+    else if (doc === null) res.status(400).send("Invalid Request");
   });
   Location.deleteOne({ _id: req.params.id }).then((result) => {
     if (result.deletedCount > 0) {
-      res.status(200);
+      res.status(200).send({ message: `Deleted ${result.deletedCount} item.` });
     } else {
-      res.status(401);
+      res.status(401).send(`Delete failed `);
     }
   });
 };

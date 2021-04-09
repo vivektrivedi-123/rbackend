@@ -6,7 +6,7 @@ const Post = require("../models/job_posting");
 
 router.get("/api/v1/post", postingController.getPost);
 
-router.get("/api/v1/post/:id", postingController.getPostById);
+//router.get("/api/v1/post/:id", postingController.getPostById);
 
 router.post("/api/v1/post", postingController.addPost);
 

@@ -6,23 +6,23 @@ const _ = require("lodash");
 exports.getUser = async (req, res, next) => {
   let user = await User.find();
   if (!user) {
-    res.status(404);
+    res.status(404).send("User Not Found");
   } else {
-    res.send(user);
+    res.status(200).send(user);
   }
 };
 exports.getUserById = async (req, res, next) => {
   let user = await User.findById({ _id: req.params.id });
   if (!user) {
-    res.status(400);
+    res.status(400).send("User Not Found");
   } else {
-    res.send(user);
+    res.status(200).send(user);
   }
 };
 exports.addUser = async (req, res, next) => {
-  let user = await User.findOne({ user_id: req.body.user_id });
+  let user = await User.findOne({ email: req.body.email });
   if (user) {
-    res.status(409);
+    res.status(409).send("User Already Exists");
   } else {
     let users = new User(
       _.pick(req.body, [
@@ -44,33 +44,35 @@ exports.addUser = async (req, res, next) => {
     users.password = await bcrypt.hash(users.password, salt);
 
     await users.save();
-    res.status(200);
+    res.status(200).send("User Added");
   }
 };
 exports.updateUser = async (req, res, next) => {
   let id = req.params.id;
-  if (!req.params.id || req.params.id < 0) res.status(400);
+  if (!req.params.id || req.params.id < 0)
+    res.status(400).send("Invalid Request");
   User.findOne({ _id: req.params.id }, (err, doc) => {
     if (err) console.log(err);
-    else if (doc === null) res.status(400);
+    else if (doc === null) res.status(400).send("Invalid Request");
   });
 
   let user = await User.findByIdAndUpdate({ _id: req.params.id }, req.body);
-  res.json(user);
+  res.status(200).json(user);
   await user.save();
 };
 exports.deleteUser = async (req, res, next) => {
   let id = await req.params.id;
-  if (!req.params.id || req.params.id < 0) res.status(400);
+  if (!req.params.id || req.params.id < 0)
+    res.status(400).send("Invalid Request");
   User.findOne({ _id: req.params.id }, (err, doc) => {
     if (err) console.log(err);
-    else if (doc === null) res.status(400);
+    else if (doc === null) res.status(400).send("Invalid Request");
   });
   User.deleteOne({ _id: req.params.id }).then((result) => {
     if (result.deletedCount > 0) {
-      res.status(200);
+      res.status(200).send({ message: `Deleted ${result.deletedCount} item.` });
     } else {
-      res.status(401);
+      res.status(404).send(`Delete failed `);
     }
   });
 };

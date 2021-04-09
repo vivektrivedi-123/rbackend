@@ -6,7 +6,7 @@ const options = new mongoose.Schema(
     option_key: { type: Number, required: true },
     option_value: { type: Number, required: true },
     location_id: [
-      { type: mongoose.Types.ObjectID, ref: location, required: true },
+      { type: mongoose.Schema.Types.ObjectID, ref: location, required: true },
     ],
     field_name: { type: String, required: true },
     created_by: { type: String, required: true },

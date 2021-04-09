@@ -4,23 +4,23 @@ const _ = require("lodash");
 exports.getComment = async (req, res, next) => {
   let comment = await Comment.find();
   if (!comment) {
-    res.status(404);
+    res.status(404).send("No Comment Found");
   } else {
-    res.send(comment);
+    res.status(200).send(comment);
   }
 };
 exports.getCommentByID = async (req, res, next) => {
   let comment = await Comment.findById({ _id: req.params.id });
-  if (!stage) {
-    res.status(400);
+  if (!comment) {
+    res.status(404).send("No Comment Found");
   } else {
-    res.send(comment);
+    res.status(200).send(comment);
   }
 };
 exports.addComment = async (req, res, next) => {
-  let comment = await Comment.findOne({ Comment_id: req.body.Comment_id });
+  let comment = await Comment.findOne({ comments: req.body.comments });
   if (comment) {
-    res.status(409);
+    res.status(409).send("Comment already exists");
   } else {
     let comments = new Comment(
       _.pick(req.body, [
@@ -35,21 +35,23 @@ exports.addComment = async (req, res, next) => {
       ])
     );
     await comments.save();
-    res.send("Registered");
+    res.status(200).send("Comment Added");
   }
 };
 exports.updateComment = async (req, res, next) => {
   let id = req.params.id;
-  if (!req.params.id || req.params.id < 0) res.status(400);
+  if (!req.params.id || req.params.id < 0)
+    res.status(400).send("Invalid request");
   Comment.findOne({ _id: req.params.id }, function (err, doc) {
     if (err) console.log(err);
-    else if (doc === null) res.status(400);
+    else if (doc === null)
+      res.status(400).send("ID in the body is not matching ID in the URL");
   });
   let update = await Comment.findByIdAndUpdate(
     { _id: req.params.id },
     req.body
   );
-  res.json(update);
+  res.send(200).json(update);
 };
 
 exports.deleteComment = async (req, res, next) => {
@@ -61,9 +63,9 @@ exports.deleteComment = async (req, res, next) => {
   });
   Comment.deleteOne({ _id: req.params.id }).then((result) => {
     if (result.deletedCount > 0) {
-      res.status(200);
+      res.status(200).send({ message: `Deleted ${result.deletedCount} item.` });
     } else {
-      res.status(401);
+      res.status(404).send(`Delete failed `);
     }
   });
 };

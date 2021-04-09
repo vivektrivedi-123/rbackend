@@ -4,25 +4,27 @@ const jobid = require("./job_form");
 const location = require("./location");
 const jobposting = new mongoose.Schema(
   {
-    job_id: { type: Schema.Types.ObjectID, ref: jobid, required: true },
+    job_id: [
+      { type: mongoose.Schema.Types.ObjectID, ref: jobid, required: true },
+    ],
     department_id: [
-      { type: mongoose.Types.ObjectID, ref: department, required: true },
+      { type: mongoose.Schema.Types.ObjectID, ref: department, required: true },
     ],
     category_id: [
-      { type: mongoose.Types.ObjectID, ref: department, required: true },
+      { type: mongoose.Schema.Types.ObjectID, ref: department, required: true },
     ],
     job_title: [
-      { type: mongoose.Types.ObjectID, ref: department, required: true },
+      { type: mongoose.Schema.Types.ObjectID, ref: department, required: true },
     ],
     job_type: [
-      { type: mongoose.Types.ObjectID, ref: department, required: true },
+      { type: mongoose.Schema.Types.ObjectID, ref: department, required: true },
     ],
     location_id: [
-      { type: mongoose.Types.ObjectID, ref: location, required: true },
+      { type: mongoose.Schema.Types.ObjectID, ref: location, required: true },
     ],
     remote_job: { type: String, required: true },
     job_description: [
-      { type: mongoose.Types.ObjectID, ref: jobid, required: true },
+      { type: mongoose.Schema.Types.ObjectID, ref: jobid, required: true },
     ],
     experience: { type: String, required: true },
     skills: { type: String, required: true },

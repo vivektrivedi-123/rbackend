@@ -6,7 +6,7 @@ const Role = require("../models/role");
 
 router.get("/api/v1/role", rolesController.getRoles);
 
-router.get("/api/v1/role/:id", rolesController.getRolesById);
+//router.get("/api/v1/role/:id", rolesController.getRolesById);
 
 router.post("/api/v1/role", rolesController.addRoles);
 

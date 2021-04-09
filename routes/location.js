@@ -4,13 +4,13 @@ const _ = require("lodash");
 const router = express.Router();
 const Location = require("../models/location");
 
-router.get("/api/v1/location", fieldController.getLocation);
+router.get("/api/v1/location", locationController.getLocation);
 
-router.get("/api/v1/location/:id", fieldController.getLocationById);
+//router.get("/api/v1/location/:id", locationController.getLocationById);
 
-router.post("/api/v1/location", fieldController.addLocation);
+router.post("/api/v1/location", locationController.addLocation);
 
-router.put("/api/v1/location/:id", fieldController.updateLocation);
+router.put("/api/v1/location/:id", locationController.updateLocation);
 
-router.delete("/api/v1/location/:id", fieldController.deleteLocation);
+router.delete("/api/v1/location/:id", locationController.deleteLocation);
 module.exports = router;

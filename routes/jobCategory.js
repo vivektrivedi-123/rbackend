@@ -6,7 +6,7 @@ const Category = require("../models/job_category");
 
 router.get("/api/v1/category", categoryController.getCategory);
 
-router.get("/api/v1/category/:id", categoryController.getCategoryById);
+//router.get("/api/v1/category/:id", categoryController.getCategoryById);
 
 router.post("/api/v1/category", categoryController.addCategory);
 

@@ -4,23 +4,23 @@ const _ = require("lodash");
 exports.getOptions = async (req, res, next) => {
   let options = await Options.find();
   if (!options) {
-    res.status(404);
+    res.status(404).send("Option not found");
   } else {
-    res.send(options);
+    res.status(200).send(options);
   }
 };
 exports.getOptionsByID = async (req, res, next) => {
   let options = await Options.findById({ _id: req.params.id });
   if (!options) {
-    res.status(400);
+    res.status(404).send("Options not Found");
   } else {
-    res.send(options);
+    res.status(200).send(options);
   }
 };
 exports.addOptions = async (req, res, next) => {
-  let options = await Options.findOne({ option_id: req.body.option_id });
+  let options = await Options.findOne({ option_value: req.body.option_value });
   if (options) {
-    res.status(409);
+    res.status(409).send("Option Already Exists");
   } else {
     let option = new Options(
       _.pick(req.body, [
@@ -33,35 +33,37 @@ exports.addOptions = async (req, res, next) => {
       ])
     );
     await option.save();
-    res.send("Registered");
+    res.status(200).send("Registered");
   }
 };
 exports.updateOptions = async (req, res, next) => {
   let id = req.params.id;
-  if (!req.params.id || req.params.id < 0) res.status(400);
+  if (!req.params.id || req.params.id < 0)
+    res.status(400).send("Invalid Request");
   Options.findOne({ _id: req.params.id }, function (err, doc) {
     if (err) console.log(err);
-    else if (doc === null) res.status(400);
+    else if (doc === null) res.status(400).send("Invalid Request");
   });
   let update = await Options.findByIdAndUpdate(
     { _id: req.params.id },
     req.body
   );
-  res.json(update);
+  res.status(200).json(update);
 };
 
 exports.deleteOptions = async (req, res, next) => {
   let id = await req.params.id;
-  if (!req.params.id || req.params.id < 0) res.status(400);
+  if (!req.params.id || req.params.id < 0)
+    res.status(400).send("Invalid Request");
   Options.findOne({ _id: req.params.id }, (err, doc) => {
     if (err) console.log(err);
-    else if (doc === null) res.status(400);
+    else if (doc === null) res.status(400).send("Invalid Request");
   });
   Options.deleteOne({ _id: req.params.id }).then((result) => {
     if (result.deletedCount > 0) {
-      res.status(200);
+      res.status(200).send({ message: `Deleted ${result.deletedCount} item.` });
     } else {
-      res.status(401);
+      res.status(404).send("Delete Failed");
     }
   });
 };

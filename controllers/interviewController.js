@@ -4,7 +4,7 @@ const _ = require("lodash");
 exports.getInterview = async (req, res, next) => {
   let interview = await Interview.find();
   if (!interview) {
-    res.status(404);
+    res.status(404).send("No Interview Found");
   } else {
     res.send(interview);
   }
@@ -12,19 +12,19 @@ exports.getInterview = async (req, res, next) => {
 exports.getInterviewByID = async (req, res, next) => {
   let interview = await Interview.findById({ _id: req.params.id });
   if (!interview) {
-    res.status(400);
+    res.status(404).send("No Interview Found");
   } else {
-    res.send(interview);
+    res.status(200).send(interview);
   }
 };
 exports.addInterview = async (req, res, next) => {
-  let interview = await Interview.findOne({
-    interview_id: req.body.interview_id,
+  let location = await Location.findOne({
+    scheduled_time: req.body.scheduled_time,
   });
-  if (interview) {
-    res.status(409);
+  if (location) {
+    res.status(409).send("Location Already Exists");
   } else {
-    let interviews = new Interview(
+    let interview = new Interview(
       _.pick(req.body, [
         "Interview_id",
         "job_id",
@@ -46,36 +46,38 @@ exports.addInterview = async (req, res, next) => {
         "modified_by",
       ])
     );
-    await interviews.save();
-    res.send("Registered");
   }
+  await interview.save();
+  res.status(200).send("Interview Added");
 };
 exports.updateInterview = async (req, res, next) => {
   let id = req.params.id;
-  if (!req.params.id || req.params.id < 0) res.status(400);
+  if (!req.params.id || req.params.id < 0)
+    res.status(400).send("Invalid Request");
   Interview.findOne({ _id: req.params.id }, function (err, doc) {
     if (err) console.log(err);
-    else if (doc === null) res.status(400);
+    else if (doc === null) res.status(400).send("Invalid Request");
   });
   let update = await Interview.findByIdAndUpdate(
     { _id: req.params.id },
     req.body
   );
-  res.json(update);
+  res.status(200).json(update);
 };
 
 exports.deleteInterview = async (req, res, next) => {
   let id = await req.params.id;
-  if (!req.params.id || req.params.id < 0) res.status(400);
+  if (!req.params.id || req.params.id < 0)
+    res.status(400).send("Invalid Request");
   Interview.findOne({ _id: req.params.id }, (err, doc) => {
     if (err) console.log(err);
-    else if (doc === null) res.status(400);
+    else if (doc === null) res.status(400).send("Invalid Request");
   });
   Interview.deleteOne({ _id: req.params.id }).then((result) => {
     if (result.deletedCount > 0) {
-      res.status(200);
+      res.status(200).send({ message: `Deleted ${result.deletedCount} item.` });
     } else {
-      res.status(401);
+      res.status(404).send(`Delete failed `);
     }
   });
 };

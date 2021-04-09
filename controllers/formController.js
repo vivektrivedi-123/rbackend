@@ -4,23 +4,23 @@ const _ = require("lodash");
 exports.getForm = async (req, res, next) => {
   let form = await Form.find();
   if (!form) {
-    res.status(404);
+    res.status(404).send("No Form Found");
   } else {
-    res.send(form);
+    res.status(200).send(form);
   }
 };
 exports.getFormByID = async (req, res, next) => {
   let form = await Form.findById({ _id: req.params.id });
   if (!form) {
-    res.status(400);
+    res.status(404).send("No Form Found");
   } else {
-    res.send(form);
+    res.status(200).send(form);
   }
 };
 exports.addForm = async (req, res, next) => {
-  let form = await Form.findOne({ form_id: req.body.form_id });
+  let form = await Form.findOne({ label: req.body.label });
   if (form) {
-    res.status(409);
+    res.status(409).send("Form Already Exists");
   } else {
     let forms = new Form(
       _.pick(req.body, [
@@ -34,32 +34,34 @@ exports.addForm = async (req, res, next) => {
       ])
     );
     await forms.save();
-    res.send("Registered");
+    res.status(200).send("Registered");
   }
 };
 exports.updateForm = async (req, res, next) => {
   let id = req.params.id;
-  if (!req.params.id || req.params.id < 0) res.status(400);
+  if (!req.params.id || req.params.id < 0)
+    res.status(400).send("Invalid Request");
   Form.findOne({ _id: req.params.id }, function (err, doc) {
     if (err) console.log(err);
-    else if (doc === null) res.status(400);
+    else if (doc === null) res.status(400).send("Invalid Request");
   });
   let update = await Form.findByIdAndUpdate({ _id: req.params.id }, req.body);
-  res.json(update);
+  res.status(200).json(update);
 };
 
 exports.deleteForm = async (req, res, next) => {
   let id = await req.params.id;
-  if (!req.params.id || req.params.id < 0) res.status(400);
+  if (!req.params.id || req.params.id < 0)
+    res.status(400).send("Invalid Request");
   Form.findOne({ _id: req.params.id }, (err, doc) => {
     if (err) console.log(err);
-    else if (doc === null) res.status(400);
+    else if (doc === null) res.status(400).send("Invalid Request");
   });
   Form.deleteOne({ _id: req.params.id }).then((result) => {
     if (result.deletedCount > 0) {
-      res.status(200);
+      res.status(200).send({ message: `Deleted ${result.deletedCount} item.` });
     } else {
-      res.status(401);
+      res.status(404).send("Delete Failed");
     }
   });
 };

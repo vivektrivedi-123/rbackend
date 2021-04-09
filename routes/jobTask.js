@@ -6,7 +6,7 @@ const Task = require("../models/job_app_tasks");
 
 router.get("/api/v1/task", taskController.getTask);
 
-router.get("/api/v1/task/:id", taskController.getTaskById);
+//router.get("/api/v1/task/:id", taskController.getTaskById);
 
 router.post("/api/v1/task", taskController.addTask);
 

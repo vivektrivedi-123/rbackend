@@ -4,7 +4,7 @@ const field = new mongoose.Schema(
   {
     field_id: { type: Number, required: true },
     location_id: [
-      { type: mongoose.Types.ObjectID, ref: location, required: true },
+      { type: mongoose.Schema.Types.ObjectID, ref: location, required: true },
     ],
     field_name: { type: String, required: true },
     field_type: { type: String, required: true },

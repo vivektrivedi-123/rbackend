@@ -6,7 +6,7 @@ const Stage = require("../models/job_stages");
 
 router.get("/api/v1/stage", stagesController.getStage);
 
-router.get("/api/v1/stage/:id", stagesController.getStageById);
+//router.get("/api/v1/stage/:id", stagesController.getStageById);
 
 router.post("/api/v1/stage", stagesController.addStage);
 

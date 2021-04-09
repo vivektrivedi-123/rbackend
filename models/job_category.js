@@ -4,7 +4,7 @@ const jobCategory = new mongoose.Schema(
   {
     category_id: { type: Number, required: true },
     location_id: [
-      { type: mongoose.Types.ObjectID, ref: location, required: true },
+      { type: mongoose.Schema.Types.ObjectID, ref: location, required: true },
     ],
     category: { type: String, required: true },
     status: { type: String, required: true },
