@@ -24,7 +24,6 @@ exports.addField = async (req, res, next) => {
   } else {
     let fields = new Field(
       _.pick(req.body, [
-        "field_id",
         "location_id",
         "field_name",
         "field_type",

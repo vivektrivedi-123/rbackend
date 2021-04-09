@@ -26,7 +26,6 @@ exports.addUser = async (req, res, next) => {
   } else {
     let users = new User(
       _.pick(req.body, [
-        "user_id",
         "company_id",
         "role_id",
         "first_name",

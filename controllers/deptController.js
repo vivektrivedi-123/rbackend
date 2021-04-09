@@ -26,12 +26,7 @@ exports.addDept = async (req, res, next) => {
     res.status(409).send("Department Already Exists");
   } else {
     let deptt = new Department(
-      _.pick(req.body, [
-        "location_id",
-        "department_name",
-        "created_by",
-        "modified_by",
-      ])
+      _.pick(req.body, ["department_name", "created_by", "modified_by"])
     );
     await deptt.save();
     res.status(200).send("Department Added");

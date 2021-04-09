@@ -24,7 +24,6 @@ exports.addCompany = async (req, res, next) => {
   } else {
     let company = new Company(
       _.pick(req.body, [
-        "company_id",
         "company_name",
         "company_slug",
         "company_logo",

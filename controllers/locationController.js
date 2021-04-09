@@ -26,7 +26,6 @@ exports.addLocation = async (req, res, next) => {
   } else {
     let locations = new Location(
       _.pick(req.body, [
-        "location_id",
         "company_id",
         "loaction_address",
         "loaction_street",

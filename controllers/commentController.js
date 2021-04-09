@@ -24,7 +24,6 @@ exports.addComment = async (req, res, next) => {
   } else {
     let comments = new Comment(
       _.pick(req.body, [
-        "Comment_id",
         "application_id",
         "location_id",
         "comments",

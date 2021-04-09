@@ -24,7 +24,6 @@ exports.addForm = async (req, res, next) => {
   } else {
     let forms = new Form(
       _.pick(req.body, [
-        "field_id",
         "location_id",
         "field_name",
         "field_type",

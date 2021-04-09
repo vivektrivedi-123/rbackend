@@ -24,7 +24,6 @@ exports.addCategory = async (req, res, next) => {
   } else {
     let categories = new Category(
       _.pick(req.body, [
-        "category_id",
         "location_id",
         "category",
         "status",

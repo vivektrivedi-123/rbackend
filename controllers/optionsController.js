@@ -24,7 +24,6 @@ exports.addOptions = async (req, res, next) => {
   } else {
     let option = new Options(
       _.pick(req.body, [
-        "option_id",
         "option_key",
         "option_value",
         "location_id",

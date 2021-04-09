@@ -20,7 +20,6 @@ exports.getTaskByID = async (req, res, next) => {
 exports.addTask = async (req, res, next) => {
   let tasks = new Task(
     _.pick(req.body, [
-      "application_task_id",
       "application_id",
       "location_id",
       "title",
