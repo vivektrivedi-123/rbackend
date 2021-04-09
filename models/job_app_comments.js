@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const location = require("./location");
-const jobappcomments = new mongoose.Schema(
+const jobcomments = new mongoose.Schema(
   {
     comment_id: { type: Number, required: true },
     application_id: { type: Number, required: true },
@@ -16,4 +16,4 @@ const jobappcomments = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("jobappcomments", jobappcomments);
+module.exports = mongoose.model("jobcomments", jobcomments);

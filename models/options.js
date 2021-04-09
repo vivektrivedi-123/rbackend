@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const location = require("./location");
-const option = new mongoose.Schema(
+const options = new mongoose.Schema(
   {
     option_id: { type: Number, required: true },
     option_key: { type: Number, required: true },
@@ -15,4 +15,4 @@ const option = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("option", option);
+module.exports = mongoose.model("options", options);

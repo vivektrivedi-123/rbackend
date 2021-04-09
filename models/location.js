@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const companyid = require("./company");
-const company = new mongoose.Schema(
+const location = new mongoose.Schema(
   {
     location_id: { type: Number, required: true },
     company_id: [
@@ -19,4 +19,4 @@ const company = new mongoose.Schema(
   },
   { timestamps: true }
 );
-module.exports = mongoose.model("comp", company);
+module.exports = mongoose.model("location", location);

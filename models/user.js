@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
+const validator = require("mongoose-validator");
 const company = require("./company");
 const role = require("./role");
-const comp_user = new mongoose.Schema(
+const user = new mongoose.Schema(
   {
     user_id: { type: Number, required: true },
     company_id: [
@@ -10,9 +11,14 @@ const comp_user = new mongoose.Schema(
     role_id: [
       { type: mongoose.Schema.Types.ObjectID, ref: role, required: true },
     ],
-    first_name: { type: String, required: true },
-    last_name: { type: String, required: true },
-    mobile_number: { type: Number, required: true },
+    first_name: { type: String, required: true, minlength: 3, maxlength: 100 },
+    last_name: { type: String, required: true, minlength: 3, maxlength: 100 },
+    mobile_number: {
+      type: Number,
+      required: true,
+      minlength: 10,
+      maxlength: 10,
+    },
     email: { type: String, required: true },
     password: { type: String, required: true, minLength: 5, null: false },
     token: { type: String, required: true },
@@ -23,4 +29,4 @@ const comp_user = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("compUser", comp_user);
+module.exports = mongoose.model("user", user);

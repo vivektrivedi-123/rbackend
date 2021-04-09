@@ -8,7 +8,7 @@ router.get("/api/v1/role", rolesController.getRoles);
 
 router.get("/api/v1/role/:id", rolesController.getRolesById);
 
-router.post("/api/v1/roleadd", rolesController.addRoles);
+router.post("/api/v1/role", rolesController.addRoles);
 
 router.put("/api/v1/role/:id", rolesController.updateRoles);
 

@@ -1,0 +1,66 @@
+const Email = require("../models/job_app_email");
+const mongoose = require("mongoose");
+const _ = require("lodash");
+exports.getEmail = async (req, res, next) => {
+  let email = await Email.find();
+  if (!email) {
+    res.status(404);
+  } else {
+    res.send(email);
+  }
+};
+exports.getEmailByID = async (req, res, next) => {
+  let email = await Email.findById({ _id: req.params.id });
+  if (!email) {
+    res.status(400);
+  } else {
+    res.send(email);
+  }
+};
+exports.addEmail = async (req, res, next) => {
+  let email = await Email.findOne({ application_id: req.body.application_id });
+  if (email) {
+    res.status(409);
+  } else {
+    let emails = new Email(
+      _.pick(req.body, [
+        "application_email_id",
+        "application_id",
+        "location_id",
+        "from",
+        "to",
+        "body",
+        "status",
+        "created_by",
+      ])
+    );
+    await emails.save();
+    res.send("Registered");
+  }
+};
+exports.updateEmail = async (req, res, next) => {
+  let id = req.params.id;
+  if (!req.params.id || req.params.id < 0) res.status(400);
+  Email.findOne({ _id: req.params.id }, function (err, doc) {
+    if (err) console.log(err);
+    else if (doc === null) res.status(400);
+  });
+  let update = await Email.findByIdAndUpdate({ _id: req.params.id }, req.body);
+  res.json(update);
+};
+
+exports.deleteEmail = async (req, res, next) => {
+  let id = await req.params.id;
+  if (!req.params.id || req.params.id < 0) res.status(400);
+  Email.findOne({ _id: req.params.id }, (err, doc) => {
+    if (err) console.log(err);
+    else if (doc === null) res.status(400);
+  });
+  Email.deleteOne({ _id: req.params.id }).then((result) => {
+    if (result.deletedCount > 0) {
+      res.status(200);
+    } else {
+      res.status(401);
+    }
+  });
+};

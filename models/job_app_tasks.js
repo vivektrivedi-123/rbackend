@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const jobapp = require("./job_application");
 const location = require("./location");
 
-const jobapptasks = new mongoose.Schema(
+const jobtasks = new mongoose.Schema(
   {
     application_task_id: { type: Number, required: true },
     application_id: [
@@ -24,4 +24,4 @@ const jobapptasks = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("jobapptasks", jobapptasks);
+module.exports = mongoose.model("jobtasks", jobtasks);

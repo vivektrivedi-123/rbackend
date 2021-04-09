@@ -11,10 +11,10 @@ router.get("/api/v1/user", userController.getUser);
 //get by ID
 router.get("/api/v1/user/:id", userController.getUserById);
 //post
-router.post("/api/v1/userRegister", userController.addUser);
+router.post("/api/v1/user", userController.addUser);
 //update
-router.put("/api/v1/userUpdate/:id", userController.updateUser);
+router.put("/api/v1/user/:id", userController.updateUser);
 //delete
-router.delete("/api/v1/userDelete/:id", userController.deleteUser);
+router.delete("/api/v1/user/:id", userController.deleteUser);
 
 module.exports = router;

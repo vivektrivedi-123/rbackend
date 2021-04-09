@@ -4,7 +4,7 @@ const _ = require("lodash");
 exports.getCompany = async (req, res, next) => {
   let company = await Company.find();
   if (!company) {
-    res.send("Not Found").status(404);
+    res.status(404);
   } else {
     res.send(company);
   }
@@ -12,39 +12,47 @@ exports.getCompany = async (req, res, next) => {
 exports.getCompanyById = async (req, res, next) => {
   let company = await Company.findById({ _id: req.params.id });
   if (!company) {
-    res.send("Invalid ID").status(404);
+    res.status(400);
   } else {
     res.send(company);
   }
 };
 exports.addCompany = async (req, res, next) => {
-  let comp = await Company.findOne({ company_name: req.body.company_name });
-  if (comp) {
-    res.send("Company Already Exists");
-  } else {
-    let company = new Company(
-      _.pick(req.body, [
-        "company_id",
-        "company_name",
-        "company_slug",
-        "company_logo",
-        "industry_type",
-        "created_by",
-        "modified_by",
-      ])
-    );
-    await company.save();
-    res.send("Registered");
+  try {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      res.status(422).json({ errors: errors.array() });
+      return;
+    }
+    let comp = await Company.findOne({ company_name: req.body.company_name });
+    if (comp) {
+      res.status(409);
+    } else {
+      let company = new Company(
+        _.pick(req.body, [
+          "company_id",
+          "company_name",
+          "company_slug",
+          "company_logo",
+          "industry_type",
+          "created_by",
+          "modified_by",
+        ])
+      );
+      await company.save();
+      res.status(200);
+    }
+  } catch (err) {
+    return next(err);
   }
 };
 exports.updateCompany = async (req, res, next) => {
   let id = req.params.id;
-  if (!req.params.id || req.params.id < 0)
-    res.send({ message: "Invalid request" });
-  Company.findOne({ _id: req.params.id }, function (err, doc) {
+  if (!req.params.id || req.params.id < 0) res.status(400);
+  Company.findOne({ _id: req.params.id }, (err, doc) => {
     if (err) console.log(err);
-    else if (doc === null)
-      res.send({ message: "ID in the body is not matching ID in the URL" });
+    else if (doc === null) res.status(400);
   });
 
   let update = await Company.findByIdAndUpdate(
@@ -55,20 +63,16 @@ exports.updateCompany = async (req, res, next) => {
 };
 exports.deleteCompany = async (req, res, next) => {
   let id = await req.params.id;
-  if (!req.params.id || req.params.id < 0)
-    res.send({ message: "Invalid request" });
+  if (!req.params.id || req.params.id < 0) res.status(400);
   Company.findOne({ _id: req.params.id }, (err, doc) => {
     if (err) console.log(err);
-    else if (doc === null) res.send({ message: "Invalid id" });
+    else if (doc === null) res.status(400);
   });
   Company.deleteOne({ _id: req.params.id }).then((result) => {
     if (result.deletedCount > 0) {
-      res
-        .status(200)
-        .send({ message: `Deleted ${result.deletedCount} record.` });
+      res.status(200);
     } else {
-      console.log("Could not delete a record");
-      res.status(200).send(`Delete failed `);
+      res.status(401);
     }
   });
 };
