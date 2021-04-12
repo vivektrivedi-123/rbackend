@@ -1,10 +1,15 @@
 const mongoose = require("mongoose");
 const field = require("./field");
 const location = require("./location");
+const jobPost = require("./job_posting");
 const jobForm = new mongoose.Schema(
   {
     form_id: { type: Number, required: true },
-    job_id: { type: Number, required: true },
+    job_id: {
+      type: mongoose.Schema.Types.ObjectID,
+      ref: jobPost,
+      required: true,
+    },
     field_id: [
       { type: mongoose.Schema.Types.ObjectID, ref: field, required: true },
     ],

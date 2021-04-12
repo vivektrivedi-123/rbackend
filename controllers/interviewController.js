@@ -18,35 +18,35 @@ exports.getInterviewByID = async (req, res, next) => {
   }
 };
 exports.addInterview = async (req, res, next) => {
-  let location = await Location.findOne({
-    scheduled_time: req.body.scheduled_time,
-  });
-  if (location) {
-    res.status(409).send("Location Already Exists");
-  } else {
-    let interview = new Interview(
-      _.pick(req.body, [
-        "job_id",
-        "location_id",
-        "application_id",
-        "stage_id",
-        "subject",
-        "schedule_date",
-        "schedule_time",
-        "schedule_timezone",
-        "duration",
-        "recommendations",
-        "interviewer",
-        "rating",
-        "notes",
-        "overall_comments",
-        "status",
-        "created_by",
-        "modified_by",
-      ])
-    );
-  }
-  await interview.save();
+  // let interview = await Location.findOne({
+  //   scheduled_time: req.body.scheduled_time,
+  // });
+  // if (interview) {
+  //   res.status(409).send("Location Already Exists");
+  // } else {
+  let interviews = new Interview(
+    _.pick(req.body, [
+      "job_id",
+      "location_id",
+      "application_id",
+      "stage_id",
+      "subject",
+      "schedule_date",
+      "schedule_time",
+      "schedule_timezone",
+      "duration",
+      "recommendations",
+      "interviewer",
+      "rating",
+      "notes",
+      "overall_comments",
+      "status",
+      "created_by",
+      "modified_by",
+    ])
+  );
+  //}
+  await interviews.save();
   res.status(200).send("Interview Added");
 };
 exports.updateInterview = async (req, res, next) => {

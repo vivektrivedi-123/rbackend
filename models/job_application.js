@@ -1,13 +1,18 @@
 const mongoose = require("mongoose");
 const location = require("./location");
-const jobid = require("./job_form");
+const jobId = require("./job_form");
+const formId = require("./job_form");
 const jobapplication = new mongoose.Schema(
   {
     application_id: { type: Number, required: true },
     job_id: [
-      { type: mongoose.Schema.Types.ObjectID, ref: jobid, required: true },
+      { type: mongoose.Schema.Types.ObjectID, ref: jobId, required: true },
     ],
-    form_id: { type: Number, required: true },
+    form_id: {
+      type: mongoose.Schema.Types.ObjectID,
+      ref: formId,
+      required: true,
+    },
     form_values: { type: Number, required: true },
     resume: { type: String, required: true },
     origin: { type: String, required: true },

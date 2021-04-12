@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
-const companyid = require("./company");
+const company = require("./company");
 const location = new mongoose.Schema(
   {
     location_id: { type: Number, required: true },
     company_id: [
-      { type: mongoose.Schema.Types.ObjectID, ref: companyid, required: true },
+      { type: mongoose.Schema.Types.ObjectID, ref: company, required: true },
     ],
     location_address: { type: String, required: true },
     location_street: { type: String, required: true },

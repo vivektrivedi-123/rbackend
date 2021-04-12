@@ -4,7 +4,6 @@ const company = require("./company");
 const role = require("./role");
 const user = new mongoose.Schema(
   {
-    user_id: { type: Number, required: true },
     company_id: [
       { type: mongoose.Schema.Types.ObjectID, ref: company, required: true },
     ],
@@ -21,7 +20,7 @@ const user = new mongoose.Schema(
     },
     email: { type: String, required: true },
     password: { type: String, required: true, minLength: 5, null: false },
-    token: { type: String, required: true },
+    token: { type: String },
     profile_image: { type: String, required: true },
     created_by: { type: String, required: true },
     modified_by: { type: String, required: true },

@@ -13,19 +13,13 @@ const jobposting = new mongoose.Schema(
     category_id: [
       { type: mongoose.Schema.Types.ObjectID, ref: department, required: true },
     ],
-    job_title: [
-      { type: mongoose.Schema.Types.ObjectID, ref: department, required: true },
-    ],
-    job_type: [
-      { type: mongoose.Schema.Types.ObjectID, ref: department, required: true },
-    ],
+    job_title: { type: String, required: true },
+    job_type: { type: String, required: true },
     location_id: [
       { type: mongoose.Schema.Types.ObjectID, ref: location, required: true },
     ],
     remote_job: { type: String, required: true },
-    job_description: [
-      { type: mongoose.Schema.Types.ObjectID, ref: jobid, required: true },
-    ],
+    job_description: { type: String, required: true },
     experience: { type: String, required: true },
     skills: { type: String, required: true },
     tags: { type: String, required: true },

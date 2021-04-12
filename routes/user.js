@@ -1,17 +1,21 @@
+const auth = require("../middleware/auth");
 const userController = require("../controllers/userController");
 const express = require("express");
+const { userValidation, validate } = require("../validation/userValidation");
 const _ = require("lodash");
 const router = express.Router();
 const company = require("../models/company");
 const Comp = require("../models/user");
 const role = require("../models/role");
+const app = express();
+app.use(express.json());
 
 //get all
 router.get("/api/v1/user", userController.getUser);
 //get by ID
-//router.get("/api/v1/user/:id", userController.getUserById);
+router.get("/api/v1/user/:id", userController.getUserById);
 //post
-router.post("/api/v1/user", userController.addUser);
+router.post("/api/v1/user", userValidation, validate, userController.addUser);
 //update
 router.put("/api/v1/user/:id", userController.updateUser);
 //delete

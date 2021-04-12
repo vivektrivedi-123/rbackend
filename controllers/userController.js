@@ -1,6 +1,14 @@
-const User = require("../models/user");
+const express = require("express");
+const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
+const validate = require("express-validator");
 const bcrypt = require("bcryptjs");
+
+const User = require("../models/user");
+const company = require("../models/company");
+const Comp = require("../models/user");
+const role = require("../models/role");
+
 const _ = require("lodash");
 
 exports.getUser = async (req, res, next) => {
@@ -14,37 +22,33 @@ exports.getUser = async (req, res, next) => {
 exports.getUserById = async (req, res, next) => {
   let user = await User.findById({ _id: req.params.id });
   if (!user) {
-    res.status(400).send("User Not Found");
+    res.status(404).send("User Not Found");
   } else {
     res.status(200).send(user);
   }
 };
 exports.addUser = async (req, res, next) => {
-  let user = await User.findOne({ email: req.body.email });
-  if (user) {
-    res.status(409).send("User Already Exists");
-  } else {
-    let users = new User(
-      _.pick(req.body, [
-        "company_id",
-        "role_id",
-        "first_name",
-        "last_name",
-        "mobile_number",
-        "email",
-        "password",
-        "token",
-        "profile_image",
-        "created_by",
-        "modified_by",
-      ])
-    );
-    const salt = await bcrypt.genSalt(10);
-    users.password = await bcrypt.hash(users.password, salt);
+  let user = new User(
+    _.pick(req.body, [
+      "company_id",
+      "role_id",
+      "first_name",
+      "last_name",
+      "mobile_number",
+      "email",
+      "password",
+      "profile_image",
+      "created_by",
+      "modified_by",
+    ])
+  );
+  const salt = await bcrypt.genSalt(10);
+  user.password = await bcrypt.hash(user.password, salt);
 
-    await users.save();
-    res.status(200).send("User Added");
-  }
+  await user.save();
+  const token = jwt.sign({ _id: user.id }, process.env.SECRET_KEY);
+  res.header("x-auth-token", token);
+  next();
 };
 exports.updateUser = async (req, res, next) => {
   let id = req.params.id;

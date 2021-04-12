@@ -25,7 +25,7 @@ exports.addRoles = async (req, res, next) => {
   if (role) {
     res.status(409).send("Role Already Exists");
   } else {
-    let roles = new Role(_.pick(req.body, ["role_name"]));
+    let roles = new Role(_.pick(req.body, ["role_id", "role_name"]));
     await roles.save();
     res.status(200).send("Registered");
   }

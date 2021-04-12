@@ -18,24 +18,19 @@ exports.getCommentByID = async (req, res, next) => {
   }
 };
 exports.addComment = async (req, res, next) => {
-  let comment = await Comment.findOne({ comments: req.body.comments });
-  if (comment) {
-    res.status(409).send("Comment already exists");
-  } else {
-    let comments = new Comment(
-      _.pick(req.body, [
-        "application_id",
-        "location_id",
-        "comments",
-        "attachments",
-        "status",
-        "created_by",
-        "modified_by",
-      ])
-    );
-    await comments.save();
-    res.status(200).send("Comment Added");
-  }
+  let comments = new Comment(
+    _.pick(req.body, [
+      "application_id",
+      "location_id",
+      "comments",
+      "attachments",
+      "status",
+      "created_by",
+      "modified_by",
+    ])
+  );
+  await comments.save();
+  res.status(200).send("Comment Added");
 };
 exports.updateComment = async (req, res, next) => {
   let id = req.params.id;
