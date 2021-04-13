@@ -16,7 +16,7 @@ const jobcomments = new mongoose.Schema(
     ],
     comments: { type: String, required: true },
     attachments: { type: String, required: true },
-    status: { type: String, required: true },
+    status: { type: Boolean, required: true },
     created_by: { type: String, required: true },
     modified_by: { type: String, required: true },
   },

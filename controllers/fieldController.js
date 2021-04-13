@@ -9,7 +9,7 @@ exports.getField = async (req, res, next) => {
     res.status(200).send(field);
   }
 };
-exports.getFieldByID = async (req, res, next) => {
+exports.getFieldById = async (req, res, next) => {
   let field = await Field.findById({ _id: req.params.id });
   if (!field) {
     res.status(404).send("No Field Found");

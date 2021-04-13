@@ -9,7 +9,7 @@ exports.getCategory = async (req, res, next) => {
     res.status(200).send(category);
   }
 };
-exports.getCategoryByID = async (req, res, next) => {
+exports.getCategoryById = async (req, res, next) => {
   let category = await Category.findById({ _id: req.params.id });
   if (!category) {
     res.status(404).send("No Category Found");

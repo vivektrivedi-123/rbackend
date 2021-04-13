@@ -22,8 +22,9 @@ exports.addCompany = async (req, res, next) => {
   if (comp) {
     res.status(409).send("Company Already Exists");
   } else {
-    let company = new Company(
+    let company = await new Company(
       _.pick(req.body, [
+        "company_id",
         "company_name",
         "company_slug",
         "company_logo",
@@ -33,7 +34,7 @@ exports.addCompany = async (req, res, next) => {
       ])
     );
     await company.save();
-    res.status(200).send("Company Added");
+    res.status(200).send("Company added successfully");
   }
 };
 exports.updateCompany = async (req, res, next) => {

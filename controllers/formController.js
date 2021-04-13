@@ -9,7 +9,7 @@ exports.getForm = async (req, res, next) => {
     res.status(200).send(form);
   }
 };
-exports.getFormByID = async (req, res, next) => {
+exports.getFormById = async (req, res, next) => {
   let form = await Form.findById({ _id: req.params.id });
   if (!form) {
     res.status(404).send("No Form Found");

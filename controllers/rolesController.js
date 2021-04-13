@@ -11,7 +11,7 @@ exports.getRoles = async (req, res, next) => {
   }
 };
 
-exports.getRolesByID = async (req, res, next) => {
+exports.getRolesById = async (req, res, next) => {
   let role = await Role.findById({ _id: req.params.id });
   if (!role) {
     res.status(404).send("Role Not Found");

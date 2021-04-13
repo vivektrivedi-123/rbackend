@@ -9,7 +9,7 @@ exports.getComment = async (req, res, next) => {
     res.status(200).send(comment);
   }
 };
-exports.getCommentByID = async (req, res, next) => {
+exports.getCommentById = async (req, res, next) => {
   let comment = await Comment.findById({ _id: req.params.id });
   if (!comment) {
     res.status(404).send("No Comment Found");

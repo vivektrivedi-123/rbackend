@@ -9,7 +9,7 @@ exports.getInterview = async (req, res, next) => {
     res.send(interview);
   }
 };
-exports.getInterviewByID = async (req, res, next) => {
+exports.getInterviewById = async (req, res, next) => {
   let interview = await Interview.findById({ _id: req.params.id });
   if (!interview) {
     res.status(404).send("No Interview Found");

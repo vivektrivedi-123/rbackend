@@ -9,7 +9,7 @@ exports.getApplication = async (req, res, next) => {
     res.status(200).send(application);
   }
 };
-exports.getApplicationByID = async (req, res, next) => {
+exports.getApplicationById = async (req, res, next) => {
   let application = await Application.findById({ _id: req.params.id });
   if (!application) {
     res.status(404).send("No Applications Found");

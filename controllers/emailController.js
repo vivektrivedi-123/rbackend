@@ -9,7 +9,7 @@ exports.getEmail = async (req, res, next) => {
     res.status(200).send(email);
   }
 };
-exports.getEmailByID = async (req, res, next) => {
+exports.getEmailById = async (req, res, next) => {
   let email = await Email.findById({ _id: req.params.id });
   if (!email) {
     res.status(404).send("No Email Found");

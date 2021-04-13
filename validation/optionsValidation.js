@@ -1,12 +1,10 @@
 const { body, validationResult } = require("express-validator");
 
-const userValidation = () => {
+const optionsValidation = () => {
   return [
-    body("first_name").isLength({ min: 3, max: 15 }),
-    body("last_name").isLength({ min: 3, max: 15 }),
-    body("mobile_number").isMobilePhone().isLength(10),
-    body("email").isEmail(),
-    body("password").isLength({ min: 5 }),
+    body("option_key").isLength({ min: 5, max: 20 }),
+    body("option_value").isLength({ min: 5, max: 20 }),
+    body("field_name").isLength({ min: 5, max: 20 }),
   ];
 };
 const validateSchema = (req, res, next) => {
@@ -22,4 +20,4 @@ const validateSchema = (req, res, next) => {
   });
 };
 
-module.exports = { userValidation, validateSchema };
+module.exports = { optionsValidation, validateSchema };

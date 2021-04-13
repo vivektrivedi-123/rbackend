@@ -9,7 +9,7 @@ exports.getLocation = async (req, res, next) => {
     res.status(200).send(location);
   }
 };
-exports.getLocationByID = async (req, res, next) => {
+exports.getLocationById = async (req, res, next) => {
   let location = await Location.findById({ _id: req.params.id });
   if (!location) {
     res.status(404).send("No Location Found");

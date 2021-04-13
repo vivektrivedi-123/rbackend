@@ -9,7 +9,7 @@ exports.getStage = async (req, res, next) => {
     res.status(200).send(stage);
   }
 };
-exports.getStageByID = async (req, res, next) => {
+exports.getStageById = async (req, res, next) => {
   let stage = await Stage.findById({ _id: req.params.id });
   if (!stage) {
     res.status(404).send("Stage not Found");

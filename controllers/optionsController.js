@@ -9,7 +9,7 @@ exports.getOptions = async (req, res, next) => {
     res.status(200).send(options);
   }
 };
-exports.getOptionsByID = async (req, res, next) => {
+exports.getOptionsById = async (req, res, next) => {
   let options = await Options.findById({ _id: req.params.id });
   if (!options) {
     res.status(404).send("Options not Found");

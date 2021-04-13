@@ -3,10 +3,8 @@ const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
 const validate = require("express-validator");
 const bcrypt = require("bcryptjs");
-
 const User = require("../models/user");
 const company = require("../models/company");
-const Comp = require("../models/user");
 const role = require("../models/role");
 
 const _ = require("lodash");
@@ -47,8 +45,7 @@ exports.addUser = async (req, res, next) => {
 
   await user.save();
   const token = jwt.sign({ _id: user.id }, process.env.SECRET_KEY);
-  res.header("x-auth-token", token);
-  next();
+  res.header("x-auth-token", token).status(200).send("Added Succesully");
 };
 exports.updateUser = async (req, res, next) => {
   let id = req.params.id;
@@ -73,7 +70,7 @@ exports.deleteUser = async (req, res, next) => {
   });
   User.deleteOne({ _id: req.params.id }).then((result) => {
     if (result.deletedCount > 0) {
-      res.status(200).send({ message: `Deleted ${result.deletedCount} item.` });
+      res.status(200).send({ message: `Deleted ${result.deletedCount} User.` });
     } else {
       res.status(404).send(`Delete failed `);
     }

@@ -1,16 +1,29 @@
 const postingController = require("../controllers/postingController");
 const express = require("express");
-const _ = require("lodash");
+const {
+  postValidation,
+  validateSchema,
+} = require("../validation/postValidation");
 const router = express.Router();
 const Post = require("../models/job_posting");
 
 router.get("/api/v1/post", postingController.getPost);
 
-//router.get("/api/v1/post/:id", postingController.getPostById);
+router.get("/api/v1/post/:id", postingController.getPostById);
 
-router.post("/api/v1/post", postingController.addPost);
+router.post(
+  "/api/v1/post",
+  postValidation(),
+  validateSchema,
+  postingController.addPost
+);
 
-router.put("/api/v1/post/:id", postingController.updatePost);
+router.put(
+  "/api/v1/post/:id",
+  postValidation(),
+  validateSchema,
+  postingController.updatePost
+);
 
 router.delete("/api/v1/post/:id", postingController.deletePost);
 

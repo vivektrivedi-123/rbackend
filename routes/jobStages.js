@@ -1,16 +1,29 @@
 const stagesController = require("../controllers/stagesController");
 const express = require("express");
-const _ = require("lodash");
+const {
+  stageValidation,
+  validateSchema,
+} = require("../validation/stageValidation");
 const router = express.Router();
 const Stage = require("../models/job_stages");
 
 router.get("/api/v1/stage", stagesController.getStage);
 
-//router.get("/api/v1/stage/:id", stagesController.getStageById);
+router.get("/api/v1/stage/:id", stagesController.getStageById);
 
-router.post("/api/v1/stage", stagesController.addStage);
+router.post(
+  "/api/v1/stage",
+  stageValidation(),
+  validateSchema,
+  stagesController.addStage
+);
 
-router.put("/api/v1/stage/:id", stagesController.updateStage);
+router.put(
+  "/api/v1/stage/:id",
+  stageValidation(),
+  validateSchema,
+  stagesController.updateStage
+);
 
 router.delete("/api/v1/stage/:id", stagesController.deleteStage);
 

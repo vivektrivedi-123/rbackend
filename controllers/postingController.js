@@ -9,7 +9,7 @@ exports.getPost = async (req, res, next) => {
     res.send(post);
   }
 };
-exports.getPostByID = async (req, res, next) => {
+exports.getPostById = async (req, res, next) => {
   let post = await Post.findById({ _id: req.params.id });
   if (!post) {
     res.status(404).send("Post Not FOund");

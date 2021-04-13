@@ -9,7 +9,7 @@ exports.getTask = async (req, res, next) => {
     res.status(200).send(task);
   }
 };
-exports.getTaskByID = async (req, res, next) => {
+exports.getTaskById = async (req, res, next) => {
   let task = await Task.findById({ _id: req.params.id });
   if (!task) {
     res.status(400).send("Invalid Request");
