@@ -24,11 +24,11 @@ exports.addPost = async (req, res, next) => {
   } else {
     let posts = new Post(
       _.pick(req.body, [
-        "department_id",
-        "category_id",
+        "department",
+        "category",
         "job_title",
         "job_type",
-        "location_id",
+        "location",
         "remote_job",
         "job_description",
         "experience",

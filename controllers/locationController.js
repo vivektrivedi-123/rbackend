@@ -26,11 +26,11 @@ exports.addLocation = async (req, res, next) => {
   } else {
     let locations = new Location(
       _.pick(req.body, [
-        "company_id",
-        "loaction_address",
-        "loaction_street",
-        "loaction_city",
-        "loaction_state",
+        "company",
+        "location_address",
+        "location_street",
+        "location_city",
+        "location_state",
         "postal_code",
         "country_id",
         "website",

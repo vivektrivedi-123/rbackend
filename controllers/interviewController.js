@@ -26,10 +26,10 @@ exports.addInterview = async (req, res, next) => {
   // } else {
   let interviews = new Interview(
     _.pick(req.body, [
-      "job_id",
-      "location_id",
-      "application_id",
-      "stage_id",
+      "job",
+      "location",
+      "application",
+      "stage",
       "subject",
       "schedule_date",
       "schedule_time",

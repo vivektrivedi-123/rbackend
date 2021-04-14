@@ -20,8 +20,8 @@ exports.getCommentById = async (req, res, next) => {
 exports.addComment = async (req, res, next) => {
   let comments = new Comment(
     _.pick(req.body, [
-      "application_id",
-      "location_id",
+      "application",
+      "location",
       "comments",
       "attachments",
       "status",

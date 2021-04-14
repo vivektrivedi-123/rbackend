@@ -4,12 +4,15 @@ const location = require("./location");
 
 const jobtasks = new mongoose.Schema(
   {
-    application_task_id: { type: Number, required: true },
-    application_id: [
-      { type: mongoose.Schema.Types.ObjectID, ref: jobapp, required: true },
+    application: [
+      {
+        type: mongoose.Schema.Types.ObjectID,
+        ref: "job_application",
+        required: true,
+      },
     ],
-    location_id: [
-      { type: mongoose.Schema.Types.ObjectID, ref: location, required: true },
+    location: [
+      { type: mongoose.Schema.Types.ObjectID, ref: "location", required: true },
     ],
     title: { type: String, required: true },
     description: { type: String, required: true },

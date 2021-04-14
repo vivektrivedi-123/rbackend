@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const company = new mongoose.Schema(
   {
-    company_id: { type: Number, required: true },
     company_name: { type: String, required: true },
     company_slug: { type: String, required: true },
     company_logo: { type: String, required: true },

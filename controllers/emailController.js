@@ -20,8 +20,8 @@ exports.getEmailById = async (req, res, next) => {
 exports.addEmail = async (req, res, next) => {
   let emails = new Email(
     _.pick(req.body, [
-      "application_id",
-      "location_id",
+      "application",
+      "location",
       "from",
       "to",
       "body",

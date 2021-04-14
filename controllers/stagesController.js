@@ -24,8 +24,8 @@ exports.addStage = async (req, res, next) => {
   } else {
     let stages = new Stage(
       _.pick(req.body, [
-        "location_id",
-        "job_id",
+        "location",
+        "job",
         "stage",
         "status",
         "created_by",

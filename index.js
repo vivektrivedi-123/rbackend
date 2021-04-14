@@ -1,4 +1,6 @@
+require("express-async-errors");
 require("dotenv").config();
+const error = require("./middleware/error");
 const express = require("express");
 const bodyparser = require("body-parser");
 const mongoose = require("mongoose");
@@ -40,7 +42,7 @@ app.use("/", stage);
 app.use("/", task);
 app.use("/", location);
 app.use("/", options);
-
+app.use(error);
 mongoose
   .connect(
     "mongodb+srv://Apurva:apurva1234@cluster0.beqgw.mongodb.net/p-hire?retryWrites=true&w=majority",

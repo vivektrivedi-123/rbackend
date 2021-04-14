@@ -4,7 +4,7 @@ const emailValidation = () => {
   return [
     body("from").isEmail(),
     body("to").isEmail(),
-    body("body").isLength({ min: 5, max: 50 }),
+    body("body").isLength({ min: 5, max: 100 }),
   ];
 };
 const validateSchema = (req, res, next) => {

@@ -20,16 +20,16 @@ exports.getApplicationById = async (req, res, next) => {
 exports.addApplication = async (req, res, next) => {
   let applications = new Application(
     _.pick(req.body, [
-      "job_id",
-      "form_id",
+      "job",
+      "form",
       "form_values",
       "resume",
       "origin",
       "tags",
       "status",
       "overall_rating",
-      "location_id",
-      "loead_owner",
+      "location",
+      "lead_owner",
       "is_deleted",
       "is_blocked",
       "social_profiles",

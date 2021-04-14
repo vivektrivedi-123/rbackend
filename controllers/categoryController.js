@@ -24,7 +24,7 @@ exports.addCategory = async (req, res, next) => {
   } else {
     let categories = new Category(
       _.pick(req.body, [
-        "location_id",
+        "location",
         "category",
         "status",
         "created_by",
@@ -32,7 +32,7 @@ exports.addCategory = async (req, res, next) => {
       ])
     );
     await categories.save();
-    res.status(200).send("Category Added");
+    return res.status(200).send("Category Added");
   }
 };
 exports.updateCategory = async (req, res, next) => {

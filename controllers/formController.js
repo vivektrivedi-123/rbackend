@@ -24,10 +24,13 @@ exports.addForm = async (req, res, next) => {
   } else {
     let forms = new Form(
       _.pick(req.body, [
-        "location_id",
-        "field_name",
-        "field_type",
-        "field_options",
+        "job",
+        "field",
+        "label",
+        "placeholder",
+        "is_required",
+        "order",
+        "location",
         "created_by",
         "modified_by",
       ])

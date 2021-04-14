@@ -1,3 +1,4 @@
+//const auth = require("../middleware/auth");
 const companyController = require("../controllers/companyController");
 const express = require("express");
 const {
@@ -14,6 +15,7 @@ router.get("/api/v1/company/:id", companyController.getCompanyById);
 //post
 router.post(
   "/api/v1/company",
+  //auth,
   compValidation(),
   validateSchema,
   companyController.addCompany

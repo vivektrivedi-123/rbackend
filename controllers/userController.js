@@ -1,13 +1,11 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
-const validate = require("express-validator");
 const bcrypt = require("bcryptjs");
+const _ = require("lodash");
 const User = require("../models/user");
 const company = require("../models/company");
 const role = require("../models/role");
-
-const _ = require("lodash");
 
 exports.getUser = async (req, res, next) => {
   let user = await User.find();
@@ -28,8 +26,8 @@ exports.getUserById = async (req, res, next) => {
 exports.addUser = async (req, res, next) => {
   let user = new User(
     _.pick(req.body, [
-      "company_id",
-      "role_id",
+      "company",
+      "role",
       "first_name",
       "last_name",
       "mobile_number",

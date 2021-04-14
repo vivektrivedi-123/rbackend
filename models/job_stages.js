@@ -4,12 +4,11 @@ const location = require("./location");
 const jobPost = require("./job_posting");
 const jobStages = new mongoose.Schema(
   {
-    stage_id: { type: Number, required: true },
-    location_id: [
-      { type: mongoose.Schema.Types.ObjectID, ref: location, required: true },
+    location: [
+      { type: mongoose.Schema.Types.ObjectID, ref: "location", required: true },
     ],
-    job_id: [
-      { type: mongoose.Schema.Types.ObjectID, ref: jobId, required: true },
+    job: [
+      { type: mongoose.Schema.Types.ObjectID, ref: "job_form", required: true },
     ],
     stage: { type: String, required: true },
     status: [

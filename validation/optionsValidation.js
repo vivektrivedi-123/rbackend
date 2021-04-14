@@ -4,7 +4,6 @@ const optionsValidation = () => {
   return [
     body("option_key").isLength({ min: 5, max: 20 }),
     body("option_value").isLength({ min: 5, max: 20 }),
-    body("field_name").isLength({ min: 5, max: 20 }),
   ];
 };
 const validateSchema = (req, res, next) => {

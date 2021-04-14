@@ -4,24 +4,21 @@ const location = require("./location");
 const jobPost = require("./job_posting");
 const jobForm = new mongoose.Schema(
   {
-    form_id: { type: Number, required: true },
-    job_id: {
+    job: {
       type: mongoose.Schema.Types.ObjectID,
-      ref: jobPost,
+      ref: "job_posting",
       required: true,
     },
-    field_id: [
-      { type: mongoose.Schema.Types.ObjectID, ref: field, required: true },
+    field: [
+      { type: mongoose.Schema.Types.ObjectID, ref: "field", required: true },
     ],
     label: { type: String, required: true },
     placeholder: { type: String, required: true },
     is_required: { type: Boolean, required: true },
     order: { type: String, required: true },
-    location_id: [
-      { type: mongoose.Schema.Types.ObjectID, ref: location, required: true },
+    location: [
+      { type: mongoose.Schema.Types.ObjectID, ref: "location", required: true },
     ],
-    category: { type: String, required: true },
-    status: { type: String, required: true },
     created_by: { type: String, required: true },
     modified_by: { type: String, required: true },
   },

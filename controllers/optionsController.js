@@ -32,7 +32,7 @@ exports.addOptions = async (req, res, next) => {
       ])
     );
     await option.save();
-    res.status(200).send("Registered");
+    res.status(200).send("Option Added");
   }
 };
 exports.updateOptions = async (req, res, next) => {
