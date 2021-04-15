@@ -5,13 +5,13 @@ const user = new mongoose.Schema(
   {
     company: [
       {
-        type: mongoose.Schema.Types.ObjectID,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "company",
         required: true,
       },
     ],
     role: [
-      { type: mongoose.Schema.Types.ObjectID, ref: "role", required: true },
+      { type: mongoose.Schema.Types.ObjectId, ref: "role", required: true },
     ],
     first_name: { type: String, required: true, trim: true },
     last_name: { type: String, required: true },

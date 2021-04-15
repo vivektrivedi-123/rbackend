@@ -1,29 +1,29 @@
 const mongoose = require("mongoose");
-const jobid = require("./job_form");
-const stage = require("./job_stages");
-const jobapp = require("./job_application");
+const jobForm = require("./job_form");
+const jobStages = require("./job_stages");
+const jobApplication = require("./job_application");
 const location = require("./location");
 
-const jobinterview = new mongoose.Schema(
+const jobInterview = new mongoose.Schema(
   {
     interview: { type: Number, required: true },
     job: [
-      { type: mongoose.Schema.Types.ObjectID, ref: "job_form", required: true },
+      { type: mongoose.Schema.Types.ObjectId, ref: "jobForm", required: true },
     ],
     location: [
-      { type: mongoose.Schema.Types.ObjectID, ref: "location", required: true },
+      { type: mongoose.Schema.Types.ObjectId, ref: "location", required: true },
     ],
     application: [
       {
-        type: mongoose.Schema.Types.ObjectID,
-        ref: "job_application",
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "jobApplication",
         required: true,
       },
     ],
     stage: [
       {
-        type: mongoose.Schema.Types.ObjectID,
-        ref: "job_stages",
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "jobStages",
         required: true,
       },
     ],
@@ -44,4 +44,4 @@ const jobinterview = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("jobinterview", jobinterview);
+module.exports = mongoose.model("jobInterview", jobInterview);

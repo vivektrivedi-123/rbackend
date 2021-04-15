@@ -8,20 +8,30 @@ const company = require("../models/company");
 const role = require("../models/role");
 
 exports.getUser = async (req, res, next) => {
-  let user = await User.find();
-  if (!user) {
-    res.status(404).send("User Not Found");
-  } else {
-    res.status(200).send(user);
-  }
+  User.find()
+    .populate("company")
+    .populate("role")
+    .exec()
+    .then((data) => {
+      res.status(200).json({
+        results: data,
+      });
+    })
+    .catch((err) => {
+      res.status(404).json(err);
+    });
 };
 exports.getUserById = async (req, res, next) => {
-  let user = await User.findById({ _id: req.params.id });
-  if (!user) {
-    res.status(404).send("User Not Found");
-  } else {
-    res.status(200).send(user);
-  }
+  User.findById({ _id: req.params.id })
+    .exec()
+    .then((data) => {
+      res.status(200).json({
+        results: data,
+      });
+    })
+    .catch((err) => {
+      res.status(404).json(err);
+    });
 };
 exports.addUser = async (req, res, next) => {
   let user = new User(
@@ -59,18 +69,15 @@ exports.updateUser = async (req, res, next) => {
   await user.save();
 };
 exports.deleteUser = async (req, res, next) => {
-  let id = await req.params.id;
   if (!req.params.id || req.params.id < 0)
-    res.status(400).send("Invalid Request");
-  User.findOne({ _id: req.params.id }, (err, doc) => {
-    if (err) console.log(err);
-    else if (doc === null) res.status(400).send("Invalid Request");
-  });
-  User.deleteOne({ _id: req.params.id }).then((result) => {
-    if (result.deletedCount > 0) {
-      res.status(200).send({ message: `Deleted ${result.deletedCount} User.` });
-    } else {
-      res.status(404).send(`Delete failed `);
-    }
-  });
+    res.status(400).send("Invalid request");
+  User.findByIdAndRemove({ _id: req.params.id })
+    .then((doc) => {
+      res.status(200).json({
+        message: "User Deleted Successfully",
+      });
+    })
+    .catch((err) => {
+      res.status(404).json(err);
+    });
 };

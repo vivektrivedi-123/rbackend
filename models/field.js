@@ -2,9 +2,14 @@ const mongoose = require("mongoose");
 const location = require("./location");
 const field = new mongoose.Schema(
   {
-    location: [
-      { type: mongoose.Schema.Types.ObjectID, ref: "location", required: true },
+    location_address: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "location",
+        required: true,
+      },
     ],
+
     field_name: { type: String, required: true },
     field_type: { type: String, required: true },
     field_options: { type: String, required: true },

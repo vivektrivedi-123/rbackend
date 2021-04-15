@@ -2,20 +2,28 @@ const Post = require("../models/job_posting");
 const mongoose = require("mongoose");
 const _ = require("lodash");
 exports.getPost = async (req, res, next) => {
-  let post = await Post.find();
-  if (!post) {
-    res.status(404).send("Post Not Found");
-  } else {
-    res.send(post);
-  }
+  Post.find()
+    .exec()
+    .then((data) => {
+      res.status(200).json({
+        results: data,
+      });
+    })
+    .catch((err) => {
+      res.status(404).json(err);
+    });
 };
 exports.getPostById = async (req, res, next) => {
-  let post = await Post.findById({ _id: req.params.id });
-  if (!post) {
-    res.status(404).send("Post Not FOund");
-  } else {
-    res.status(200).send(post);
-  }
+  Post.findById({ _id: req.params.id })
+    .exec()
+    .then((data) => {
+      res.status(200).json({
+        results: data,
+      });
+    })
+    .catch((err) => {
+      res.status(404).json(err);
+    });
 };
 exports.addPost = async (req, res, next) => {
   let post = await Post.findOne({ job_title: req.body.job_title });
@@ -45,8 +53,17 @@ exports.addPost = async (req, res, next) => {
         "modified_by",
       ])
     );
-    await posts.save();
-    res.status(200).send("Registered");
+    posts
+      .save()
+      .then((doc) => {
+        res.status(200).json({
+          message: "Post Added Successfully",
+          results: doc,
+        });
+      })
+      .catch((err) => {
+        res.status(400).json(err);
+      });
   }
 };
 exports.updatePost = async (req, res, next) => {
@@ -62,18 +79,15 @@ exports.updatePost = async (req, res, next) => {
 };
 
 exports.deletePost = async (req, res, next) => {
-  let id = await req.params.id;
   if (!req.params.id || req.params.id < 0)
-    res.status(400).send("Invalid Request");
-  Post.findOne({ _id: req.params.id }, (err, doc) => {
-    if (err) console.log(err);
-    else if (doc === null) res.status(400).send("Invalid Request");
-  });
-  Post.deleteOne({ _id: req.params.id }).then((result) => {
-    if (result.deletedCount > 0) {
-      res.status(200).send({ message: `Deleted ${result.deletedCount} item.` });
-    } else {
-      res.status(404).send(`Delete failed `);
-    }
-  });
+    res.status(400).send("Invalid request");
+  Post.findByIdAndRemove({ _id: req.params.id })
+    .then((doc) => {
+      res.status(200).json({
+        message: "Post Deleted Successfully",
+      });
+    })
+    .catch((err) => {
+      res.status(404).json(err);
+    });
 };

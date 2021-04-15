@@ -1,18 +1,22 @@
 const mongoose = require("mongoose");
-const jobId = require("./job_form");
+const jobForm = require("./job_form");
 const location = require("./location");
-const jobPost = require("./job_posting");
+const jobPosting = require("./job_posting");
 const jobStages = new mongoose.Schema(
   {
     location: [
-      { type: mongoose.Schema.Types.ObjectID, ref: "location", required: true },
+      { type: mongoose.Schema.Types.ObjectId, ref: "location", required: true },
     ],
     job: [
-      { type: mongoose.Schema.Types.ObjectID, ref: "job_form", required: true },
+      { type: mongoose.Schema.Types.ObjectId, ref: "jobForm", required: true },
     ],
     stage: { type: String, required: true },
     status: [
-      { type: mongoose.Schema.Types.ObjectID, ref: jobPost, required: true },
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "jobPosting",
+        required: true,
+      },
     ],
     created_by: { type: String, required: true },
     modified_by: { type: String, required: true },

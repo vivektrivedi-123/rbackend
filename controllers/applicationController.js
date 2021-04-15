@@ -1,21 +1,36 @@
 const Application = require("../models/job_application");
 const mongoose = require("mongoose");
 const _ = require("lodash");
+const location = require("../models/location");
 exports.getApplication = async (req, res, next) => {
-  let application = await Application.find();
-  if (!application) {
-    res.status(404).send("No Applications Found");
-  } else {
-    res.status(200).send(application);
-  }
+  Application.find()
+    .exec()
+    .then((data) => {
+      res.status(200).json({
+        results: data,
+      });
+    })
+    .catch((err) => {
+      res.status(404).json(err);
+    });
 };
+
 exports.getApplicationById = async (req, res, next) => {
-  let application = await Application.findById({ _id: req.params.id });
-  if (!application) {
-    res.status(404).send("No Applications Found");
-  } else {
-    res.status(200).send(application);
-  }
+  Application.findById({ _id: req.params.id })
+    .populate({
+      path: "location",
+      path: "form",
+    })
+    .exec()
+    .then((data) => {
+      res.status(200).json({
+        message: "OK",
+        results: data,
+      });
+    })
+    .catch((err) => {
+      res.json(err);
+    });
 };
 exports.addApplication = async (req, res, next) => {
   let applications = new Application(
@@ -39,8 +54,19 @@ exports.addApplication = async (req, res, next) => {
       "modified_by",
     ])
   );
-  await applications.save();
-  res.status(200).send("Application Registered");
+  applications
+    .populate({ path: "locations" })
+    .save()
+
+    .then((doc) => {
+      res.status(200).json({
+        message: "Application Added Successfully",
+        results: doc,
+      });
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
 };
 exports.updateApplication = async (req, res, next) => {
   let id = req.params.id;
@@ -55,22 +81,19 @@ exports.updateApplication = async (req, res, next) => {
     { _id: req.params.id },
     req.body
   );
-  res.json(update).status(200);
+  res.json({ message: "Application Updated" }).status(200);
 };
 
 exports.deleteApplication = async (req, res, next) => {
-  let id = await req.params.id;
   if (!req.params.id || req.params.id < 0)
-    res.status(400).send("Invalid Request");
-  Application.findOne({ _id: req.params.id }, (err, doc) => {
-    if (err) console.log(err);
-    else if (doc === null) res.status(400).send("Invalid Request");
-  });
-  Application.deleteOne({ _id: req.params.id }).then((result) => {
-    if (result.deletedCount > 0) {
-      res.status(200).send({ message: `Deleted ${result.deletedCount} item.` });
-    } else {
-      res.status(404).send(`Delete failed `);
-    }
-  });
+    res.status(400).send("Invalid request");
+  Application.findByIdAndRemove({ _id: req.params.id })
+    .then((doc) => {
+      res.status(200).json({
+        message: "Application Deleted Successfully",
+      });
+    })
+    .catch((err) => {
+      res.status(404).json(err);
+    });
 };

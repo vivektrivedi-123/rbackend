@@ -2,20 +2,28 @@ const Options = require("../models/options");
 const mongoose = require("mongoose");
 const _ = require("lodash");
 exports.getOptions = async (req, res, next) => {
-  let options = await Options.find();
-  if (!options) {
-    res.status(404).send("Option not found");
-  } else {
-    res.status(200).send(options);
-  }
+  Options.find()
+    .exec()
+    .then((data) => {
+      res.status(200).json({
+        results: data,
+      });
+    })
+    .catch((err) => {
+      res.status(404).json(err);
+    });
 };
 exports.getOptionsById = async (req, res, next) => {
-  let options = await Options.findById({ _id: req.params.id });
-  if (!options) {
-    res.status(404).send("Options not Found");
-  } else {
-    res.status(200).send(options);
-  }
+  Options.findById({ _id: req.params.id })
+    .exec()
+    .then((data) => {
+      res.status(200).json({
+        results: data,
+      });
+    })
+    .catch((err) => {
+      res.status(404).json(err);
+    });
 };
 exports.addOptions = async (req, res, next) => {
   let options = await Options.findOne({ option_value: req.body.option_value });
@@ -31,8 +39,17 @@ exports.addOptions = async (req, res, next) => {
         "modified_by",
       ])
     );
-    await option.save();
-    res.status(200).send("Option Added");
+    option
+      .save()
+      .then((doc) => {
+        res.status(200).json({
+          message: "Option Added Successfully",
+          results: doc,
+        });
+      })
+      .catch((err) => {
+        res.status(400).json(err);
+      });
   }
 };
 exports.updateOptions = async (req, res, next) => {
@@ -51,18 +68,15 @@ exports.updateOptions = async (req, res, next) => {
 };
 
 exports.deleteOptions = async (req, res, next) => {
-  let id = await req.params.id;
   if (!req.params.id || req.params.id < 0)
-    res.status(400).send("Invalid Request");
-  Options.findOne({ _id: req.params.id }, (err, doc) => {
-    if (err) console.log(err);
-    else if (doc === null) res.status(400).send("Invalid Request");
-  });
-  Options.deleteOne({ _id: req.params.id }).then((result) => {
-    if (result.deletedCount > 0) {
-      res.status(200).send({ message: `Deleted ${result.deletedCount} item.` });
-    } else {
-      res.status(404).send("Delete Failed");
-    }
-  });
+    res.status(400).send("Invalid request");
+  Options.findByIdAndRemove({ _id: req.params.id })
+    .then((doc) => {
+      res.status(200).json({
+        message: "Option Deleted Successfully",
+      });
+    })
+    .catch((err) => {
+      res.status(404).json(err);
+    });
 };

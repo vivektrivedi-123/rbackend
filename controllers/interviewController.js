@@ -2,28 +2,30 @@ const Interview = require("../models/job_app_interview");
 const mongoose = require("mongoose");
 const _ = require("lodash");
 exports.getInterview = async (req, res, next) => {
-  let interview = await Interview.find();
-  if (!interview) {
-    res.status(404).send("No Interview Found");
-  } else {
-    res.send(interview);
-  }
+  Interview.find()
+    .exec()
+    .then((data) => {
+      res.status(200).json({
+        results: data,
+      });
+    })
+    .catch((err) => {
+      res.status(404).json(err);
+    });
 };
 exports.getInterviewById = async (req, res, next) => {
-  let interview = await Interview.findById({ _id: req.params.id });
-  if (!interview) {
-    res.status(404).send("No Interview Found");
-  } else {
-    res.status(200).send(interview);
-  }
+  Interview.findById({ _id: req.params.id })
+    .exec()
+    .then((data) => {
+      res.status(200).json({
+        results: data,
+      });
+    })
+    .catch((err) => {
+      res.status(404).json(err);
+    });
 };
 exports.addInterview = async (req, res, next) => {
-  // let interview = await Location.findOne({
-  //   scheduled_time: req.body.scheduled_time,
-  // });
-  // if (interview) {
-  //   res.status(409).send("Location Already Exists");
-  // } else {
   let interviews = new Interview(
     _.pick(req.body, [
       "job",
@@ -45,9 +47,18 @@ exports.addInterview = async (req, res, next) => {
       "modified_by",
     ])
   );
-  //}
-  await interviews.save();
-  res.status(200).send("Interview Added");
+
+  interviews
+    .save()
+    .then((doc) => {
+      res.status(200).json({
+        message: "Interview Added Successfully",
+        results: doc,
+      });
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
 };
 exports.updateInterview = async (req, res, next) => {
   let id = req.params.id;
@@ -65,18 +76,15 @@ exports.updateInterview = async (req, res, next) => {
 };
 
 exports.deleteInterview = async (req, res, next) => {
-  let id = await req.params.id;
   if (!req.params.id || req.params.id < 0)
-    res.status(400).send("Invalid Request");
-  Interview.findOne({ _id: req.params.id }, (err, doc) => {
-    if (err) console.log(err);
-    else if (doc === null) res.status(400).send("Invalid Request");
-  });
-  Interview.deleteOne({ _id: req.params.id }).then((result) => {
-    if (result.deletedCount > 0) {
-      res.status(200).send({ message: `Deleted ${result.deletedCount} item.` });
-    } else {
-      res.status(404).send(`Delete failed `);
-    }
-  });
+    res.status(400).send("Invalid request");
+  Interview.findByIdAndRemove({ _id: req.params.id })
+    .then((doc) => {
+      res.status(200).json({
+        message: "Interview Deleted Successfully",
+      });
+    })
+    .catch((err) => {
+      res.status(404).json(err);
+    });
 };

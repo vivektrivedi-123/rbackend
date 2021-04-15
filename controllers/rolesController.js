@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const _ = require("lodash");
 
 exports.getRoles = async (req, res, next) => {
-  let role = await Role.find();
+  let role = await Role.find().populate("role");
   if (!role) {
     res.status(404).send("Role Not Found");
   } else {

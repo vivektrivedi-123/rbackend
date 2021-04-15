@@ -1,21 +1,34 @@
 const Field = require("../models/field");
 const mongoose = require("mongoose");
 const _ = require("lodash");
+const Location = require("../models/location");
+
 exports.getField = async (req, res, next) => {
-  let field = await Field.find();
-  if (!field) {
-    res.status(404).send("No Field Found");
-  } else {
-    res.status(200).send(field);
-  }
+  Field.find()
+    .populate("location_address")
+    .exec()
+    .then((data) => {
+      res.status(200).json({
+        results: data,
+      });
+    })
+    .catch((err) => {
+      res.status(404).json(err);
+    });
 };
+
 exports.getFieldById = async (req, res, next) => {
-  let field = await Field.findById({ _id: req.params.id });
-  if (!field) {
-    res.status(404).send("No Field Found");
-  } else {
-    res.status(200).send(field);
-  }
+  Field.findById({ _id: req.params.id })
+
+    .exec()
+    .then((data) => {
+      res.status(200).json({
+        results: data,
+      });
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
 };
 exports.addField = async (req, res, next) => {
   let field = await Field.findOne({ field_name: req.body.field_name });
@@ -24,7 +37,7 @@ exports.addField = async (req, res, next) => {
   } else {
     let fields = new Field(
       _.pick(req.body, [
-        "location",
+        "location_address",
         "field_name",
         "field_type",
         "field_options",
@@ -32,8 +45,17 @@ exports.addField = async (req, res, next) => {
         "modified_by",
       ])
     );
-    await fields.save();
-    res.status(200).send("Field Added");
+    fields
+      .save()
+      .then((doc) => {
+        res.status(200).json({
+          message: "Field Added Successfully",
+          results: doc,
+        });
+      })
+      .catch((err) => {
+        res.status(400).json(err);
+      });
   }
 };
 exports.updateField = async (req, res, next) => {
@@ -49,18 +71,15 @@ exports.updateField = async (req, res, next) => {
 };
 
 exports.deleteField = async (req, res, next) => {
-  let id = await req.params.id;
   if (!req.params.id || req.params.id < 0)
-    res.status(400).send("Invalid Request");
-  Field.findOne({ _id: req.params.id }, (err, doc) => {
-    if (err) console.log(err);
-    else if (doc === null) res.status(400).send("Invalid Request");
-  });
-  Field.deleteOne({ _id: req.params.id }).then((result) => {
-    if (result.deletedCount > 0) {
-      res.status(200).send({ message: `Deleted ${result.deletedCount} item.` });
-    } else {
-      res.status(404).send(`Delete failed `);
-    }
-  });
+    res.status(400).send("Invalid request");
+  Field.findByIdAndRemove({ _id: req.params.id })
+    .then((doc) => {
+      res.status(200).json({
+        message: "Field Deleted Successfully",
+      });
+    })
+    .catch((err) => {
+      res.status(404).json(err);
+    });
 };

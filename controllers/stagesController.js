@@ -2,20 +2,28 @@ const Stage = require("../models/job_stages");
 const mongoose = require("mongoose");
 const _ = require("lodash");
 exports.getStage = async (req, res, next) => {
-  let stage = await Stage.find();
-  if (!stage) {
-    res.status(404).send("Stage not Found");
-  } else {
-    res.status(200).send(stage);
-  }
+  Stage.find()
+    .exec()
+    .then((data) => {
+      res.status(200).json({
+        results: data,
+      });
+    })
+    .catch((err) => {
+      res.status(404).json(err);
+    });
 };
 exports.getStageById = async (req, res, next) => {
-  let stage = await Stage.findById({ _id: req.params.id });
-  if (!stage) {
-    res.status(404).send("Stage not Found");
-  } else {
-    res.status(200).send(stage);
-  }
+  Stage.findById({ _id: req.params.id })
+    .exec()
+    .then((data) => {
+      res.status(200).json({
+        results: data,
+      });
+    })
+    .catch((err) => {
+      res.status(404).json(err);
+    });
 };
 exports.addStage = async (req, res, next) => {
   let stage = await Stage.findOne({ stage: req.body.stage });
@@ -32,8 +40,17 @@ exports.addStage = async (req, res, next) => {
         "modified_by",
       ])
     );
-    await stages.save();
-    res.status(200).send("Registered");
+    stages
+      .save()
+      .then((doc) => {
+        res.status(200).json({
+          message: "Stage Added Successfully",
+          results: doc,
+        });
+      })
+      .catch((err) => {
+        res.status(400).json(err);
+      });
   }
 };
 exports.updateStage = async (req, res, next) => {
@@ -49,18 +66,15 @@ exports.updateStage = async (req, res, next) => {
 };
 
 exports.deleteStage = async (req, res, next) => {
-  let id = await req.params.id;
   if (!req.params.id || req.params.id < 0)
-    res.status(400).send("Invalid Request");
-  Stage.findOne({ _id: req.params.id }, (err, doc) => {
-    if (err) console.log(err);
-    else if (doc === null) res.status(400).send("Invalid Request");
-  });
-  Stage.deleteOne({ _id: req.params.id }).then((result) => {
-    if (result.deletedCount > 0) {
-      res.status(200).send({ message: `Deleted ${result.deletedCount} item.` });
-    } else {
-      res.status(404).send(`Delete failed `);
-    }
-  });
+    res.status(400).send("Invalid request");
+  Stage.findByIdAndRemove({ _id: req.params.id })
+    .then((doc) => {
+      res.status(200).json({
+        message: "Stage Deleted Successfully",
+      });
+    })
+    .catch((err) => {
+      res.status(404).json(err);
+    });
 };

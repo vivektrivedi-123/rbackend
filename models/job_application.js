@@ -1,14 +1,18 @@
 const mongoose = require("mongoose");
 const location = require("./location");
-const jobId = require("./job_form");
-const formId = require("./job_form");
-const jobapplication = new mongoose.Schema(
+const jobForm = require("./job_form");
+const jobPosting = require("./job_posting");
+const jobApplication = new mongoose.Schema(
   {
     job: [
-      { type: mongoose.Schema.Types.ObjectID, ref: "job_form", required: true },
+      { type: mongoose.Schema.Types.ObjectId, ref: "jobForm", required: true },
     ],
     form: [
-      { type: mongoose.Schema.Types.ObjectID, ref: "job_form", required: true },
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "jobPosting",
+        required: true,
+      },
     ],
     form_values: { type: Number, required: true },
     resume: { type: String, required: true },
@@ -17,7 +21,11 @@ const jobapplication = new mongoose.Schema(
     status: { type: String, required: true },
     overall_rating: { type: Number, required: true },
     location: [
-      { type: mongoose.Schema.Types.ObjectID, ref: "location", required: true },
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "location",
+        required: true,
+      },
     ],
     lead_owner: { type: String, required: true },
     is_deleted: { type: Boolean, required: true },
@@ -31,4 +39,4 @@ const jobapplication = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("jobapplication", jobapplication);
+module.exports = mongoose.model("jobApplication", jobApplication);

@@ -1,17 +1,17 @@
 const mongoose = require("mongoose");
 const location = require("./location");
-const application = require("./job_application");
+const jobApplication = require("./job_application");
 const jobcomments = new mongoose.Schema(
   {
     application: [
       {
-        type: mongoose.Schema.Types.ObjectID,
-        ref: "job_application",
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "jobApplication",
         required: true,
       },
     ],
     location: [
-      { type: mongoose.Schema.Types.ObjectID, ref: "location", required: true },
+      { type: mongoose.Schema.Types.ObjectId, ref: "location", required: true },
     ],
     comments: { type: String, required: true },
     attachments: { type: String, required: true },

@@ -3,7 +3,7 @@ const location = require("./location");
 const jobCategory = new mongoose.Schema(
   {
     location: [
-      { type: mongoose.Schema.Types.ObjectID, ref: "location", required: true },
+      { type: mongoose.Schema.Types.ObjectId, ref: "location", required: true },
     ],
     category: { type: String, required: true },
     status: { type: String, required: true },

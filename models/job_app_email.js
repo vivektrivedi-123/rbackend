@@ -1,18 +1,18 @@
 const mongoose = require("mongoose");
-const jobApp = require("./job_application");
+const jobApplication = require("./job_application");
 const location = require("./location");
 
-const jobemail = new mongoose.Schema(
+const jobEmail = new mongoose.Schema(
   {
     application: [
       {
-        type: mongoose.Schema.Types.ObjectID,
-        ref: "job_application",
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "jobApplication",
         required: true,
       },
     ],
     location: [
-      { type: mongoose.Schema.Types.ObjectID, ref: "location", required: true },
+      { type: mongoose.Schema.Types.ObjectId, ref: "location", required: true },
     ],
     from: { type: String, required: true },
     to: { type: String, required: true },
@@ -24,4 +24,4 @@ const jobemail = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("jobemail", jobemail);
+module.exports = mongoose.model("jobEmail", jobEmail);

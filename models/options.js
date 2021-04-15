@@ -5,7 +5,11 @@ const options = new mongoose.Schema(
     option_key: { type: Number, required: true },
     option_value: { type: Number, required: true },
     location: [
-      { type: mongoose.Schema.Types.ObjectID, ref: "location", required: true },
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "location",
+        required: true,
+      },
     ],
     created_by: { type: String, required: true },
     modified_by: { type: String, required: true },

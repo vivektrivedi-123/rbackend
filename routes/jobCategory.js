@@ -1,5 +1,6 @@
 const categoryController = require("../controllers/categoryController");
 const express = require("express");
+const category = require("../models/job_category");
 const {
   categoryValidation,
   validateSchema,
@@ -12,7 +13,7 @@ router.get("/api/v1/category", categoryController.getCategory);
 router.get("/api/v1/category/:id", categoryController.getCategoryById);
 
 router.post(
-  "/api/v1/category",
+  "/category",
   categoryValidation,
   validateSchema,
   categoryController.addCategory

@@ -32,7 +32,7 @@ app.use("/", user);
 app.use("/", dept);
 app.use("/", field);
 app.use("/", application);
-app.use("/", category);
+app.use("/api/v1/", category);
 app.use("/", comment);
 app.use("/", email);
 app.use("/", form);
@@ -45,7 +45,7 @@ app.use("/", options);
 app.use(error);
 mongoose
   .connect(
-    "mongodb+srv://Apurva:apurva1234@cluster0.beqgw.mongodb.net/p-hire?retryWrites=true&w=majority",
+    "mongodb+srv://Apurva:apurva571@cluster0.beqgw.mongodb.net/p-hire?retryWrites=true&w=majority",
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,

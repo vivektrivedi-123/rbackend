@@ -3,20 +3,28 @@ const mongoose = require("mongoose");
 const _ = require("lodash");
 
 exports.getDept = async (req, res, next) => {
-  let department = await Department.find();
-  if (!department) {
-    res.status(404).send("No Department Found");
-  } else {
-    res.status(200).send(department);
-  }
+  Department.find()
+    .exec()
+    .then((data) => {
+      res.status(200).json({
+        results: data,
+      });
+    })
+    .catch((err) => {
+      res.status(404).json(err);
+    });
 };
 exports.getDeptById = async (req, res, next) => {
-  let department = await Department.findById({ _id: req.params.id });
-  if (!department) {
-    res.status(404).send("No Department Found");
-  } else {
-    res.status(200).send(department);
-  }
+  Department.findById({ _id: req.params.id })
+    .exec()
+    .then((data) => {
+      res.status(200).json({
+        results: data,
+      });
+    })
+    .catch((err) => {
+      res.status(404).json(err);
+    });
 };
 exports.addDept = async (req, res, next) => {
   let dept = await Department.findOne({
@@ -28,8 +36,16 @@ exports.addDept = async (req, res, next) => {
     let deptt = new Department(
       _.pick(req.body, ["department_name", "created_by", "modified_by"])
     );
-    await deptt.save();
-    res.status(200).send("Department Added");
+    Department.save()
+      .then((doc) => {
+        res.status(200).json({
+          message: "Department Added Successfully",
+          results: doc,
+        });
+      })
+      .catch((err) => {
+        res.status(400).json(err);
+      });
   }
 };
 exports.updateDept = async (req, res, next) => {
@@ -49,18 +65,15 @@ exports.updateDept = async (req, res, next) => {
 };
 
 exports.deleteDept = async (req, res, next) => {
-  let id = await req.params.id;
   if (!req.params.id || req.params.id < 0)
-    res.status(404).send("Invalid Request");
-  Department.findOne({ _id: req.params.id }, (err, doc) => {
-    if (err) console.log(err);
-    else if (doc === null) res.status(400).send("Invalid Request");
-  });
-  Department.deleteOne({ _id: req.params.id }).then((result) => {
-    if (result.deletedCount > 0) {
-      res.status(200).send({ message: `Deleted ${result.deletedCount} item.` });
-    } else {
-      res.status(404).send(`Delete failed `);
-    }
-  });
+    res.status(400).send("Invalid request");
+  Department.findByIdAndRemove({ _id: req.params.id })
+    .then((doc) => {
+      res.status(200).json({
+        message: "Department Deleted Successfully",
+      });
+    })
+    .catch((err) => {
+      res.status(404).json(err);
+    });
 };

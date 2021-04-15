@@ -2,20 +2,29 @@ const Company = require("../models/company");
 const mongoose = require("mongoose");
 const _ = require("lodash");
 exports.getCompany = async (req, res, next) => {
-  let company = await Company.find();
-  if (!company) {
-    res.status(404).send("No Company Found");
-  } else {
-    res.status(200).send(company);
-  }
+  Company.find()
+
+    .exec()
+    .then((data) => {
+      res.status(200).json({
+        results: data,
+      });
+    })
+    .catch((err) => {
+      res.status(404).json(err);
+    });
 };
 exports.getCompanyById = async (req, res, next) => {
-  let company = await Company.findById({ _id: req.params.id });
-  if (!company) {
-    res.status(404).send("No Company Found");
-  } else {
-    res.status(200).send(company);
-  }
+  Company.findById({ _id: req.params.id })
+    .exec()
+    .then((data) => {
+      res.status(200).json({
+        results: data,
+      });
+    })
+    .catch((err) => {
+      res.status(404).json(err);
+    });
 };
 exports.addCompany = async (req, res, next) => {
   let comp = await Company.findOne({ company_name: req.body.company_name });
@@ -32,8 +41,17 @@ exports.addCompany = async (req, res, next) => {
         "modified_by",
       ])
     );
-    await company.save();
-    res.status(200).send("Company added successfully");
+    company
+      .save()
+      .then((doc) => {
+        res.status(200).json({
+          message: "Company Added Successfully",
+          results: doc,
+        });
+      })
+      .catch((err) => {
+        res.status(400).json(err);
+      });
   }
 };
 exports.updateCompany = async (req, res, next) => {
@@ -52,18 +70,15 @@ exports.updateCompany = async (req, res, next) => {
   res.status(200).json(update);
 };
 exports.deleteCompany = async (req, res, next) => {
-  let id = await req.params.id;
   if (!req.params.id || req.params.id < 0)
-    res.status(400).send("Invalid Request");
-  Company.findOne({ _id: req.params.id }, (err, doc) => {
-    if (err) console.log(err);
-    else if (doc === null) res.status(400).send("Invalid Request");
-  });
-  Company.deleteOne({ _id: req.params.id }).then((result) => {
-    if (result.deletedCount > 0) {
-      res.status(200).send({ message: `Deleted ${result.deletedCount} item.` });
-    } else {
-      res.status(401).send(`Delete failed `);
-    }
-  });
+    res.status(400).send("Invalid request");
+  Company.findByIdAndRemove({ _id: req.params.id })
+    .then((doc) => {
+      res.status(200).json({
+        message: "Company Deleted Successfully",
+      });
+    })
+    .catch((err) => {
+      res.status(404).json(err);
+    });
 };
