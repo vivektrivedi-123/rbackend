@@ -1,8 +1,12 @@
-const Location = require("../models/location");
+const express = require("express");
 const mongoose = require("mongoose");
 const _ = require("lodash");
+const company = require("../models/company");
+const Location = require("../models/location");
+
 exports.getLocation = async (req, res, next) => {
   Location.find()
+    .populate("company", "company_name -_id")
     .exec()
     .then((data) => {
       res.status(200).json({
@@ -34,6 +38,8 @@ exports.addLocation = async (req, res, next) => {
   if (location) {
     res.status(409).send("Location Already Exists");
   } else {
+    //const locs = await Location.find().populate("company");
+    //console.log(locs);
     let locations = new Location(
       _.pick(req.body, [
         "company",

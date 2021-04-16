@@ -1,4 +1,3 @@
-const { ObjectID } = require("mongodb");
 const mongoose = require("mongoose");
 const company = require("./company");
 const location = new mongoose.Schema(

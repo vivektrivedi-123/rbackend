@@ -1,9 +1,13 @@
-const Department = require("../models/department");
+const express = require("express");
 const mongoose = require("mongoose");
 const _ = require("lodash");
+const location = require("../models/location");
+const company = require("../models/company");
+const Department = require("../models/department");
 
 exports.getDept = async (req, res, next) => {
   Department.find()
+    .populate("location", "location_address company")
     .exec()
     .then((data) => {
       res.status(200).json({
@@ -34,9 +38,15 @@ exports.addDept = async (req, res, next) => {
     res.status(409).send("Department Already Exists");
   } else {
     let deptt = new Department(
-      _.pick(req.body, ["department_name", "created_by", "modified_by"])
+      _.pick(req.body, [
+        "location",
+        "department_name",
+        "created_by",
+        "modified_by",
+      ])
     );
-    Department.save()
+    await deptt
+      .save()
       .then((doc) => {
         res.status(200).json({
           message: "Department Added Successfully",

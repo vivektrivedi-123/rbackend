@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const location = require("./location");
-const jobCategory = new mongoose.Schema(
+const category = new mongoose.Schema(
   {
     location: [
       { type: mongoose.Schema.Types.ObjectId, ref: "location", required: true },
@@ -13,4 +13,4 @@ const jobCategory = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("jobCategory", jobCategory);
+module.exports = mongoose.model("category", category);

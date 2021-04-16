@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
-const Category = require("../models/job_category");
-
 const _ = require("lodash");
+const Category = require("../models/category");
 const location = require("../models/location");
 exports.getCategory = async (req, res, next) => {
   Category.find()
+    .populate("location")
     .exec()
     .then((data) => {
       res.status(200).json({
@@ -31,10 +31,7 @@ exports.getCategoryById = async (req, res, next) => {
     });
 };
 exports.addCategory = async (req, res, next) => {
-  Category.find().populate({
-    path: "location",
-  });
-  let categories = new Category(
+  let category = await new Category(
     _.pick(req.body, [
       "location",
       "category",
@@ -43,15 +40,15 @@ exports.addCategory = async (req, res, next) => {
       "modified_by",
     ])
   );
-
-  categories
+  category
     .save()
     .then((doc) => {
       res.status(200).json({
         message: "Category Added Successfully",
-        doc,
+        results: doc,
       });
     })
+
     .catch((err) => {
       res.status(400).json(err);
     });

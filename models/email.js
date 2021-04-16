@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
-const jobApplication = require("./job_application");
+const application = require("./application");
 const location = require("./location");
 
-const jobEmail = new mongoose.Schema(
+const email = new mongoose.Schema(
   {
     application: [
       {
@@ -24,4 +24,4 @@ const jobEmail = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("jobEmail", jobEmail);
+module.exports = mongoose.model("email", email);

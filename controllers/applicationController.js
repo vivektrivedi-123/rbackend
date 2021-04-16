@@ -4,6 +4,9 @@ const _ = require("lodash");
 const location = require("../models/location");
 exports.getApplication = async (req, res, next) => {
   Application.find()
+    .populate("job", "job_id ")
+    .populate("form", "")
+    .populate("location")
     .exec()
     .then((data) => {
       res.status(200).json({
@@ -17,10 +20,6 @@ exports.getApplication = async (req, res, next) => {
 
 exports.getApplicationById = async (req, res, next) => {
   Application.findById({ _id: req.params.id })
-    .populate({
-      path: "location",
-      path: "form",
-    })
     .exec()
     .then((data) => {
       res.status(200).json({

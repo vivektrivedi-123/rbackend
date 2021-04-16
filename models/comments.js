@@ -1,12 +1,12 @@
 const mongoose = require("mongoose");
 const location = require("./location");
-const jobApplication = require("./job_application");
-const jobcomments = new mongoose.Schema(
+const application = require("./application");
+const comments = new mongoose.Schema(
   {
     application: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "jobApplication",
+        ref: "application",
         required: true,
       },
     ],
@@ -22,4 +22,4 @@ const jobcomments = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("jobcomments", jobcomments);
+module.exports = mongoose.model("comments", comments);

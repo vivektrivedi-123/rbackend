@@ -13,7 +13,7 @@ router.get("/api/v1/category", categoryController.getCategory);
 router.get("/api/v1/category/:id", categoryController.getCategoryById);
 
 router.post(
-  "/category",
+  "/api/v1/category",
   categoryValidation,
   validateSchema,
   categoryController.addCategory

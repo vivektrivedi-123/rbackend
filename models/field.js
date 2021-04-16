@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const location = require("./location");
 const field = new mongoose.Schema(
   {
-    location_address: [
+    location: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "location",

@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 const location = require("./location");
-const jobForm = require("./job_form");
-const jobPosting = require("./job_posting");
-const jobApplication = new mongoose.Schema(
+const form = require("./form");
+const post = require("./post");
+const application = new mongoose.Schema(
   {
     job: [
       { type: mongoose.Schema.Types.ObjectId, ref: "jobForm", required: true },
@@ -39,4 +39,4 @@ const jobApplication = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("jobApplication", jobApplication);
+module.exports = mongoose.model("application", application);

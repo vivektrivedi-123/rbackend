@@ -1,11 +1,12 @@
-const Field = require("../models/field");
+const express = require("express");
 const mongoose = require("mongoose");
 const _ = require("lodash");
+const Field = require("../models/field");
 const Location = require("../models/location");
 
 exports.getField = async (req, res, next) => {
   Field.find()
-    .populate("location_address")
+    .populate("location")
     .exec()
     .then((data) => {
       res.status(200).json({
@@ -37,7 +38,7 @@ exports.addField = async (req, res, next) => {
   } else {
     let fields = new Field(
       _.pick(req.body, [
-        "location_address",
+        "location",
         "field_name",
         "field_type",
         "field_options",

@@ -32,7 +32,7 @@ app.use("/", user);
 app.use("/", dept);
 app.use("/", field);
 app.use("/", application);
-app.use("/api/v1/", category);
+app.use("/", category);
 app.use("/", comment);
 app.use("/", email);
 app.use("/", form);

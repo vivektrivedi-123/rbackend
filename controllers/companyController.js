@@ -43,6 +43,7 @@ exports.addCompany = async (req, res, next) => {
     );
     company
       .save()
+      .log(savedCompany)
       .then((doc) => {
         res.status(200).json({
           message: "Company Added Successfully",

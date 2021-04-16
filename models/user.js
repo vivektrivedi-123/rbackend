@@ -10,9 +10,15 @@ const user = new mongoose.Schema(
         required: true,
       },
     ],
+
     role: [
-      { type: mongoose.Schema.Types.ObjectId, ref: "role", required: true },
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "role",
+        required: true,
+      },
     ],
+
     first_name: { type: String, required: true, trim: true },
     last_name: { type: String, required: true },
     mobile_number: { type: Number, required: true },

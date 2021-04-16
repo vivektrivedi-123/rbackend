@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const jobApplication = require("./job_application");
+const application = require("./application");
 const location = require("./location");
 
 const jobTasks = new mongoose.Schema(
@@ -7,7 +7,7 @@ const jobTasks = new mongoose.Schema(
     application: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "jobApplication",
+        ref: "application",
         required: true,
       },
     ],
@@ -27,4 +27,4 @@ const jobTasks = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("jobTasks", jobTasks);
+module.exports = mongoose.model("task", task);

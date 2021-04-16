@@ -9,8 +9,8 @@ const role = require("../models/role");
 
 exports.getUser = async (req, res, next) => {
   User.find()
-    .populate("company")
-    .populate("role")
+    .populate("company", "company_name _id")
+    .populate("role", "role_name _id")
     .exec()
     .then((data) => {
       res.status(200).json({
@@ -29,6 +29,7 @@ exports.getUserById = async (req, res, next) => {
         results: data,
       });
     })
+
     .catch((err) => {
       res.status(404).json(err);
     });
@@ -48,13 +49,16 @@ exports.addUser = async (req, res, next) => {
       "modified_by",
     ])
   );
+
   const salt = await bcrypt.genSalt(10);
   user.password = await bcrypt.hash(user.password, salt);
 
   await user.save();
+
   const token = jwt.sign({ _id: user.id }, process.env.SECRET_KEY);
-  res.header("x-auth-token", token).status(200).send("Added Succesully");
+  res.header("x-auth-token", token).status(200).send(user);
 };
+
 exports.updateUser = async (req, res, next) => {
   let id = req.params.id;
   if (!req.params.id || req.params.id < 0)
