@@ -5,7 +5,7 @@ const {
   validateSchema,
 } = require("../validation/taskValidation");
 const router = express.Router();
-const Task = require("../models/job_app_tasks");
+const Task = require("../models/task");
 
 router.get("/api/v1/task", taskController.getTask);
 

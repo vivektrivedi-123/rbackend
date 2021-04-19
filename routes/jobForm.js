@@ -5,7 +5,7 @@ const {
   validateSchema,
 } = require("../validation/formValidation");
 const router = express.Router();
-const Form = require("../models/job_form");
+const Form = require("../models/form");
 
 router.get("/api/v1/form", formController.getForm);
 

@@ -5,7 +5,7 @@ const {
   validateSchema,
 } = require("../validation/postValidation");
 const router = express.Router();
-const Post = require("../models/job_posting");
+const Post = require("../models/post");
 
 router.get("/api/v1/post", postingController.getPost);
 

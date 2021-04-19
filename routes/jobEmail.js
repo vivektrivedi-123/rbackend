@@ -5,7 +5,7 @@ const {
   validateSchema,
 } = require("../validation/emailValidation");
 const router = express.Router();
-const Email = require("../models/job_app_email");
+const Email = require("../models/email");
 
 router.get("/api/v1/email", emailController.getEmail);
 

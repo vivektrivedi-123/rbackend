@@ -6,7 +6,7 @@ const {
 } = require("../validation/interviewValidation");
 const _ = require("lodash");
 const router = express.Router();
-const Interview = require("../models/job_app_interview");
+const Interview = require("../models/interview");
 
 router.get("/api/v1/interview", interviewController.getInterview);
 

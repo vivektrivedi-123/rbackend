@@ -1,12 +1,11 @@
 const categoryController = require("../controllers/categoryController");
 const express = require("express");
-const category = require("../models/job_category");
+const category = require("../models/category");
 const {
   categoryValidation,
   validateSchema,
 } = require("../validation/categoryValidation");
 const router = express.Router();
-const Category = require("../models/job_category");
 
 router.get("/api/v1/category", categoryController.getCategory);
 

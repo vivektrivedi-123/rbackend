@@ -5,7 +5,7 @@ const {
   validateSchema,
 } = require("../validation/commentValidation");
 const router = express.Router();
-const Comment = require("../models/job_app_comments");
+const Comment = require("../models/comments");
 
 router.get("/api/v1/comment", commentController.getComment);
 

@@ -5,7 +5,7 @@ const {
   validateSchema,
 } = require("../validation/appValidation");
 const router = express.Router();
-const Application = require("../models/job_application");
+const Application = require("../models/application");
 
 router.get("/api/v1/application", applicationController.getApplication);
 

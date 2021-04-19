@@ -5,7 +5,7 @@ const {
   validateSchema,
 } = require("../validation/stageValidation");
 const router = express.Router();
-const Stage = require("../models/job_stages");
+const Stage = require("../models/stage");
 
 router.get("/api/v1/stage", stagesController.getStage);
 
