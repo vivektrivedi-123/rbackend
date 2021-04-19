@@ -6,7 +6,10 @@ const Location = require("../models/location");
 const PER_PAGE = 5;
 exports.getField = async (req, res, next) => {
   Field.find()
-    .populate("location", "location_address company")
+    .populate({
+      path: "location",
+      populate: { path: "company" },
+    })
     //.populate("company")
     // .skip(PER_PAGE * page - PER_PAGE)
     // .limit(PER_PAGE)
@@ -23,7 +26,10 @@ exports.getField = async (req, res, next) => {
 
 exports.getFieldById = async (req, res, next) => {
   Field.findById({ _id: req.params.id })
-    .populate("location", "location_address company")
+    .populate({
+      path: "location",
+      populate: { path: "company" },
+    })
     //.populate("company")
     // .skip(PER_PAGE * page - PER_PAGE)
     // .limit(PER_PAGE)

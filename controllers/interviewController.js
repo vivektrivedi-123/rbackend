@@ -10,7 +10,10 @@ exports.getInterview = async (req, res, next) => {
   Interview.find()
     .populate("post")
     .populate("application")
-    .populate("location")
+    .populate({
+      path: "location",
+      populate: { path: "company" },
+    })
     .populate("stage")
     .skip(PER_PAGE * page - PER_PAGE)
     .limit(PER_PAGE)
@@ -28,7 +31,10 @@ exports.getInterviewById = async (req, res, next) => {
   Interview.findById({ _id: req.params.id })
     .populate("post")
     .populate("application")
-    .populate("location")
+    .populate({
+      path: "location",
+      populate: { path: "company" },
+    })
     .populate("stage")
     .skip(PER_PAGE * page - PER_PAGE)
     .limit(PER_PAGE)

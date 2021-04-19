@@ -13,14 +13,14 @@ router.get("/api/v1/category/:id", categoryController.getCategoryById);
 
 router.post(
   "/api/v1/category",
-  categoryValidation,
+  categoryValidation(),
   validateSchema,
   categoryController.addCategory
 );
 
 router.put(
   "/api/v1/category/:id",
-  categoryValidation,
+  categoryValidation(),
   validateSchema,
   categoryController.updateCategory
 );

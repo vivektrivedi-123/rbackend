@@ -7,7 +7,10 @@ const PER_PAGE = 5;
 exports.getTask = async (req, res, next) => {
   Task.find()
     .populate("application")
-    .populate("location")
+    .populate({
+      path: "location",
+      populate: { path: "company" },
+    })
     .skip(PER_PAGE * page - PER_PAGE)
     .limit(PER_PAGE)
     .exec()
@@ -23,7 +26,10 @@ exports.getTask = async (req, res, next) => {
 exports.getTaskById = async (req, res, next) => {
   Task.findById({ _id: req.params.id })
     .populate("application")
-    .populate("location")
+    .populate({
+      path: "location",
+      populate: { path: "company" },
+    })
     .skip(PER_PAGE * page - PER_PAGE)
     .limit(PER_PAGE)
     .exec()

@@ -8,10 +8,13 @@ const PER_PAGE = 5;
 
 exports.getDept = async (req, res, next) => {
   Department.find()
-    .populate("location")
+    .populate({
+      path: "location",
+      populate: { path: "company" },
+    })
     .populate("company")
-    .skip(PER_PAGE * page - PER_PAGE)
-    .limit(PER_PAGE)
+    // .skip(PER_PAGE * page - PER_PAGE)
+    // .limit(PER_PAGE)
     .exec()
     .then((data) => {
       res.status(200).json({
@@ -24,10 +27,13 @@ exports.getDept = async (req, res, next) => {
 };
 exports.getDeptById = async (req, res, next) => {
   Department.findById({ _id: req.params.id })
-    .populate("location")
+    .populate({
+      path: "location",
+      populate: { path: "company" },
+    })
     .populate("company")
-    .skip(PER_PAGE * page - PER_PAGE)
-    .limit(PER_PAGE)
+    // .skip(PER_PAGE * page - PER_PAGE)
+    // .limit(PER_PAGE)
     .exec()
     .then((data) => {
       res.status(200).json({

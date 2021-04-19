@@ -5,7 +5,10 @@ const location = require("../models/location");
 const PER_PAGE = 5;
 exports.getOptions = async (req, res, next) => {
   Options.find()
-    .populate("location")
+    .populate({
+      path: "location",
+      populate: { path: "company" },
+    })
     // .skip(PER_PAGE * page - PER_PAGE)
     // .limit(PER_PAGE)
     .exec()
@@ -20,7 +23,10 @@ exports.getOptions = async (req, res, next) => {
 };
 exports.getOptionsById = async (req, res, next) => {
   Options.findById({ _id: req.params.id })
-    .populate("location")
+    .populate({
+      path: "location",
+      populate: { path: "company" },
+    })
     // .skip(PER_PAGE * page - PER_PAGE)
     // .limit(PER_PAGE)
     .exec()

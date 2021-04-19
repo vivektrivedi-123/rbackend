@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const company = new mongoose.Schema(
+const companySchema = new mongoose.Schema(
   {
     company_name: { type: String, required: true },
     company_slug: { type: String, required: true },
@@ -11,4 +11,4 @@ const company = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("company", company);
+module.exports = mongoose.model("company", companySchema);

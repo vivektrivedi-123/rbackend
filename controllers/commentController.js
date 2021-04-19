@@ -5,7 +5,10 @@ const _ = require("lodash");
 exports.getComment = async (req, res, next) => {
   Comment.find()
     .populate("application")
-    .populate("location")
+    .populate({
+      path: "location",
+      populate: { path: "company" },
+    })
     // .skip(PER_PAGE * page - PER_PAGE)
     // .limit(PER_PAGE)
     .exec()

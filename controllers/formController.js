@@ -9,7 +9,10 @@ exports.getForm = async (req, res, next) => {
   Form.find()
     .populate("post")
     .populate("field")
-    .populate("location")
+    .populate({
+      path: "location",
+      populate: { path: "company" },
+    })
     .skip(PER_PAGE * page - PER_PAGE)
     .limit(PER_PAGE)
     .exec()
@@ -24,11 +27,19 @@ exports.getForm = async (req, res, next) => {
 };
 exports.getFormById = async (req, res, next) => {
   Form.findById({ _id: req.params.id })
-    .populate("post")
+    .populate({
+      path: "post",
+      populate: { path: "department" },
+      populate: { path: "category" },
+      populate: { path: "location" },
+    })
     .populate("field")
-    .populate("location")
-    .skip(PER_PAGE * page - PER_PAGE)
-    .limit(PER_PAGE)
+    .populate({
+      path: "location",
+      populate: { path: "company" },
+    })
+    // .skip(PER_PAGE * page - PER_PAGE)
+    // .limit(PER_PAGE)
     .exec()
     .then((data) => {
       res.status(200).json({

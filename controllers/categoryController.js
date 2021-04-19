@@ -2,9 +2,13 @@ const Category = require("../models/category");
 const mongoose = require("mongoose");
 const _ = require("lodash");
 const location = require("../models/location");
+const company = require("../models/company");
 
 exports.getCategory = async (req, res, next) => {
-  let category = await Category.find().populate("location");
+  let category = await Category.find().populate({
+    path: "location",
+    populate: { path: "company" },
+  });
   if (!category) {
     res.status(404).send("No Category Found");
   } else {
@@ -13,9 +17,10 @@ exports.getCategory = async (req, res, next) => {
 };
 
 exports.getCategoryById = async (req, res, next) => {
-  let category = await Category.findById({ _id: req.params.id }).populate(
-    "location"
-  );
+  let category = await Category.findById({ _id: req.params.id }).populate({
+    path: "location",
+    populate: { path: "company" },
+  });
   if (!category) {
     res.status(404).send("No Category Found");
   } else {

@@ -10,7 +10,10 @@ exports.getApplication = async (req, res, next) => {
   Application.find()
     .populate("job")
     .populate("form")
-    .populate("location")
+    .populate({
+      path: "location",
+      populate: { path: "company" },
+    })
     // .skip(PER_PAGE * page - PER_PAGE)
     // .limit(PER_PAGE)
     .exec()
@@ -28,7 +31,10 @@ exports.getApplicationById = async (req, res, next) => {
   Application.findById({ _id: req.params.id })
     .populate("job")
     .populate("form")
-    .populate("location")
+    .populate({
+      path: "location",
+      populate: { path: "company" },
+    })
     // .skip(PER_PAGE * page - PER_PAGE)
     // .limit(PER_PAGE)
     .exec()
@@ -65,7 +71,6 @@ exports.addApplication = async (req, res, next) => {
     ])
   );
   applications
-    .populate({ path: "locations" })
     .save()
 
     .then((doc) => {

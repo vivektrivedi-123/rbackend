@@ -24,7 +24,7 @@ const user = new mongoose.Schema(
     mobile_number: { type: Number, required: true },
     email: { type: String, required: true },
     password: { type: String, required: true },
-    profile_image: { type: String, required: true },
+    profile_image: { data: Buffer, contentType: String },
     created_by: { type: String, required: true },
     modified_by: { type: String, required: true },
   },

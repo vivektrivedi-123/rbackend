@@ -8,7 +8,10 @@ exports.getEmail = async (req, res, next) => {
   let email = await Email.find();
   Email.find()
     .populate("application")
-    .populate("location")
+    .populate({
+      path: "location",
+      populate: { path: "company" },
+    })
     .skip(PER_PAGE * page - PER_PAGE)
     .limit(PER_PAGE)
     .exec()
@@ -24,7 +27,10 @@ exports.getEmail = async (req, res, next) => {
 exports.getEmailById = async (req, res, next) => {
   Email.findById({ _id: req.params.id })
     .populate("application")
-    .populate("location")
+    .populate({
+      path: "location",
+      populate: { path: "company" },
+    })
     .skip(PER_PAGE * page - PER_PAGE)
     .limit(PER_PAGE)
     .exec()

@@ -6,7 +6,10 @@ const post = require("../models/post");
 const PER_PAGE = 5;
 exports.getStage = async (req, res, next) => {
   Stage.find()
-    .populate("location")
+    .populate({
+      path: "location",
+      populate: { path: "company" },
+    })
     .populate("post")
     .skip(PER_PAGE * page - PER_PAGE)
     .limit(PER_PAGE)
@@ -22,7 +25,10 @@ exports.getStage = async (req, res, next) => {
 };
 exports.getStageById = async (req, res, next) => {
   Stage.findById({ _id: req.params.id })
-    .populate("location")
+    .populate({
+      path: "location",
+      populate: { path: "company" },
+    })
     .populate("post")
     .skip(PER_PAGE * page - PER_PAGE)
     .limit(PER_PAGE)
