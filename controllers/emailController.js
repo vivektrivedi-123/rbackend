@@ -1,9 +1,16 @@
-const Email = require("../models/job_app_email");
+const Email = require("../models/email");
 const mongoose = require("mongoose");
 const _ = require("lodash");
+const application = require("../models/application");
+const location = require("../models/location");
+const PER_PAGE = 5;
 exports.getEmail = async (req, res, next) => {
   let email = await Email.find();
   Email.find()
+    .populate("application")
+    .populate("location")
+    .skip(PER_PAGE * page - PER_PAGE)
+    .limit(PER_PAGE)
     .exec()
     .then((data) => {
       res.status(200).json({
@@ -16,6 +23,10 @@ exports.getEmail = async (req, res, next) => {
 };
 exports.getEmailById = async (req, res, next) => {
   Email.findById({ _id: req.params.id })
+    .populate("application")
+    .populate("location")
+    .skip(PER_PAGE * page - PER_PAGE)
+    .limit(PER_PAGE)
     .exec()
     .then((data) => {
       res.status(200).json({

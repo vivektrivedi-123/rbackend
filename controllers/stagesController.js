@@ -1,8 +1,15 @@
-const Stage = require("../models/job_stages");
+const Stage = require("../models/stage");
 const mongoose = require("mongoose");
 const _ = require("lodash");
+const location = require("../models/location");
+const post = require("../models/post");
+const PER_PAGE = 5;
 exports.getStage = async (req, res, next) => {
   Stage.find()
+    .populate("location")
+    .populate("post")
+    .skip(PER_PAGE * page - PER_PAGE)
+    .limit(PER_PAGE)
     .exec()
     .then((data) => {
       res.status(200).json({
@@ -15,6 +22,10 @@ exports.getStage = async (req, res, next) => {
 };
 exports.getStageById = async (req, res, next) => {
   Stage.findById({ _id: req.params.id })
+    .populate("location")
+    .populate("post")
+    .skip(PER_PAGE * page - PER_PAGE)
+    .limit(PER_PAGE)
     .exec()
     .then((data) => {
       res.status(200).json({

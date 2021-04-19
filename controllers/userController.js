@@ -23,6 +23,8 @@ exports.getUser = async (req, res, next) => {
 };
 exports.getUserById = async (req, res, next) => {
   User.findById({ _id: req.params.id })
+    .populate("company")
+    .populate("role")
     .exec()
     .then((data) => {
       res.status(200).json({
@@ -55,8 +57,8 @@ exports.addUser = async (req, res, next) => {
 
   await user.save();
 
-  const token = jwt.sign({ _id: user.id }, process.env.SECRET_KEY);
-  res.header("x-auth-token", token).status(200).send(user);
+  //const token = jwt.sign({ _id: user.id }, process.env.SECRET_KEY);
+  res.status(200).send("User Added Successfully");
 };
 
 exports.updateUser = async (req, res, next) => {

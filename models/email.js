@@ -7,7 +7,7 @@ const email = new mongoose.Schema(
     application: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "jobApplication",
+        ref: "application",
         required: true,
       },
     ],

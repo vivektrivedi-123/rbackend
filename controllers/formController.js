@@ -1,8 +1,17 @@
-const Form = require("../models/job_form");
+const Form = require("../models/form");
 const mongoose = require("mongoose");
 const _ = require("lodash");
+const post = require("../models/post");
+const field = require("../models/field");
+const location = require("../models/location");
+const PER_PAGE = 5;
 exports.getForm = async (req, res, next) => {
   Form.find()
+    .populate("post")
+    .populate("field")
+    .populate("location")
+    .skip(PER_PAGE * page - PER_PAGE)
+    .limit(PER_PAGE)
     .exec()
     .then((data) => {
       res.status(200).json({
@@ -15,6 +24,11 @@ exports.getForm = async (req, res, next) => {
 };
 exports.getFormById = async (req, res, next) => {
   Form.findById({ _id: req.params.id })
+    .populate("post")
+    .populate("field")
+    .populate("location")
+    .skip(PER_PAGE * page - PER_PAGE)
+    .limit(PER_PAGE)
     .exec()
     .then((data) => {
       res.status(200).json({

@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
-const form = require("./form");
-const stages = require("./stages");
+const post = require("./post");
+const stage = require("./stage");
 const application = require("./application");
 const location = require("./location");
 
@@ -8,7 +8,7 @@ const interview = new mongoose.Schema(
   {
     interview: { type: Number, required: true },
     job: [
-      { type: mongoose.Schema.Types.ObjectId, ref: "form", required: true },
+      { type: mongoose.Schema.Types.ObjectId, ref: "post", required: true },
     ],
     location: [
       { type: mongoose.Schema.Types.ObjectId, ref: "location", required: true },

@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const application = require("./application");
 const location = require("./location");
 
-const jobTasks = new mongoose.Schema(
+const task = new mongoose.Schema(
   {
     application: [
       {

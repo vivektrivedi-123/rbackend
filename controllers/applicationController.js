@@ -1,12 +1,18 @@
-const Application = require("../models/job_application");
+const Application = require("../models/application");
 const mongoose = require("mongoose");
 const _ = require("lodash");
+const job = require("../models/post");
+const form = require("../models/form");
 const location = require("../models/location");
+
+//const PER_PAGE = 5;
 exports.getApplication = async (req, res, next) => {
   Application.find()
-    .populate("job", "job_id ")
-    .populate("form", "")
+    .populate("job")
+    .populate("form")
     .populate("location")
+    // .skip(PER_PAGE * page - PER_PAGE)
+    // .limit(PER_PAGE)
     .exec()
     .then((data) => {
       res.status(200).json({
@@ -20,6 +26,11 @@ exports.getApplication = async (req, res, next) => {
 
 exports.getApplicationById = async (req, res, next) => {
   Application.findById({ _id: req.params.id })
+    .populate("job")
+    .populate("form")
+    .populate("location")
+    // .skip(PER_PAGE * page - PER_PAGE)
+    // .limit(PER_PAGE)
     .exec()
     .then((data) => {
       res.status(200).json({

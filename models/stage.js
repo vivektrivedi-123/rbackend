@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const form = require("./form");
 const location = require("./location");
 const post = require("./post");
 const stage = new mongoose.Schema(
@@ -8,7 +7,7 @@ const stage = new mongoose.Schema(
       { type: mongoose.Schema.Types.ObjectId, ref: "location", required: true },
     ],
     job: [
-      { type: mongoose.Schema.Types.ObjectId, ref: "form", required: true },
+      { type: mongoose.Schema.Types.ObjectId, ref: "post", required: true },
     ],
     stage: { type: String, required: true },
     status: [

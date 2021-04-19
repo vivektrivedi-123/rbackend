@@ -3,10 +3,12 @@ const mongoose = require("mongoose");
 const _ = require("lodash");
 const company = require("../models/company");
 const Location = require("../models/location");
-
+const PER_PAGE = 5;
 exports.getLocation = async (req, res, next) => {
   Location.find()
-    .populate("company", "company_name -_id")
+    .populate("company")
+    // .skip(PER_PAGE * page - PER_PAGE)
+    // .limit(PER_PAGE)
     .exec()
     .then((data) => {
       res.status(200).json({
@@ -19,7 +21,9 @@ exports.getLocation = async (req, res, next) => {
 };
 exports.getLocationById = async (req, res, next) => {
   let location = await Location.findById({ _id: req.params.id })
-
+    .populate("company")
+    // .skip(PER_PAGE * page - PER_PAGE)
+    // .limit(PER_PAGE)
     .exec()
     .then((data) => {
       res.status(200).json({

@@ -4,10 +4,14 @@ const _ = require("lodash");
 const location = require("../models/location");
 const company = require("../models/company");
 const Department = require("../models/department");
+const PER_PAGE = 5;
 
 exports.getDept = async (req, res, next) => {
   Department.find()
-    .populate("location", "location_address company")
+    .populate("location")
+    .populate("company")
+    .skip(PER_PAGE * page - PER_PAGE)
+    .limit(PER_PAGE)
     .exec()
     .then((data) => {
       res.status(200).json({
@@ -20,6 +24,10 @@ exports.getDept = async (req, res, next) => {
 };
 exports.getDeptById = async (req, res, next) => {
   Department.findById({ _id: req.params.id })
+    .populate("location")
+    .populate("company")
+    .skip(PER_PAGE * page - PER_PAGE)
+    .limit(PER_PAGE)
     .exec()
     .then((data) => {
       res.status(200).json({

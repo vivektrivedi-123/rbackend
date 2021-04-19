@@ -1,8 +1,17 @@
-const Post = require("../models/job_posting");
+const Post = require("../models/post");
 const mongoose = require("mongoose");
 const _ = require("lodash");
+const dept = require("../models/department");
+const category = require("../models/category");
+const location = require("../models/location");
+const PER_PAGE = 5;
 exports.getPost = async (req, res, next) => {
   Post.find()
+    .populate("dept")
+    .populate("category")
+    .populate("location")
+    .skip(PER_PAGE * page - PER_PAGE)
+    .limit(PER_PAGE)
     .exec()
     .then((data) => {
       res.status(200).json({
@@ -15,6 +24,11 @@ exports.getPost = async (req, res, next) => {
 };
 exports.getPostById = async (req, res, next) => {
   Post.findById({ _id: req.params.id })
+    .populate("dept")
+    .populate("category")
+    .populate("location")
+    .skip(PER_PAGE * page - PER_PAGE)
+    .limit(PER_PAGE)
     .exec()
     .then((data) => {
       res.status(200).json({

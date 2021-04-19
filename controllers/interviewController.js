@@ -1,8 +1,19 @@
-const Interview = require("../models/job_app_interview");
+const Interview = require("../models/interview");
 const mongoose = require("mongoose");
 const _ = require("lodash");
+const post = require("../models/post");
+const application = require("../models/application");
+const location = require("../models/location");
+const stage = require("../models/stage");
+const PER_PAGE = 5;
 exports.getInterview = async (req, res, next) => {
   Interview.find()
+    .populate("post")
+    .populate("application")
+    .populate("location")
+    .populate("stage")
+    .skip(PER_PAGE * page - PER_PAGE)
+    .limit(PER_PAGE)
     .exec()
     .then((data) => {
       res.status(200).json({
@@ -15,6 +26,12 @@ exports.getInterview = async (req, res, next) => {
 };
 exports.getInterviewById = async (req, res, next) => {
   Interview.findById({ _id: req.params.id })
+    .populate("post")
+    .populate("application")
+    .populate("location")
+    .populate("stage")
+    .skip(PER_PAGE * page - PER_PAGE)
+    .limit(PER_PAGE)
     .exec()
     .then((data) => {
       res.status(200).json({

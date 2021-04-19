@@ -1,8 +1,13 @@
-const Comment = require("../models/job_app_comments");
+const Comment = require("../models/comments");
 const mongoose = require("mongoose");
 const _ = require("lodash");
+//const PER_PAGE = 5;
 exports.getComment = async (req, res, next) => {
   Comment.find()
+    .populate("application")
+    .populate("location")
+    // .skip(PER_PAGE * page - PER_PAGE)
+    // .limit(PER_PAGE)
     .exec()
     .then((data) => {
       res.status(200).json({
@@ -15,6 +20,10 @@ exports.getComment = async (req, res, next) => {
 };
 exports.getCommentById = async (req, res, next) => {
   Comment.findById({ _id: req.params.id })
+    .populate("application")
+    .populate("location")
+    // .skip(PER_PAGE * page - PER_PAGE)
+    // .limit(PER_PAGE)
     .exec()
     .then((data) => {
       res.status(200).json({

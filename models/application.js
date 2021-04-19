@@ -5,12 +5,12 @@ const post = require("./post");
 const application = new mongoose.Schema(
   {
     job: [
-      { type: mongoose.Schema.Types.ObjectId, ref: "jobForm", required: true },
+      { type: mongoose.Schema.Types.ObjectId, ref: "post", required: true },
     ],
     form: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "jobPosting",
+        ref: "form",
         required: true,
       },
     ],

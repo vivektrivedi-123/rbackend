@@ -3,10 +3,13 @@ const mongoose = require("mongoose");
 const _ = require("lodash");
 const Field = require("../models/field");
 const Location = require("../models/location");
-
+const PER_PAGE = 5;
 exports.getField = async (req, res, next) => {
   Field.find()
-    .populate("location")
+    .populate("location", "location_address company")
+    //.populate("company")
+    // .skip(PER_PAGE * page - PER_PAGE)
+    // .limit(PER_PAGE)
     .exec()
     .then((data) => {
       res.status(200).json({
@@ -20,7 +23,10 @@ exports.getField = async (req, res, next) => {
 
 exports.getFieldById = async (req, res, next) => {
   Field.findById({ _id: req.params.id })
-
+    .populate("location", "location_address company")
+    //.populate("company")
+    // .skip(PER_PAGE * page - PER_PAGE)
+    // .limit(PER_PAGE)
     .exec()
     .then((data) => {
       res.status(200).json({
@@ -32,32 +38,27 @@ exports.getFieldById = async (req, res, next) => {
     });
 };
 exports.addField = async (req, res, next) => {
-  let field = await Field.findOne({ field_name: req.body.field_name });
-  if (field) {
-    res.status(409).send("Field Already Exists");
-  } else {
-    let fields = new Field(
-      _.pick(req.body, [
-        "location",
-        "field_name",
-        "field_type",
-        "field_options",
-        "created_by",
-        "modified_by",
-      ])
-    );
-    fields
-      .save()
-      .then((doc) => {
-        res.status(200).json({
-          message: "Field Added Successfully",
-          results: doc,
-        });
-      })
-      .catch((err) => {
-        res.status(400).json(err);
+  let fields = new Field(
+    _.pick(req.body, [
+      "location",
+      "field_name",
+      "field_type",
+      "field_options",
+      "created_by",
+      "modified_by",
+    ])
+  );
+  fields
+    .save()
+    .then((doc) => {
+      res.status(200).json({
+        message: "Field Added Successfully",
+        results: doc,
       });
-  }
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
 };
 exports.updateField = async (req, res, next) => {
   let id = req.params.id;

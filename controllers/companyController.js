@@ -1,6 +1,7 @@
 const Company = require("../models/company");
 const mongoose = require("mongoose");
 const _ = require("lodash");
+
 exports.getCompany = async (req, res, next) => {
   Company.find()
 
@@ -16,6 +17,7 @@ exports.getCompany = async (req, res, next) => {
 };
 exports.getCompanyById = async (req, res, next) => {
   Company.findById({ _id: req.params.id })
+
     .exec()
     .then((data) => {
       res.status(200).json({
@@ -43,7 +45,6 @@ exports.addCompany = async (req, res, next) => {
     );
     company
       .save()
-      .log(savedCompany)
       .then((doc) => {
         res.status(200).json({
           message: "Company Added Successfully",
