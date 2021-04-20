@@ -8,10 +8,7 @@ const company = require("../models/company");
 //const PER_PAGE = 5;
 exports.getjob = async (req, res, next) => {
   Job.find()
-    .populate({
-      path: "dept",
-      populate: { path: "location", populate: { path: "company" } },
-    })
+    .populate("dept")
     .populate({ path: "category", select: "-location" })
     // .skip(PER_PAGE * page - PER_PAGE)
     // .limit(PER_PAGE)
@@ -56,7 +53,6 @@ exports.addjob = async (req, res, next) => {
         "category",
         "job_title",
         "job_type",
-        "location",
         "remote_job",
         "job_description",
         "experience",

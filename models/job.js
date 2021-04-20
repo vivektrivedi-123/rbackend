@@ -12,9 +12,9 @@ const jobSchema = new mongoose.Schema(
     ],
     job_title: { type: String, required: true },
     job_type: { type: String, required: true },
-    location: [
-      { type: mongoose.Schema.Types.ObjectId, ref: "location", required: true },
-    ],
+    // location: [
+    //   { type: mongoose.Schema.Types.ObjectId, ref: "location", required: true },
+    // ],
     remote_job: { type: String, required: true },
     job_description: { type: String, required: true },
     experience: { type: String, required: true },
