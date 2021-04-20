@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const location = require("./location");
-const options = new mongoose.Schema(
+const optionsSchema = new mongoose.Schema(
   {
     option_key: { type: Number, required: true },
     option_value: { type: Number, required: true },
@@ -11,10 +11,10 @@ const options = new mongoose.Schema(
         required: true,
       },
     ],
-    created_by: { type: String, required: true },
-    modified_by: { type: String, required: true },
+    created_by: { type: String },
+    modified_by: { type: String },
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model("options", options);
+module.exports = mongoose.model("options", optionsSchema);

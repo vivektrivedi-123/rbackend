@@ -15,7 +15,7 @@ app.use(express.json());
 router.get("/api/v1/user", userController.getUser);
 //get by ID
 router.get("/api/v1/user/:id", userController.getUserById);
-//post
+//job
 router.post(
   "/api/v1/user",
   userValidation(),

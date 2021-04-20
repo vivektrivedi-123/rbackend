@@ -1,12 +1,12 @@
 const mongoose = require("mongoose");
 const field = require("./field");
 const location = require("./location");
-const post = require("./post");
-const form = new mongoose.Schema(
+const job = require("./job");
+const formSchema = new mongoose.Schema(
   {
     job: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "post",
+      ref: "job",
       required: true,
     },
     field: [
@@ -16,13 +16,10 @@ const form = new mongoose.Schema(
     placeholder: { type: String, required: true },
     is_required: { type: Boolean, required: true },
     order: { type: String, required: true },
-    location: [
-      { type: mongoose.Schema.Types.ObjectId, ref: "location", required: true },
-    ],
-    created_by: { type: String, required: true },
-    modified_by: { type: String, required: true },
+    created_by: { type: String },
+    modified_by: { type: String },
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model("form ", form);
+module.exports = mongoose.model("form ", formSchema);

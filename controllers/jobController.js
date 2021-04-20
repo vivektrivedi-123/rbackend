@@ -1,24 +1,18 @@
-const Post = require("../models/post");
+const Job = require("../models/job");
 const mongoose = require("mongoose");
 const _ = require("lodash");
 const dept = require("../models/department");
 const category = require("../models/category");
 const location = require("../models/location");
+const company = require("../models/company");
 //const PER_PAGE = 5;
-exports.getPost = async (req, res, next) => {
-  Post.find()
+exports.getjob = async (req, res, next) => {
+  Job.find()
     .populate({
       path: "dept",
-      populate: { path: "location" },
+      populate: { path: "location", populate: { path: "company" } },
     })
-    .populate({
-      path: "category",
-      populate: { path: "location" },
-    })
-    .populate({
-      path: "location",
-      populate: { path: "company" },
-    })
+    .populate({ path: "category", select: "-location" })
     // .skip(PER_PAGE * page - PER_PAGE)
     // .limit(PER_PAGE)
     .exec()
@@ -31,23 +25,14 @@ exports.getPost = async (req, res, next) => {
       res.status(404).json(err);
     });
 };
-exports.getPostById = async (req, res, next) => {
-  Post.findById({ _id: req.params.id })
+exports.getjobById = async (req, res, next) => {
+  Job.findById({ _id: req.params.id })
     .populate({
       path: "dept",
-      populate: { path: "location" },
-      populate: { path: "company" },
+      populate: { path: "location", populate: { path: "company" } },
     })
-    .populate({
-      path: "category",
-      populate: { path: "location" },
-      populate: { path: "company" },
-    })
-    .populate({
-      path: "location",
-      populate: { path: "company" },
-      populate: { path: "company" },
-    })
+    .populate({ path: "category", select: "-location" })
+
     // .skip(PER_PAGE * page - PER_PAGE)
     // .limit(PER_PAGE)
     .exec()
@@ -60,12 +45,12 @@ exports.getPostById = async (req, res, next) => {
       res.status(404).json(err);
     });
 };
-exports.addPost = async (req, res, next) => {
-  let post = await Post.findOne({ job_title: req.body.job_title });
-  if (post) {
-    res.status(409).send("Post Already Exists");
+exports.addjob = async (req, res, next) => {
+  let job = await Job.findOne({ job_title: req.body.job_title });
+  if (job) {
+    res.status(409).send("job Already Exists");
   } else {
-    let posts = new Post(
+    let jobs = new Job(
       _.pick(req.body, [
         "department",
         "category",
@@ -88,11 +73,11 @@ exports.addPost = async (req, res, next) => {
         "modified_by",
       ])
     );
-    posts
+    jobs
       .save()
       .then((doc) => {
         res.status(200).json({
-          message: "Post Added Successfully",
+          message: "job Added Successfully",
           results: doc,
         });
       })
@@ -101,25 +86,26 @@ exports.addPost = async (req, res, next) => {
       });
   }
 };
-exports.updatePost = async (req, res, next) => {
+exports.updatejob = async (req, res, next) => {
   let id = req.params.id;
   if (!req.params.id || req.params.id < 0)
     res.status(400).send("Invalid Request");
-  Post.findOne({ _id: req.params.id }, function (err, doc) {
+  job.findOne({ _id: req.params.id }, function (err, doc) {
     if (err) console.log(err);
     else if (doc === null) res.status(400).send("Invalid Request");
   });
-  let update = await Post.findByIdAndUpdate({ _id: req.params.id }, req.body);
+  let update = await job.findByIdAndUpdate({ _id: req.params.id }, req.body);
   res.status(200).json(update);
 };
 
-exports.deletePost = async (req, res, next) => {
+exports.deletejob = async (req, res, next) => {
   if (!req.params.id || req.params.id < 0)
     res.status(400).send("Invalid request");
-  Post.findByIdAndRemove({ _id: req.params.id })
+  job
+    .findByIdAndRemove({ _id: req.params.id })
     .then((doc) => {
       res.status(200).json({
-        message: "Post Deleted Successfully",
+        message: "job Deleted Successfully",
       });
     })
     .catch((err) => {

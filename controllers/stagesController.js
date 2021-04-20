@@ -2,17 +2,17 @@ const Stage = require("../models/stage");
 const mongoose = require("mongoose");
 const _ = require("lodash");
 const location = require("../models/location");
-const post = require("../models/post");
-const PER_PAGE = 5;
+const job = require("../models/job");
+//const PER_PAGE = 5;
 exports.getStage = async (req, res, next) => {
   Stage.find()
     .populate({
       path: "location",
       populate: { path: "company" },
     })
-    .populate("post")
-    .skip(PER_PAGE * page - PER_PAGE)
-    .limit(PER_PAGE)
+    .populate("job")
+    // .skip(PER_PAGE * page - PER_PAGE)
+    // .limit(PER_PAGE)
     .exec()
     .then((data) => {
       res.status(200).json({
@@ -29,7 +29,7 @@ exports.getStageById = async (req, res, next) => {
       path: "location",
       populate: { path: "company" },
     })
-    .populate("post")
+    .populate("job")
     .skip(PER_PAGE * page - PER_PAGE)
     .limit(PER_PAGE)
     .exec()

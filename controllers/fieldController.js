@@ -30,7 +30,7 @@ exports.getFieldById = async (req, res, next) => {
       path: "location",
       populate: { path: "company" },
     })
-    //.populate("company")
+
     // .skip(PER_PAGE * page - PER_PAGE)
     // .limit(PER_PAGE)
     .exec()

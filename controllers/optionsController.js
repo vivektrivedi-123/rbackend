@@ -2,15 +2,14 @@ const Options = require("../models/options");
 const mongoose = require("mongoose");
 const _ = require("lodash");
 const location = require("../models/location");
-const PER_PAGE = 5;
+const company = require("../models/company");
+//const PER_PAGE = 5;
 exports.getOptions = async (req, res, next) => {
   Options.find()
     .populate({
       path: "location",
       populate: { path: "company" },
     })
-    // .skip(PER_PAGE * page - PER_PAGE)
-    // .limit(PER_PAGE)
     .exec()
     .then((data) => {
       res.status(200).json({
@@ -48,7 +47,7 @@ exports.addOptions = async (req, res, next) => {
       _.pick(req.body, [
         "option_key",
         "option_value",
-        "location_id",
+        "location",
         "created_by",
         "modified_by",
       ])

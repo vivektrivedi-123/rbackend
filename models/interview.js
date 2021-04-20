@@ -1,15 +1,13 @@
 const mongoose = require("mongoose");
-const post = require("./post");
+const job = require("./job");
 const stage = require("./stage");
 const application = require("./application");
 const location = require("./location");
 
-const interview = new mongoose.Schema(
+const interviewSchema = new mongoose.Schema(
   {
     interview: { type: Number, required: true },
-    job: [
-      { type: mongoose.Schema.Types.ObjectId, ref: "post", required: true },
-    ],
+    job: [{ type: mongoose.Schema.Types.ObjectId, ref: "job", required: true }],
     location: [
       { type: mongoose.Schema.Types.ObjectId, ref: "location", required: true },
     ],
@@ -38,10 +36,10 @@ const interview = new mongoose.Schema(
     notes: { type: String, required: true },
     overall_comments: { type: String, required: true },
     status: { type: String, required: true },
-    created_by: { type: String, required: true },
-    modified_by: { type: String, required: true },
+    created_by: { type: String },
+    modified_by: { type: String },
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model("interview", interview);
+module.exports = mongoose.model("interview", interviewSchema);

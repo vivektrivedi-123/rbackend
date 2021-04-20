@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const application = require("./application");
 const location = require("./location");
 
-const task = new mongoose.Schema(
+const taskSchema = new mongoose.Schema(
   {
     application: [
       {
@@ -21,10 +21,10 @@ const task = new mongoose.Schema(
     due_time: { type: String, required: true },
     remind_before: { type: String, required: true },
     status: { type: String, required: true },
-    created_by: { type: String, required: true },
-    modified_by: { type: String, required: true },
+    created_by: { type: String },
+    modified_by: { type: String },
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model("task", task);
+module.exports = mongoose.model("task", taskSchema);

@@ -9,7 +9,7 @@ const router = express.Router();
 router.get("/api/v1/dept", deptController.getDept);
 //get all
 router.get("/api/v1/dept/:id", deptController.getDeptById);
-//post
+//job
 router.post(
   "/api/v1/dept",
   deptValidation(),

@@ -6,7 +6,7 @@ const locationValidation = () => {
     body("location_street").isLength({ min: 10, max: 20 }),
     body("location_city").isLength({ min: 3, max: 10 }),
     body("location_state").isLength({ min: 3, max: 20 }),
-    body("postal_code").isLength({ min: 5, max: 10 }),
+    body("jobal_code").isLength({ min: 5, max: 10 }),
     body("country_id").isLength({ min: 3, max: 20 }),
     body("website").isLength({ min: 3, max: 20 }),
     body("contact").isLength(10),

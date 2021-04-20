@@ -1,14 +1,14 @@
 const Interview = require("../models/interview");
 const mongoose = require("mongoose");
 const _ = require("lodash");
-const post = require("../models/post");
+const job = require("../models/job");
 const application = require("../models/application");
 const location = require("../models/location");
 const stage = require("../models/stage");
 const PER_PAGE = 5;
 exports.getInterview = async (req, res, next) => {
   Interview.find()
-    .populate("post")
+    .populate("job")
     .populate("application")
     .populate({
       path: "location",
@@ -29,7 +29,7 @@ exports.getInterview = async (req, res, next) => {
 };
 exports.getInterviewById = async (req, res, next) => {
   Interview.findById({ _id: req.params.id })
-    .populate("post")
+    .populate("job")
     .populate("application")
     .populate({
       path: "location",

@@ -1,22 +1,35 @@
 const Application = require("../models/application");
 const mongoose = require("mongoose");
 const _ = require("lodash");
-const job = require("../models/post");
+const job = require("../models/job");
 const form = require("../models/form");
+const dept = require("../models/department");
+const category = require("../models/category");
 const location = require("../models/location");
-
+const company = require("../models/company");
 //const PER_PAGE = 5;
 exports.getApplication = async (req, res, next) => {
   Application.find()
     .populate("job")
-    .populate("form")
-    .populate({
-      path: "location",
-      populate: { path: "company" },
-    })
+    // .populate({
+    //   path: "job",
+    //   populate: {
+    //     path: "dept",
+    //     populate: { path: "location", populate: { path: "company " } },
+    //   },
+    //   populate: {
+    //     path: "category",
+    //     select: "-_id -location",
+    //   },
+    // })
+    // .populate({
+    //   path: "form",
+    //   select: "-job -location",
+    //   populate: { path: "field", select: "-location -_id" },
+    // })
+    .exec()
     // .skip(PER_PAGE * page - PER_PAGE)
     // .limit(PER_PAGE)
-    .exec()
     .then((data) => {
       res.status(200).json({
         results: data,
@@ -29,12 +42,7 @@ exports.getApplication = async (req, res, next) => {
 
 exports.getApplicationById = async (req, res, next) => {
   Application.findById({ _id: req.params.id })
-    .populate("job")
-    .populate("form")
-    .populate({
-      path: "location",
-      populate: { path: "company" },
-    })
+
     // .skip(PER_PAGE * page - PER_PAGE)
     // .limit(PER_PAGE)
     .exec()

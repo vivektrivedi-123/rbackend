@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const location = require("./location");
 const application = require("./application");
-const comments = new mongoose.Schema(
+const commentsSchema = new mongoose.Schema(
   {
     application: [
       {
@@ -16,10 +16,10 @@ const comments = new mongoose.Schema(
     comments: { type: String, required: true },
     attachments: { type: String, required: true },
     status: { type: Boolean, required: true },
-    created_by: { type: String, required: true },
-    modified_by: { type: String, required: true },
+    created_by: { type: String },
+    modified_by: { type: String },
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model("comments", comments);
+module.exports = mongoose.model("comments", commentsSchema);

@@ -12,7 +12,7 @@ const Company = require("../models/company");
 router.get("/api/v1/company", companyController.getCompany);
 //get by ID
 router.get("/api/v1/company/:id", companyController.getCompanyById);
-//post
+//job
 router.post(
   "/api/v1/company",
   //auth,

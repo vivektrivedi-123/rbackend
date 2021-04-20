@@ -5,8 +5,8 @@ const companySchema = new mongoose.Schema(
     company_slug: { type: String, required: true },
     company_logo: { type: String, required: true },
     industry_type: { type: String, required: true },
-    created_by: { type: String, required: true },
-    modified_by: { type: String, required: true },
+    created_by: { type: String },
+    modified_by: { type: String },
   },
   { timestamps: true }
 );

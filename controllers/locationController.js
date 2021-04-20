@@ -51,7 +51,7 @@ exports.addLocation = async (req, res, next) => {
         "location_street",
         "location_city",
         "location_state",
-        "postal_code",
+        "jobal_code",
         "country_id",
         "website",
         "contact",

@@ -1,30 +1,30 @@
-const postingController = require("../controllers/postingController");
+const jobController = require("../controllers/jobController");
 const express = require("express");
 const {
-  postValidation,
+  jobValidation,
   validateSchema,
-} = require("../validation/postValidation");
+} = require("../validation/jobValidation");
 const router = express.Router();
-const Post = require("../models/post");
+const job = require("../models/job");
 
-router.get("/api/v1/post", postingController.getPost);
+router.get("/api/v1/job", jobController.getjob);
 
-router.get("/api/v1/post/:id", postingController.getPostById);
+router.get("/api/v1/job/:id", jobController.getjobById);
 
 router.post(
-  "/api/v1/post",
-  postValidation(),
+  "/api/v1/job",
+  jobValidation(),
   validateSchema,
-  postingController.addPost
+  jobController.addjob
 );
 
 router.put(
-  "/api/v1/post/:id",
-  postValidation(),
+  "/api/v1/job/:id",
+  jobValidation(),
   validateSchema,
-  postingController.updatePost
+  jobController.updatejob
 );
 
-router.delete("/api/v1/post/:id", postingController.deletePost);
+router.delete("/api/v1/job/:id", jobController.deletejob);
 
 module.exports = router;

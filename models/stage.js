@@ -1,26 +1,24 @@
 const mongoose = require("mongoose");
 const location = require("./location");
-const post = require("./post");
-const stage = new mongoose.Schema(
+const job = require("./job");
+const stageSchema = new mongoose.Schema(
   {
     location: [
       { type: mongoose.Schema.Types.ObjectId, ref: "location", required: true },
     ],
-    job: [
-      { type: mongoose.Schema.Types.ObjectId, ref: "post", required: true },
-    ],
+    job: [{ type: mongoose.Schema.Types.ObjectId, ref: "job", required: true }],
     stage: { type: String, required: true },
     status: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "post",
+        ref: "job",
         required: true,
       },
     ],
-    created_by: { type: String, required: true },
-    modified_by: { type: String, required: true },
+    created_by: { type: String },
+    modified_by: { type: String },
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model("stage", stage);
+module.exports = mongoose.model("stage", stageSchema);

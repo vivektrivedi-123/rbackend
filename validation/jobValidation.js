@@ -1,6 +1,6 @@
 const { body, validationResult } = require("express-validator");
 
-const postValidation = () => {
+const jobValidation = () => {
   return [
     body("job_title").isLength({ min: 3, max: 15 }),
     body("job_type").isLength({ min: 5, max: 20 }),
@@ -12,7 +12,7 @@ const postValidation = () => {
     body("min_sal").isLength({ min: 5, max: 20 }),
     body("max_sal").isLength({ min: 5, max: 20 }),
     body("currency").isLength({ min: 5, max: 50 }),
-    body("allow_employee").isLength({ min: 5, max: 50 }),
+    body("allow_employees").isLength({ min: 5, max: 50 }),
     body("status").isLength({ min: 5, max: 20 }),
     body("job_code").isLength({ min: 5, max: 20 }),
     body("job_slug").isLength({ min: 5, max: 50 }),
@@ -31,4 +31,4 @@ const validateSchema = (req, res, next) => {
   });
 };
 
-module.exports = { postValidation, validateSchema };
+module.exports = { jobValidation, validateSchema };

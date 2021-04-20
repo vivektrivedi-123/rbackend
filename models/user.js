@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const company = require("./company");
 const role = require("./role");
-const user = new mongoose.Schema(
+const userSchema = new mongoose.Schema(
   {
     company: [
       {
@@ -25,9 +25,9 @@ const user = new mongoose.Schema(
     email: { type: String, required: true },
     password: { type: String, required: true },
     profile_image: { data: Buffer, contentType: String },
-    created_by: { type: String, required: true },
-    modified_by: { type: String, required: true },
+    created_by: { type: String },
+    modified_by: { type: String },
   },
   { timestamps: true }
 );
-module.exports = mongoose.model("user", user);
+module.exports = mongoose.model("user", userSchema);

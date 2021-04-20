@@ -10,8 +10,8 @@ const role = require("../models/role");
 exports.getUser = async (req, res, next) => {
   //const PER_PAGE = 10;
   User.find()
-    .populate("company", "company_name _id")
-    .populate("role", "role_name _id")
+    .populate("company", "company_name -_id")
+    .populate("role", "role_name -_id")
     // .skip(PER_PAGE * page - PER_PAGE)
     // .limit(PER_PAGE)
     .exec()
@@ -26,8 +26,8 @@ exports.getUser = async (req, res, next) => {
 };
 exports.getUserById = async (req, res, next) => {
   User.findById({ _id: req.params.id })
-    .populate("company")
-    .populate("role")
+    .populate("company", "company_name -id")
+    .populate("role", "role_name -_id")
     .exec()
     .then((data) => {
       res.status(200).json({

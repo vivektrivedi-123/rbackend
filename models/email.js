@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const application = require("./application");
 const location = require("./location");
 
-const email = new mongoose.Schema(
+const emailSchema = new mongoose.Schema(
   {
     application: [
       {
@@ -18,10 +18,10 @@ const email = new mongoose.Schema(
     to: { type: String, required: true },
     body: { type: String, required: true },
     status: { type: String, required: true },
-    created_by: { type: String, required: true },
-    modified_by: { type: String, required: true },
+    created_by: { type: String },
+    modified_by: { type: String },
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model("email", email);
+module.exports = mongoose.model("email", emailSchema);
