@@ -5,10 +5,13 @@ const location = require("../models/location");
 const company = require("../models/company");
 
 exports.getCategory = async (req, res, next) => {
-  let category = await Category.find().populate({
-    path: "location",
-    populate: { path: "company" },
-  });
+  let category = await Category.find()
+    .select("-_id -__v")
+    .populate({
+      path: "location",
+      select: "-_id -__v",
+      populate: { path: "company", select: "-_id -__v" },
+    });
   if (!category) {
     res.status(404).send("No Category Found");
   } else {
@@ -17,10 +20,12 @@ exports.getCategory = async (req, res, next) => {
 };
 
 exports.getCategoryById = async (req, res, next) => {
-  let category = await Category.findById({ _id: req.params.id }).populate({
-    path: "location",
-    populate: { path: "company" },
-  });
+  let category = await Category.findById({ _id: req.params.id })
+    .select("-_id -__v")
+    .populate({
+      path: "location",
+      populate: { path: "company", select: "-_id -__v" },
+    });
   if (!category) {
     res.status(404).send("No Category Found");
   } else {

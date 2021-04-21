@@ -4,11 +4,7 @@ const location = require("./location");
 const job = require("./job");
 const formSchema = new mongoose.Schema(
   {
-    job: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "job",
-      required: true,
-    },
+    job: [{ type: mongoose.Schema.Types.ObjectId, ref: "job", required: true }],
     field: [
       { type: mongoose.Schema.Types.ObjectId, ref: "field", required: true },
     ],

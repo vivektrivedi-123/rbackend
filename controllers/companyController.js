@@ -4,7 +4,7 @@ const _ = require("lodash");
 
 exports.getCompany = async (req, res, next) => {
   Company.find()
-
+    .select("-_id -__v")
     .exec()
     .then((data) => {
       res.status(200).json({
@@ -17,7 +17,7 @@ exports.getCompany = async (req, res, next) => {
 };
 exports.getCompanyById = async (req, res, next) => {
   Company.findById({ _id: req.params.id })
-
+    .select("-_id -__v")
     .exec()
     .then((data) => {
       res.status(200).json({

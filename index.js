@@ -23,9 +23,11 @@ const task = require("./routes/jobTask");
 const location = require("./routes/location");
 const options = require("./routes/options");
 const app = express();
+
 app.use("/public", express.static(path.join(__dirname, "static")));
 app.use(bodyparser.urlencoded({ extended: false }));
 app.use(express.json());
+
 app.use("/", company);
 app.use("/", role);
 app.use("/", user);

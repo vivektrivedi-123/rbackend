@@ -3,16 +3,30 @@ const mongoose = require("mongoose");
 const _ = require("lodash");
 const location = require("../models/location");
 const job = require("../models/job");
-//const PER_PAGE = 5;
+const department = require("../models/department");
+const company = require("../models/company");
+
 exports.getStage = async (req, res, next) => {
   Stage.find()
+    .select("-_id -__v")
     .populate({
-      path: "location",
-      populate: { path: "company" },
+      path: "job",
+      select: "-_id -__v",
+      populate: {
+        path: "category",
+        path: "department",
+        populate: {
+          path: "location",
+          select: "-_id -__v",
+          populate: { path: "company", select: "-_id -__v" },
+        },
+      },
+      // populate: {
+      //   path: "category",
+      //   select: "-location  -_id -__v",
+      //},
     })
-    .populate("job")
-    // .skip(PER_PAGE * page - PER_PAGE)
-    // .limit(PER_PAGE)
+
     .exec()
     .then((data) => {
       res.status(200).json({
@@ -25,13 +39,7 @@ exports.getStage = async (req, res, next) => {
 };
 exports.getStageById = async (req, res, next) => {
   Stage.findById({ _id: req.params.id })
-    .populate({
-      path: "location",
-      populate: { path: "company" },
-    })
-    .populate("job")
-    .skip(PER_PAGE * page - PER_PAGE)
-    .limit(PER_PAGE)
+
     .exec()
     .then((data) => {
       res.status(200).json({
@@ -48,14 +56,7 @@ exports.addStage = async (req, res, next) => {
     res.status(409).send("Stage Already Exists");
   } else {
     let stages = new Stage(
-      _.pick(req.body, [
-        "location",
-        "job",
-        "stage",
-        "status",
-        "created_by",
-        "modified_by",
-      ])
+      _.pick(req.body, ["job", "stage", "status", "created_by", "modified_by"])
     );
     stages
       .save()

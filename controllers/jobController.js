@@ -1,17 +1,26 @@
 const Job = require("../models/job");
 const mongoose = require("mongoose");
 const _ = require("lodash");
-const dept = require("../models/department");
+const department = require("../models/department");
 const category = require("../models/category");
 const location = require("../models/location");
 const company = require("../models/company");
-//const PER_PAGE = 5;
 exports.getjob = async (req, res, next) => {
   Job.find()
-    .populate("dept")
-    .populate({ path: "category", select: "-location" })
-    // .skip(PER_PAGE * page - PER_PAGE)
-    // .limit(PER_PAGE)
+    .select("-_id -__v")
+    .populate({
+      path: "department",
+      select: "-_id -__v",
+      populate: {
+        path: "location ",
+        select: "-_id -__v",
+        populate: { path: "company", select: "-_id -__v" },
+      },
+    })
+    .populate({
+      path: "category",
+      select: "-location -createdAt -updatedAt -_id -__v",
+    })
     .exec()
     .then((data) => {
       res.status(200).json({
@@ -24,14 +33,20 @@ exports.getjob = async (req, res, next) => {
 };
 exports.getjobById = async (req, res, next) => {
   Job.findById({ _id: req.params.id })
+    .select("-_id -__v")
     .populate({
-      path: "dept",
-      populate: { path: "location", populate: { path: "company" } },
+      path: "department",
+      select: "-_id -__v",
+      populate: {
+        path: "location ",
+        select: "-_id -__v",
+        populate: { path: "company", select: "-_id -__v" },
+      },
     })
-    .populate({ path: "category", select: "-location" })
-
-    // .skip(PER_PAGE * page - PER_PAGE)
-    // .limit(PER_PAGE)
+    .populate({
+      path: "category",
+      select: "-location -createdAt -updatedAt -_id -__v",
+    })
     .exec()
     .then((data) => {
       res.status(200).json({

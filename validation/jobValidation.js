@@ -4,7 +4,7 @@ const jobValidation = () => {
   return [
     body("job_title").isLength({ min: 3, max: 15 }),
     body("job_type").isLength({ min: 5, max: 20 }),
-    body("remote_job").isLength({ min: 5, max: 50 }),
+    body("remote_job").isLength({ min: 2, max: 20 }),
     body("job_description").isLength({ min: 10, max: 100 }),
     body("experience").isLength({ min: 5, max: 50 }),
     body("skills").isLength({ min: 10, max: 50 }),

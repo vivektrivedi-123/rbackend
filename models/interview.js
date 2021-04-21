@@ -8,9 +8,9 @@ const interviewSchema = new mongoose.Schema(
   {
     interview: { type: Number, required: true },
     job: [{ type: mongoose.Schema.Types.ObjectId, ref: "job", required: true }],
-    location: [
-      { type: mongoose.Schema.Types.ObjectId, ref: "location", required: true },
-    ],
+    // location: [
+    //   { type: mongoose.Schema.Types.ObjectId, ref: "location", required: true },
+    // ],
     application: [
       {
         type: mongoose.Schema.Types.ObjectId,

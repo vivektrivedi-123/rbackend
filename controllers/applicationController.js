@@ -3,33 +3,30 @@ const mongoose = require("mongoose");
 const _ = require("lodash");
 const job = require("../models/job");
 const form = require("../models/form");
-const dept = require("../models/department");
+const department = require("../models/department");
 const category = require("../models/category");
 const location = require("../models/location");
 const company = require("../models/company");
-//const PER_PAGE = 5;
+
 exports.getApplication = async (req, res, next) => {
   Application.find()
-    .populate("job")
-    // .populate({
-    //   path: "job",
-    //   populate: {
-    //     path: "dept",
-    //     populate: { path: "location", populate: { path: "company " } },
-    //   },
-    //   populate: {
-    //     path: "category",
-    //     select: "-_id -location",
-    //   },
-    // })
-    // .populate({
-    //   path: "form",
-    //   select: "-job -location",
-    //   populate: { path: "field", select: "-location -_id" },
-    // })
+    .select("-_id -__v")
+    .populate({
+      path: "job",
+      select: "-_id -__v",
+      populate: {
+        path: "department",
+        populate: {
+          path: "location",
+          select: "-_id -__v",
+          populate: { path: "company", select: "-_id -__v" },
+        },
+      },
+      // populate: { path: "category", select: "-_id -__v -location" },
+    })
+    // Application.find()
+    //   .populate({ path: "form", select: "-location -job" })
     .exec()
-    // .skip(PER_PAGE * page - PER_PAGE)
-    // .limit(PER_PAGE)
     .then((data) => {
       res.status(200).json({
         results: data,
@@ -42,9 +39,21 @@ exports.getApplication = async (req, res, next) => {
 
 exports.getApplicationById = async (req, res, next) => {
   Application.findById({ _id: req.params.id })
-
-    // .skip(PER_PAGE * page - PER_PAGE)
-    // .limit(PER_PAGE)
+    .select("-_id -__v")
+    .populate({
+      path: "job",
+      select: "-_id -__v",
+      populate: {
+        path: "department",
+        populate: {
+          path: "location",
+          select: "-_id -__v",
+          populate: { path: "company", select: "-_id -__v" },
+        },
+      },
+      // populate: { path: "category", select: "-_id -__v -location" },
+    })
+    //.populate({ path: "form", select: "-location -job" })
     .exec()
     .then((data) => {
       res.status(200).json({
@@ -67,7 +76,6 @@ exports.addApplication = async (req, res, next) => {
       "tags",
       "status",
       "overall_rating",
-      "location",
       "lead_owner",
       "is_deleted",
       "is_blocked",

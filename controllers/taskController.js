@@ -3,16 +3,18 @@ const mongoose = require("mongoose");
 const _ = require("lodash");
 const application = require("../models/application");
 const location = require("../models/location");
-const PER_PAGE = 5;
+
 exports.getTask = async (req, res, next) => {
   Task.find()
+    .select("-_id -__v")
     .populate("application")
+    .select("-_id -__v")
     .populate({
       path: "location",
-      populate: { path: "company" },
+      select: "-_id -__v",
+      populate: { path: "company", select: "-_id -__v" },
     })
-    .skip(PER_PAGE * page - PER_PAGE)
-    .limit(PER_PAGE)
+
     .exec()
     .then((data) => {
       res.status(200).json({
@@ -25,13 +27,15 @@ exports.getTask = async (req, res, next) => {
 };
 exports.getTaskById = async (req, res, next) => {
   Task.findById({ _id: req.params.id })
+    .select("-_id -__v")
     .populate("application")
+    .select("-_id -__v")
     .populate({
       path: "location",
-      populate: { path: "company" },
+      select: "-_id -__v",
+      populate: { path: "company", select: "-_id -__v" },
     })
-    .skip(PER_PAGE * page - PER_PAGE)
-    .limit(PER_PAGE)
+
     .exec()
     .then((data) => {
       res.status(200).json({

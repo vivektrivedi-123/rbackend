@@ -2,26 +2,15 @@ const Comment = require("../models/comments");
 const mongoose = require("mongoose");
 const application = require("../models/application");
 const _ = require("lodash");
-//const PER_PAGE = 5;
+
 exports.getComment = async (req, res, next) => {
-  // let order = req.query.order ? req.query.order : "asc";
-  //let limit = req.query.limit ? parseInt(req.query.limit) : 6;
   Comment.find()
-    // .populate("application")
-    // .populate("location")
     .populate({ path: "application" })
     .populate({
       path: "location",
       populate: { path: "company" },
     })
-    //.populate({
-    //   path: "location",
-    //   populate: { path: "company" },
-    // })
-    // .skip(PER_PAGE * page - PER_PAGE)
-    // .limit(PER_PAGE)
     .exec()
-    //.limit(limit)
     .then((data) => {
       res.status(200).json({
         results: data,
@@ -38,8 +27,7 @@ exports.getCommentById = async (req, res, next) => {
       path: "location",
       populate: { path: "company" },
     })
-    // .skip(PER_PAGE * page - PER_PAGE)
-    // .limit(PER_PAGE)
+
     .exec()
     .then((data) => {
       res.status(200).json({
@@ -54,7 +42,6 @@ exports.addComment = async (req, res, next) => {
   let comments = new Comment(
     _.pick(req.body, [
       "application",
-      "location",
       "comments",
       "attachments",
       "status",

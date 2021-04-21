@@ -6,9 +6,11 @@ const company = require("../models/company");
 //const PER_PAGE = 5;
 exports.getOptions = async (req, res, next) => {
   Options.find()
+    .select("-_id -__v")
     .populate({
       path: "location",
-      populate: { path: "company" },
+      select: "-_id -__v",
+      populate: { path: "company", select: "-_id -__v" },
     })
     .exec()
     .then((data) => {
@@ -22,12 +24,12 @@ exports.getOptions = async (req, res, next) => {
 };
 exports.getOptionsById = async (req, res, next) => {
   Options.findById({ _id: req.params.id })
+    .select("-_id -__v")
     .populate({
       path: "location",
-      populate: { path: "company" },
+      select: "-_id -__v",
+      populate: { path: "company", select: "-_id -__v" },
     })
-    // .skip(PER_PAGE * page - PER_PAGE)
-    // .limit(PER_PAGE)
     .exec()
     .then((data) => {
       res.status(200).json({

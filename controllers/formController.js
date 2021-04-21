@@ -4,19 +4,35 @@ const _ = require("lodash");
 const job = require("../models/job");
 const field = require("../models/field");
 const location = require("../models/location");
-const PER_PAGE = 5;
+const department = require("../models/department");
+
 exports.getForm = async (req, res, next) => {
   Form.find()
-    // .populate({ path: "job",
-    // populate: { path: "dept" ,populate:{path:"location",populate:{path:"company"}}},
-    // populate:{path:"category"}},
-    // .populate("field")
-    // .populate({
-    //   path: "location",
-    //   populate: { path: "company" },
-    // })
-    // .skip(PER_PAGE * page - PER_PAGE)
-    // .limit(PER_PAGE)
+    .select("-_id -__v")
+    .populate({
+      path: "job",
+      select: "-_id -__v",
+      populate: {
+        // path: "category",
+        // select: "-_id -__v",
+        path: "department",
+        // path: "category",
+        // select: "-_id -__v",
+        select: "-_id -__v",
+        //populate: { path: "category", select: "-_id -__v" },
+        populate: {
+          path: "location",
+          select: "-_id -__v",
+          populate: { path: "company", select: "-_id -__v" },
+          //populate: { path: "category", select: "-location  -_id -__v" },
+        },
+        //populate: { path: "category", select: "-location  -_id -__v" },
+      },
+      //populate: { path: "category", select: "-location  -_id -__v" },
+    })
+    //.populate({ path: "category", select: "-location  -_id -__v" })
+    .populate({ path: "field", select: "-_id -__v -location" })
+    //.populate({ path: "category" })
     .exec()
     .then((data) => {
       res.status(200).json({
@@ -29,19 +45,24 @@ exports.getForm = async (req, res, next) => {
 };
 exports.getFormById = async (req, res, next) => {
   Form.findById({ _id: req.params.id })
+    .select("-_id -__v")
     .populate({
       path: "job",
-      populate: { path: "department" },
-      populate: { path: "category" },
-      populate: { path: "location" },
+      select: "-_id -__v",
+      populate: {
+        path: "department",
+        populate: {
+          path: "location ",
+          select: "-_id -__v",
+          populate: { path: "company", select: "-_id -__v" },
+        },
+      },
+      // populate: {
+      //   path: "category",
+      //   select: "-location  -_id -__v",
+      // },
     })
-    .populate("field")
-    .populate({
-      path: "location",
-      populate: { path: "company" },
-    })
-    // .skip(PER_PAGE * page - PER_PAGE)
-    // .limit(PER_PAGE)
+    .populate({ path: "field", select: "-_id -__v -location" })
     .exec()
     .then((data) => {
       res.status(200).json({
@@ -65,7 +86,6 @@ exports.addForm = async (req, res, next) => {
         "placeholder",
         "is_required",
         "order",
-        "location",
         "created_by",
         "modified_by",
       ])

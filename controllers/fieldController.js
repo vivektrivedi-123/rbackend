@@ -3,16 +3,14 @@ const mongoose = require("mongoose");
 const _ = require("lodash");
 const Field = require("../models/field");
 const Location = require("../models/location");
-const PER_PAGE = 5;
 exports.getField = async (req, res, next) => {
   Field.find()
+    .select("-_id -__v")
     .populate({
       path: "location",
-      populate: { path: "company" },
+      select: "-_id -__v",
+      populate: { path: "company", select: "-_id -__v" },
     })
-    //.populate("company")
-    // .skip(PER_PAGE * page - PER_PAGE)
-    // .limit(PER_PAGE)
     .exec()
     .then((data) => {
       res.status(200).json({
@@ -26,13 +24,12 @@ exports.getField = async (req, res, next) => {
 
 exports.getFieldById = async (req, res, next) => {
   Field.findById({ _id: req.params.id })
+    .select("-_id -__v")
     .populate({
       path: "location",
-      populate: { path: "company" },
+      select: "-_id -__v",
+      populate: { path: "company", select: "-_id -__v" },
     })
-
-    // .skip(PER_PAGE * page - PER_PAGE)
-    // .limit(PER_PAGE)
     .exec()
     .then((data) => {
       res.status(200).json({

@@ -10,9 +10,7 @@ const commentsSchema = new mongoose.Schema(
         required: true,
       },
     ],
-    location: [
-      { type: mongoose.Schema.Types.ObjectId, ref: "location", required: true },
-    ],
+
     comments: { type: String, required: true },
     attachments: { type: String, required: true },
     status: { type: Boolean, required: true },

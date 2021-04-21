@@ -5,19 +5,10 @@ const job = require("../models/job");
 const application = require("../models/application");
 const location = require("../models/location");
 const stage = require("../models/stage");
-const PER_PAGE = 5;
+
 exports.getInterview = async (req, res, next) => {
   Interview.find()
-    .populate("job")
-    .populate("application")
-    .populate({
-      path: "location",
-      populate: { path: "company" },
-    })
-    .populate("stage")
-    .skip(PER_PAGE * page - PER_PAGE)
-    .limit(PER_PAGE)
-    .exec()
+
     .then((data) => {
       res.status(200).json({
         results: data,
@@ -29,16 +20,7 @@ exports.getInterview = async (req, res, next) => {
 };
 exports.getInterviewById = async (req, res, next) => {
   Interview.findById({ _id: req.params.id })
-    .populate("job")
-    .populate("application")
-    .populate({
-      path: "location",
-      populate: { path: "company" },
-    })
-    .populate("stage")
-    .skip(PER_PAGE * page - PER_PAGE)
-    .limit(PER_PAGE)
-    .exec()
+
     .then((data) => {
       res.status(200).json({
         results: data,
@@ -52,7 +34,7 @@ exports.addInterview = async (req, res, next) => {
   let interviews = new Interview(
     _.pick(req.body, [
       "job",
-      "location",
+
       "application",
       "stage",
       "subject",

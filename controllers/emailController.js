@@ -3,36 +3,52 @@ const mongoose = require("mongoose");
 const _ = require("lodash");
 const application = require("../models/application");
 const location = require("../models/location");
-const PER_PAGE = 5;
+
 exports.getEmail = async (req, res, next) => {
   let email = await Email.find();
   Email.find()
-    .populate("application")
+    .select("-_id -__v")
     .populate({
-      path: "location",
-      populate: { path: "company" },
-    })
-    .skip(PER_PAGE * page - PER_PAGE)
-    .limit(PER_PAGE)
-    .exec()
-    .then((data) => {
-      res.status(200).json({
-        results: data,
+      path: "application",
+      populate: {
+        path: "job",
+        populate: {
+          path: "dept",
+          populate: {
+            path: "location",
+            populate: { path: "company" },
+          },
+        },
+        populate: { path: "category" },
+      },
+      populate: { path: "form" },
+    }),
+    select("-_id -__v")
+      .populate({
+        path: "location",
+        select: "-_id -__v",
+        populate: { path: "company", select: "-_id -__v" },
+      })
+      .exec()
+      .then((data) => {
+        res.status(200).json({
+          results: data,
+        });
+      })
+      .catch((err) => {
+        res.status(404).json(err);
       });
-    })
-    .catch((err) => {
-      res.status(404).json(err);
-    });
 };
 exports.getEmailById = async (req, res, next) => {
   Email.findById({ _id: req.params.id })
-    .populate("application")
+    .select("-_id -__v")
+    .populate("application", select("-_id -__v"))
     .populate({
       path: "location",
-      populate: { path: "company" },
+      select: "-_id -__v",
+      populate: { path: "company", select: "-_id -__v" },
     })
-    .skip(PER_PAGE * page - PER_PAGE)
-    .limit(PER_PAGE)
+
     .exec()
     .then((data) => {
       res.status(200).json({
