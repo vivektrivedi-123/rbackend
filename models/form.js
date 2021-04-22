@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const field = require("./field");
 const location = require("./location");
 const job = require("./job");
-const Schema = mongoose.Schema;
 const formSchema = new mongoose.Schema(
   {
     job: [{ type: mongoose.Schema.Types.ObjectId, ref: "job", required: true }],
@@ -19,4 +18,4 @@ const formSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("form", formSchema);
+module.exports = mongoose.model("form ", formSchema);
