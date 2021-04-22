@@ -13,20 +13,23 @@ exports.getStage = async (req, res, next) => {
       path: "job",
       select: "-_id -__v",
       populate: {
-        path: "category",
         path: "department",
+        select: "-_id -__v",
         populate: {
-          path: "location",
+          path: "location ",
           select: "-_id -__v",
           populate: { path: "company", select: "-_id -__v" },
         },
       },
-      // populate: {
-      //   path: "category",
-      //   select: "-location  -_id -__v",
-      //},
     })
-
+    .populate({
+      path: "job",
+      select: "-_id -__v ",
+      populate: {
+        path: "category",
+        select: "-_id -__v -location",
+      },
+    })
     .exec()
     .then((data) => {
       res.status(200).json({
@@ -39,7 +42,6 @@ exports.getStage = async (req, res, next) => {
 };
 exports.getStageById = async (req, res, next) => {
   Stage.findById({ _id: req.params.id })
-
     .exec()
     .then((data) => {
       res.status(200).json({
@@ -82,7 +84,6 @@ exports.updateStage = async (req, res, next) => {
   let update = await Stage.findByIdAndUpdate({ _id: req.params.id }, req.body);
   res.status(200).json(update);
 };
-
 exports.deleteStage = async (req, res, next) => {
   if (!req.params.id || req.params.id < 0)
     res.status(400).send("Invalid request");

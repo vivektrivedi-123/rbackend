@@ -1,14 +1,37 @@
-const Comment = require("../models/comments");
+const express = require("express");
 const mongoose = require("mongoose");
+const Comment = require("../models/comments");
 const application = require("../models/application");
 const _ = require("lodash");
 
 exports.getComment = async (req, res, next) => {
   Comment.find()
-    .populate({ path: "application" })
+    .select("-_id -__v")
     .populate({
-      path: "location",
-      populate: { path: "company" },
+      path: "application",
+      select: "-_id -__v",
+      populate: {
+        path: "job",
+        select: "-_id -__v",
+        populate: {
+          path: "department",
+          select: "-_id -__v",
+          populate: {
+            path: "location",
+            select: "-_id -__v",
+            populate: { path: "company", select: "-_id -__v" },
+          },
+        },
+      },
+    })
+    .populate({
+      path: "application",
+      select: "-_id -__v",
+      populate: {
+        path: "job",
+        select: "-_id -__v",
+        populate: { path: "category", select: "-_id -__v -location" },
+      },
     })
     .exec()
     .then((data) => {
@@ -22,12 +45,41 @@ exports.getComment = async (req, res, next) => {
 };
 exports.getCommentById = async (req, res, next) => {
   Comment.findById({ _id: req.params.id })
-    .populate({ path: "application" })
+    .select("-_id -__v")
     .populate({
-      path: "location",
-      populate: { path: "company" },
+      path: "application",
+      select: "-_id -__v",
+      populate: {
+        path: "job",
+        select: "-_id -__v",
+        populate: {
+          path: "department",
+          select: "-_id -__v",
+          populate: {
+            path: "location",
+            select: "-_id -__v",
+            populate: { path: "company", select: "-_id -__v" },
+          },
+        },
+      },
     })
-
+    .populate({
+      path: "application",
+      select: "-_id -__v",
+      populate: {
+        path: "job",
+        select: "-_id -__v",
+        populate: { path: "category", select: "-_id -__v -location" },
+      },
+    })
+    .populate({
+      path: "application",
+      select: "-_id -__v",
+      populate: {
+        path: "form",
+        select: "-_id -__v",
+      },
+    })
     .exec()
     .then((data) => {
       res.status(200).json({
@@ -39,7 +91,7 @@ exports.getCommentById = async (req, res, next) => {
     });
 };
 exports.addComment = async (req, res, next) => {
-  let comments = new Comment(
+  let comments = await new Comment(
     _.pick(req.body, [
       "application",
       "comments",

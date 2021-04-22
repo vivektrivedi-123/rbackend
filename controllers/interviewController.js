@@ -31,39 +31,44 @@ exports.getInterviewById = async (req, res, next) => {
     });
 };
 exports.addInterview = async (req, res, next) => {
-  let interviews = new Interview(
-    _.pick(req.body, [
-      "job",
-
-      "application",
-      "stage",
-      "subject",
-      "schedule_date",
-      "schedule_time",
-      "schedule_timezone",
-      "duration",
-      "recommendations",
-      "interviewer",
-      "rating",
-      "notes",
-      "overall_comments",
-      "status",
-      "created_by",
-      "modified_by",
-    ])
-  );
-
-  interviews
-    .save()
-    .then((doc) => {
-      res.status(200).json({
-        message: "Interview Added Successfully",
-        results: doc,
+  let interviews = await Interview.findOne({
+    schedule_time: req.body.schedule_time,
+  });
+  if (interviews) {
+    res.status(409).send("Form Already Exists");
+  } else {
+    let interview = new Form(
+      _.pick(req.body, [
+        "job",
+        "application",
+        "stage",
+        "subject",
+        "schedule_date",
+        "schedule_time",
+        "schedule_timezone",
+        "duration",
+        "recommendations",
+        "interviewer",
+        "rating",
+        "notes",
+        "overall_comments",
+        "status",
+        "created_by",
+        "modified_by",
+      ])
+    );
+    interview
+      .save()
+      .then((doc) => {
+        res.status(200).json({
+          message: "Interview Added Successfully",
+          results: doc,
+        });
+      })
+      .catch((err) => {
+        res.status(400).json(err);
       });
-    })
-    .catch((err) => {
-      res.status(400).json(err);
-    });
+  }
 };
 exports.updateInterview = async (req, res, next) => {
   let id = req.params.id;

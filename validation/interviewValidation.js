@@ -5,9 +5,9 @@ const interviewValidation = () => {
     body("subject").isLength({ min: 3, max: 15 }),
     body("scheduled_date").isAfter(Date.now()),
     body("scheduled_time").isAfter(Date.now()),
-    // body("duration").is,
+    body("duration").isNumeric({ min: 2 }),
     body("recommendations").isLength({ min: 5 }),
-    // body("interviewer").isLength({ min: 5 }),
+    body("interviewer").isLength({ min: 5 }),
     body("notes").isLength({ min: 5, max: 50 }),
   ];
 };
@@ -18,7 +18,6 @@ const validateSchema = (req, res, next) => {
   }
   const extractedErrors = [];
   errors.array().map((err) => extractedErrors.push({ [err.param]: err.msg }));
-
   return res.status(422).json({
     errors: extractedErrors,
   });

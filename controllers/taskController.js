@@ -1,20 +1,39 @@
+const express = require("express");
 const Task = require("../models/task");
 const mongoose = require("mongoose");
 const _ = require("lodash");
 const application = require("../models/application");
-const location = require("../models/location");
 
 exports.getTask = async (req, res, next) => {
   Task.find()
     .select("-_id -__v")
-    .populate("application")
-    .select("-_id -__v")
     .populate({
-      path: "location",
+      path: "application",
       select: "-_id -__v",
-      populate: { path: "company", select: "-_id -__v" },
+      populate: {
+        path: "job",
+        select: "-_id -__v",
+        populate: {
+          path: "department",
+          select: "-_id -__v",
+          populate: {
+            path: "location",
+            select: "-_id -__v",
+            populate: { path: "company", select: "-_id -__v" },
+          },
+        },
+      },
     })
-
+    .populate({
+      path: "application",
+      select: "-_id -__v",
+      populate: {
+        path: "job",
+        select: "-_id -__v",
+        populate: { path: "category", select: "-_id -__v" },
+      },
+    })
+    .populate({ path: "form", select: "-job -_id -__v" })
     .exec()
     .then((data) => {
       res.status(200).json({
@@ -28,14 +47,33 @@ exports.getTask = async (req, res, next) => {
 exports.getTaskById = async (req, res, next) => {
   Task.findById({ _id: req.params.id })
     .select("-_id -__v")
-    .populate("application")
-    .select("-_id -__v")
     .populate({
-      path: "location",
+      path: "application",
       select: "-_id -__v",
-      populate: { path: "company", select: "-_id -__v" },
+      populate: {
+        path: "job",
+        select: "-_id -__v",
+        populate: {
+          path: "department",
+          select: "-_id -__v",
+          populate: {
+            path: "location",
+            select: "-_id -__v",
+            populate: { path: "company", select: "-_id -__v" },
+          },
+        },
+      },
     })
-
+    .populate({
+      path: "application",
+      select: "-_id -__v",
+      populate: {
+        path: "job",
+        select: "-_id -__v",
+        populate: { path: "category", select: "-_id -__v" },
+      },
+    })
+    .populate({ path: "form", select: "-job -_id -__v" })
     .exec()
     .then((data) => {
       res.status(200).json({
@@ -47,10 +85,9 @@ exports.getTaskById = async (req, res, next) => {
     });
 };
 exports.addTask = async (req, res, next) => {
-  let tasks = new Task(
+  let tasks = await new Task(
     _.pick(req.body, [
       "application",
-      "location",
       "title",
       "description",
       "assigned_to",

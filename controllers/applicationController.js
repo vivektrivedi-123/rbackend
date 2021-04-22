@@ -1,31 +1,40 @@
-const Application = require("../models/application");
+const express = require("express");
 const mongoose = require("mongoose");
-const _ = require("lodash");
-const job = require("../models/job");
 const form = require("../models/form");
+const job = require("../models/job");
+const Application = require("../models/application");
+const _ = require("lodash");
 const department = require("../models/department");
 const category = require("../models/category");
-const location = require("../models/location");
-const company = require("../models/company");
 
 exports.getApplication = async (req, res, next) => {
   Application.find()
     .select("-_id -__v")
     .populate({
       path: "job",
-      select: "-_id -__v",
+      select: "-_id -__v ",
       populate: {
         path: "department",
+        select: "-_id -__v",
         populate: {
           path: "location",
           select: "-_id -__v",
-          populate: { path: "company", select: "-_id -__v" },
+          populate: {
+            path: "company",
+            select: "-_id -__v",
+          },
         },
       },
-      // populate: { path: "category", select: "-_id -__v -location" },
     })
-    // Application.find()
-    //   .populate({ path: "form", select: "-location -job" })
+    .populate({
+      path: "job",
+      select: "-_id -__v ",
+      populate: {
+        path: "category",
+        select: "-_id -__v -location",
+      },
+    })
+    .populate({ path: "form" })
     .exec()
     .then((data) => {
       res.status(200).json({
@@ -33,7 +42,8 @@ exports.getApplication = async (req, res, next) => {
       });
     })
     .catch((err) => {
-      res.status(404).json(err);
+      console.log(err);
+      res.status(404).send(err);
     });
 };
 
@@ -42,19 +52,25 @@ exports.getApplicationById = async (req, res, next) => {
     .select("-_id -__v")
     .populate({
       path: "job",
-      select: "-_id -__v",
+      select: "-_id -__v ",
       populate: {
         path: "department",
+        select: "-_id -__v",
         populate: {
           path: "location",
           select: "-_id -__v",
           populate: { path: "company", select: "-_id -__v" },
         },
       },
-      // populate: { path: "category", select: "-_id -__v -location" },
     })
-    //.populate({ path: "form", select: "-location -job" })
-    .exec()
+    .populate({
+      path: "job",
+      select: "-_id -__v ",
+      populate: {
+        path: "category",
+        select: "-_id -__v -location",
+      },
+    })
     .then((data) => {
       res.status(200).json({
         message: "OK",
@@ -66,7 +82,7 @@ exports.getApplicationById = async (req, res, next) => {
     });
 };
 exports.addApplication = async (req, res, next) => {
-  let applications = new Application(
+  let applications = await new Application(
     _.pick(req.body, [
       "job",
       "form",
@@ -88,7 +104,6 @@ exports.addApplication = async (req, res, next) => {
   );
   applications
     .save()
-
     .then((doc) => {
       res.status(200).json({
         message: "Application Added Successfully",

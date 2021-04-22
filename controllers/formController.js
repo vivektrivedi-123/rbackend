@@ -1,5 +1,5 @@
-const Form = require("../models/form");
 const mongoose = require("mongoose");
+const Form = require("../models/form");
 const _ = require("lodash");
 const job = require("../models/job");
 const field = require("../models/field");
@@ -11,28 +11,26 @@ exports.getForm = async (req, res, next) => {
     .select("-_id -__v")
     .populate({
       path: "job",
-      select: "-_id -__v",
+      select: "-_id -__v ",
       populate: {
-        // path: "category",
-        // select: "-_id -__v",
         path: "department",
-        // path: "category",
-        // select: "-_id -__v",
         select: "-_id -__v",
-        //populate: { path: "category", select: "-_id -__v" },
         populate: {
           path: "location",
           select: "-_id -__v",
           populate: { path: "company", select: "-_id -__v" },
-          //populate: { path: "category", select: "-location  -_id -__v" },
         },
-        //populate: { path: "category", select: "-location  -_id -__v" },
       },
-      //populate: { path: "category", select: "-location  -_id -__v" },
     })
-    //.populate({ path: "category", select: "-location  -_id -__v" })
+    .populate({
+      path: "job",
+      select: "-_id -__v ",
+      populate: {
+        path: "category",
+        select: "-_id -__v -location",
+      },
+    })
     .populate({ path: "field", select: "-_id -__v -location" })
-    //.populate({ path: "category" })
     .exec()
     .then((data) => {
       res.status(200).json({
@@ -48,19 +46,27 @@ exports.getFormById = async (req, res, next) => {
     .select("-_id -__v")
     .populate({
       path: "job",
-      select: "-_id -__v",
+      select: "-_id -__v ",
       populate: {
         path: "department",
+        select: "-_id -__v",
         populate: {
-          path: "location ",
+          path: "location",
           select: "-_id -__v",
-          populate: { path: "company", select: "-_id -__v" },
+          populate: {
+            path: "company",
+            select: "-_id -__v",
+          },
         },
       },
-      // populate: {
-      //   path: "category",
-      //   select: "-location  -_id -__v",
-      // },
+    })
+    .populate({
+      path: "job",
+      select: "-_id -__v ",
+      populate: {
+        path: "category",
+        select: "-_id -__v -location",
+      },
     })
     .populate({ path: "field", select: "-_id -__v -location" })
     .exec()
