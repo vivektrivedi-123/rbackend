@@ -73,8 +73,7 @@ exports.companyUploadImage = async (req, res, next) => {
     if (err) {
       console.log(err);
     } else {
-      // item.save();
-      res.redirect("/");
+      item.save();
     }
   });
 };
