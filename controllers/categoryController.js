@@ -5,7 +5,11 @@ const location = require("../models/location");
 const company = require("../models/company");
 
 exports.getCategory = async (req, res, next) => {
+  const pageSize = 20;
+  const pageNumber = 1;
   let category = await Category.find()
+    .skip((pageNumber - 1) * pageSize)
+    .limit(20)
     .select("-_id -__v")
     .populate({
       path: "location",

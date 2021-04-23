@@ -3,7 +3,11 @@ const mongoose = require("mongoose");
 const _ = require("lodash");
 
 exports.getCompany = async (req, res, next) => {
+  const pageSize = 20;
+  const pageNumber = 1;
   Company.find()
+    .skip((pageNumber - 1) * pageSize)
+    .limit(20)
     .select("-_id -__v")
     .exec()
     .then((data) => {
@@ -55,6 +59,24 @@ exports.addCompany = async (req, res, next) => {
         res.status(400).json(err);
       });
   }
+};
+exports.companyUploadImage = async (req, res, next) => {
+  var obj = {
+    profile_image: {
+      data: fs.readFileSync(
+        path.join(__dirname + "/uploads/" + req.file.filename)
+      ),
+      contentType: "image/png",
+    },
+  };
+  imgModel.create(obj, (err, item) => {
+    if (err) {
+      console.log(err);
+    } else {
+      // item.save();
+      res.redirect("/");
+    }
+  });
 };
 exports.updateCompany = async (req, res, next) => {
   let id = req.params.id;

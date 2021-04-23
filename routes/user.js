@@ -15,12 +15,19 @@ app.use(express.json());
 router.get("/api/v1/user", userController.getUser);
 //get by ID
 router.get("/api/v1/user/:id", userController.getUserById);
-//job
+//post
 router.post(
   "/api/v1/user",
   userValidation(),
   validateSchema,
   userController.addUser
+);
+//uploadImage
+router.post(
+  "/api/v1/uploadImage",
+  userValidation(),
+  validateSchema,
+  userController.userUploadImage
 );
 //update
 router.put(

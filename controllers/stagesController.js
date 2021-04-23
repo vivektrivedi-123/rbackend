@@ -7,7 +7,11 @@ const department = require("../models/department");
 const company = require("../models/company");
 
 exports.getStage = async (req, res, next) => {
+  const pageSize = 20;
+  const pageNumber = 1;
   Stage.find()
+    .skip((pageNumber - 1) * pageSize)
+    .limit(20)
     .select("-_id -__v")
     .populate({
       path: "job",

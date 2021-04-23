@@ -3,7 +3,12 @@ const mongoose = require("mongoose");
 const _ = require("lodash");
 
 exports.getRoles = async (req, res, next) => {
-  let role = await Role.find().select("-_id -__v");
+  const pageSize = 20;
+  const pageNumber = 1;
+  let role = await Role.find()
+    .skip((pageNumber - 1) * pageSize)
+    .limit(20)
+    .select("-_id -__v");
   if (!role) {
     res.status(404).send("Role Not Found");
   } else {

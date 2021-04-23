@@ -20,6 +20,13 @@ router.post(
   validateSchema,
   companyController.addCompany
 );
+//uploadImage
+router.post(
+  "/api/v1/compUploadImage",
+  compValidation(),
+  validateSchema,
+  companyController.companyUploadImage
+);
 //update
 router.put(
   "/api/v1/company/:id",

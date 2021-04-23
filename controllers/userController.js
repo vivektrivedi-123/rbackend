@@ -8,8 +8,11 @@ const company = require("../models/company");
 const role = require("../models/role");
 
 exports.getUser = async (req, res, next) => {
-  //const PER_PAGE = 10;
+  const pageSize = 20;
+  const pageNumber = 1;
   User.find()
+    .skip((pageNumber - 1) * pageSize)
+    .limit(20)
     .select("-_id -__v")
     .populate("company", "company_name -_id")
     .populate("role", "role_name -_id")
@@ -61,6 +64,24 @@ exports.addUser = async (req, res, next) => {
 
   //const token = jwt.sign({ _id: user.id }, process.env.SECRET_KEY);
   res.status(200).send("User Added Successfully");
+};
+exports.userUploadImage = async (req, res, next) => {
+  var obj = {
+    profile_image: {
+      data: fs.readFileSync(
+        path.join(__dirname + "/uploads/" + req.file.filename)
+      ),
+      contentType: "image/png",
+    },
+  };
+  imgModel.create(obj, (err, item) => {
+    if (err) {
+      console.log(err);
+    } else {
+      // item.save();
+      res.redirect("/");
+    }
+  });
 };
 
 exports.updateUser = async (req, res, next) => {
