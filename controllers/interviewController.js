@@ -43,7 +43,15 @@ exports.getInterview = async (req, res, next) => {
       path: "stages",
       select: "-_id -__v -job",
     })
-
+    .populate({
+      path: "application",
+      select: "-_id -__v",
+      populate: {
+        path: "forms",
+        select: "-_id -__v -job ",
+        populate: { path: "field", select: "-_id -__v -location" },
+      },
+    })
     .then((data) => {
       res.status(200).json({
         results: data,
