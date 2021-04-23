@@ -33,6 +33,15 @@ exports.getComment = async (req, res, next) => {
         populate: { path: "category", select: "-_id -__v -location" },
       },
     })
+    .populate({
+      path: "application",
+      select: "-_id -__v",
+      populate: {
+        path: "forms",
+        select: "-_id -__v -job",
+        populate: { path: "field", select: "-_id -__v -location" },
+      },
+    })
     .exec()
     .then((data) => {
       res.status(200).json({
@@ -76,8 +85,9 @@ exports.getCommentById = async (req, res, next) => {
       path: "application",
       select: "-_id -__v",
       populate: {
-        path: "form",
-        select: "-_id -__v",
+        path: "forms",
+        select: "-_id -__v -job",
+        populate: { path: "field", select: "-_id -__v -location" },
       },
     })
     .exec()

@@ -6,8 +6,6 @@ const location = require("./location");
 
 const interviewSchema = new mongoose.Schema(
   {
-    job: [{ type: mongoose.Schema.Types.ObjectId, ref: "job", required: true }],
-
     application: [
       {
         type: mongoose.Schema.Types.ObjectId,
@@ -15,14 +13,14 @@ const interviewSchema = new mongoose.Schema(
         required: true,
       },
     ],
-    stage: [
+    stages: [
       { type: mongoose.Schema.Types.ObjectId, ref: "stages", required: true },
     ],
     subject: { type: String, required: true },
     scheduled_date: { type: String, required: true },
     scheduled_time: { type: String, required: true },
     scheduled_timezone: { type: String, required: true },
-    duration: { type: Number, required: true },
+    duration: { type: String, required: true },
     recommendations: { type: String, required: true },
     interviewer: { type: String, required: true },
     rating: { type: Number, required: true },

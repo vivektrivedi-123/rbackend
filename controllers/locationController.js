@@ -40,8 +40,6 @@ exports.addLocation = async (req, res, next) => {
   if (location) {
     res.status(409).send("Location Already Exists");
   } else {
-    //const locs = await Location.find().populate("company");
-    //console.log(locs);
     let locations = new Location(
       _.pick(req.body, [
         "company",

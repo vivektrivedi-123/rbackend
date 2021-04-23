@@ -1,6 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const form = require("../models/form");
+const forms = require("../models/forms");
 const job = require("../models/job");
 const Application = require("../models/application");
 const _ = require("lodash");
@@ -26,6 +26,7 @@ exports.getApplication = async (req, res, next) => {
         },
       },
     })
+
     .populate({
       path: "job",
       select: "-_id -__v ",
@@ -34,7 +35,11 @@ exports.getApplication = async (req, res, next) => {
         select: "-_id -__v -location",
       },
     })
-    .populate({ path: "form" })
+    .populate({
+      path: "forms",
+      select: "-_id -__v -job",
+      populate: { path: "field", select: "-_id -__v -location" },
+    })
     .exec()
     .then((data) => {
       res.status(200).json({
@@ -85,7 +90,7 @@ exports.addApplication = async (req, res, next) => {
   let applications = await new Application(
     _.pick(req.body, [
       "job",
-      "form",
+      "forms",
       "form_values",
       "resume",
       "origin",

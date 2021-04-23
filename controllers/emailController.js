@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const _ = require("lodash");
 const application = require("../models/application");
 const location = require("../models/location");
+const forms = require("../models/forms");
 
 exports.getEmail = async (req, res, next) => {
   Email.find()
@@ -31,10 +32,19 @@ exports.getEmail = async (req, res, next) => {
       populate: {
         path: "job",
         select: "-_id -__v",
-        populate: { path: "category", select: "-_id -__v" },
+        populate: { path: "category", select: "-_id -__v -location" },
       },
     })
-    .populate({ path: "form", select: "-job -_id -__v" })
+    .populate({
+      path: "application",
+      select: "-_id -__v",
+      populate: {
+        path: "forms",
+        select: "-_id -__v -job",
+        populate: { path: "field", select: "-_id -__v -location" },
+      },
+    })
+
     .exec()
     .then((data) => {
       res.status(200).json({
@@ -72,10 +82,18 @@ exports.getEmailById = async (req, res, next) => {
       populate: {
         path: "job",
         select: "-_id -__v",
-        populate: { path: "category", select: "-_id -__v" },
+        populate: { path: "category", select: "-_id -__v -location" },
       },
     })
-    .populate({ path: "form", select: "-job -_id -__v" })
+    .populate({
+      path: "application",
+      select: "-_id -__v",
+      populate: {
+        path: "forms",
+        select: "-_id -__v -job",
+        populate: { path: "field", select: "-_id -__v -location" },
+      },
+    })
 
     .exec()
     .then((data) => {

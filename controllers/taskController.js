@@ -1,6 +1,6 @@
 const express = require("express");
-const Task = require("../models/task");
 const mongoose = require("mongoose");
+const Task = require("../models/task");
 const _ = require("lodash");
 const application = require("../models/application");
 
@@ -30,10 +30,18 @@ exports.getTask = async (req, res, next) => {
       populate: {
         path: "job",
         select: "-_id -__v",
-        populate: { path: "category", select: "-_id -__v" },
+        populate: { path: "category", select: "-_id -__v -location" },
       },
     })
-    .populate({ path: "form", select: "-job -_id -__v" })
+    .populate({
+      path: "application",
+      select: "-_id -__v",
+      populate: {
+        path: "forms",
+        select: "-_id -__v -job",
+        populate: { path: "field", select: "-_id -__v -location" },
+      },
+    })
     .exec()
     .then((data) => {
       res.status(200).json({
@@ -70,10 +78,18 @@ exports.getTaskById = async (req, res, next) => {
       populate: {
         path: "job",
         select: "-_id -__v",
-        populate: { path: "category", select: "-_id -__v" },
+        populate: { path: "category", select: "-_id -__v -location" },
       },
     })
-    .populate({ path: "form", select: "-job -_id -__v" })
+    .populate({
+      path: "application",
+      select: "-_id -__v",
+      populate: {
+        path: "forms",
+        select: "-_id -__v -job",
+        populate: { path: "field", select: "-_id -__v -location" },
+      },
+    })
     .exec()
     .then((data) => {
       res.status(200).json({
@@ -85,7 +101,7 @@ exports.getTaskById = async (req, res, next) => {
     });
 };
 exports.addTask = async (req, res, next) => {
-  let tasks = await new Task(
+  let tasks = new Task(
     _.pick(req.body, [
       "application",
       "title",

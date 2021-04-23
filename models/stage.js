@@ -4,7 +4,7 @@ const job = require("./job");
 const stageSchema = new mongoose.Schema(
   {
     job: [{ type: mongoose.Schema.Types.ObjectId, ref: "job", required: true }],
-    stage: { type: String, required: true },
+    stages: { type: String, required: true },
     status: { type: String, required: true },
     created_by: { type: String },
     modified_by: { type: String },
@@ -12,4 +12,4 @@ const stageSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("stage", stageSchema);
+module.exports = mongoose.model("stages", stageSchema);

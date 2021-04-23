@@ -2,10 +2,7 @@ const { body, validationResult } = require("express-validator");
 
 const interviewValidation = () => {
   return [
-    body("subject").isLength({ min: 3, max: 15 }),
-    body("scheduled_date").isAfter(Date.now()),
-    body("scheduled_time").isAfter(Date.now()),
-    body("duration").isNumeric({ min: 2 }),
+    body("duration").isLength({ min: 5, max: 10 }),
     body("recommendations").isLength({ min: 5 }),
     body("interviewer").isLength({ min: 5 }),
     body("notes").isLength({ min: 5, max: 50 }),
