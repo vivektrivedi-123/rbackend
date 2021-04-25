@@ -1,6 +1,8 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
+// const multer = require("multer");
+// const upload = multer({dest:'/uploads/'});
 const bcrypt = require("bcryptjs");
 const _ = require("lodash");
 const User = require("../models/user");
