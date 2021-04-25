@@ -8,11 +8,10 @@ const department = require("../models/department");
 const category = require("../models/category");
 
 exports.getApplication = async (req, res, next) => {
-  const pageSize = 20;
-  const pageNumber = 1;
+  const { page = 1, limit = 2 } = req.query;
   Application.find()
-    .skip((pageNumber - 1) * pageSize)
-    .limit(pageSize)
+  .limit(limit)
+  .skip((page - 1) * limit)
     .select("-_id -__v")
     .populate({
       path: "job",

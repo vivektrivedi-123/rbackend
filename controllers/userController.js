@@ -8,11 +8,10 @@ const company = require("../models/company");
 const role = require("../models/role");
 
 exports.getUser = async (req, res, next) => {
-  const limit = 1;
-  const page = req.query.page
+  const { page = 1, limit = 2 } = req.query;
   User.find()
+    .limit(limit)
     .skip((page - 1) * limit)
-    //.limit(10)
     .select("-_id -__v")
     .populate("company", "company_name -_id")
     .populate("role", "role_name -_id")
@@ -26,9 +25,11 @@ exports.getUser = async (req, res, next) => {
       res.status(404).json(err);
     });
 };
+
 exports.getUserById = async (req, res, next) => {
   User.findById({ _id: req.params.id })
-    .populate("company", "company_name -id")
+    .select("-_id -__v")
+    .populate("company", "company_name -_id")
     .populate("role", "role_name -_id")
     .exec()
     .then((data) => {
@@ -38,6 +39,7 @@ exports.getUserById = async (req, res, next) => {
     })
 
     .catch((err) => {
+      console.log(err);
       res.status(404).json(err);
     });
 };
@@ -65,6 +67,7 @@ exports.addUser = async (req, res, next) => {
   //const token = jwt.sign({ _id: user.id }, process.env.SECRET_KEY);
   res.status(200).send("User Added Successfully");
 };
+//upload image
 exports.userUploadImage = async (req, res, next) => {
   var obj = {
     profile_image: {
