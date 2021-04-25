@@ -7,7 +7,7 @@ exports.getCompany = async (req, res, next) => {
   const pageNumber = 1;
   Company.find()
     .skip((pageNumber - 1) * pageSize)
-    .limit(20)
+    .limit(pageSize)
     .select("-_id -__v")
     .exec()
     .then((data) => {

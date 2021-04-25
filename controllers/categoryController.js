@@ -9,7 +9,7 @@ exports.getCategory = async (req, res, next) => {
   const pageNumber = 1;
   let category = await Category.find()
     .skip((pageNumber - 1) * pageSize)
-    .limit(20)
+    .limit(pageSize)
     .select("-_id -__v")
     .populate({
       path: "location",

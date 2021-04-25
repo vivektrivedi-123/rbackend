@@ -7,7 +7,7 @@ exports.getRoles = async (req, res, next) => {
   const pageNumber = 1;
   let role = await Role.find()
     .skip((pageNumber - 1) * pageSize)
-    .limit(20)
+    .limit(pageSize)
     .select("-_id -__v");
   if (!role) {
     res.status(404).send("Role Not Found");

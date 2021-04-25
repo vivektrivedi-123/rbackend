@@ -10,7 +10,7 @@ exports.getTask = async (req, res, next) => {
   Task.find()
     .select("-_id -__v")
     .skip((pageNumber - 1) * pageSize)
-    .limit(20)
+    .limit(pageSize)
     .populate({
       path: "application",
       select: "-_id -__v",
