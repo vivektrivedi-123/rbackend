@@ -7,10 +7,11 @@ const location = require("../models/location");
 const stages = require("../models/stage");
 
 exports.getInterview = async (req, res, next) => {
-  const { page = 1, limit = 2 } = req.query;
+  const skip = parseInt(req.query.skip);
+  const limit = parseInt(req.query.limit); 
   Interview.find()
+  .skip(skip)
     .limit(limit)
-    .skip((page - 1) * limit)
     .select("-_id -__v")
     .populate({
       path: "application",

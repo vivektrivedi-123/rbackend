@@ -5,11 +5,13 @@ const _ = require("lodash");
 const application = require("../models/application");
 
 exports.getTask = async (req, res, next) => {
-  const { page = 1, limit = 2 } = req.query;
+  const skip = parseInt(req.query.skip);
+  const limit = parseInt(req.query.limit); 
   Task.find()
     .select("-_id -__v")
+    .skip(skip)
     .limit(limit)
-    .skip((page - 1) * limit)
+    
     .populate({
       path: "application",
       select: "-_id -__v",

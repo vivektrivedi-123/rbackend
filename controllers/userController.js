@@ -10,10 +10,11 @@ const company = require("../models/company");
 const role = require("../models/role");
 
 exports.getUser = async (req, res, next) => {
-  const { page = 1, limit = 2 } = req.query;
+  const skip = parseInt(req.query.skip);
+  const limit = parseInt(req.query.limit); 
   User.find()
+    .skip(skip)
     .limit(limit)
-    .skip((page - 1) * limit)
     .select("-_id -__v")
     .populate("company", "company_name -_id")
     .populate("role", "role_name -_id")

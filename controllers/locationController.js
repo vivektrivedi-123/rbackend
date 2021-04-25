@@ -5,10 +5,11 @@ const company = require("../models/company");
 const Location = require("../models/location");
 
 exports.getLocation = async (req, res, next) => {
-  const { page = 1, limit = 2 } = req.query;
+  const skip = parseInt(req.query.skip);
+  const limit = parseInt(req.query.limit); 
   Location.find()
   .limit(limit)
-  .skip((page - 1) * limit)
+  .skip(skip)
     .select("-_id -__v")
     .populate({ path: "company", select: "-_id -__v" })
     .exec()
