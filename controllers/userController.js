@@ -7,7 +7,7 @@ const _ = require("lodash");
 const User = require("../models/user");
 const company = require("../models/company");
 const role = require("../models/role");
-const profile_image = multer({
+const upload = multer({
   limits: {
     fileSize: 1000000,
   },
@@ -81,7 +81,7 @@ exports.addUser = async (req, res, next) => {
 
 // upload image
 (exports.uploadImage = "/api/v1/upload"),
-  profile_image.single("profile_image"),
+  upload.single("profile_image"),
   async (req, res, next) => {
     req.user.profile_image = req.file.buffer;
     await req.user.save();
