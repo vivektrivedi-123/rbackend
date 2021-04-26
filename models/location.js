@@ -14,7 +14,7 @@ const locationSchema = new mongoose.Schema(
     location_street: { type: String, required: true },
     location_city: { type: String, required: true },
     location_state: { type: String, required: true },
-    jobal_code: { type: Number, required: true },
+    postal_code: { type: Number, required: true },
     country_id: { type: Number, required: true },
     website: { type: String, required: true },
     contact: { type: Number, required: true },

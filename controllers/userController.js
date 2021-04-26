@@ -1,17 +1,26 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
-// const multer = require("multer");
-// const upload = multer({dest:'/uploads/'});
+const multer = require("multer");
 const bcrypt = require("bcryptjs");
 const _ = require("lodash");
 const User = require("../models/user");
 const company = require("../models/company");
 const role = require("../models/role");
+const profile_image = multer({
+  limits: {
+    fileSize: 1000000,
+  },
+  fileFilter(req, file, cb) {
+    if (!file.originalname.match(/\.(jpg|png|JPG|PNG|JPEG|jpeg)$/))
+      return cb(new Error("This is not a correct format of the file"));
+    cb(undefined, true);
+  },
+});
 
 exports.getUser = async (req, res, next) => {
   const skip = parseInt(req.query.skip);
-  const limit = parseInt(req.query.limit); 
+  const limit = parseInt(req.query.limit);
   User.find()
     .skip(skip)
     .limit(limit)
@@ -66,29 +75,21 @@ exports.addUser = async (req, res, next) => {
   user.password = await bcrypt.hash(user.password, salt);
 
   await user.save();
-
   //const token = jwt.sign({ _id: user.id }, process.env.SECRET_KEY);
   res.status(200).send("User Added Successfully");
 };
-//upload image
-exports.userUploadImage = async (req, res, next) => {
-  var obj = {
-    profile_image: {
-      data: fs.readFileSync(
-        path.join(__dirname + "/uploads/" + req.file.filename)
-      ),
-      contentType: "image/png",
-    },
-  };
-  imgModel.create(obj, (err, item) => {
-    if (err) {
-      console.log(err);
-    } else {
-      item.save();
-    }
-  });
-};
 
+// upload image
+(exports.uploadImage = "/api/v1/upload"),
+  profile_image.single("profile_image"),
+  async (req, res, next) => {
+    req.user.profile_image = req.file.buffer;
+    await req.user.save();
+    res.send(req.user);
+  },
+  (err, req, res, next) => res.status(404).send({ error: err });
+
+//update user
 exports.updateUser = async (req, res, next) => {
   let id = req.params.id;
   if (!req.params.id || req.params.id < 0)
@@ -97,11 +98,11 @@ exports.updateUser = async (req, res, next) => {
     if (err) console.log(err);
     else if (doc === null) res.status(400).send("Invalid Request");
   });
-
   let user = await User.findByIdAndUpdate({ _id: req.params.id }, req.body);
   res.status(200).json(user);
   await user.save();
 };
+//delete user
 exports.deleteUser = async (req, res, next) => {
   if (!req.params.id || req.params.id < 0)
     res.status(400).send("Invalid request");

@@ -4,11 +4,8 @@ const _ = require("lodash");
 
 exports.getRoles = async (req, res, next) => {
   const skip = parseInt(req.query.skip);
-  const limit = parseInt(req.query.limit); 
-  let role = await Role.find()
-  .skip(skip)
-  .limit(limit)
-    .select("-_id -__v");
+  const limit = parseInt(req.query.limit);
+  let role = await Role.find().skip(skip).limit(limit).select("-_id -__v");
   if (!role) {
     res.status(404).send("Role Not Found");
   } else {

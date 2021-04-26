@@ -8,9 +8,9 @@ const stages = require("../models/stage");
 
 exports.getInterview = async (req, res, next) => {
   const skip = parseInt(req.query.skip);
-  const limit = parseInt(req.query.limit); 
+  const limit = parseInt(req.query.limit);
   Interview.find()
-  .skip(skip)
+    .skip(skip)
     .limit(limit)
     .select("-_id -__v")
     .populate({

@@ -5,8 +5,6 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyparser = require("body-parser");
 const path = require("path");
-const fs = require("fs");
-const multer = require("multer");
 const paginate = require("express-paginate");
 const company = require("./routes/company");
 const role = require("./routes/roles");
@@ -48,16 +46,6 @@ app.use("/", location);
 app.use("/", options);
 app.use(error);
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "uploads");
-  },
-  filename: (req, file, cb) => {
-    cb(null, file.fieldname + "-" + Date.now());
-  },
-});
-
-const upload = multer({ storage: storage });
 mongoose
   .connect(
     "mongodb+srv://Apurva:apurva571@cluster0.beqgw.mongodb.net/p-hire?retryWrites=true&w=majority",

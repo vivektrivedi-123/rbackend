@@ -22,12 +22,12 @@ router.post(
   validateSchema,
   userController.addUser
 );
-//uploadImage
+//uploadImage;
 router.post(
-  "/api/v1/uploadImage",
+  "/api/v1/upload",
   userValidation(),
   validateSchema,
-  userController.userUploadImage
+  userController.uploadImage
 );
 //update
 router.put(

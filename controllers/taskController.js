@@ -6,12 +6,11 @@ const application = require("../models/application");
 
 exports.getTask = async (req, res, next) => {
   const skip = parseInt(req.query.skip);
-  const limit = parseInt(req.query.limit); 
+  const limit = parseInt(req.query.limit);
   Task.find()
     .select("-_id -__v")
     .skip(skip)
     .limit(limit)
-    
     .populate({
       path: "application",
       select: "-_id -__v",

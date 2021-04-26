@@ -8,10 +8,10 @@ const forms = require("../models/forms");
 
 exports.getEmail = async (req, res, next) => {
   const skip = parseInt(req.query.skip);
-  const limit = parseInt(req.query.limit); 
+  const limit = parseInt(req.query.limit);
   Email.find()
-  .skip(skip)
-  .limit(limit)
+    .skip(skip)
+    .limit(limit)
     .select("-_id -__v")
     .populate({
       path: "application",

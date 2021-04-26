@@ -6,10 +6,10 @@ const company = require("../models/company");
 //const PER_PAGE = 5;
 exports.getOptions = async (req, res, next) => {
   const skip = parseInt(req.query.skip);
-  const limit = parseInt(req.query.limit); 
+  const limit = parseInt(req.query.limit);
   Options.find()
-  .limit(limit)
-  .skip(skip)
+    .limit(limit)
+    .skip(skip)
     .select("-_id -__v")
     .populate({
       path: "location",

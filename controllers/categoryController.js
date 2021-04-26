@@ -6,10 +6,10 @@ const company = require("../models/company");
 
 exports.getCategory = async (req, res, next) => {
   const skip = parseInt(req.query.skip);
-  const limit = parseInt(req.query.limit); 
+  const limit = parseInt(req.query.limit);
   let category = await Category.find()
-  .skip(skip)
-  .limit(limit)
+    .skip(skip)
+    .limit(limit)
     .select("-_id -__v")
     .populate({
       path: "location",
