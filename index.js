@@ -5,7 +5,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyparser = require("body-parser");
 const path = require("path");
-const paginate = require("express-paginate");
+const multer = require("multer");
 const company = require("./routes/company");
 const role = require("./routes/roles");
 const user = require("./routes/user");
@@ -23,8 +23,11 @@ const task = require("./routes/jobTask");
 const location = require("./routes/location");
 const options = require("./routes/options");
 const app = express();
-
+const upload = multer({
+  dest: path.join(__dirname, "./upload"),
+});
 app.use("/public", express.static(path.join(__dirname, "static")));
+app.use("/upload", express.static("upload"));
 app.use(bodyparser.urlencoded({ extended: false }));
 app.use(express.json());
 

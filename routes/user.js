@@ -8,8 +8,34 @@ const router = express.Router();
 const company = require("../models/company");
 const Comp = require("../models/user");
 const role = require("../models/role");
+const multer = require("multer");
 const app = express();
 app.use(express.json());
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./upload");
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
+  },
+});
+
+const upload = multer({
+  storage: storage,
+  fileFilter: (req, file, cb) => {
+    if (
+      file.mimetype == "image/png" ||
+      file.mimetype == "image/jpg" ||
+      file.mimetype == "image/jpeg"
+    ) {
+      cb(null, true);
+    } else {
+      cb(null, false);
+      return cb(new Error("Only .png, .jpg and .jpeg format allowed!"));
+    }
+  },
+}).single("image");
 
 //get all
 router.get("/api/v1/user", userController.getUser);
@@ -18,17 +44,12 @@ router.get("/api/v1/user/:id", userController.getUserById);
 //post
 router.post(
   "/api/v1/user",
+  upload,
   userValidation(),
   validateSchema,
   userController.addUser
 );
-//uploadImage;
-router.post(
-  "/api/v1/upload",
-  userValidation(),
-  validateSchema,
-  userController.uploadImage
-);
+
 //update
 router.put(
   "/api/v1/user/:id",

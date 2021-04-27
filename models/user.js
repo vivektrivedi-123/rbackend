@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const fs = require("fs");
 const company = require("./company");
 const role = require("./role");
 const userSchema = new mongoose.Schema(
@@ -10,7 +11,6 @@ const userSchema = new mongoose.Schema(
         required: true,
       },
     ],
-
     role: [
       {
         type: mongoose.Schema.Types.ObjectId,
@@ -18,13 +18,12 @@ const userSchema = new mongoose.Schema(
         required: true,
       },
     ],
-
     first_name: { type: String, required: true, trim: true },
     last_name: { type: String, required: true },
     mobile_number: { type: Number, required: true },
     email: { type: String, required: true },
     password: { type: String, required: true },
-    profile_image: { data: Buffer, contentType: String },
+    profile_image: { type: String, required: true },
     created_by: { type: String },
     modified_by: { type: String },
   },

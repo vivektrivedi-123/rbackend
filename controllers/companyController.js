@@ -37,16 +37,17 @@ exports.addCompany = async (req, res, next) => {
   if (comp) {
     res.status(409).send("Company Already Exists");
   } else {
+    let logo = JSON.stringify(req.file.path);
     let company = await new Company(
       _.pick(req.body, [
         "company_name",
         "company_slug",
-        "company_logo",
         "industry_type",
         "created_by",
         "modified_by",
       ])
     );
+    company.company_logo = logo;
     company
       .save()
       .then((doc) => {
@@ -60,23 +61,7 @@ exports.addCompany = async (req, res, next) => {
       });
   }
 };
-exports.companyUploadImage = async (req, res, next) => {
-  var obj = {
-    profile_image: {
-      data: fs.readFileSync(
-        path.join(__dirname + "/uploads/" + req.file.filename)
-      ),
-      contentType: "image/png",
-    },
-  };
-  imgModel.create(obj, (err, item) => {
-    if (err) {
-      console.log(err);
-    } else {
-      item.save();
-    }
-  });
-};
+
 exports.updateCompany = async (req, res, next) => {
   let id = req.params.id;
   if (!req.params.id || req.params.id < 0)

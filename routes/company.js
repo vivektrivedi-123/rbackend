@@ -1,4 +1,3 @@
-//const auth = require("../middleware/auth");
 const companyController = require("../controllers/companyController");
 const express = require("express");
 const {
@@ -7,6 +6,31 @@ const {
 } = require("../validation/companyValidation");
 const router = express.Router();
 const Company = require("../models/company");
+const multer = require("multer");
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./upload");
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
+  },
+});
+
+const upload = multer({
+  storage: storage,
+  fileFilter: (req, file, cb) => {
+    if (
+      file.mimetype == "image/png" ||
+      file.mimetype == "image/jpg" ||
+      file.mimetype == "image/jpeg"
+    ) {
+      cb(null, true);
+    } else {
+      cb(null, false);
+      return cb(new Error("Only .png, .jpg and .jpeg format allowed!"));
+    }
+  },
+}).single("company_logo");
 
 //get all
 router.get("/api/v1/company", companyController.getCompany);
@@ -16,16 +40,10 @@ router.get("/api/v1/company/:id", companyController.getCompanyById);
 router.post(
   "/api/v1/company",
   //auth,
+  upload,
   compValidation(),
   validateSchema,
   companyController.addCompany
-);
-//uploadImage
-router.post(
-  "/api/v1/compUploadImage",
-  compValidation(),
-  validateSchema,
-  companyController.companyUploadImage
 );
 //update
 router.put(
