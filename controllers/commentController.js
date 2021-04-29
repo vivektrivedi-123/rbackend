@@ -1,8 +1,21 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const multer = require("multer");
+const path = require("path");
+const fs = require("fs");
 const Comment = require("../models/comments");
 const application = require("../models/application");
 const _ = require("lodash");
+// const upload = multer({
+//   limits: {
+//     fileSize: 1000000,
+//   },
+//   fileFilter(req, file, cb) {
+//     if (!file.originalname.match(/\.(doc|DOC|txt|pdf|TXT|PDF|jpg|png|JPG|PNG|JPEG|jpeg)$/))
+//       return cb(new Error("This is not a correct format of the file"));
+//     cb(undefined, true);
+//   },
+// });
 
 exports.getComment = async (req, res, next) => {
   const skip = parseInt(req.query.skip);
@@ -105,16 +118,18 @@ exports.getCommentById = async (req, res, next) => {
     });
 };
 exports.addComment = async (req, res, next) => {
+  let attachments = JSON.stringify(req.files);
+  console.log(req.files);
   let comments = await new Comment(
     _.pick(req.body, [
       "application",
       "comments",
-      "attachments",
       "status",
       "created_by",
       "modified_by",
     ])
   );
+  comments.attachments = attachments;
   comments
     .save()
     .then((doc) => {
@@ -124,6 +139,7 @@ exports.addComment = async (req, res, next) => {
       });
     })
     .catch((err) => {
+      console.log(err);
       res.status(400).json(err);
     });
 };

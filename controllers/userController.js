@@ -1,6 +1,7 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
+const flash = require("flash");
 const multer = require("multer");
 const fs = require("fs");
 const bcrypt = require("bcryptjs");
@@ -9,7 +10,6 @@ const User = require("../models/user");
 const company = require("../models/company");
 const role = require("../models/role");
 const user = require("../models/user");
-const { db } = require("../models/company");
 const upload = multer({
   limits: {
     fileSize: 1000000,
@@ -38,6 +38,7 @@ exports.getUser = async (req, res, next) => {
     })
     .catch((err) => {
       console.log(err);
+      req.flash('error','Unable to find user')
       res.status(404).json(err);
     });
 };

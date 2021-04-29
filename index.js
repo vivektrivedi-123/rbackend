@@ -23,12 +23,22 @@ const task = require("./routes/jobTask");
 const location = require("./routes/location");
 const options = require("./routes/options");
 const app = express();
+
 const upload = multer({
   dest: path.join(__dirname, "./upload"),
 });
+const attachments = multer({
+  dest: path.join(__dirname, "./attachments"),
+});
+
 app.use("/public", express.static(path.join(__dirname, "static")));
 app.use("/upload", express.static("upload"));
-app.use(bodyparser.urlencoded({ extended: false }));
+app.use("/attachments", express.static("attachments"));
+app.use(
+  bodyparser.urlencoded({
+    extended: true,
+  })
+);
 app.use(express.json());
 
 app.use("/", company);
