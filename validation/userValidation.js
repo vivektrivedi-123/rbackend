@@ -6,7 +6,7 @@ const userValidation = () => {
     body("last_name").isLength({ min: 3, max: 15 }),
     body("mobile_number").isMobilePhone().isLength(10),
     body("email").isEmail(),
-    body("password").isLength({ min: 5 }),
+    body("password").isLength({ min: 5 ,max:20}),
   ];
 };
 const validateSchema = (req, res, next) => {
