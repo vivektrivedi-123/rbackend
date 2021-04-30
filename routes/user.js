@@ -27,7 +27,10 @@ const upload = multer({
     if (
       file.mimetype == "image/png" ||
       file.mimetype == "image/jpg" ||
-      file.mimetype == "image/jpeg"
+      file.mimetype == "image/jpeg" ||
+      file.mimetype == "image/PNG" ||
+      file.mimetype == "image/JPG" ||
+      file.mimetype == "image/JPEG"
     ) {
       cb(null, true);
     } else {
@@ -35,12 +38,14 @@ const upload = multer({
       return cb(new Error("Only .png, .jpg and .jpeg format allowed!"));
     }
   },
-}).single("image");
+}).single("profile_image");
 
 //get all
 router.get("/api/v1/user", userController.getUser);
 //get by ID
 router.get("/api/v1/user/:id", userController.getUserById);
+//login user
+router.post("/api/v1/userLogin", userController.userLogin);
 //post
 router.post(
   "/api/v1/user",

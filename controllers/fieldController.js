@@ -9,7 +9,6 @@ exports.getField = async (req, res, next) => {
   Field.find()
     .skip(skip)
     .limit(limit)
-
     .select("-_id -__v")
     .populate({
       path: "location",

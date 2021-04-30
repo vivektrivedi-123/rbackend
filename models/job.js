@@ -22,7 +22,7 @@ const jobSchema = new mongoose.Schema(
     currency: { type: String, required: true },
     allow_employees: { type: String, required: true },
     status: { type: String, required: true },
-    job_code: { type: Number, required: true },
+    job_code: { type: String, required: true },
     job_slug: { type: String, required: true },
     created_by: { type: String },
     modified_by: { type: String },

@@ -7,24 +7,24 @@ const {
 const router = express.Router();
 const job = require("../models/job");
 
-router.get("/api/v1/job", jobController.getjob);
+router.get("/api/v1/job", jobController.getJob);
 
-router.get("/api/v1/job/:id", jobController.getjobById);
+router.get("/api/v1/job/:id", jobController.getJobById);
 
 router.post(
   "/api/v1/job",
   jobValidation(),
   validateSchema,
-  jobController.addjob
+  jobController.addJob
 );
 
 router.put(
   "/api/v1/job/:id",
   jobValidation(),
   validateSchema,
-  jobController.updatejob
+  jobController.updateJob
 );
 
-router.delete("/api/v1/job/:id", jobController.deletejob);
+router.delete("/api/v1/job/:id", jobController.deleteJob);
 
 module.exports = router;

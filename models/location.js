@@ -9,7 +9,6 @@ const locationSchema = new mongoose.Schema(
         required: true,
       },
     ],
-
     location_address: { type: String, required: true },
     location_street: { type: String, required: true },
     location_city: { type: String, required: true },

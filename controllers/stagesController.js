@@ -46,6 +46,29 @@ exports.getStage = async (req, res, next) => {
 };
 exports.getStageById = async (req, res, next) => {
   Stage.findById({ _id: req.params.id })
+    .select("-_id -__v")
+    .populate({
+      path: "job",
+      select: "-_id -__v",
+      populate: {
+        path: "department",
+        select: "-_id -__v",
+        populate: {
+          path: "location ",
+          select: "-_id -__v",
+          populate: { path: "company", select: "-_id -__v" },
+        },
+      },
+    })
+    .populate({
+      path: "job",
+      select: "-_id -__v ",
+      populate: {
+        path: "category",
+        select: "-_id -__v -location",
+      },
+    })
+
     .exec()
     .then((data) => {
       res.status(200).json({
@@ -81,12 +104,13 @@ exports.updateStage = async (req, res, next) => {
   let id = req.params.id;
   if (!req.params.id || req.params.id < 0)
     res.status(400).send("Invalid Request");
-  Stage.findOne({ _id: req.params.id }, function (err, doc) {
+  Stage.findOne({ _id: req.params.id }, (err, doc) => {
     if (err) console.log(err);
     else if (doc === null) res.status(400).send("Invalid Request");
   });
-  let update = await Stage.findByIdAndUpdate({ _id: req.params.id }, req.body);
-  res.status(200).json(update);
+  let stage = await Stage.findByIdAndUpdate({ _id: req.params.id }, req.body);
+  res.status(200).json(stage);
+  await stage.save();
 };
 exports.deleteStage = async (req, res, next) => {
   if (!req.params.id || req.params.id < 0)

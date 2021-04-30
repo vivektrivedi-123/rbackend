@@ -60,6 +60,24 @@ exports.getUserById = async (req, res, next) => {
       res.status(404).json(err);
     });
 };
+exports.userLogin = async(req,res,next) =>{
+    const email = req.body;
+    let user = await User.findOne({email})
+        .then(() =>{
+         if(!user) res.send('User does not exists')
+         else{
+            bcrypt.compare(req.body.password,user.password,(err,isvalid) =>{
+                if(err) res.status(500).json(err)
+                else if(isvalid) res.status(200).send("loggedIN")
+                else res.status(403).json({error:'wrong password'})
+            })
+        }
+    })
+    
+
+}
+
+
 exports.addUser = async (req, res, next) => {
   let image = JSON.stringify(req.file.path);
   let user = new User(

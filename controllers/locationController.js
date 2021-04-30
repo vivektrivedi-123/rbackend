@@ -51,7 +51,7 @@ exports.addLocation = async (req, res, next) => {
         "location_street",
         "location_city",
         "location_state",
-        "jobal_code",
+        "postal_code",
         "country_id",
         "website",
         "contact",
@@ -68,6 +68,7 @@ exports.addLocation = async (req, res, next) => {
         });
       })
       .catch((err) => {
+        console.log(err);
         res.status(400).json(err);
       });
   }

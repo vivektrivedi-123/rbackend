@@ -156,7 +156,7 @@ exports.updateComment = async (req, res, next) => {
     { _id: req.params.id },
     req.body
   );
-  res.send(200).json(update);
+  res.status(200).send("updated");
 };
 
 exports.deleteComment = async (req, res, next) => {

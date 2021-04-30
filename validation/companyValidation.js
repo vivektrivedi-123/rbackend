@@ -4,7 +4,7 @@ const compValidation = () => {
   return [
     body("company_name").isLength({ min: 3, max: 50 }),
 
-    body("company_slug").isLength({ min: 5, max: 50 }),
+    body("company_slug").isLength({ min: 3, max: 50 }),
     body("industry_type").isLength({ min: 5, max: 50 }),
   ];
 };

@@ -5,7 +5,7 @@ const department = require("../models/department");
 const category = require("../models/category");
 const location = require("../models/location");
 const company = require("../models/company");
-exports.getjob = async (req, res, next) => {
+exports.getJob = async (req, res, next) => {
   const skip = parseInt(req.query.skip);
   const limit = parseInt(req.query.limit);
   Job.find()
@@ -35,7 +35,7 @@ exports.getjob = async (req, res, next) => {
       res.status(404).json(err);
     });
 };
-exports.getjobById = async (req, res, next) => {
+exports.getJobById = async (req, res, next) => {
   Job.findById({ _id: req.params.id })
     .select("-_id -__v")
     .populate({
@@ -61,7 +61,7 @@ exports.getjobById = async (req, res, next) => {
       res.status(404).json(err);
     });
 };
-exports.addjob = async (req, res, next) => {
+exports.addJob = async (req, res, next) => {
   let job = await Job.findOne({ job_title: req.body.job_title });
   if (job) {
     res.status(409).send("job Already Exists");
@@ -101,22 +101,23 @@ exports.addjob = async (req, res, next) => {
       });
   }
 };
-exports.updatejob = async (req, res, next) => {
+exports.updateJob = async (req, res, next) => {
   let id = req.params.id;
   if (!req.params.id || req.params.id < 0)
     res.status(400).send("Invalid Request");
-  job.findOne({ _id: req.params.id }, function (err, doc) {
+  Job.findOne({ _id: req.params.id }, function (err, doc) {
     if (err) console.log(err);
     else if (doc === null) res.status(400).send("Invalid Request");
   });
-  let update = await job.findByIdAndUpdate({ _id: req.params.id }, req.body);
-  res.status(200).json(update);
+  let jobs = await Job.findByIdAndUpdate({ _id: req.params.id }, req.body);
+  res.status(200).send("updated");
+  await jobs.save();
 };
 
-exports.deletejob = async (req, res, next) => {
+exports.deleteJob = async (req, res, next) => {
   if (!req.params.id || req.params.id < 0)
     res.status(400).send("Invalid request");
-  job
+  Job
     .findByIdAndRemove({ _id: req.params.id })
     .then((doc) => {
       res.status(200).json({

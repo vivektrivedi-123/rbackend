@@ -53,6 +53,6 @@ router.put(
   companyController.updateCompany
 );
 //delete
-router.delete("api/v1/company/:id", companyController.deleteCompany);
+router.delete("/api/v1/company/:id", companyController.deleteCompany);
 
 module.exports = router;

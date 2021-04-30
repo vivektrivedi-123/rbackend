@@ -14,7 +14,7 @@ const jobValidation = () => {
     body("currency").isLength({ min: 5, max: 50 }),
     body("allow_employees").isLength({ min: 5, max: 50 }),
     body("status").isLength({ min: 5, max: 20 }),
-    body("job_code").isLength({ min: 5, max: 20 }),
+    body("job_code").isLength({ min: 3, max: 10 }),
     body("job_slug").isLength({ min: 5, max: 50 }),
   ];
 };

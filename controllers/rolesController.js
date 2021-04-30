@@ -29,7 +29,7 @@ exports.addRoles = async (req, res, next) => {
   } else {
     let roles = new Role(_.pick(req.body, ["role_name"]));
     await roles.save();
-    res.status(200).send("Registered");
+    res.status(200).send("Role Added ");
   }
 };
 
@@ -42,7 +42,7 @@ exports.updateRoles = async (req, res, next) => {
     else if (doc === null) res.status(400).send("Invalid Request");
   });
   let update = await Role.findByIdAndUpdate({ _id: req.params.id }, req.body);
-  res.status(200).json(update);
+  res.status(200).send("updated");
 };
 
 exports.deleteRoles = async (req, res, next) => {
@@ -51,11 +51,11 @@ exports.deleteRoles = async (req, res, next) => {
     res.status(400).send("Invalid Request");
   Role.findOne({ _id: req.params.id }, (err, doc) => {
     if (err) console.log(err);
-    else if (doc === null) res.status(400).send("Invalid Request");
+    else if (doc === null) res.send("Invalid Request").status(400);
   });
   Role.deleteOne({ _id: req.params.id }).then((result) => {
     if (result.deletedCount > 0) {
-      res.status(200).send({ message: `Deleted ${result.deletedCount} item.` });
+      res.status(200).send({ message: `Deleted ${result.deletedCount} role.` });
     } else {
       res.status(404).send(`Delete failed `);
     }
