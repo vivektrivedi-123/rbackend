@@ -38,7 +38,7 @@ exports.getUser = async (req, res, next) => {
     })
     .catch((err) => {
       console.log(err);
-      req.flash('error','Unable to find user')
+      req.flash("error", "Unable to find user");
       res.status(404).json(err);
     });
 };
@@ -60,23 +60,28 @@ exports.getUserById = async (req, res, next) => {
       res.status(404).json(err);
     });
 };
-exports.userLogin = async(req,res,next) =>{
+exports.userLogin = async (req, res, next) => {
+  try {
     const email = req.body;
-    let user = await User.findOne({email})
-        .then(() =>{
-         if(!user) res.send('User does not exists')
-         else{
-            bcrypt.compare(req.body.password,user.password,(err,isvalid) =>{
-                if(err) res.status(500).json(err)
-                else if(isvalid) res.status(200).send("loggedIN")
-                else res.status(403).json({error:'wrong password'})
-            })
-        }
-    })
-    
-
-}
-
+    let user = await User.findOne({ email: req.body.email });
+    if (!user) {
+      res.send("User does not exists");
+    } else {
+      const token = jwt.sign({ _id: user.id }, process.env.SECRET_KEY);
+      res.header("authToken", token).status(200);
+      console.log(token);
+      bcrypt.compare(req.body.password, user.password, (err, isvalid) => {
+        if (err) {
+          res.status(404).json(err);
+          console.log(err);
+        } else if (isvalid) res.status(200).json(token);
+        else res.status(403).send("wrong password");
+      });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 exports.addUser = async (req, res, next) => {
   let image = JSON.stringify(req.file.path);

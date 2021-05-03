@@ -1,7 +1,7 @@
 const { body, validationResult } = require("express-validator");
 
 const roleValidation = () => {
-  return [body("role_name").isLength({ min: 5, max: 20 })];
+  return [body("role_name").isLength({ min: 3, max: 20 })];
 };
 const validateSchema = (req, res, next) => {
   const errors = validationResult(req);

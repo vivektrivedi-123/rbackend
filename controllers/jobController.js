@@ -117,8 +117,7 @@ exports.updateJob = async (req, res, next) => {
 exports.deleteJob = async (req, res, next) => {
   if (!req.params.id || req.params.id < 0)
     res.status(400).send("Invalid request");
-  Job
-    .findByIdAndRemove({ _id: req.params.id })
+  Job.findByIdAndRemove({ _id: req.params.id })
     .then((doc) => {
       res.status(200).json({
         message: "job Deleted Successfully",

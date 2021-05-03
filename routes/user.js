@@ -5,6 +5,7 @@ const {
   validateSchema,
 } = require("../validation/userValidation");
 const router = express.Router();
+const auth = require("../middleware/auth");
 const company = require("../models/company");
 const Comp = require("../models/user");
 const role = require("../models/role");
@@ -41,7 +42,7 @@ const upload = multer({
 }).single("profile_image");
 
 //get all
-router.get("/api/v1/user", userController.getUser);
+router.get("/api/v1/user", auth, userController.getUser);
 //get by ID
 router.get("/api/v1/user/:id", userController.getUserById);
 //login user
