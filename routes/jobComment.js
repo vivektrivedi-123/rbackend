@@ -5,6 +5,7 @@ const {
   validateSchema,
 } = require("../validation/commentValidation");
 const router = express.Router();
+const auth = require("../middleware/auth");
 const Comment = require("../models/comments");
 const multer = require("multer");
 const storage = multer.diskStorage({
@@ -16,7 +17,7 @@ const storage = multer.diskStorage({
   },
 });
 
-const attachments = multer({ storage: storage }).array("attachments",4);
+const attachments = multer({ storage: storage }).array("attachments", 4);
 
 router.get("/api/v1/comment", commentController.getComment);
 
@@ -24,6 +25,7 @@ router.get("/api/v1/comment/:id", commentController.getCommentById);
 
 router.post(
   "/api/v1/comment",
+  auth,
   attachments,
   commentValidation(),
   validateSchema,
@@ -32,11 +34,12 @@ router.post(
 
 router.put(
   "/api/v1/comment/:id",
+  auth,
   commentValidation(),
   validateSchema,
   commentController.updateComment
 );
 
-router.delete("/api/v1/comment/:id", commentController.deleteComment);
+router.delete("/api/v1/comment/:id", auth, commentController.deleteComment);
 
 module.exports = router;

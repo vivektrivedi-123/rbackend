@@ -5,6 +5,7 @@ const {
   validateSchema,
 } = require("../validation/rolesValidation");
 const router = express.Router();
+const auth = require("../middleware/auth");
 const Role = require("../models/role");
 
 router.get("/api/v1/role", rolesController.getRoles);
@@ -13,6 +14,7 @@ router.get("/api/v1/role/:id", rolesController.getRolesById);
 
 router.post(
   "/api/v1/role",
+  auth,
   roleValidation(),
   validateSchema,
   rolesController.addRoles
@@ -20,10 +22,11 @@ router.post(
 
 router.put(
   "/api/v1/role/:id",
+  auth,
   roleValidation(),
   validateSchema,
   rolesController.updateRoles
 );
 
-router.delete("/api/v1/role/:id", rolesController.deleteRoles);
+router.delete("/api/v1/role/:id", auth, rolesController.deleteRoles);
 module.exports = router;

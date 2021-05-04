@@ -23,14 +23,14 @@ exports.getRolesById = async (req, res, next) => {
 };
 
 exports.addRoles = async (req, res, next) => {
-  let role = await Role.findOne({ role_name: req.body.role_name });
-  if (role) {
-    res.status(409).send("Role Already Exists");
-  } else {
-    let roles = new Role(_.pick(req.body, ["role_name"]));
-    await roles.save();
-    res.status(200).send("Role Added ");
-  }
+  // let role = await Role.findOne({ role_name: req.body.role_name });
+  // if (role) {
+  //   res.status(409).send("Role Already Exists");
+  // } else {
+  let roles = new Role(_.pick(req.body, ["role_name"]));
+  await roles.save();
+  res.status(200).send("Role Added ");
+  //}
 };
 
 exports.updateRoles = async (req, res, next) => {

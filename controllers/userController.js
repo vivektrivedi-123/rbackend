@@ -6,6 +6,8 @@ const multer = require("multer");
 const fs = require("fs");
 const bcrypt = require("bcryptjs");
 const _ = require("lodash");
+const refreshTokenSecret = process.env.SECRET_KEY;
+const refreshTokens = [];
 const User = require("../models/user");
 const company = require("../models/company");
 const role = require("../models/role");
@@ -68,8 +70,14 @@ exports.userLogin = async (req, res, next) => {
       res.send("User does not exists");
     } else {
       const token = jwt.sign({ _id: user.id }, process.env.SECRET_KEY);
-      res.header("authToken", token).status(200);
-      console.log(token);
+      res.header("authorization", token).status(200);
+      const refreshToken = jwt.sign({ username: user.username, role: user.role }, refreshTokenSecret);
+      refreshTokens.push(refreshToken);
+
+      res.json({
+          accessToken,
+          refreshToken
+      });
       bcrypt.compare(req.body.password, user.password, (err, isvalid) => {
         if (err) {
           res.status(404).json(err);
@@ -80,6 +88,17 @@ exports.userLogin = async (req, res, next) => {
     }
   } catch (error) {
     console.log(error);
+  }
+};
+exports.userLogout = async (req, res, next) => {
+  try {
+    const token = req.header("authorization");
+    refreshTokens = refreshTokens.filter((token) => t !== token);
+
+    res.send("Logout successful");
+  } catch (err) {
+    console.log(err);
+    res.status(404).send("Unsuccessful");
   }
 };
 
@@ -102,7 +121,6 @@ exports.addUser = async (req, res, next) => {
   const salt = await bcrypt.genSalt(10);
   user.password = await bcrypt.hash(user.password, salt);
   await user.save();
-  //const token = jwt.sign({ _id: user.id }, process.env.SECRET_KEY);
   res.status(200).send("User Added Successfully");
 };
 
@@ -119,6 +137,7 @@ exports.updateUser = async (req, res, next) => {
   res.status(200).json(user);
   await user.save();
 };
+
 //delete user
 exports.deleteUser = async (req, res, next) => {
   if (!req.params.id || req.params.id < 0)

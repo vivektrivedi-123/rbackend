@@ -1,5 +1,6 @@
 const jobController = require("../controllers/jobController");
 const isAdmin = require("../middleware/admin");
+const auth = require("../middleware/auth");
 const express = require("express");
 const {
   jobValidation,
@@ -14,7 +15,7 @@ router.get("/api/v1/job/:id", jobController.getJobById);
 
 router.post(
   "/api/v1/job",
-  isAdmin,
+  auth,
   jobValidation(),
   validateSchema,
   jobController.addJob
@@ -22,12 +23,12 @@ router.post(
 
 router.put(
   "/api/v1/job/:id",
-  isAdmin,
+  auth,
   jobValidation(),
   validateSchema,
   jobController.updateJob
 );
 
-router.delete("/api/v1/job/:id",isAdmin ,jobController.deleteJob);
+router.delete("/api/v1/job/:id", auth, jobController.deleteJob);
 
 module.exports = router;

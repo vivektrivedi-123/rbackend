@@ -1,5 +1,6 @@
 const categoryController = require("../controllers/categoryController");
 const express = require("express");
+const auth = require("../middleware/auth");
 const category = require("../models/category");
 const {
   categoryValidation,
@@ -13,6 +14,7 @@ router.get("/api/v1/category/:id", categoryController.getCategoryById);
 
 router.post(
   "/api/v1/category",
+  auth,
   categoryValidation(),
   validateSchema,
   categoryController.addCategory
@@ -20,11 +22,12 @@ router.post(
 
 router.put(
   "/api/v1/category/:id",
+  auth,
   categoryValidation(),
   validateSchema,
   categoryController.updateCategory
 );
 
-router.delete("/api/v1/category/:id", categoryController.deleteCategory);
+router.delete("/api/v1/category/:id", auth, categoryController.deleteCategory);
 
 module.exports = router;

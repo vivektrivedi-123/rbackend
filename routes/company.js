@@ -1,3 +1,4 @@
+const jwt = require("jsonwebtoken");
 const companyController = require("../controllers/companyController");
 const express = require("express");
 const {
@@ -5,6 +6,7 @@ const {
   validateSchema,
 } = require("../validation/companyValidation");
 const router = express.Router();
+const auth = require("../middleware/auth");
 const Company = require("../models/company");
 const multer = require("multer");
 const storage = multer.diskStorage({
@@ -33,13 +35,13 @@ const upload = multer({
 }).single("company_logo");
 
 //get all
-router.get("/api/v1/company", companyController.getCompany);
+router.get("/api/v1/company",companyController.getCompany);
 //get by ID
 router.get("/api/v1/company/:id", companyController.getCompanyById);
 //job
 router.post(
   "/api/v1/company",
-  //auth,
+  auth,
   upload,
   compValidation(),
   validateSchema,
@@ -48,11 +50,12 @@ router.post(
 //update
 router.put(
   "/api/v1/company/:id",
+  auth,
   compValidation(),
   validateSchema,
   companyController.updateCompany
 );
 //delete
-router.delete("/api/v1/company/:id", companyController.deleteCompany);
+router.delete("/api/v1/company/:id", auth, companyController.deleteCompany);
 
 module.exports = router;

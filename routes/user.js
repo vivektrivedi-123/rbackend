@@ -42,7 +42,7 @@ const upload = multer({
 }).single("profile_image");
 
 //get all
-router.get("/api/v1/user", auth, userController.getUser);
+router.get("/api/v1/user", userController.getUser);
 //get by ID
 router.get("/api/v1/user/:id", userController.getUserById);
 //login user
@@ -51,19 +51,22 @@ router.post("/api/v1/userLogin", userController.userLogin);
 router.post(
   "/api/v1/user",
   upload,
+  auth,
   userValidation(),
   validateSchema,
   userController.addUser
 );
-
+//logout
+router.post("/api/v1/userLogout", userController.userLogout);
 //update
 router.put(
   "/api/v1/user/:id",
+  auth,
   userValidation(),
   validateSchema,
   userController.updateUser
 );
 //delete
-router.delete("/api/v1/user/:id", userController.deleteUser);
+router.delete("/api/v1/user/:id", auth, userController.deleteUser);
 
 module.exports = router;

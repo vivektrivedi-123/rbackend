@@ -6,6 +6,7 @@ const {
 } = require("../validation/interviewValidation");
 const _ = require("lodash");
 const router = express.Router();
+const auth = require("../middleware/auth");
 const Interview = require("../models/interview");
 
 router.get("/api/v1/interview", interviewController.getInterview);
@@ -14,6 +15,7 @@ router.get("/api/v1/interview/:id", interviewController.getInterviewById);
 
 router.post(
   "/api/v1/interview",
+  auth,
   interviewValidation(),
   validateSchema,
   interviewController.addInterview
@@ -21,11 +23,16 @@ router.post(
 
 router.put(
   "/api/v1/interview/:id",
+  auth,
   interviewValidation(),
   validateSchema,
   interviewController.updateInterview
 );
 
-router.delete("/api/v1/interview/:id", interviewController.deleteInterview);
+router.delete(
+  "/api/v1/interview/:id",
+  auth,
+  interviewController.deleteInterview
+);
 
 module.exports = router;
