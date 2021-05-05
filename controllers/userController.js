@@ -6,8 +6,7 @@ const multer = require("multer");
 const fs = require("fs");
 const bcrypt = require("bcryptjs");
 const _ = require("lodash");
-const refreshTokenSecret = process.env.SECRET_KEY;
-const refreshTokens = [];
+var refreshTokens = [];
 const User = require("../models/user");
 const company = require("../models/company");
 const role = require("../models/role");
@@ -69,32 +68,36 @@ exports.userLogin = async (req, res, next) => {
     if (!user) {
       res.send("User does not exists");
     } else {
-      const token = jwt.sign({ _id: user.id }, process.env.SECRET_KEY);
-      res.header("authorization", token).status(200);
-      const refreshToken = jwt.sign({ username: user.username, role: user.role }, refreshTokenSecret);
+      const token = jwt.sign({ _id: user.id }, process.env.SECRET_KEY, {
+        expiresIn: "30s",
+      });
+      res.header("Authorization", token).status(200);
+      const refreshToken = jwt.sign({ _id: user.id }, process.env.SECRET_KEY);
+      res.header("refreshToken", refreshToken);
       refreshTokens.push(refreshToken);
-
       res.json({
-          accessToken,
-          refreshToken
+        token,
+        refreshToken,
       });
       bcrypt.compare(req.body.password, user.password, (err, isvalid) => {
         if (err) {
-          res.status(404).json(err);
+          res.status(403).json(err).send("wrong password");
           console.log(err);
-        } else if (isvalid) res.status(200).json(token);
-        else res.status(403).send("wrong password");
+        }
       });
     }
   } catch (error) {
     console.log(error);
   }
 };
+
+//userLogout
 exports.userLogout = async (req, res, next) => {
   try {
-    const token = req.header("authorization");
-    refreshTokens = refreshTokens.filter((token) => t !== token);
-
+    const token = req.header("Authorization");
+    console.log(token);
+    refreshTokens = refreshTokens.filter((t) => t !== token);
+    console.log(refreshTokens);
     res.send("Logout successful");
   } catch (err) {
     console.log(err);
@@ -102,6 +105,7 @@ exports.userLogout = async (req, res, next) => {
   }
 };
 
+//add user
 exports.addUser = async (req, res, next) => {
   let image = JSON.stringify(req.file.path);
   let user = new User(
