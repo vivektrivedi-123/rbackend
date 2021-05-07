@@ -1,7 +1,7 @@
-module.exports = function (req, res, next) { 
-
-    
-    if (!req.user.role === admin) return res.status(401).send('Access denied Admin');
-  
-    next();
-  }
+const role = require("../models/role");
+const user = require("../models/user");
+module.exports = function (req, res, next) {
+  if (!req.role === Admin)
+    return res.status(403).send("Access denied. Not Admin!!");
+  next();
+};

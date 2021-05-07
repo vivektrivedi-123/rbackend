@@ -16,6 +16,7 @@ const upload = multer({
 exports.getCompany = async (req, res, next) => {
   const skip = parseInt(req.query.skip);
   const limit = parseInt(req.query.limit);
+
   Company.find()
     .skip(skip)
     .limit(limit)

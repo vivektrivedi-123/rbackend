@@ -40,7 +40,8 @@ const upload = multer({
     }
   },
 }).single("profile_image");
-
+//getMe
+router.get("/api/v1/user/me", auth,userController.getMe);
 //get all
 router.get("/api/v1/user", userController.getUser);
 //get by ID
@@ -56,8 +57,6 @@ router.post(
   validateSchema,
   userController.addUser
 );
-//logout
-router.post("/api/v1/userLogout", userController.userLogout);
 //update
 router.put(
   "/api/v1/user/:id",

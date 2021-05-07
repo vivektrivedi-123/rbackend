@@ -6,10 +6,9 @@ const multer = require("multer");
 const fs = require("fs");
 const bcrypt = require("bcryptjs");
 const _ = require("lodash");
-var refreshTokens = [];
 const User = require("../models/user");
 const company = require("../models/company");
-const role = require("../models/role");
+const Role = require("../models/role");
 const user = require("../models/user");
 const upload = multer({
   limits: {
@@ -21,10 +20,20 @@ const upload = multer({
     cb(undefined, true);
   },
 });
+exports.getMe = async (req, res, next) => {
+  const user = await User.findById(req.user._id)
+    .select("-password")
+    .select("-_id -__v")
+    .populate("company", "company_name -_id")
+    .populate("role", "role_name -_id")
+    .exec();
+  res.send(user);
+};
 
 exports.getUser = async (req, res, next) => {
   const skip = parseInt(req.query.skip);
   const limit = parseInt(req.query.limit);
+
   User.find()
     .skip(skip)
     .limit(limit)
@@ -39,7 +48,6 @@ exports.getUser = async (req, res, next) => {
     })
     .catch((err) => {
       console.log(err);
-      req.flash("error", "Unable to find user");
       res.status(404).json(err);
     });
 };
@@ -68,17 +76,15 @@ exports.userLogin = async (req, res, next) => {
     if (!user) {
       res.send("User does not exists");
     } else {
-      const token = jwt.sign({ _id: user.id }, process.env.SECRET_KEY, {
-        expiresIn: "30s",
-      });
+      const token = jwt.sign(
+        { _id: user.id, role: user.role },
+        process.env.SECRET_KEY,
+        {
+          expiresIn: "5m",
+        }
+      );
       res.header("Authorization", token).status(200);
-      const refreshToken = jwt.sign({ _id: user.id }, process.env.SECRET_KEY);
-      res.header("refreshToken", refreshToken);
-      refreshTokens.push(refreshToken);
-      res.json({
-        token,
-        refreshToken,
-      });
+      res.json({ token });
       bcrypt.compare(req.body.password, user.password, (err, isvalid) => {
         if (err) {
           res.status(403).json(err).send("wrong password");
@@ -91,41 +97,32 @@ exports.userLogin = async (req, res, next) => {
   }
 };
 
-//userLogout
-exports.userLogout = async (req, res, next) => {
-  try {
-    const token = req.header("Authorization");
-    console.log(token);
-    refreshTokens = refreshTokens.filter((t) => t !== token);
-    console.log(refreshTokens);
-    res.send("Logout successful");
-  } catch (err) {
-    console.log(err);
-    res.status(404).send("Unsuccessful");
-  }
-};
-
 //add user
 exports.addUser = async (req, res, next) => {
-  let image = JSON.stringify(req.file.path);
-  let user = new User(
-    _.pick(req.body, [
-      "company",
-      "role",
-      "first_name",
-      "last_name",
-      "mobile_number",
-      "email",
-      "password",
-      "created_by",
-      "modified_by",
-    ])
-  );
-  user.profile_image = image;
-  const salt = await bcrypt.genSalt(10);
-  user.password = await bcrypt.hash(user.password, salt);
-  await user.save();
-  res.status(200).send("User Added Successfully");
+ 
+  try {
+    let image = JSON.stringify(req.file.path);
+    let user = new User(
+      _.pick(req.body, [
+        "company",
+        "role",
+        "first_name",
+        "last_name",
+        "mobile_number",
+        "email",
+        "password",
+        "created_by",
+        "modified_by",
+      ])
+    );
+    user.profile_image = image;
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(user.password, salt);
+    await user.save();
+    res.status(200).send("User Added Successfully");
+  } catch (err) {
+    res.json(err);
+  }
 };
 
 //update user

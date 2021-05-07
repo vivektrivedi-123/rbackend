@@ -7,6 +7,7 @@ const {
 } = require("../validation/companyValidation");
 const router = express.Router();
 const auth = require("../middleware/auth");
+const isAdmin = require("../middleware/admin");
 const Company = require("../models/company");
 const multer = require("multer");
 const storage = multer.diskStorage({
@@ -35,7 +36,7 @@ const upload = multer({
 }).single("company_logo");
 
 //get all
-router.get("/api/v1/company",companyController.getCompany);
+router.get("/api/v1/company", companyController.getCompany);
 //get by ID
 router.get("/api/v1/company/:id", companyController.getCompanyById);
 //job
