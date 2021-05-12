@@ -9,7 +9,6 @@ module.exports = function auth(req, res, next) {
           return res.status(403).send("Token Expired");
         } else {
           req.user = user;
-          req.user.role === "Admin";
           next();
         }
       });
