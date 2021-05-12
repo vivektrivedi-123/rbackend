@@ -8,9 +8,9 @@ const router = express.Router();
 const auth = require("../middleware/auth");
 const Location = require("../models/location");
 
-router.get("/api/v1/location", locationController.getLocation);
+router.get("/api/v1/location", auth, locationController.getLocation);
 
-router.get("/api/v1/location/:id", locationController.getLocationById);
+router.get("/api/v1/location/:id", auth, locationController.getLocationById);
 
 router.post(
   "/api/v1/location",

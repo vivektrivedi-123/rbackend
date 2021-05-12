@@ -19,9 +19,9 @@ const storage = multer.diskStorage({
 
 const attachments = multer({ storage: storage }).array("attachments", 4);
 
-router.get("/api/v1/comment", commentController.getComment);
+router.get("/api/v1/comment", auth, commentController.getComment);
 
-router.get("/api/v1/comment/:id", commentController.getCommentById);
+router.get("/api/v1/comment/:id", auth, commentController.getCommentById);
 
 router.post(
   "/api/v1/comment",

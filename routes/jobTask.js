@@ -8,9 +8,9 @@ const router = express.Router();
 const auth = require("../middleware/auth");
 const Task = require("../models/task");
 
-router.get("/api/v1/task", taskController.getTask);
+router.get("/api/v1/task", auth, taskController.getTask);
 
-router.get("/api/v1/task/:id", taskController.getTaskById);
+router.get("/api/v1/task/:id", auth, taskController.getTaskById);
 
 router.post(
   "/api/v1/task",

@@ -7,9 +7,9 @@ const express = require("express");
 const auth = require("../middleware/auth");
 const router = express.Router();
 
-router.get("/api/v1/department", deptController.getDept);
+router.get("/api/v1/department", auth, deptController.getDept);
 //get all
-router.get("/api/v1/department/:id", deptController.getDeptById);
+router.get("/api/v1/department/:id", auth, deptController.getDeptById);
 //job
 router.post(
   "/api/v1/department",

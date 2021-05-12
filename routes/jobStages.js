@@ -8,9 +8,9 @@ const router = express.Router();
 const auth = require("../middleware/auth");
 const Stage = require("../models/stage");
 
-router.get("/api/v1/stage", stagesController.getStage);
+router.get("/api/v1/stage", auth, stagesController.getStage);
 
-router.get("/api/v1/stage/:id", stagesController.getStageById);
+router.get("/api/v1/stage/:id", auth, stagesController.getStageById);
 
 router.post(
   "/api/v1/stage",

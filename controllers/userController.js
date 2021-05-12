@@ -10,6 +10,7 @@ const User = require("../models/user");
 const company = require("../models/company");
 const Role = require("../models/role");
 const user = require("../models/user");
+const role = require("../models/role");
 const upload = multer({
   limits: {
     fileSize: 1000000,
@@ -99,7 +100,6 @@ exports.userLogin = async (req, res, next) => {
 
 //add user
 exports.addUser = async (req, res, next) => {
- 
   try {
     let image = JSON.stringify(req.file.path);
     let user = new User(

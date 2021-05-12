@@ -8,9 +8,13 @@ const router = express.Router();
 const auth = require("../middleware/auth");
 const Application = require("../models/application");
 
-router.get("/api/v1/application", applicationController.getApplication);
+router.get("/api/v1/application", auth, applicationController.getApplication);
 
-router.get("/api/v1/application/:id", applicationController.getApplicationById);
+router.get(
+  "/api/v1/application/:id",
+  auth,
+  applicationController.getApplicationById
+);
 
 router.post(
   "/api/v1/application",

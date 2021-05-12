@@ -9,9 +9,9 @@ const {
 const router = express.Router();
 const job = require("../models/job");
 
-router.get("/api/v1/job", jobController.getJob);
+router.get("/api/v1/job", auth, jobController.getJob);
 
-router.get("/api/v1/job/:id", jobController.getJobById);
+router.get("/api/v1/job/:id", auth, jobController.getJobById);
 
 router.post(
   "/api/v1/job",

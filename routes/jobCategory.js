@@ -8,9 +8,9 @@ const {
 } = require("../validation/categoryValidation");
 const router = express.Router();
 
-router.get("/api/v1/category", categoryController.getCategory);
+router.get("/api/v1/category", auth, categoryController.getCategory);
 
-router.get("/api/v1/category/:id", categoryController.getCategoryById);
+router.get("/api/v1/category/:id", auth, categoryController.getCategoryById);
 
 router.post(
   "/api/v1/category",

@@ -43,9 +43,9 @@ const upload = multer({
 //getMe
 router.get("/api/v1/user/me", auth,userController.getMe);
 //get all
-router.get("/api/v1/user", userController.getUser);
+router.get("/api/v1/user", auth,userController.getUser);
 //get by ID
-router.get("/api/v1/user/:id", userController.getUserById);
+router.get("/api/v1/user/:id", auth,userController.getUserById);
 //login user
 router.post("/api/v1/userLogin", userController.userLogin);
 //post

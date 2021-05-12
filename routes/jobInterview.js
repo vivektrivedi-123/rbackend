@@ -9,9 +9,9 @@ const router = express.Router();
 const auth = require("../middleware/auth");
 const Interview = require("../models/interview");
 
-router.get("/api/v1/interview", interviewController.getInterview);
+router.get("/api/v1/interview", auth, interviewController.getInterview);
 
-router.get("/api/v1/interview/:id", interviewController.getInterviewById);
+router.get("/api/v1/interview/:id", auth, interviewController.getInterviewById);
 
 router.post(
   "/api/v1/interview",

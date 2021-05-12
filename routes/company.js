@@ -36,9 +36,9 @@ const upload = multer({
 }).single("company_logo");
 
 //get all
-router.get("/api/v1/company", companyController.getCompany);
+router.get("/api/v1/company", auth, companyController.getCompany);
 //get by ID
-router.get("/api/v1/company/:id", companyController.getCompanyById);
+router.get("/api/v1/company/:id", auth, companyController.getCompanyById);
 //job
 router.post(
   "/api/v1/company",

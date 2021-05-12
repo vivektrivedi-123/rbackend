@@ -8,9 +8,9 @@ const router = express.Router();
 const auth = require("../middleware/auth");
 const Options = require("../models/options");
 
-router.get("/api/v1/option", optionsController.getOptions);
+router.get("/api/v1/option", auth, optionsController.getOptions);
 
-router.get("/api/v1/option/:id", optionsController.getOptionsById);
+router.get("/api/v1/option/:id", auth, optionsController.getOptionsById);
 
 router.post(
   "/api/v1/option",

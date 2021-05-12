@@ -8,9 +8,9 @@ const router = express.Router();
 const auth = require("../middleware/auth");
 const Email = require("../models/email");
 
-router.get("/api/v1/email", emailController.getEmail);
+router.get("/api/v1/email", auth, emailController.getEmail);
 
-router.get("/api/v1/email/:id", emailController.getEmailById);
+router.get("/api/v1/email/:id", auth, emailController.getEmailById);
 
 router.post(
   "/api/v1/email",
@@ -20,7 +20,7 @@ router.post(
   emailController.addEmail
 );
 
-router.put("/api/v1/email/:id", auth,emailController.updateEmail);
+router.put("/api/v1/email/:id", auth, emailController.updateEmail);
 
-router.delete("/api/v1/email/:id",auth, emailController.deleteEmail);
+router.delete("/api/v1/email/:id", auth, emailController.deleteEmail);
 module.exports = router;
