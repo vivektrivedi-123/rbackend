@@ -41,11 +41,11 @@ const upload = multer({
   },
 }).single("profile_image");
 //getMe
-router.get("/api/v1/user/me", auth,userController.getMe);
+router.get("/api/v1/user/me", auth, userController.getMe);
 //get all
-router.get("/api/v1/user", auth,userController.getUser);
+router.get("/api/v1/user", auth, userController.getUser);
 //get by ID
-router.get("/api/v1/user/:id", auth,userController.getUserById);
+router.get("/api/v1/user/:id", auth, userController.getUserById);
 //login user
 router.post("/api/v1/userLogin", userController.userLogin);
 //post
