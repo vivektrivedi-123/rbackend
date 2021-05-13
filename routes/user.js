@@ -40,12 +40,40 @@ const upload = multer({
     }
   },
 }).single("profile_image");
-//getMe
-router.get("/api/v1/user/me", auth, userController.getMe);
+
+/**
+ * @swagger
+ * /users:
+ *   get:
+ *     description: Retrieve a list of users.
+ *     responses:
+ *       200:
+ *         description: A list of users.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       id:
+ *                         type: integer
+ *                         description: The user ID.
+ *                         example: 0
+ *                       first_name:
+ *                         type: string
+ *                         description: The user's name.
+ *                         example: Leanne Graham
+ */
 //get all
 router.get("/api/v1/user", auth, userController.getUser);
 //get by ID
 router.get("/api/v1/user/:id", auth, userController.getUserById);
+//getMe
+router.get("/api/v1/user/me", auth, userController.getMe);
 //login user
 router.post("/api/v1/userLogin", userController.userLogin);
 //post
