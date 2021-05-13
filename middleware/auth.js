@@ -13,7 +13,7 @@ module.exports = function auth(req, res, next) {
         }
       });
     } else {
-      res.status(401).send("Access denied.Not AuthorizedUser");
+      res.status(401).send("Access denied");
     }
   } catch (err) {
     console.log(err);
