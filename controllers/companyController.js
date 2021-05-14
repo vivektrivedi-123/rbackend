@@ -50,16 +50,22 @@ exports.addCompany = async (req, res, next) => {
     res.status(409).send("Company Already Exists");
   } else {
     let logo = JSON.stringify(req.file.path);
+    let favicon = JSON.stringify(req.file.path);
     let company = await new Company(
       _.pick(req.body, [
         "company_name",
-        "company_slug",
-        "industry_type",
+        "industry",
+        "company_language",
+        "date_format",
+        "employee_portal_name",
+        "change_logo",
+        "change_favicon",
         "created_by",
         "modified_by",
       ])
     );
     company.company_logo = logo;
+    company.change_favicon = favicon;
     company
       .save()
       .then((doc) => {

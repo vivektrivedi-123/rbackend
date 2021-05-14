@@ -72,8 +72,9 @@ exports.getUserById = async (req, res, next) => {
 };
 exports.userLogin = async (req, res, next) => {
   try {
+    const company = req.body;
     const email = req.body;
-    let user = await User.findOne({ email: req.body.email });
+    let user = await User.findOne({ email: req.body.email })
     if (!user) {
       res.send("User does not exists");
     } else {
@@ -85,7 +86,8 @@ exports.userLogin = async (req, res, next) => {
         }
       );
       res.header("Authorization", token).status(200);
-      res.json({ token });
+      res.json({ token, company });
+
       bcrypt.compare(req.body.password, user.password, (err, isvalid) => {
         if (err) {
           res.status(403).json(err).send("wrong password");
