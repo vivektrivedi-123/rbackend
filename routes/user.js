@@ -5,6 +5,7 @@ const {
   validateSchema,
 } = require("../validation/userValidation");
 const router = express.Router();
+const swagger = require("swagger-ui-express");
 const auth = require("../middleware/auth");
 const company = require("../models/company");
 const Comp = require("../models/user");
@@ -43,30 +44,47 @@ const upload = multer({
 
 /**
  * @swagger
- * /users:
- *   get:
- *     description: Retrieve a list of users.
- *     responses:
- *       200:
- *         description: A list of users.
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 data:
- *                   type: array
- *                   items:
- *                     type: object
- *                     properties:
- *                       id:
- *                         type: integer
- *                         description: The user ID.
- *                         example: 0
- *                       first_name:
- *                         type: string
- *                         description: The user's name.
- *                         example: Leanne Graham
+ *components:
+ *   schemas:
+ *     User:
+ *         type:object
+ *         required:
+ *             -company
+ *             -role
+ *             -first_name
+ *             -last_name
+ *             -email
+ *             -password
+ *             -mobile_number
+ *             -profile_image
+ *         properties:
+ *             id:
+ *                type:string
+ *                description:The auto-generated id of the book
+ *             company:
+ *                 type:string
+ *                 description:The company associated with user
+ *             role:
+ *                 type:string
+ *                 description:The role associated with user
+ *             first_name:
+ *                 type:string
+ *                 description:The First Name of the user
+ *             last_name:
+ *                 type:string
+ *                 description:the last_name of the user
+ *              email:
+ *                 type:string
+ *                 description:User's Email
+ *              password:
+ *                 type:string
+ *                 description:User's password
+ *              mobile_number:
+ *                 type:number
+ *                 description:User's mobile number
+ *              profile_image:
+ *                 type:string
+ *                 description:Profile image of user
  */
 //get all
 router.get("/api/v1/user", auth, userController.getUser);
