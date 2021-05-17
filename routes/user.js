@@ -42,43 +42,6 @@ const upload = multer({
   },
 }).single("profile_image");
 
-/**
- * @swagger
- * definitions:
- *  User:
- *   type: object
- *   properties:
- *    company:
- *     type: string
- *     description: name of the company
- *     example: 'Rudra Innovative Software'
- *    role:
- *     type: string
- *     description:Role of the user
- *     example: 'User/Admin'
- *    first_name:
- *     type: string
- *     description: First_name of the user
- *     example: 'Anmol'
- *    last_name:
- *     type: string
- *     description: Last name of the user
- *     example: 'Sharma'
- *    email:
- *     type: string
- *     description: Email of the User
- *     example: 'anmol@gmail.com'
- *    password:
- *     type: string
- *     description: password of the user
- *    mobile_number:
- *     type:number
- *     description:Mobile NUmber of the user
- *    profile_image:
- *     type:string
- *     description:Profile Picture of the user
- */
-
 //get all
 router.get("/api/v1/user", auth, userController.getUser);
 //get by ID
