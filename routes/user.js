@@ -44,48 +44,41 @@ const upload = multer({
 
 /**
  * @swagger
- *components:
- *   schemas:
- *     User:
- *         type:object
- *         required:
- *             -company
- *             -role
- *             -first_name
- *             -last_name
- *             -email
- *             -password
- *             -mobile_number
- *             -profile_image
- *         properties:
- *             id:
- *                type:string
- *                description:The auto-generated id of the book
- *             company:
- *                 type:string
- *                 description:The company associated with user
- *             role:
- *                 type:string
- *                 description:The role associated with user
- *             first_name:
- *                 type:string
- *                 description:The First Name of the user
- *             last_name:
- *                 type:string
- *                 description:the last_name of the user
- *              email:
- *                 type:string
- *                 description:User's Email
- *              password:
- *                 type:string
- *                 description:User's password
- *              mobile_number:
- *                 type:number
- *                 description:User's mobile number
- *              profile_image:
- *                 type:string
- *                 description:Profile image of user
+ * definitions:
+ *  User:
+ *   type: object
+ *   properties:
+ *    company:
+ *     type: string
+ *     description: name of the company
+ *     example: 'Rudra Innovative Software'
+ *    role:
+ *     type: string
+ *     description:Role of the user
+ *     example: 'User/Admin'
+ *    first_name:
+ *     type: string
+ *     description: First_name of the user
+ *     example: 'Anmol'
+ *    last_name:
+ *     type: string
+ *     description: Last name of the user
+ *     example: 'Sharma'
+ *    email:
+ *     type: string
+ *     description: Email of the User
+ *     example: 'anmol@gmail.com'
+ *    password:
+ *     type: string
+ *     description: password of the user
+ *    mobile_number:
+ *     type:number
+ *     description:Mobile NUmber of the user
+ *    profile_image:
+ *     type:string
+ *     description:Profile Picture of the user
  */
+
 //get all
 router.get("/api/v1/user", auth, userController.getUser);
 //get by ID

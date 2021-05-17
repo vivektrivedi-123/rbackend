@@ -21,7 +21,7 @@ const job = require("./routes/jobPosting");
 const stage = require("./routes/jobStages");
 const task = require("./routes/jobTask");
 const location = require("./routes/location");
-const options = require("./routes/options");
+const option = require("./routes/options");
 const app = express();
 
 const upload = multer({
@@ -56,11 +56,11 @@ app.use("/", job);
 app.use("/", stage);
 app.use("/", task);
 app.use("/", location);
-app.use("/", options);
+app.use("/", option);
 app.use(error);
 const swaggerUi = require("swagger-ui-express"),
   swaggerDocument = require("./swagger.json");
-
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 mongoose
   .connect(
     "mongodb+srv://Apurva:apurva571@cluster0.beqgw.mongodb.net/p-hire?retryWrites=true&w=majority",
@@ -74,5 +74,4 @@ mongoose
   .then(() => console.log("connected to database"))
   .catch((err) => console.log(err));
 
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.listen(3001, () => console.log(`listening on port 3001... `));
