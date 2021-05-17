@@ -79,9 +79,9 @@
         "description": "Create new user in system",
         "parameters": [
           {
-            "name": "user",
-            "in": "body",
-            "description": "User that we want to create",
+         "in": "body",
+          "name": "user",
+          "description": "The user to create.",
             "schema": {
               "$ref": "#/components/schemas/user"
             }
