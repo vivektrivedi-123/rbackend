@@ -3,10 +3,20 @@ const mongoose = require("mongoose");
 const forms = require("../models/forms");
 const job = require("../models/job");
 const Application = require("../models/application");
+const multer = require("multer");
 const _ = require("lodash");
 const department = require("../models/department");
 const category = require("../models/category");
-
+const upload = multer({
+  limits: {
+    fileSize: 1000000,
+  },
+  fileFilter(req, file, cb) {
+    if (!file.originalname.match(/\.(jpg|png|JPG|PNG|JPEG|jpeg)$/))
+      return cb(new Error("This is not a correct format of the file"));
+    cb(undefined, true);
+  },
+});
 exports.getApplication = async (req, res, next) => {
   const skip = parseInt(req.query.skip);
   const limit = parseInt(req.query.limit);
@@ -91,12 +101,12 @@ exports.getApplicationById = async (req, res, next) => {
     });
 };
 exports.addApplication = async (req, res, next) => {
+  let resume = JSON.stringify(req.file.path);
   let applications = await new Application(
     _.pick(req.body, [
       "job",
       "forms",
       "form_values",
-      "resume",
       "origin",
       "tags",
       "status",
@@ -111,6 +121,7 @@ exports.addApplication = async (req, res, next) => {
       "modified_by",
     ])
   );
+  applications.resume = resume;
   applications
     .save()
     .then((doc) => {

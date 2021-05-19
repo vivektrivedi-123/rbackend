@@ -22,6 +22,8 @@ const stage = require("./routes/jobStages");
 const task = require("./routes/jobTask");
 const location = require("./routes/location");
 const option = require("./routes/options");
+const swaggerUi = require("swagger-ui-express");
+const swaggerJsdoc = require("swagger-jsdoc");
 const app = express();
 
 const upload = multer({
@@ -30,6 +32,42 @@ const upload = multer({
 const attachments = multer({
   dest: path.join(__dirname, "./attachments"),
 });
+const options = {
+  definition: {
+    openapi: "3.0.0",
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: "http",
+          scheme: "bearer",
+        },
+      },
+    },
+    info: {
+      title: "P-Hire Application",
+      version: "1.0.0",
+      description: "P-Hire API application documentation",
+      license: {
+        name: "MIT",
+        url: "https://spdx.org/licenses/MIT.html",
+      },
+    },
+    servers: [
+      {
+       
+        url: "http://localhost:3001",
+      },
+    ],
+  },
+  apis: ["./routes/*.js"],
+};
+
+const specs = swaggerJsdoc(options);
+app.use(
+  "/api-docs",
+  swaggerUi.serve,
+  swaggerUi.setup(specs, { explorer: true })
+);
 
 app.use("/public", express.static(path.join(__dirname, "static")));
 app.use("/upload", express.static("upload"));
@@ -58,9 +96,7 @@ app.use("/", task);
 app.use("/", location);
 app.use("/", option);
 app.use(error);
-const swaggerUi = require("swagger-ui-express"),
-  swaggerDocument = require("./swagger.json");
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 mongoose
   .connect(
     "mongodb+srv://Apurva:apurva571@cluster0.beqgw.mongodb.net/p-hire?retryWrites=true&w=majority",
