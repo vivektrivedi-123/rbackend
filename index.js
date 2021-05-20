@@ -69,6 +69,7 @@ app.use(
   swaggerUi.serve,
   swaggerUi.setup(specs, { explorer: true })
 );
+app.use(cors())
 
 app.use("/public", express.static(path.join(__dirname, "static")));
 app.use("/upload", express.static("upload"));
