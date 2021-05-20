@@ -8,7 +8,7 @@ const companySchema = new mongoose.Schema(
     employee_portal_name: { type: String, required: true },
     employee_portal_url: { type: String, required: true },
     company_logo: { type: String, required: true },
-    change_favicon: { type: String, required: true },
+    favicon: { type: String, required: true },
     created_by: { type: String },
     modified_by: { type: String },
   },

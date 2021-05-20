@@ -33,9 +33,7 @@ const upload = multer({
 const attachments = multer({
   dest: path.join(__dirname, "./attachments"),
 });
-// const favicon = multer({
-//   dest: path.join(__dirname, "./favicon"),
-// });
+
 
 const options = {
   definition: {
@@ -77,7 +75,6 @@ app.use(cors());
 app.use("/public", express.static(path.join(__dirname, "static")));
 app.use("/upload", express.static("upload"));
 app.use("/attachments", express.static("attachments"));
-//app.use("/favicon", express.static("favicon"));
 app.use(
   bodyparser.urlencoded({
     extended: true,

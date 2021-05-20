@@ -3,7 +3,6 @@ const mongoose = require("mongoose");
 const multer = require("multer");
 const _ = require("lodash");
 const upload = multer({
- 
   fileFilter(req, file, cb) {
     if (!file.originalname.match(/\.(jpg|png|JPG|PNG|JPEG|jpeg)$/))
       return cb(new Error("This is not a correct format of the file"));
@@ -11,7 +10,6 @@ const upload = multer({
   },
 });
 const favicon = multer({
- 
   fileFilter(req, file, cb) {
     if (!file.originalname.match(/\.(jpg|png|JPG|PNG|JPEG|jpeg)$/))
       return cb(new Error("This is not a correct format of the file"));
@@ -55,8 +53,8 @@ exports.addCompany = async (req, res, next) => {
   if (comp) {
     res.status(409).send("Company Already Exists");
   } else {
-    let logo = JSON.stringify(req.file.path);
-    let favicon = JSON.stringify(req.file.path);
+    let logo = JSON.stringify(req.files);
+    let favicon = JSON.stringify(req.files);
     let company = await new Company(
       _.pick(req.body, [
         "company_name",
@@ -66,13 +64,13 @@ exports.addCompany = async (req, res, next) => {
         "employee_portal_name",
         "employee_portal_url",
         "company_logo",
-        "change_favicon",
+        "favicon",
         "created_by",
         "modified_by",
       ])
     );
     company.company_logo = logo;
-    company.change_favicon = favicon;
+    company.favicon = favicon;
     company
       .save()
       .then((doc) => {
@@ -82,6 +80,7 @@ exports.addCompany = async (req, res, next) => {
         });
       })
       .catch((err) => {
+        console.log(err);
         res.status(400).json(err);
       });
   }

@@ -72,8 +72,9 @@ exports.getUserById = async (req, res, next) => {
 };
 exports.userLogin = async (req, res, next) => {
   try {
-    const company = req.body;
+    
     const email = req.body;
+    const company = req.body;
     let user = await User.findOne({ email: req.body.email })
     if (!user) {
       res.send("User does not exists");
