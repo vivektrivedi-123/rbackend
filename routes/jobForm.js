@@ -7,33 +7,7 @@ const {
 const router = express.Router();
 const auth = require("../middleware/auth");
 const Form = require("../models/forms");
-/**
- * @swagger
- * tags :
- *   name: Form
- *   definitions:
- *     Form:
- *         type: object
- *         properties:
- *             id:
- *              type: string
- *              description: The auto-generated id of the form
- *             job:
- *              type: string
- *              description: The ID of the job
- *             field:
- *              type: string
- *              description: The ID of the field
- *             label:
- *              type: string
- *              description: The label for the form
- *             placeholder:
- *               type: string
- *               description : The placeholder in the form
- *             is_required:
- *                type: boolean
- *                description: required for not
- */
+
 
 /**
  * @swagger
@@ -52,18 +26,18 @@ router.get("/api/v1/form", auth, formController.getForm);
  * @swagger
  * tags:
  *   name: Form
- * /api/v1/role/{id}:
+ * /api/v1/form/{id}:
  *  get:
  *   tags: [Form]
- *   summary: Get role by ID
- *   description: Get role data by ID
+ *   summary: Get form by ID
+ *   description: Get form data by ID
  *   parameters:
  *    - in: path
  *      name: id
  *      schema:
  *       type: string
  *      required: true
- *      description: id of the role
+ *      description: id of the form
  *      example: id
  *   responses:
  *    200:
@@ -76,10 +50,10 @@ router.get("/api/v1/form/:id", auth, formController.getFormById);
  * @swagger
  * tags:
  *   name: Form
- * /api/v1/role:
+ * /api/v1/form:
  *  post:
  *      tags: [Form]
- *      summary: Add role
+ *      summary: Add form
  *      requestBody:
  *          required: true
  *          content:
@@ -107,11 +81,11 @@ router.post(
  * @swagger
  * tags:
  *   name: Form
- * /api/v1/role/{id}:
+ * /api/v1/form/{id}:
  *  put:
  *   tags: [Form]
- *   summary: update role
- *   description: update role
+ *   summary: update form
+ *   description: update form
  *   consumes:
  *    - application/json
  *   produces:
@@ -122,7 +96,7 @@ router.post(
  *      schema:
  *       type: integer
  *      required: true
- *      description: id of the role
+ *      description: id of the form
  *      example: 2
  *    - in: body
  *      name: body
@@ -205,18 +179,18 @@ router.put(
  * @swagger
  * tags:
  *   name: Form
- * /api/v1/role/{id}:
+ * /api/v1/form/{id}:
  *  delete:
  *   tags: [Form]
- *   summary: delete role
- *   description: delete role
+ *   summary: delete form
+ *   description: delete form
  *   parameters:
  *    - in: path
  *      name: id
  *      schema:
  *       type: string
  *      required: true
- *      description: id of the role
+ *      description: id of the form
  *      example: 2
  *   responses:
  *    200:

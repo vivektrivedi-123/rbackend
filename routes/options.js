@@ -7,26 +7,15 @@ const {
 const router = express.Router();
 const auth = require("../middleware/auth");
 const Options = require("../models/options");
-/**
- * @swagger
- *   definitions:
- *     Option:
- *         type: object
- *         properties:
- *             id:
- *              type: string
- *              description: The auto-generated id of the role
- *             role_name:
- *              type: string
- *              description: The role name
- */
 
 /**
  * @swagger
- *  description: This is for the main data
- * /api/v1/role:
+ * tags:
+ *  name: Options
+ * /api/v1/option:
  *  get:
- *      summary: Get all roles
+ *      tags: [Options]
+ *      summary: Get all Options
  *      responses:
  *          default:
  *              description: This is the default response for it
@@ -34,17 +23,20 @@ const Options = require("../models/options");
 router.get("/api/v1/option", auth, optionsController.getOptions);
 /**
  * @swagger
- * /api/v1/role/{id}:
+ * tags:
+ *  name: Options
+ * /api/v1/option/{id}:
  *  get:
- *   summary: Get role by ID
- *   description: Get role data by ID
+ *   tags: [Options]
+ *   summary: Get options by ID
+ *   description: Get options data by ID
  *   parameters:
  *    - in: path
  *      name: id
  *      schema:
  *       type: string
  *      required: true
- *      description: id of the role
+ *      description: id of the option
  *      example: id
  *   responses:
  *    200:
@@ -55,9 +47,12 @@ router.get("/api/v1/option", auth, optionsController.getOptions);
 router.get("/api/v1/option/:id", auth, optionsController.getOptionsById);
 /**
  * @swagger
- * /api/v1/role:
+ * tags:
+ *  name: Options
+ * /api/v1/option:
  *  post:
- *      summary: Add role
+ *      tags: [Options]
+ *      summary: Add option
  *      requestBody:
  *          required: true
  *          content:
@@ -65,9 +60,12 @@ router.get("/api/v1/option/:id", auth, optionsController.getOptionsById);
  *                  schema:
  *                      type: object
  *                      properties:
- *                          role_name:
+ *                          option_key:
+ *                              type: number
+ *                          option_value:
+ *                              type: number
+ *                          location:
  *                              type: string
- *                              default: admin
  *      responses:
  *          200:
  *             description: A successful response
@@ -83,10 +81,13 @@ router.post(
 );
 /**
  * @swagger
- * /api/v1/role/{id}:
+ * tags:
+ *  name: Options
+ * /api/v1/option/{id}:
  *  put:
- *   summary: update role
- *   description: update role
+ *   tags: [Options]
+ *   summary: update options
+ *   description: update options
  *   consumes:
  *    - application/json
  *   produces:
@@ -97,26 +98,50 @@ router.post(
  *      schema:
  *       type: integer
  *      required: true
- *      description: id of the role
+ *      description: id of the options
  *      example: 2
  *    - in: body
  *      name: body
  *      required: true
  *      description: body object
  *      schema:
- *       $ref: '#/definitions/Role'
+ *             id:
+ *              type: string
+ *              description: The auto-generated id of the role
+ *             option_key:
+ *              type: number
+ *             option_value:
+ *              type: number
+ *             location:
+ *              type: string
  *   requestBody:
  *    content:
  *     application/json:
  *      schema:
- *       $ref: '#/definitions/Role'
+ *             id:
+ *              type: string
+ *              description: The auto-generated id of the role
+ *             option_key:
+ *              type: number
+ *             option_value:
+ *              type: number
+ *             location:
+ *              type: string
  *   responses:
  *    200:
  *     description: success
  *     content:
  *      application/json:
  *       schema:
- *        $ref: '#/definitions/Role'
+ *             id:
+ *              type: string
+ *              description: The auto-generated id of the role
+ *             option_key:
+ *              type: number
+ *             option_value:
+ *              type: number
+ *             location:
+ *              type: string
  */
 router.put(
   "/api/v1/option/:id",
@@ -127,17 +152,20 @@ router.put(
 );
 /**
  * @swagger
- * /api/v1/role/{id}:
+ * tags:
+ *  name: Options
+ * /api/v1/option/{id}:
  *  delete:
- *   summary: delete role
- *   description: delete role
+ *   tags: [Options]
+ *   summary: delete options
+ *   description: delete options
  *   parameters:
  *    - in: path
  *      name: id
  *      schema:
  *       type: string
  *      required: true
- *      description: id of the role
+ *      description: id of the options
  *      example: 2
  *   responses:
  *    200:

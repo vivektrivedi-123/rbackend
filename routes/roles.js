@@ -7,25 +7,14 @@ const {
 const router = express.Router();
 const auth = require("../middleware/auth");
 const Role = require("../models/role");
-/**
- * @swagger
- *   definitions:
- *     Role:
- *         type: object
- *         properties:
- *             id:
- *              type: string
- *              description: The auto-generated id of the role
- *             role_name:
- *              type: string
- *              description: The role name
- */
 
 /**
  * @swagger
- *  description: This is for the main data
+ * tags:
+ *  name: Role
  * /api/v1/role:
  *  get:
+ *      tags: [Role]
  *      summary: Get all roles
  *      responses:
  *          default:
@@ -34,8 +23,11 @@ const Role = require("../models/role");
 router.get("/api/v1/role", auth, rolesController.getRoles);
 /**
  * @swagger
+ * tags:
+ *  name: Role
  * /api/v1/role/{id}:
  *  get:
+ *   tags: [Role]
  *   summary: Get role by ID
  *   description: Get role data by ID
  *   parameters:
@@ -55,8 +47,11 @@ router.get("/api/v1/role", auth, rolesController.getRoles);
 router.get("/api/v1/role/:id", auth, rolesController.getRolesById);
 /**
  * @swagger
+ * tags:
+ *  name: Role
  * /api/v1/role:
  *  post:
+ *      tags: [Role]
  *      summary: Add role
  *      requestBody:
  *          required: true
@@ -83,8 +78,11 @@ router.post(
 );
 /**
  * @swagger
+ * tags:
+ *  name: Role
  * /api/v1/role/{id}:
  *  put:
+ *   tags: [Role]
  *   summary: update role
  *   description: update role
  *   consumes:
@@ -104,19 +102,34 @@ router.post(
  *      required: true
  *      description: body object
  *      schema:
- *       $ref: '#/definitions/Role'
+ *             id:
+ *              type: string
+ *              description: The auto-generated id of the role
+ *             role_name:
+ *              type: string
+ *              description: The role name
  *   requestBody:
  *    content:
  *     application/json:
  *      schema:
- *       $ref: '#/definitions/Role'
+ *             id:
+ *              type: string
+ *              description: The auto-generated id of the role
+ *             role_name:
+ *              type: string
+ *              description: The role name         
  *   responses:
  *    200:
  *     description: success
  *     content:
  *      application/json:
  *       schema:
- *        $ref: '#/definitions/Role'
+ *             id:
+ *              type: string
+ *              description: The auto-generated id of the role
+ *             role_name:
+ *              type: string
+ *              description: The role name
  */
 router.put(
   "/api/v1/role/:id",
@@ -127,8 +140,11 @@ router.put(
 );
 /**
  * @swagger
+ * tags:
+ *  name: Role
  * /api/v1/role/{id}:
  *  delete:
+ *   tags: [Role]
  *   summary: delete role
  *   description: delete role
  *   parameters:

@@ -6,27 +6,15 @@ const {
 const express = require("express");
 const auth = require("../middleware/auth");
 const router = express.Router();
-/**
- * @swagger
- *   definitions:
- *     Department:
- *         type: object
- *         properties:
- *             id:
- *              type: string
- *              description: The auto-generated id of the department
- *             location:
- *              type: string
- *              description: The location ID
- *             department_name:
- *              type: string
- *              description: The department name
- */
+
 
 /**
  * @swagger
+ * tags :
+ *  name: Department
  * /api/v1/department:
  *  get:
+ *      tags: [Department]
  *      summary: Get all departments
  *      responses:
  *          default:
@@ -35,8 +23,11 @@ const router = express.Router();
 router.get("/api/v1/department", auth, deptController.getDept);
 /**
  * @swagger
+ * tags:
+ *  name: Department
  * /api/v1/department/{id}:
  *  get:
+ *   tags: [Department]
  *   summary: Get department by ID
  *   description: Get department data by ID
  *   parameters:
@@ -57,8 +48,11 @@ router.get("/api/v1/department", auth, deptController.getDept);
 router.get("/api/v1/department/:id", auth, deptController.getDeptById);
 /**
  * @swagger
+ * tags:
+ *  name: Department
  * /api/v1/department:
  *  post:
+ *      tags: [Department]
  *      summary: Add Department
  *      requestBody:
  *          required: true
@@ -89,8 +83,11 @@ router.post(
 );
 /**
  * @swagger
+ * tags:
+ *  name: Department
  * /api/v1/department/{id}:
  *  put:
+ *   tags: [Department]
  *   summary: update department
  *   description: update department
  *   consumes:
@@ -110,19 +107,43 @@ router.post(
  *      required: true
  *      description: body object
  *      schema:
- *       $ref: '#/definitions/Department'
+ *             id:
+ *              type: string
+ *              description: The auto-generated id of the department
+ *             location:
+ *              type: string
+ *              description: The location ID
+ *             department_name:
+ *              type: string
+ *              description: The department name
  *   requestBody:
  *    content:
  *     application/json:
  *      schema:
- *       $ref: '#/definitions/Department'
+ *             id:
+ *              type: string
+ *              description: The auto-generated id of the department
+ *             location:
+ *              type: string
+ *              description: The location ID
+ *             department_name:
+ *              type: string
+ *              description: The department name
  *   responses:
  *    200:
  *     description: success
  *     content:
  *      application/json:
  *       schema:
- *        $ref: '#/definitions/Department'
+ *             id:
+ *              type: string
+ *              description: The auto-generated id of the department
+ *             location:
+ *              type: string
+ *              description: The location ID
+ *             department_name:
+ *              type: string
+ *              description: The department name
  */
 //update
 router.put(
@@ -134,8 +155,11 @@ router.put(
 );
 /**
  * @swagger
+ * tags:
+ *  name: Department
  * /api/v1/department/{id}:
  *  delete:
+ *   tags: [Department]
  *   summary: delete department
  *   description: delete department
  *   parameters:

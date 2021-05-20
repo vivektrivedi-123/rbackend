@@ -7,75 +7,14 @@ const {
 const router = express.Router();
 const auth = require("../middleware/auth");
 const Application = require("../models/application");
-/**
- * @swagger
- *   definitions:
- *     Application:
- *         type: object
- *         properties:
- *             id:
- *              type: string
- *              description: The auto-generated id of the role
- *             job:
- *              type: string
- *              description: The job ID
- *             forms:
- *              type: string
- *              description: The form ID
- *             form_values:
- *              type: Number
- *              description: The value of the form
- *              example: 1234
- *             resume:
- *               type: string
- *               description: Applicant's resume
- *               example: resume.pdf
- *             origin:
- *               type: string
- *               description: Origin 
- *             tags:
- *               type: string
- *               description: Applicant's Tags
- *               example: #node #javascript
- *             status:
- *               type: string
- *               description: Status of the applicant
- *               example: active
- *             overall_rating:
- *               type: string
- *               description: Applicant's Overall Rating
- *               example: 4
- *             lead_owner:
- *               type: string
- *               description: Lead owner of the applicant
- *               example: Abcdef
- *             is_deleted:
- *               type: boolean
- *               description: Is the applicant deleted?
- *               example: true
- *             is_blocked:
- *               type: boolean
- *               description: Is the applicant blocked?
- *               example: false 
- *             social_profiles:
- *               type: string
- *               description: Applicant's Social Profiles
- *               example: LinkedIn account -abcdef 
- *             refer_by:
- *               type: string
- *               description: Reference of the applicant
- *               example: XYZ
- *             add_to_talent_pool:
- *               type: string
- *               description: Add to talent pool
- *               example: Yes  
- */ 
 
 /**
  * @swagger
- *  description: This is for the main data
+ * tags:
+ *  name: Application
  * /api/v1/application:
  *  get:
+ *      tags: [Application]
  *      summary: Get all application
  *      responses:
  *          default:
@@ -84,8 +23,11 @@ const Application = require("../models/application");
 router.get("/api/v1/application", auth, applicationController.getApplication);
 /**
  * @swagger
+ * tags:
+ *  name: Application
  * /api/v1/application/{id}:
  *  get:
+ *   tags: [Application]
  *   summary: Get application by ID
  *   description: Get application data by ID
  *   parameters:
@@ -109,8 +51,11 @@ router.get(
 );
 /**
  * @swagger
+ * tags:
+ *  name: Application
  * /api/v1/application:
  *  post:
+ *      tags: [Application]
  *      summary: Add application
  *      requestBody:
  *          required: true
@@ -191,8 +136,11 @@ router.post(
 );
 /**
  * @swagger
+ * tags:
+ *  name: Application
  * /api/v1/application/{id}:
  *  put:
+ *   tags: [Application]
  *   summary: update application
  *   description: update application
  *   consumes:
@@ -212,19 +160,184 @@ router.post(
  *      required: true
  *      description: body object
  *      schema:
- *       $ref: '#/definitions/Application'
+ *             id:
+ *              type: string
+ *              description: The auto-generated id of the role
+ *             job:
+ *              type: string
+ *              description: The job ID
+ *             forms:
+ *              type: string
+ *              description: The form ID
+ *             form_values:
+ *              type: Number
+ *              description: The value of the form
+ *              example: 1234
+ *             resume:
+ *               type: string
+ *               description: Applicant's resume
+ *               example: resume.pdf
+ *             origin:
+ *               type: string
+ *               description: Origin 
+ *             tags:
+ *               type: string
+ *               description: Applicant's Tags
+ *               example: #node #javascript
+ *             status:
+ *               type: string
+ *               description: Status of the applicant
+ *               example: active
+ *             overall_rating:
+ *               type: string
+ *               description: Applicant's Overall Rating
+ *               example: 4
+ *             lead_owner:
+ *               type: string
+ *               description: Lead owner of the applicant
+ *               example: Abcdef
+ *             is_deleted:
+ *               type: boolean
+ *               description: Is the applicant deleted?
+ *               example: true
+ *             is_blocked:
+ *               type: boolean
+ *               description: Is the applicant blocked?
+ *               example: false 
+ *             social_profiles:
+ *               type: string
+ *               description: Applicant's Social Profiles
+ *               example: LinkedIn account -abcdef 
+ *             refer_by:
+ *               type: string
+ *               description: Reference of the applicant
+ *               example: XYZ
+ *             add_to_talent_pool:
+ *               type: string
+ *               description: Add to talent pool
+ *               example: Yes 
  *   requestBody:
  *    content:
  *     application/json:
  *      schema:
- *       $ref: '#/definitions/Application'
+ *             id:
+ *              type: string
+ *              description: The auto-generated id of the role
+ *             job:
+ *              type: string
+ *              description: The job ID
+ *             forms:
+ *              type: string
+ *              description: The form ID
+ *             form_values:
+ *              type: Number
+ *              description: The value of the form
+ *              example: 1234
+ *             resume:
+ *               type: string
+ *               description: Applicant's resume
+ *               example: resume.pdf
+ *             origin:
+ *               type: string
+ *               description: Origin 
+ *             tags:
+ *               type: string
+ *               description: Applicant's Tags
+ *               example: #node #javascript
+ *             status:
+ *               type: string
+ *               description: Status of the applicant
+ *               example: active
+ *             overall_rating:
+ *               type: string
+ *               description: Applicant's Overall Rating
+ *               example: 4
+ *             lead_owner:
+ *               type: string
+ *               description: Lead owner of the applicant
+ *               example: Abcdef
+ *             is_deleted:
+ *               type: boolean
+ *               description: Is the applicant deleted?
+ *               example: true
+ *             is_blocked:
+ *               type: boolean
+ *               description: Is the applicant blocked?
+ *               example: false 
+ *             social_profiles:
+ *               type: string
+ *               description: Applicant's Social Profiles
+ *               example: LinkedIn account -abcdef 
+ *             refer_by:
+ *               type: string
+ *               description: Reference of the applicant
+ *               example: XYZ
+ *             add_to_talent_pool:
+ *               type: string
+ *               description: Add to talent pool
+ *               example: Yes 
  *   responses:
  *    200:
  *     description: success
  *     content:
  *      application/json:
  *       schema:
- *        $ref: '#/definitions/Application'
+ *             id:
+ *              type: string
+ *              description: The auto-generated id of the role
+ *             job:
+ *              type: string
+ *              description: The job ID
+ *             forms:
+ *              type: string
+ *              description: The form ID
+ *             form_values:
+ *              type: Number
+ *              description: The value of the form
+ *              example: 1234
+ *             resume:
+ *               type: string
+ *               description: Applicant's resume
+ *               example: resume.pdf
+ *             origin:
+ *               type: string
+ *               description: Origin 
+ *             tags:
+ *               type: string
+ *               description: Applicant's Tags
+ *               example: #node #javascript
+ *             status:
+ *               type: string
+ *               description: Status of the applicant
+ *               example: active
+ *             overall_rating:
+ *               type: string
+ *               description: Applicant's Overall Rating
+ *               example: 4
+ *             lead_owner:
+ *               type: string
+ *               description: Lead owner of the applicant
+ *               example: Abcdef
+ *             is_deleted:
+ *               type: boolean
+ *               description: Is the applicant deleted?
+ *               example: true
+ *             is_blocked:
+ *               type: boolean
+ *               description: Is the applicant blocked?
+ *               example: false 
+ *             social_profiles:
+ *               type: string
+ *               description: Applicant's Social Profiles
+ *               example: LinkedIn account -abcdef 
+ *             refer_by:
+ *               type: string
+ *               description: Reference of the applicant
+ *               example: XYZ
+ *             add_to_talent_pool:
+ *               type: string
+ *               description: Add to talent pool
+ *               example: Yes 
  */
 router.put(
   "/api/v1/application/:id",
@@ -235,8 +348,11 @@ router.put(
 );
 /**
  * @swagger
+ * tags:
+ *  name: Application
  * /api/v1/application/{id}:
  *  delete:
+ *   tags: [Application]
  *   summary: delete application
  *   description: delete application
  *   parameters:

@@ -7,26 +7,15 @@ const {
 const router = express.Router();
 const auth = require("../middleware/auth");
 const Location = require("../models/location");
-/**
- * @swagger
- *   definitions:
- *     Role:
- *         type: object
- *         properties:
- *             id:
- *              type: string
- *              description: The auto-generated id of the role
- *             role_name:
- *              type: string
- *              description: The role name
- */
 
 /**
  * @swagger
- *  description: This is for the main data
- * /api/v1/role:
+ * tags:
+ *  name: Location
+ * /api/v1/location:
  *  get:
- *      summary: Get all roles
+ *      tags: [Location]
+ *      summary: Get all locations
  *      responses:
  *          default:
  *              description: This is the default response for it
@@ -34,17 +23,20 @@ const Location = require("../models/location");
 router.get("/api/v1/location", auth, locationController.getLocation);
 /**
  * @swagger
- * /api/v1/role/{id}:
+ * tags:
+ *  name: Location
+ * /api/v1/location/{id}:
  *  get:
- *   summary: Get role by ID
- *   description: Get role data by ID
+ *   tags: [Location]
+ *   summary: Get location by ID
+ *   description: Get location data by ID
  *   parameters:
  *    - in: path
  *      name: id
  *      schema:
  *       type: string
  *      required: true
- *      description: id of the role
+ *      description: id of the location
  *      example: id
  *   responses:
  *    200:
@@ -55,9 +47,12 @@ router.get("/api/v1/location", auth, locationController.getLocation);
 router.get("/api/v1/location/:id", auth, locationController.getLocationById);
 /**
  * @swagger
- * /api/v1/role:
+ * tags:
+ *  name: Location
+ * /api/v1/location:
  *  post:
- *      summary: Add role
+ *      tags: [Location]
+ *      summary: Add location
  *      requestBody:
  *          required: true
  *          content:
@@ -65,9 +60,33 @@ router.get("/api/v1/location/:id", auth, locationController.getLocationById);
  *                  schema:
  *                      type: object
  *                      properties:
- *                          role_name:
+ *                          company:
  *                              type: string
- *                              default: admin
+ *                              default: The ID of the company
+ *                          location_address:
+ *                              type: string
+ *                              default: industrial area
+ *                          location_street:
+ *                              type: string
+ *                              default: phase 8b
+ *                          location_city:
+ *                              type: string
+ *                              default: mohali
+ *                          location_state:
+ *                              type: string
+ *                              default: Punjab
+ *                          postal_code:
+ *                              type: number
+ *                              default: 140301
+ *                          country_id:
+ *                              type: string
+ *                              default: 91
+ *                          website:
+ *                              type: string
+ *                              default: rudrainnovativesoftware.com
+ *                          contact:
+ *                              type: number
+ *                              default: 9856472156
  *      responses:
  *          200:
  *             description: A successful response
@@ -83,10 +102,13 @@ router.post(
 );
 /**
  * @swagger
- * /api/v1/role/{id}:
+ * tags:
+ *  name: Location
+ * /api/v1/location/{id}:
  *  put:
- *   summary: update role
- *   description: update role
+ *   tags: [Location]
+ *   summary: update location
+ *   description: update location
  *   consumes:
  *    - application/json
  *   produces:
@@ -97,27 +119,111 @@ router.post(
  *      schema:
  *       type: integer
  *      required: true
- *      description: id of the role
+ *      description: id of the location
  *      example: 2
  *    - in: body
  *      name: body
  *      required: true
  *      description: body object
  *      schema:
- *       $ref: '#/definitions/Role'
+ *       type: object
+ *       properties:
+ *                          company:
+ *                              type: string
+ *                              default: The ID of the company
+ *                          location_address:
+ *                              type: string
+ *                              default: industrial area
+ *                          location_street:
+ *                              type: string
+ *                              default: phase 8b
+ *                          location_city:
+ *                              type: string
+ *                              default: mohali
+ *                          location_state:
+ *                              type: string
+ *                              default: Punjab
+ *                          postal_code:
+ *                              type: number
+ *                              default: 140301
+ *                          country_id:
+ *                              type: string
+ *                              default: 91
+ *                          website:
+ *                              type: string
+ *                              default: rudrainnovativesoftware.com
+ *                          contact:
+ *                              type: number
+ *                              default: 9856472156
  *   requestBody:
  *    content:
  *     application/json:
  *      schema:
- *       $ref: '#/definitions/Role'
+ *        type: object
+ *        properties:
+ *                          company:
+ *                              type: string
+ *                              default: The ID of the company
+ *                          location_address:
+ *                              type: string
+ *                              default: industrial area
+ *                          location_street:
+ *                              type: string
+ *                              default: phase 8b
+ *                          location_city:
+ *                              type: string
+ *                              default: mohali
+ *                          location_state:
+ *                              type: string
+ *                              default: Punjab
+ *                          postal_code:
+ *                              type: number
+ *                              default: 140301
+ *                          country_id:
+ *                              type: string
+ *                              default: 91
+ *                          website:
+ *                              type: string
+ *                              default: rudrainnovativesoftware.com
+ *                          contact:
+ *                              type: number
+ *                              default: 9856472156
  *   responses:
  *    200:
  *     description: success
  *     content:
  *      application/json:
  *       schema:
- *        $ref: '#/definitions/Role'
- */
+ *         type: object
+ *         properties:
+ *                          company:
+ *                              type: string
+ *                              default: The ID of the company
+ *                          location_address:
+ *                              type: string
+ *                              default: industrial area
+ *                          location_street:
+ *                              type: string
+ *                              default: phase 8b
+ *                          location_city:
+ *                              type: string
+ *                              default: mohali
+ *                          location_state:
+ *                              type: string
+ *                              default: Punjab
+ *                          postal_code:
+ *                              type: number
+ *                              default: 140301
+ *                          country_id:
+ *                              type: string
+ *                              default: 91
+ *                          website:
+ *                              type: string
+ *                              default: rudrainnovativesoftware.com
+ *                          contact:
+ *                              type: number
+ *                              default: 9856472156
+*/
 router.put(
   "/api/v1/location/:id",
   auth,
@@ -127,17 +233,20 @@ router.put(
 );
 /**
  * @swagger
- * /api/v1/role/{id}:
+ * tags:
+ *  name: Location
+ * /api/v1/location/{id}:
  *  delete:
- *   summary: delete role
- *   description: delete role
+ *   tags: [Location]
+ *   summary: delete location
+ *   description: delete location
  *   parameters:
  *    - in: path
  *      name: id
  *      schema:
  *       type: string
  *      required: true
- *      description: id of the role
+ *      description: id of the location
  *      example: 2
  *   responses:
  *    200:

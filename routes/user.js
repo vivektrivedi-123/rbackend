@@ -41,56 +41,15 @@ const upload = multer({
     }
   },
 }).single("profile_image");
-/**
- * @swagger
- *   definitions:
- *     User:
- *         type: object
- *         properties:
- *             id:
- *              type: string
- *              description: The auto-generated id of the User
- *             company:
- *              type: string
- *              description: The company associated with user
- *             role:
- *              type: string
- *              description: The role associated with user
- *             first_name:
- *              type: string
- *              description: User's first Name
- *              example: "Apurva"
- *             last_name:
- *              type: string
- *              description: User's last_name
- *              example: "Jaitly"
- *             email:
- *              type: string
- *              description: User's Email
- *              example: "apurvajaitly@gmail.com"
- *             password:
- *              type:  string
- *              description: User's password
- *              example: "abcdef1234"
- *             mobile_number:
- *              type: number
- *              description: User's mobile number
- *              example: 9865748375
- *             profile_image:
- *              type: string
- *              description: User's profile image
- *              example: "uploadimage"
- *         required:
- *              -company
- *              -role
- *              -first_name
- */
+
 
 /**
  * @swagger
- *  description: This is for the main data
+ * tags:
+ *  name: User
  * /api/v1/user:
  *  get:
+ *      tags: [User]
  *      summary: Get all users
  *      responses:
  *          default:
@@ -101,8 +60,11 @@ const upload = multer({
 router.get("/api/v1/user", auth, userController.getUser);
 /**
  * @swagger
+ * tags:
+ *  name: User
  * /api/v1/user/{id}:
  *  get:
+ *   tags: [User]
  *   summary: Get user by ID
  *   description: Get user data by ID
  *   parameters:
@@ -123,8 +85,11 @@ router.get("/api/v1/user", auth, userController.getUser);
 router.get("/api/v1/user/:id", auth, userController.getUserById);
 /**
  * @swagger
+ * tags:
+ *  name: User
  * /api/v1/user/me:
  *  get:
+ *   tags: [User]
  *   summary: get user
  *   description: get user data
  *   parameters:
@@ -175,8 +140,11 @@ router.post("/api/v1/userLogin", userController.userLogin);
 
 /**
  * @swagger
+ * tags:
+ *  name: User
  * /api/v1/user:
  *  post:
+ *      tags: [User]
  *      summary: Add user
  *      requestBody:
  *          required: true
@@ -221,8 +189,11 @@ router.post(
 );
 /**
  * @swagger
+ * tags:
+ *  name: User
  * /api/v1/user/{id}:
  *  put:
+ *   tags: [User]
  *   summary: update user
  *   description: update user
  *   consumes:
@@ -323,8 +294,11 @@ router.put(
 );
 /**
  * @swagger
+ * tags:
+ *  name: User
  * /api/v1/user/{id}:
  *  delete:
+ *   tags: [User]
  *   summary: delete user
  *   description: delete user
  *   parameters:

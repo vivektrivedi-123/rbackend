@@ -2,6 +2,7 @@ require("express-async-errors");
 require("dotenv").config();
 const error = require("./middleware/error");
 const express = require("express");
+const cors = require("cors");
 const mongoose = require("mongoose");
 const bodyparser = require("body-parser");
 const path = require("path");

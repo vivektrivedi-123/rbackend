@@ -7,31 +7,14 @@ const {
   validateSchema,
 } = require("../validation/categoryValidation");
 const router = express.Router();
-/**
- * @swagger
- *   definitions:
- *     Category:
- *         type: object
- *         properties:
- *             id:
- *              type: string
- *              description: The auto-generated id of the role
- *             location:
- *              type: string
- *              description: The ID of the location 
- *             category:
- *              type: string
- *              description: The category in the company
- *             status:
- *              type: string
- *              description: The status of the category
- */
 
 /**
  * @swagger
- *  description: This is for the main data
+ * tags:
+ *  name: Category
  * /api/v1/category:
  *  get:
+ *      tags: [Category]
  *      summary: Get all categories
  *      responses:
  *          default:
@@ -40,8 +23,11 @@ const router = express.Router();
 router.get("/api/v1/category", auth, categoryController.getCategory);
 /**
  * @swagger
+ * tags:
+ *  name: Category
  * /api/v1/category/{id}:
  *  get:
+ *   tags: [Category]
  *   summary: Get category by ID
  *   description: Get category data by ID
  *   parameters:
@@ -61,8 +47,11 @@ router.get("/api/v1/category", auth, categoryController.getCategory);
 router.get("/api/v1/category/:id", auth, categoryController.getCategoryById);
 /**
  * @swagger
+ * tags:
+ *  name: Category
  * /api/v1/category:
  *  post:
+ *      tags: [Category]
  *      summary: Add category
  *      requestBody:
  *          required: true
@@ -98,8 +87,11 @@ router.post(
 );
 /**
  * @swagger
+ * tags:
+ *  name: Category
  * /api/v1/category/{id}:
  *  put:
+ *   tags: [Category]
  *   summary: update category
  *   description: update category
  *   consumes:
@@ -119,19 +111,52 @@ router.post(
  *      required: true
  *      description: body object
  *      schema:
- *       $ref: '#/definitions/Category'
+ *             id:
+ *              type: string
+ *              description: The auto-generated id of the role
+ *             location:
+ *              type: string
+ *              description: The ID of the location 
+ *             category:
+ *              type: string
+ *              description: The category in the company
+ *             status:
+ *              type: string
+ *              description: The status of the category
  *   requestBody:
  *    content:
  *     application/json:
  *      schema:
- *       $ref: '#/definitions/Category'
+ *             id:
+ *              type: string
+ *              description: The auto-generated id of the role
+ *             location:
+ *              type: string
+ *              description: The ID of the location 
+ *             category:
+ *              type: string
+ *              description: The category in the company
+ *             status:
+ *              type: string
+ *              description: The status of the category
  *   responses:
  *    200:
  *     description: success
  *     content:
  *      application/json:
  *       schema:
- *        $ref: '#/definitions/Category'
+ *             id:
+ *              type: string
+ *              description: The auto-generated id of the role
+ *             location:
+ *              type: string
+ *              description: The ID of the location 
+ *             category:
+ *              type: string
+ *              description: The category in the company
+ *             status:
+ *              type: string
+ *              description: The status of the category
  */
 router.put(
   "/api/v1/category/:id",
@@ -142,8 +167,11 @@ router.put(
 );
 /**
  * @swagger
+ * tags:
+ *  name: Category
  * /api/v1/category/{id}:
  *  delete:
+ *   tags: [Category]
  *   summary: delete category
  *   description: delete category
  *   parameters:

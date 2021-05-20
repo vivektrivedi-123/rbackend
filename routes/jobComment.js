@@ -18,34 +18,15 @@ const storage = multer.diskStorage({
 });
 
 const attachments = multer({ storage: storage }).array("attachments", 4);
-/**
- * @swagger
- *   definitions:
- *     comment:
- *         type: object
- *         properties:
- *             id:
- *              type: string
- *              description: The auto-generated id of the comment
- *             application:
- *              type: string
- *              description: The ID of the application
- *             comments:
- *              type: string
- *              description: The comments for the job
- *             attachments:
- *              type: string
- *              description: The attachments for the comments
- *             status:
- *              type: boolean
- *              description: The status of the comment  
- */
+
 
 /**
  * @swagger
- *  description: This is for the main data
+ * tags:
+ *  name: Comment
  * /api/v1/comment:
  *  get:
+ *      tags: [Comment]
  *      summary: Get all comments
  *      responses:
  *          default:
@@ -54,8 +35,11 @@ const attachments = multer({ storage: storage }).array("attachments", 4);
 router.get("/api/v1/comment", auth, commentController.getComment);
 /**
  * @swagger
+ * tags:
+ *  name: Comment
  * /api/v1/comment/{id}:
  *  get:
+ *   tags: [Comment]
  *   summary: Get comment by ID
  *   description: Get comment data by ID
  *   parameters:
@@ -75,8 +59,11 @@ router.get("/api/v1/comment", auth, commentController.getComment);
 router.get("/api/v1/comment/:id", auth, commentController.getCommentById);
 /**
  * @swagger
+ * tags:
+ *  name: Comment
  * /api/v1/comment:
  *  post:
+ *      tags: [Comment]
  *      summary: Add comment
  *      requestBody:
  *          required: true
@@ -116,8 +103,11 @@ router.post(
 );
 /**
  * @swagger
+ * tags:
+ *  name: Comment
  * /api/v1/comment/{id}:
  *  put:
+ *   tags: [Comment]
  *   summary: update comment
  *   description: update comment
  *   consumes:
@@ -137,19 +127,61 @@ router.post(
  *      required: true
  *      description: body object
  *      schema:
- *       $ref: '#/definitions/Comment'
+ *             id:
+ *              type: string
+ *              description: The auto-generated id of the comment
+ *             application:
+ *              type: string
+ *              description: The ID of the application
+ *             comments:
+ *              type: string
+ *              description: The comments for the job
+ *             attachments:
+ *              type: string
+ *              description: The attachments for the comments
+ *             status:
+ *              type: boolean
+ *              description: The status of the comment 
  *   requestBody:
  *    content:
  *     application/json:
  *      schema:
- *       $ref: '#/definitions/Comment'
+ *             id:
+ *              type: string
+ *              description: The auto-generated id of the comment
+ *             application:
+ *              type: string
+ *              description: The ID of the application
+ *             comments:
+ *              type: string
+ *              description: The comments for the job
+ *             attachments:
+ *              type: string
+ *              description: The attachments for the comments
+ *             status:
+ *              type: boolean
+ *              description: The status of the comment 
  *   responses:
  *    200:
  *     description: success
  *     content:
  *      application/json:
  *       schema:
- *        $ref: '#/definitions/Comment'
+ *             id:
+ *              type: string
+ *              description: The auto-generated id of the comment
+ *             application:
+ *              type: string
+ *              description: The ID of the application
+ *             comments:
+ *              type: string
+ *              description: The comments for the job
+ *             attachments:
+ *              type: string
+ *              description: The attachments for the comments
+ *             status:
+ *              type: boolean
+ *              description: The status of the comment 
  */
 router.put(
   "/api/v1/comment/:id",
@@ -160,8 +192,11 @@ router.put(
 );
 /**
  * @swagger
+ * tags:
+ *  name: Comment
  * /api/v1/comment/{id}:
  *  delete:
+ *   tags: [Comment]
  *   summary: delete comment
  *   description: delete comment
  *   parameters:
