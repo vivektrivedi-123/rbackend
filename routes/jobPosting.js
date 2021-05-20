@@ -13,7 +13,6 @@ const job = require("../models/job");
  * @swagger
  * tags:
  *  name: Job
- *  description: This is for the main data
  * /api/v1/job:
  *  get:
  *      tags: [Job]

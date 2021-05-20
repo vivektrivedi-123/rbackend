@@ -12,7 +12,6 @@ const Email = require("../models/email");
  * @swagger
  * tags:
  *  name: Email
- *  description: This is for the main data
  * /api/v1/email:
  *  get:
  *      tags: [Email]

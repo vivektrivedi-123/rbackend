@@ -12,7 +12,13 @@ const Company = require("../models/company");
 const multer = require("multer");
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "./upload"), cb(null, "./favicon");
+    cb(null, "./upload");
+  },
+  destination: (req, file, cb) => {
+    cb(null, "./favicon");
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
   },
   filename: (req, file, cb) => {
     cb(null, file.originalname);

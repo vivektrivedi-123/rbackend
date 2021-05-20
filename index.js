@@ -36,6 +36,7 @@ const attachments = multer({
 const favicon = multer({
   dest: path.join(__dirname, "./favicon"),
 });
+
 const options = {
   definition: {
     openapi: "3.0.0",

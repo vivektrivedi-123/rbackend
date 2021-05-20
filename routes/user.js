@@ -112,7 +112,6 @@ router.get("/api/v1/user/me", auth, userController.getMe);
  * @swagger
  *  tags:
  *  name: Access
- *  description: get the access
  * /api/v1/userLogin:
  *  post:
  *      tags: [Access]

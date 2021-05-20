@@ -13,7 +13,6 @@ const Field = require("../models/field");
  * @swagger
  * tags:
  *  name: Field
- *  description: This is for the main data
  * /api/v1/field:
  *  get:
  *      tags: [Field]

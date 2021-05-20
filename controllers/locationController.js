@@ -10,7 +10,7 @@ exports.getLocation = async (req, res, next) => {
   Location.find()
     .limit(limit)
     .skip(skip)
-    .select("-_id -__v")
+    .select("-__v")
     .populate({ path: "company", select: "-_id -__v" })
     .exec()
     .then((data) => {
