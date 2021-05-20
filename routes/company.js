@@ -18,7 +18,7 @@ const storage = multer.diskStorage({
   },
 
   filename: (req, file, cb) => {
-    cb(null, file.originalname);
+    cb(null, file.fieldname);
   },
 });
 
@@ -36,7 +36,7 @@ const upload = multer({
       return cb(new Error("Only .png, .jpg and .jpeg format allowed!"));
     }
   },
-}).fields([{ name: "company_logo" }, { name: "favicon" }])
+}).fields([{ name: "company_logo" }, { name: "favicon" }]);
 
 /**
  * @swagger
