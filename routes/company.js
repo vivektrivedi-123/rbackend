@@ -5,57 +5,77 @@ const {
   compValidation,
   validateSchema,
 } = require("../validation/companyValidation");
+const path = require("path");
 const router = express.Router();
 const auth = require("../middleware/auth");
 const isAdmin = require("../middleware/admin");
 const Company = require("../models/company");
 const multer = require("multer");
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
     cb(null, "./upload");
   },
-  destination: (req, file, cb) => {
-    cb(null, "./favicon");
-  },
-  filename: (req, file, cb) => {
-    cb(null, file.originalname);
-  },
-  filename: (req, file, cb) => {
-    cb(null, file.originalname);
+  filename: function (req, file, cb) {
+    cb(
+      null,
+      file.fieldname  + path.extname(file.originalname)
+    );
   },
 });
 
-const upload = multer({
-  storage: storage,
-  fileFilter: (req, file, cb) => {
-    if (
-      file.mimetype == "image/png" ||
-      file.mimetype == "image/jpg" ||
-      file.mimetype == "image/jpeg"
-    ) {
-      cb(null, true);
-    } else {
-      cb(null, false);
-      return cb(new Error("Only .png, .jpg and .jpeg format allowed!"));
-    }
-  },
-}).single("company_logo");
+const upload = multer({ storage: storage });
 
-const favicon = multer({
-  storage: storage,
-  fileFilter: (req, file, cb) => {
-    if (
-      file.mimetype == "image/png" ||
-      file.mimetype == "image/jpg" ||
-      file.mimetype == "image/jpeg"
-    ) {
-      cb(null, true);
-    } else {
-      cb(null, false);
-      return cb(new Error("Only .png, .jpg and .jpeg format allowed!"));
-    }
-  },
-}).single("change_favicon");
+var uploadMultiple = upload.fields([
+  { name: "company_logo" },
+  { name: "change_favicon" },
+]);
+
+// const storage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, "./upload");
+//   },
+//   destination: (req, file, cb) => {
+//     cb(null, "./favicon");
+//   },
+//   filename: (req, file, cb) => {
+//     cb(null, file.originalname);
+//   },
+//   filename: (req, file, cb) => {
+//     cb(null, file.originalname);
+//   },
+// });
+
+// const upload = multer({
+//   storage: storage,
+//   fileFilter: (req, file, cb) => {
+//     if (
+//       file.mimetype == "image/png" ||
+//       file.mimetype == "image/jpg" ||
+//       file.mimetype == "image/jpeg"
+//     ) {
+//       cb(null, true);
+//     } else {
+//       cb(null, false);
+//       return cb(new Error("Only .png, .jpg and .jpeg format allowed!"));
+//     }
+//   },
+// }).single("company_logo");
+
+// const favicon = multer({
+//   storage: storage,
+//   fileFilter: (req, file, cb) => {
+//     if (
+//       file.mimetype == "image/png" ||
+//       file.mimetype == "image/jpg" ||
+//       file.mimetype == "image/jpeg"
+//     ) {
+//       cb(null, true);
+//     } else {
+//       cb(null, false);
+//       return cb(new Error("Only .png, .jpg and .jpeg format allowed!"));
+//     }
+//   },
+// }).single("change_favicon");
 /**
  * @swagger
  * tags:
@@ -150,8 +170,7 @@ router.get("/api/v1/company/:id", auth, companyController.getCompanyById);
 router.post(
   "/api/v1/company",
   auth,
-  upload,
-  favicon,
+  uploadMultiple,
   compValidation(),
   validateSchema,
   companyController.addCompany

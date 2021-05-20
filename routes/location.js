@@ -78,9 +78,21 @@ router.get("/api/v1/location/:id", auth, locationController.getLocationById);
  *                          postal_code:
  *                              type: number
  *                              default: 140301
- *                          country_id:
+ *                          country:
  *                              type: string
  *                              default: 91
+ *                          currency:
+ *                              type: string
+ *                              default: Rupees
+ *                          primary_language:
+ *                              type: string
+ *                              default: English
+ *                          time_zone:
+ *                              type: string
+ *                              default: GMT+5:30
+ *                          date:format:
+ *                              type: string
+ *                              default: DD/MM/YYYY
  *                          website:
  *                              type: string
  *                              default: rudrainnovativesoftware.com
@@ -146,9 +158,21 @@ router.post(
  *                          postal_code:
  *                              type: number
  *                              default: 140301
- *                          country_id:
+ *                          country:
  *                              type: string
  *                              default: 91
+ *                          currency:
+ *                              type: string
+ *                              default: Rupees
+ *                          primary_language:
+ *                              type: string
+ *                              default: English
+ *                          time_zone:
+ *                              type: string
+ *                              default: GMT+5:30
+ *                          date:format:
+ *                              type: string
+ *                              default: DD/MM/YYYY
  *                          website:
  *                              type: string
  *                              default: rudrainnovativesoftware.com
@@ -179,9 +203,21 @@ router.post(
  *                          postal_code:
  *                              type: number
  *                              default: 140301
- *                          country_id:
+ *                          country:
  *                              type: string
  *                              default: 91
+ *                          currency:
+ *                              type: string
+ *                              default: Rupees
+ *                          primary_language:
+ *                              type: string
+ *                              default: English
+ *                          time_zone:
+ *                              type: string
+ *                              default: GMT+5:30
+ *                          date:format:
+ *                              type: string
+ *                              default: DD/MM/YYYY
  *                          website:
  *                              type: string
  *                              default: rudrainnovativesoftware.com
@@ -214,9 +250,21 @@ router.post(
  *                          postal_code:
  *                              type: number
  *                              default: 140301
- *                          country_id:
+ *                          country:
  *                              type: string
  *                              default: 91
+ *                          currency:
+ *                              type: string
+ *                              default: Rupees
+ *                          primary_language:
+ *                              type: string
+ *                              default: English
+ *                          time_zone:
+ *                              type: string
+ *                              default: GMT+5:30
+ *                          date:format:
+ *                              type: string
+ *                              default: DD/MM/YYYY
  *                          website:
  *                              type: string
  *                              default: rudrainnovativesoftware.com
