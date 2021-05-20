@@ -2,6 +2,7 @@ require("express-async-errors");
 require("dotenv").config();
 const error = require("./middleware/error");
 const express = require("express");
+const cors = require("cors");
 const mongoose = require("mongoose");
 const bodyparser = require("body-parser");
 const path = require("path");
@@ -21,7 +22,9 @@ const job = require("./routes/jobPosting");
 const stage = require("./routes/jobStages");
 const task = require("./routes/jobTask");
 const location = require("./routes/location");
-const options = require("./routes/options");
+const option = require("./routes/options");
+const swaggerUi = require("swagger-ui-express");
+const swaggerJsdoc = require("swagger-jsdoc");
 const app = express();
 
 const upload = multer({
@@ -30,10 +33,50 @@ const upload = multer({
 const attachments = multer({
   dest: path.join(__dirname, "./attachments"),
 });
+const favicon = multer({
+  dest: path.join(__dirname, "./favicon"),
+});
+const options = {
+  definition: {
+    openapi: "3.0.0",
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: "http",
+          scheme: "bearer",
+        },
+      },
+    },
+    info: {
+      title: "P-Hire Application",
+      version: "1.0.0",
+      description: "P-Hire API application documentation",
+      license: {
+        name: "MIT",
+        url: "https://spdx.org/licenses/MIT.html",
+      },
+    },
+    servers: [
+      {
+        url: "http://localhost:3001",
+      },
+    ],
+  },
+  apis: ["./routes/*.js"],
+};
+
+const specs = swaggerJsdoc(options);
+app.use(
+  "/api-docs",
+  swaggerUi.serve,
+  swaggerUi.setup(specs, { explorer: true })
+);
+app.use(cors());
 
 app.use("/public", express.static(path.join(__dirname, "static")));
 app.use("/upload", express.static("upload"));
 app.use("/attachments", express.static("attachments"));
+app.use("/favicon", express.static("favicon"));
 app.use(
   bodyparser.urlencoded({
     extended: true,
@@ -56,10 +99,9 @@ app.use("/", job);
 app.use("/", stage);
 app.use("/", task);
 app.use("/", location);
-app.use("/", options);
+app.use("/", option);
 app.use(error);
-const swaggerUi = require("swagger-ui-express"),
-  swaggerDocument = require("./swagger.json");
+
 mongoose
   .connect(
     "mongodb+srv://Apurva:apurva571@cluster0.beqgw.mongodb.net/p-hire?retryWrites=true&w=majority",
@@ -73,5 +115,4 @@ mongoose
   .then(() => console.log("connected to database"))
   .catch((err) => console.log(err));
 
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.listen(3001, () => console.log(`listening on port 3001... `));
