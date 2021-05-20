@@ -38,10 +38,10 @@ const upload = multer({
 /**
  * @swagger
  * tags:
- *   name: User
+ *   name: Company
  * /api/v1/company:
  *  get:
- *      tags: [User]
+ *      tags: [Company]
  *      summary: Get all companies
  *      responses:
  *          200:
@@ -54,10 +54,10 @@ router.get("/api/v1/company", auth, companyController.getCompany);
 /**
  * @swagger
  * tags:
- *   name: User
+ *   name: Company
  * /api/v1/company/{id}:
  *  get:
- *   tags: [User]
+ *   tags: [Company]
  *   summary: Get company by ID
  *   description: Get company data by ID
  *   parameters:
@@ -79,10 +79,10 @@ router.get("/api/v1/company/:id", auth, companyController.getCompanyById);
 /**
  * @swagger
  * tags:
- *  name: User
+ *  name: Company
  * /api/v1/company:
  *  post:
- *      tags: [User]
+ *      tags: [Company]
  *      summary: Add company
  *      requestBody:
  *          required: true
@@ -137,10 +137,10 @@ router.post(
 /**
  * @swagger
  * tags:
- * name: User
+ *  name: Company
  * /api/v1/company/{id}:
  *  put:
- *   tags : [User]
+ *   tags : [Company]
  *   summary: update company
  *   description: update company
  *   consumes:
@@ -274,8 +274,11 @@ router.put(
 );
 /**
  * @swagger
+ * tags:
+ *  name: Company
  * /api/v1/company/{id}:
  *  delete:
+ *   tags: [Company]
  *   summary: delete company
  *   description: delete company
  *   parameters:

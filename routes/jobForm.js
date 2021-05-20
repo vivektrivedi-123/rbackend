@@ -9,6 +9,8 @@ const auth = require("../middleware/auth");
 const Form = require("../models/forms");
 /**
  * @swagger
+ * tags :
+ *   name: Form
  *   definitions:
  *     Form:
  *         type: object
@@ -27,18 +29,20 @@ const Form = require("../models/forms");
  *              description: The label for the form
  *             placeholder:
  *               type: string
- *               description :The placeholder in the form
+ *               description : The placeholder in the form
  *             is_required:
  *                type: boolean
- *                description:Whether
+ *                description: required for not
  */
 
 /**
  * @swagger
- *  description: This is for the main data
- * /api/v1/role:
+ * tags:
+ *   name: Form
+ * /api/v1/form:
  *  get:
- *      summary: Get all roles
+ *      tags: [Form]
+ *      summary: Get all form
  *      responses:
  *          default:
  *              description: This is the default response for it
@@ -46,8 +50,11 @@ const Form = require("../models/forms");
 router.get("/api/v1/form", auth, formController.getForm);
 /**
  * @swagger
+ * tags:
+ *   name: Form
  * /api/v1/role/{id}:
  *  get:
+ *   tags: [Form]
  *   summary: Get role by ID
  *   description: Get role data by ID
  *   parameters:
@@ -67,8 +74,11 @@ router.get("/api/v1/form", auth, formController.getForm);
 router.get("/api/v1/form/:id", auth, formController.getFormById);
 /**
  * @swagger
+ * tags:
+ *   name: Form
  * /api/v1/role:
  *  post:
+ *      tags: [Form]
  *      summary: Add role
  *      requestBody:
  *          required: true
@@ -95,8 +105,11 @@ router.post(
 );
 /**
  * @swagger
+ * tags:
+ *   name: Form
  * /api/v1/role/{id}:
  *  put:
+ *   tags: [Form]
  *   summary: update role
  *   description: update role
  *   consumes:
@@ -116,19 +129,70 @@ router.post(
  *      required: true
  *      description: body object
  *      schema:
- *       $ref: '#/definitions/Role'
+ *             id:
+ *              type: string
+ *              description: The auto-generated id of the form
+ *             job:
+ *              type: string
+ *              description: The ID of the job
+ *             field:
+ *              type: string
+ *              description: The ID of the field
+ *             label:
+ *              type: string
+ *              description: The label for the form
+ *             placeholder:
+ *               type: string
+ *               description : The placeholder in the form
+ *             is_required:
+ *                type: boolean
+ *                description: required for not
  *   requestBody:
  *    content:
  *     application/json:
  *      schema:
- *       $ref: '#/definitions/Role'
+ *             id:
+ *              type: string
+ *              description: The auto-generated id of the form
+ *             job:
+ *              type: string
+ *              description: The ID of the job
+ *             field:
+ *              type: string
+ *              description: The ID of the field
+ *             label:
+ *              type: string
+ *              description: The label for the form
+ *             placeholder:
+ *               type: string
+ *               description : The placeholder in the form
+ *             is_required:
+ *                type: boolean
+ *                description: required for not
  *   responses:
  *    200:
  *     description: success
  *     content:
  *      application/json:
  *       schema:
- *        $ref: '#/definitions/Role'
+ *             id:
+ *              type: string
+ *              description: The auto-generated id of the form
+ *             job:
+ *              type: string
+ *              description: The ID of the job
+ *             field:
+ *              type: string
+ *              description: The ID of the field
+ *             label:
+ *              type: string
+ *              description: The label for the form
+ *             placeholder:
+ *               type: string
+ *               description : The placeholder in the form
+ *             is_required:
+ *                type: boolean
+ *                description: required for not
  */
 router.put(
   "/api/v1/form/:id",
@@ -139,8 +203,11 @@ router.put(
 );
 /**
  * @swagger
+ * tags:
+ *   name: Form
  * /api/v1/role/{id}:
  *  delete:
+ *   tags: [Form]
  *   summary: delete role
  *   description: delete role
  *   parameters:
