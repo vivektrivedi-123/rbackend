@@ -7,26 +7,15 @@ const {
 const router = express.Router();
 const auth = require("../middleware/auth");
 const Task = require("../models/task");
-/**
- * @swagger
- *   definitions:
- *     Role:
- *         type: object
- *         properties:
- *             id:
- *              type: string
- *              description: The auto-generated id of the role
- *             role_name:
- *              type: string
- *              description: The role name
- */
 
 /**
  * @swagger
- *  description: This is for the main data
- * /api/v1/role:
+ * tags:
+ *  name:Task
+ * /api/v1/task:
  *  get:
- *      summary: Get all roles
+ *      tags: [Task]
+ *      summary: Get all tasks
  *      responses:
  *          default:
  *              description: This is the default response for it
@@ -34,17 +23,20 @@ const Task = require("../models/task");
 router.get("/api/v1/task", auth, taskController.getTask);
 /**
  * @swagger
- * /api/v1/role/{id}:
+ * tags:
+ *  name: Task
+ * /api/v1/task/{id}:
  *  get:
- *   summary: Get role by ID
- *   description: Get role data by ID
+ *   tags: [Task]
+ *   summary: Get task by ID
+ *   description: Get task data by ID
  *   parameters:
  *    - in: path
  *      name: id
  *      schema:
  *       type: string
  *      required: true
- *      description: id of the role
+ *      description: id of the task
  *      example: id
  *   responses:
  *    200:
@@ -55,9 +47,12 @@ router.get("/api/v1/task", auth, taskController.getTask);
 router.get("/api/v1/task/:id", auth, taskController.getTaskById);
 /**
  * @swagger
- * /api/v1/role:
+ * tags:
+ *  name: Task
+ * /api/v1/task:
  *  post:
- *      summary: Add role
+ *      tags: [Task]
+ *      summary: Add task
  *      requestBody:
  *          required: true
  *          content:
@@ -65,9 +60,30 @@ router.get("/api/v1/task/:id", auth, taskController.getTaskById);
  *                  schema:
  *                      type: object
  *                      properties:
- *                          role_name:
+ *                          application:
  *                              type: string
- *                              default: admin
+ *                              description: ID of the application
+ *                          title:
+ *                              type: string
+ *                              description: Title of the task
+ *                          description:
+ *                              type: string
+ *                              description: Description of the task
+ *                          assigned_to:
+ *                              type: string
+ *                              description: Assignment of the task
+ *                          due_date:
+ *                              type: string
+ *                              description: Due date of the task                   
+ *                          due_time:
+ *                              type: string
+ *                              description: Due time of the task
+ *                          remind_before:
+ *                              type: string
+ *                              description: Remind before about the task
+ *                          status:
+ *                              type: string
+ *                              description: Status of the task
  *      responses:
  *          200:
  *             description: A successful response
@@ -83,10 +99,13 @@ router.post(
 );
 /**
  * @swagger
- * /api/v1/role/{id}:
+ * tags:
+ *  name: Task
+ * /api/v1/task/{id}:
  *  put:
- *   summary: update role
- *   description: update role
+ *   tags: [Task]
+ *   summary: update task
+ *   description: update task
  *   consumes:
  *    - application/json
  *   produces:
@@ -97,26 +116,101 @@ router.post(
  *      schema:
  *       type: integer
  *      required: true
- *      description: id of the role
+ *      description: id of the task
  *      example: 2
  *    - in: body
  *      name: body
  *      required: true
  *      description: body object
  *      schema:
- *       $ref: '#/definitions/Role'
+ *       type: object
+ *       properties:
+ *                          application:
+ *                              type: string
+ *                              description: ID of the application
+ *                          title:
+ *                              type: string
+ *                              description: Title of the task
+ *                          description:
+ *                              type: string
+ *                              description: Description of the task
+ *                          assigned_to:
+ *                              type: string
+ *                              description: Assignment of the task
+ *                          due_date:
+ *                              type: string
+ *                              description: Due date of the task                   
+ *                          due_time:
+ *                              type: string
+ *                              description: Due time of the task
+ *                          remind_before:
+ *                              type: string
+ *                              description: Remind before about the task
+ *                          status:
+ *                              type: string
+ *                              description: Status of the task
  *   requestBody:
  *    content:
  *     application/json:
  *      schema:
- *       $ref: '#/definitions/Role'
+ *       type: object
+ *       properties:
+ *                          application:
+ *                              type: string
+ *                              description: ID of the application
+ *                          title:
+ *                              type: string
+ *                              description: Title of the task
+ *                          description:
+ *                              type: string
+ *                              description: Description of the task
+ *                          assigned_to:
+ *                              type: string
+ *                              description: Assignment of the task
+ *                          due_date:
+ *                              type: string
+ *                              description: Due date of the task                   
+ *                          due_time:
+ *                              type: string
+ *                              description: Due time of the task
+ *                          remind_before:
+ *                              type: string
+ *                              description: Remind before about the task
+ *                          status:
+ *                              type: string
+ *                              description: Status of the task
  *   responses:
  *    200:
  *     description: success
  *     content:
  *      application/json:
  *       schema:
- *        $ref: '#/definitions/Role'
+ *        type: object
+ *        properties:
+ *                          application:
+ *                              type: string
+ *                              description: ID of the application
+ *                          title:
+ *                              type: string
+ *                              description: Title of the task
+ *                          description:
+ *                              type: string
+ *                              description: Description of the task
+ *                          assigned_to:
+ *                              type: string
+ *                              description: Assignment of the task
+ *                          due_date:
+ *                              type: string
+ *                              description: Due date of the task                   
+ *                          due_time:
+ *                              type: string
+ *                              description: Due time of the task
+ *                          remind_before:
+ *                              type: string
+ *                              description: Remind before about the task
+ *                          status:
+ *                              type: string
+ *                              description: Status of the task
  */
 router.put(
   "/api/v1/task/:id",
@@ -127,10 +221,13 @@ router.put(
 );
 /**
  * @swagger
- * /api/v1/role/{id}:
+ * tags:
+ *  name: Task
+ * /api/v1/task/{id}:
  *  delete:
- *   summary: delete role
- *   description: delete role
+ *   tags: [Task]
+ *   summary: delete task
+ *   description: delete task
  *   parameters:
  *    - in: path
  *      name: id

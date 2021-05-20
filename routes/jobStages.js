@@ -7,26 +7,15 @@ const {
 const router = express.Router();
 const auth = require("../middleware/auth");
 const Stage = require("../models/stage");
-/**
- * @swagger
- *   definitions:
- *     Role:
- *         type: object
- *         properties:
- *             id:
- *              type: string
- *              description: The auto-generated id of the role
- *             role_name:
- *              type: string
- *              description: The role name
- */
 
 /**
  * @swagger
- *  description: This is for the main data
- * /api/v1/role:
+ * tags:
+ *  name: Stage
+ * /api/v1/stage:
  *  get:
- *      summary: Get all roles
+ *      tags: [Stage]
+ *      summary: Get all stage
  *      responses:
  *          default:
  *              description: This is the default response for it
@@ -34,17 +23,20 @@ const Stage = require("../models/stage");
 router.get("/api/v1/stage", auth, stagesController.getStage);
 /**
  * @swagger
- * /api/v1/role/{id}:
+ * tags:
+ *  name: Stage
+ * /api/v1/stage/{id}:
  *  get:
- *   summary: Get role by ID
- *   description: Get role data by ID
+ *   tags: [Stage]
+ *   summary: Get stage by ID
+ *   description: Get stage data by ID
  *   parameters:
  *    - in: path
  *      name: id
  *      schema:
  *       type: string
  *      required: true
- *      description: id of the role
+ *      description: id of the stage
  *      example: id
  *   responses:
  *    200:
@@ -55,9 +47,12 @@ router.get("/api/v1/stage", auth, stagesController.getStage);
 router.get("/api/v1/stage/:id", auth, stagesController.getStageById);
 /**
  * @swagger
- * /api/v1/role:
+ * tags:
+ *  name: Stage
+ * /api/v1/stage:
  *  post:
- *      summary: Add role
+ *      tags: [Stage]
+ *      summary: Add stage
  *      requestBody:
  *          required: true
  *          content:
@@ -65,9 +60,16 @@ router.get("/api/v1/stage/:id", auth, stagesController.getStageById);
  *                  schema:
  *                      type: object
  *                      properties:
- *                          role_name:
+ *                          job:
  *                              type: string
- *                              default: admin
+ *                              description: The ID of the job
+ *                          stage:
+ *                               type: string
+ *                               description: Stage of the job
+ *                          status:
+ *                               type: string
+ *                               description: The status of the job
+ * 
  *      responses:
  *          200:
  *             description: A successful response
@@ -83,8 +85,11 @@ router.post(
 );
 /**
  * @swagger
- * /api/v1/role/{id}:
+ * tags:
+ *  name: Stage
+ * /api/v1/stage/{id}:
  *  put:
+ *   tags: [Stage]
  *   summary: update role
  *   description: update role
  *   consumes:
@@ -104,19 +109,49 @@ router.post(
  *      required: true
  *      description: body object
  *      schema:
- *       $ref: '#/definitions/Role'
+ *        type: object
+ *        parameters:
+ *                          job:
+ *                              type: string
+ *                              description: The ID of the job
+ *                          stage:
+ *                               type: string
+ *                               description: Stage of the job
+ *                          status:
+ *                               type: string
+ *                               description: The status of the job
  *   requestBody:
  *    content:
  *     application/json:
  *      schema:
- *       $ref: '#/definitions/Role'
+ *       type: object
+ *       parameters:
+ *                          job:
+ *                              type: string
+ *                              description: The ID of the job
+ *                          stage:
+ *                               type: string
+ *                               description: Stage of the job
+ *                          status:
+ *                               type: string
+ *                               description: The status of the job
  *   responses:
  *    200:
  *     description: success
  *     content:
  *      application/json:
  *       schema:
- *        $ref: '#/definitions/Role'
+ *        type: object
+ *        parameters:
+ *                          job:
+ *                              type: string
+ *                              description: The ID of the job
+ *                          stage:
+ *                               type: string
+ *                               description: Stage of the job
+ *                          status:
+ *                               type: string
+ *                               description: The status of the job
  */
 router.put(
   "/api/v1/stage/:id",
@@ -127,17 +162,20 @@ router.put(
 );
 /**
  * @swagger
- * /api/v1/role/{id}:
+ * tags:
+ *  name: Stage
+ * /api/v1/stage/{id}:
  *  delete:
- *   summary: delete role
- *   description: delete role
+ *   tags: [Stage]
+ *   summary: delete stage
+ *   description: delete stage
  *   parameters:
  *    - in: path
  *      name: id
  *      schema:
  *       type: string
  *      required: true
- *      description: id of the role
+ *      description: id of the stage
  *      example: 2
  *   responses:
  *    200:

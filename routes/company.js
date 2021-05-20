@@ -33,7 +33,7 @@ const upload = multer({
       return cb(new Error("Only .png, .jpg and .jpeg format allowed!"));
     }
   },
-}).single("company_logo");
+}).single("company_logo","change_favicon");
 
 /**
  * @swagger

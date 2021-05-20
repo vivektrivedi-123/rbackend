@@ -8,26 +8,16 @@ const {
 } = require("../validation/jobValidation");
 const router = express.Router();
 const job = require("../models/job");
-/**
- * @swagger
- *   definitions:
- *     Role:
- *         type: object
- *         properties:
- *             id:
- *              type: string
- *              description: The auto-generated id of the role
- *             role_name:
- *              type: string
- *              description: The role name
- */
 
 /**
  * @swagger
+ * tags:
+ *  name: Job
  *  description: This is for the main data
- * /api/v1/role:
+ * /api/v1/job:
  *  get:
- *      summary: Get all roles
+ *      tags: [Job]
+ *      summary: Get all jobs
  *      responses:
  *          default:
  *              description: This is the default response for it
@@ -35,17 +25,20 @@ const job = require("../models/job");
 router.get("/api/v1/job", auth, jobController.getJob);
 /**
  * @swagger
- * /api/v1/role/{id}:
+ * tags:
+ *  name: Job
+ * /api/v1/job/{id}:
  *  get:
- *   summary: Get role by ID
- *   description: Get role data by ID
+ *   tags: [Job]
+ *   summary: Get job by ID
+ *   description: Get job data by ID
  *   parameters:
  *    - in: path
  *      name: id
  *      schema:
  *       type: string
  *      required: true
- *      description: id of the role
+ *      description: id of the job
  *      example: id
  *   responses:
  *    200:
@@ -56,9 +49,12 @@ router.get("/api/v1/job", auth, jobController.getJob);
 router.get("/api/v1/job/:id", auth, jobController.getJobById);
 /**
  * @swagger
- * /api/v1/role:
+ * tags:
+ *  name: Job
+ * /api/v1/job:
  *  post:
- *      summary: Add role
+ *      tags: [Job]
+ *      summary: Add Job
  *      requestBody:
  *          required: true
  *          content:
@@ -66,9 +62,55 @@ router.get("/api/v1/job/:id", auth, jobController.getJobById);
  *                  schema:
  *                      type: object
  *                      properties:
- *                          role_name:
+ *                          department:
  *                              type: string
- *                              default: admin
+ *                              description: ID of the department
+ *                          category:
+ *                              type: string
+ *                              description: ID of the category
+ *                          job_title:
+ *                              type: string
+ *                              description: Title of the job
+ *                          job_type:
+ *                              type: string
+ *                              description: Type of the job
+ *                          remote_job:
+ *                              type: string
+ *                              description: Remote Job
+ *                          job_description:
+ *                              type: string
+ *                              description: Description of the job
+ *                          experience:
+ *                              type: string
+ *                              description: Experience in the job
+ *                          skills:
+ *                              type: string
+ *                              description: Skills 
+ *                          tags:
+ *                              type: string
+ *                              description: Tags of the job
+ *                          min_sal:
+ *                              type: string
+ *                              description: Min_salary of the job
+ *                          max_sal:
+ *                              type: string
+ *                              description: Max_salary of the job
+ *                          currency:
+ *                              type: string
+ *                              description: Currency of the job
+ *                          allow_employee:
+ *                              type: string
+ *                              description: Allow employees
+ *                          status:
+ *                              type: string
+ *                              description: Status of the job
+ *                          job_code:
+ *                              type: string
+ *                              description: Code of the job
+ *                          job_slug:
+ *                              type: string
+ *                              description: Slug of the job
+ *                   
  *      responses:
  *          200:
  *             description: A successful response
@@ -84,10 +126,13 @@ router.post(
 );
 /**
  * @swagger
- * /api/v1/role/{id}:
+ * tags:
+ *  name: Job
+ * /api/v1/job/{id}:
  *  put:
- *   summary: update role
- *   description: update role
+ *   tags: [Job]
+ *   summary: update job
+ *   description: update job
  *   consumes:
  *    - application/json
  *   produces:
@@ -98,27 +143,173 @@ router.post(
  *      schema:
  *       type: integer
  *      required: true
- *      description: id of the role
+ *      description: id of the jobs
  *      example: 2
  *    - in: body
  *      name: body
  *      required: true
  *      description: body object
  *      schema:
- *       $ref: '#/definitions/Role'
+ *          type: object
+ *          properties:
+ *                          department:
+ *                              type: string
+ *                              description: ID of the department
+ *                          category:
+ *                              type: string
+ *                              description: ID of the category
+ *                          job_title:
+ *                              type: string
+ *                              description: Title of the job
+ *                          job_type:
+ *                              type: string
+ *                              description: Type of the job
+ *                          remote_job:
+ *                              type: string
+ *                              description: Remote Job
+ *                          job_description:
+ *                              type: string
+ *                              description: Description of the job
+ *                          experience:
+ *                              type: string
+ *                              description: Experience in the job
+ *                          skills:
+ *                              type: string
+ *                              description: Skills 
+ *                          tags:
+ *                              type: string
+ *                              description: Tags of the job
+ *                          min_sal:
+ *                              type: string
+ *                              description: Min_salary of the job
+ *                          max_sal:
+ *                              type: string
+ *                              description: Max_salary of the job
+ *                          currency:
+ *                              type: string
+ *                              description: Currency of the job
+ *                          allow_employee:
+ *                              type: string
+ *                              description: Allow employees
+ *                          status:
+ *                              type: string
+ *                              description: Status of the job
+ *                          job_code:
+ *                              type: string
+ *                              description: Code of the job
+ *                          job_slug:
+ *                              type: string
+ *                              description: Slug of the job
  *   requestBody:
  *    content:
  *     application/json:
  *      schema:
- *       $ref: '#/definitions/Role'
+ *          type: object
+ *          properties:
+ *                          department:
+ *                              type: string
+ *                              description: ID of the department
+ *                          category:
+ *                              type: string
+ *                              description: ID of the category
+ *                          job_title:
+ *                              type: string
+ *                              description: Title of the job
+ *                          job_type:
+ *                              type: string
+ *                              description: Type of the job
+ *                          remote_job:
+ *                              type: string
+ *                              description: Remote Job
+ *                          job_description:
+ *                              type: string
+ *                              description: Description of the job
+ *                          experience:
+ *                              type: string
+ *                              description: Experience in the job
+ *                          skills:
+ *                              type: string
+ *                              description: Skills 
+ *                          tags:
+ *                              type: string
+ *                              description: Tags of the job
+ *                          min_sal:
+ *                              type: string
+ *                              description: Min_salary of the job
+ *                          max_sal:
+ *                              type: string
+ *                              description: Max_salary of the job
+ *                          currency:
+ *                              type: string
+ *                              description: Currency of the job
+ *                          allow_employee:
+ *                              type: string
+ *                              description: Allow employees
+ *                          status:
+ *                              type: string
+ *                              description: Status of the job
+ *                          job_code:
+ *                              type: string
+ *                              description: Code of the job
+ *                          job_slug:
+ *                              type: string
+ *                              description: Slug of the job
  *   responses:
  *    200:
  *     description: success
  *     content:
  *      application/json:
  *       schema:
- *        $ref: '#/definitions/Role'
- */
+ *          type: object
+ *          properties:
+ *                          department:
+ *                              type: string
+ *                              description: ID of the department
+ *                          category:
+ *                              type: string
+ *                              description: ID of the category
+ *                          job_title:
+ *                              type: string
+ *                              description: Title of the job
+ *                          job_type:
+ *                              type: string
+ *                              description: Type of the job
+ *                          remote_job:
+ *                              type: string
+ *                              description: Remote Job
+ *                          job_description:
+ *                              type: string
+ *                              description: Description of the job
+ *                          experience:
+ *                              type: string
+ *                              description: Experience in the job
+ *                          skills:
+ *                              type: string
+ *                              description: Skills 
+ *                          tags:
+ *                              type: string
+ *                              description: Tags of the job
+ *                          min_sal:
+ *                              type: string
+ *                              description: Min_salary of the job
+ *                          max_sal:
+ *                              type: string
+ *                              description: Max_salary of the job
+ *                          currency:
+ *                              type: string
+ *                              description: Currency of the job
+ *                          allow_employee:
+ *                              type: string
+ *                              description: Allow employees
+ *                          status:
+ *                              type: string
+ *                              description: Status of the job
+ *                          job_code:
+ *                              type: string
+ *                              description: Code of the job
+ *                          job_slug:
+ *                              type: string
+ *                              description: Slug of the job */
 router.put(
   "/api/v1/job/:id",
   auth,
@@ -128,17 +319,20 @@ router.put(
 );
 /**
  * @swagger
- * /api/v1/role/{id}:
+ * tags:
+ *  name: Job
+ * /api/v1/job/{id}:
  *  delete:
- *   summary: delete role
- *   description: delete role
+ *   tags: [Job]
+ *   summary: delete job
+ *   description: delete job
  *   parameters:
  *    - in: path
  *      name: id
  *      schema:
  *       type: string
  *      required: true
- *      description: id of the role
+ *      description: id of the job
  *      example: 2
  *   responses:
  *    200:

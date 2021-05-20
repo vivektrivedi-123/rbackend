@@ -65,22 +65,22 @@ router.get("/api/v1/interview/:id", auth, interviewController.getInterviewById);
  *                              type: string
  *                              description: ID of the application
  *                          stages:
- *                               type:string
+ *                               type: string
  *                               description: ID of the stage
  *                          subject:
- *                               type:string
+ *                               type: string
  *                               description: Subject of the interview
  *                          scheduled_date:
- *                               type:string
+ *                               type: string
  *                               description: scheduled_date of the interview
  *                          scheduled_time:
- *                               type:string
+ *                               type: string
  *                               description: scheduled_time of the interview
  *                          scheduled_timezone:
- *                               type:string
+ *                               type: string
  *                               description: scheduled_timezone of the interview
  *                          duration:
- *                               type:string
+ *                               type: string
  *                               description: duration of the interview
  *                          recommendations:
  *                               type: string
@@ -145,40 +145,40 @@ router.post(
  *                              type: string
  *                              description: ID of the application
  *                          stages:
- *                               type:string
+ *                               type: string
  *                               description: ID of the stage
  *                          subject:
- *                               type:string
+ *                               type: string
  *                               description: Subject of the interview
  *                          scheduled_date:
- *                               type:string
+ *                               type: string
  *                               description: scheduled_date of the interview
  *                          scheduled_time:
- *                               type:string
+ *                               type: string
  *                               description: scheduled_time of the interview
  *                          scheduled_timezone:
- *                               type:string
+ *                               type: string
  *                               description: scheduled_timezone of the interview
  *                          duration:
- *                               type:string
+ *                               type: string
  *                               description: duration of the interview
  *                          recommendations:
- *                               type:string
+ *                               type: string
  *                               description: recommendations of the interview
  *                          interviewer:
- *                               type:string
+ *                               type: string
  *                               description: interviewer of the interview
  *                          rating:
- *                               type:string
+ *                               type: string
  *                               description: rating of the interview
  *                          notes:
- *                               type:string
+ *                               type: string
  *                               description: notes of the interview
  *                          overall_comments:
- *                               type:string
+ *                               type: string
  *                               description: overall_comments of the Interview
  *                          status: 
- *                               type:string
+ *                               type: string
  *                               description: status of the interview
  *   requestBody:
  *    content:
@@ -187,43 +187,43 @@ router.post(
  *       type: object
  *       properties:
  *                          application:
- *                              type: string
+ *                              type:  string
  *                              description: ID of the application
  *                          stages:
- *                               type:string
+ *                               type: string
  *                               description: ID of the stage
  *                          subject:
- *                               type:string
+ *                               type: string
  *                               description: Subject of the interview
  *                          scheduled_date:
- *                               type:string
+ *                               type: string
  *                               description: scheduled_date of the interview
  *                          scheduled_time:
- *                               type:string
+ *                               type: string
  *                               description: scheduled_time of the interview
  *                          scheduled_timezone:
- *                               type:string
+ *                               type: string
  *                               description: scheduled_timezone of the interview
  *                          duration:
- *                               type:string
+ *                               type: string
  *                               description: duration of the interview
  *                          recommendations:
- *                               type:string
+ *                               type: string
  *                               description: recommendations of the interview
  *                          interviewer:
- *                               type:string
+ *                               type: string
  *                               description: interviewer of the interview
  *                          rating:
- *                               type:string
+ *                               type: string
  *                               description: rating of the interview
  *                          notes:
- *                               type:string
+ *                               type: string
  *                               description: notes of the interview
  *                          overall_comments:
- *                               type:string
+ *                               type: string
  *                               description: overall_comments of the Interview
  *                          status: 
- *                               type:string
+ *                               type: string
  *                               description: status of the interview
  *   responses:
  *    200:
@@ -237,40 +237,40 @@ router.post(
  *                              type: string
  *                              description: ID of the application
  *                          stages:
- *                               type:string
+ *                               type: string
  *                               description: ID of the stage
  *                          subject:
- *                               type:string
+ *                               type: string
  *                               description: Subject of the interview
  *                          scheduled_date:
- *                               type:string
+ *                               type: string
  *                               description: scheduled_date of the interview
  *                          scheduled_time:
- *                               type:string
+ *                               type: string
  *                               description: scheduled_time of the interview
  *                          scheduled_timezone:
- *                               type:string
+ *                               type: string
  *                               description: scheduled_timezone of the interview
  *                          duration:
- *                               type:string
+ *                               type: string
  *                               description: duration of the interview
  *                          recommendations:
- *                               type:string
+ *                               type: string
  *                               description: recommendations of the interview
  *                          interviewer:
- *                               type:string
+ *                               type: string
  *                               description: interviewer of the interview
  *                          rating:
- *                               type:string
+ *                               type: string
  *                               description: rating of the interview
  *                          notes:
- *                               type:string
+ *                               type: string
  *                               description: notes of the interview
  *                          overall_comments:
- *                               type:string
+ *                               type: string
  *                               description: overall_comments of the Interview
  *                          status: 
- *                               type:string
+ *                               type: string
  *                               description: status of the interview
  */
 router.put(
