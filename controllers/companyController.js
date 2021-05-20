@@ -64,6 +64,7 @@ exports.addCompany = async (req, res, next) => {
         "company_language",
         "date_format",
         "employee_portal_name",
+        "employee_portal_url",
         "company_logo",
         "change_favicon",
         "created_by",

@@ -152,6 +152,9 @@ router.get("/api/v1/company/:id", auth, companyController.getCompanyById);
  *                            type: string
  *                            description: The Employee Portal name
  *                            example: Apurva
+ *                          employee_portal_url:
+ *                            type: string
+ *                            description: The employee portal URL
  *                          company_logo:
  *                            type: string
  *                            description: The company logo
@@ -224,6 +227,9 @@ router.post(
  *              type: string
  *              description: The Employee Portal name
  *              example: Apurva
+ *             employee_portal_url:
+ *              type: string
+ *              description: The employee portal URL
  *             company_logo:
  *              type: string
  *              description: The company logo
@@ -259,6 +265,9 @@ router.post(
  *              type: string
  *              description: The Employee Portal name
  *              example: Apurva
+ *             employee_portal_url:
+ *              type: string
+ *              description: The employee portal URL
  *             company_logo:
  *              type: string
  *              description: The company logo
@@ -296,6 +305,9 @@ router.post(
  *              type: string
  *              description: The Employee Portal name
  *              example: Apurva
+ *             employee_portal_url:
+ *              type: string
+ *              description: The employee portal URL
  *             company_logo:
  *              type: string
  *              description: The company logo
