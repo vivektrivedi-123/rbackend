@@ -6,7 +6,6 @@ const {
   validateSchema,
 } = require("../validation/companyValidation");
 const path = require("path");
-const crypto = require("crypto");
 const router = express.Router();
 const auth = require("../middleware/auth");
 const isAdmin = require("../middleware/admin");
