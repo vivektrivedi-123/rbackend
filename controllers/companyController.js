@@ -10,6 +10,14 @@ const upload = multer({
     cb(undefined, true);
   },
 });
+const favicon = multer({
+ 
+  fileFilter(req, file, cb) {
+    if (!file.originalname.match(/\.(jpg|png|JPG|PNG|JPEG|jpeg)$/))
+      return cb(new Error("This is not a correct format of the file"));
+    cb(undefined, true);
+  },
+});
 
 exports.getCompany = async (req, res, next) => {
   const skip = parseInt(req.query.skip);

@@ -12,7 +12,7 @@ const Company = require("../models/company");
 const multer = require("multer");
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "./upload");
+    cb(null, "./upload"), cb(null, "./favicon");
   },
   filename: (req, file, cb) => {
     cb(null, file.originalname);
@@ -33,8 +33,23 @@ const upload = multer({
       return cb(new Error("Only .png, .jpg and .jpeg format allowed!"));
     }
   },
-}).single("company_logo","change_favicon");
+}).single("company_logo");
 
+const favicon = multer({
+  storage: storage,
+  fileFilter: (req, file, cb) => {
+    if (
+      file.mimetype == "image/png" ||
+      file.mimetype == "image/jpg" ||
+      file.mimetype == "image/jpeg"
+    ) {
+      cb(null, true);
+    } else {
+      cb(null, false);
+      return cb(new Error("Only .png, .jpg and .jpeg format allowed!"));
+    }
+  },
+}).single("change_favicon");
 /**
  * @swagger
  * tags:
@@ -118,7 +133,7 @@ router.get("/api/v1/company/:id", auth, companyController.getCompanyById);
  *                          change_favicon:
  *                            type: string
  *                            description: The company favicon
- *                            example: favicon.jpeg   
+ *                            example: favicon.jpeg
  *      responses:
  *          200:
  *             description: A successful response
@@ -130,6 +145,7 @@ router.post(
   "/api/v1/company",
   auth,
   upload,
+  favicon,
   compValidation(),
   validateSchema,
   companyController.addCompany
@@ -190,7 +206,7 @@ router.post(
  *             change_favicon:
  *              type: string
  *              description: The company favicon
- *              example: favicon.jpeg 
+ *              example: favicon.jpeg
  *   requestBody:
  *    content:
  *     application/json:
@@ -225,7 +241,7 @@ router.post(
  *             change_favicon:
  *              type: string
  *              description: The company favicon
- *              example: favicon.jpeg 
+ *              example: favicon.jpeg
  *   responses:
  *    200:
  *     description: success
@@ -262,7 +278,7 @@ router.post(
  *             change_favicon:
  *              type: string
  *              description: The company favicon
- *              example: favicon.jpeg 
+ *              example: favicon.jpeg
  */
 //update
 router.put(
