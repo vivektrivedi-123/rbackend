@@ -81,7 +81,7 @@ exports.userLogin = async (req, res, next) => {
         { _id: user.id, role: user.role },
         process.env.SECRET_KEY,
         {
-          expiresIn: "10m",
+          expiresIn: "60m",
         }
       );
       res.header("Authorization", token).status(200);

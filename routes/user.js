@@ -196,7 +196,7 @@ router.post(
  *       type: integer
  *      required: true
  *      description: id of the user
- *      example: 2
+ *      example: id
  *    - in: body
  *      name: body
  *      required: true
