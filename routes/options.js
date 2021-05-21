@@ -18,6 +18,15 @@ const Options = require("../models/options");
  *     - option_value
  *     - location
  *    properties:
+ *             id:
+ *              type: string
+ *              description: The auto-generated id of the role
+ *             option_key:
+ *              type: number
+ *             option_value:
+ *              type: number
+ *             location:
+ *              type: string
  *      
  */
 /**

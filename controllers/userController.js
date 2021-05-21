@@ -73,7 +73,11 @@ exports.getUserById = async (req, res, next) => {
 exports.userLogin = async (req, res, next) => {
   try {
     const email = req.body;
-    let user = await User.findOne({ email: req.body.email });
+    const company = req.body;
+    let user = await User.findOne({
+      email: req.body.email,
+      company: req.body.company,
+    });
     if (!user) {
       res.send("User does not exists");
     } else {
@@ -86,7 +90,7 @@ exports.userLogin = async (req, res, next) => {
       );
       res
         .header("Authorization", token)
-        .header("access-control-expose-headers","Authorization")
+        .header("Access-Control-Expose-Headers", "Authorization")
         .status(200);
       res.send(token);
 

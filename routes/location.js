@@ -7,7 +7,67 @@ const {
 const router = express.Router();
 const auth = require("../middleware/auth");
 const Location = require("../models/location");
-
+/**
+ * @swagger
+ * components:
+ *  schemas:
+ *   Location:
+ *    type: object
+ *    required:
+ *     - company
+ *     - location_address
+ *     - location_street
+ *     - location_city
+ *     - location_state
+ *     - postal_code
+ *     - country
+ *     - currency
+ *     - primary_language
+ *     - time_zone
+ *     - date_format
+ *     - website
+ *     - contact
+ *    properties:
+ *                          company:
+ *                              type: string
+ *                              default: The ID of the company
+ *                          location_address:
+ *                              type: string
+ *                              default: industrial area
+ *                          location_street:
+ *                              type: string
+ *                              default: phase 8b
+ *                          location_city:
+ *                              type: string
+ *                              default: mohali
+ *                          location_state:
+ *                              type: string
+ *                              default: Punjab
+ *                          postal_code:
+ *                              type: number
+ *                              default: 140301
+ *                          country:
+ *                              type: string
+ *                              default: 91
+ *                          currency:
+ *                              type: string
+ *                              default: Rupees
+ *                          primary_language:
+ *                              type: string
+ *                              default: English
+ *                          time_zone:
+ *                              type: string
+ *                              default: GMT+5:30
+ *                          date:format:
+ *                              type: string
+ *                              default: DD/MM/YYYY
+ *                          website:
+ *                              type: string
+ *                              default: rudrainnovativesoftware.com
+ *                          contact:
+ *                              type: number
+ *                              default: 9856472156
+ */
 /**
  * @swagger
  * tags:
