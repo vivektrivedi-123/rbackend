@@ -297,6 +297,7 @@ router.post(
 router.put(
   "/api/v1/company/:id",
   auth,
+  upload,
   compValidation(),
   validateSchema,
   companyController.updateCompany

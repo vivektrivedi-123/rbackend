@@ -99,7 +99,7 @@ exports.updateCompany = async (req, res, next) => {
     { _id: req.params.id },
     req.body
   );
-  res.status(200).json(update);
+  res.json(update).status(200);
 };
 exports.deleteCompany = async (req, res, next) => {
   if (!req.params.id || req.params.id < 0)
