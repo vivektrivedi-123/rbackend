@@ -10,6 +10,86 @@ const Application = require("../models/application");
 
 /**
  * @swagger
+ * components:
+ *  schemas:
+ *   Application:
+ *    type: object
+ *    required:
+ *     - job
+ *     - forms
+ *     - form_values
+ *     - resume
+ *     - origin
+ *     - tags
+ *     - status
+ *     - overall_status
+ *     - lead_owner
+ *     - is_deleted
+ *     - is_blocked
+ *     - social_profiles
+ *     - refer_by
+ *     - add_to_talent_pool
+ *    properties:
+ *                        id:
+ *                          type: string
+ *                          description: The auto-generated id of the role
+ *                        job:
+ *                          type: string
+ *                          description: The job ID
+ *                        forms:
+ *                          type: string
+ *                          description: The form ID
+ *                        form_values:
+ *                          type: Number
+ *                          description: The value of the form
+ *                          example: 1234
+ *                        resume:
+ *                          type: string
+ *                          description: Applicant's resume
+ *                          example: resume.pdf
+ *                        origin:
+ *                          type: string
+ *                          description: Origin 
+ *                        tags:
+ *                          type: string
+ *                          description: Applicant's Tags
+ *                          example: #node #javascript
+ *                        status:
+ *                          type: string
+ *                          description: Status of the applicant
+ *                          example: active
+ *                        overall_rating:
+ *                          type: Number
+ *                          description: Applicant's Overall Rating
+ *                          example: 4
+ *                        lead_owner:
+ *                          type: string
+ *                          description: Lead owner of the applicant
+ *                          example: Abcdef
+ *                        is_deleted:
+ *                          type: boolean
+ *                          description: Is the applicant deleted?
+ *                          example: true
+ *                        is_blocked:
+ *                          type: boolean
+ *                          description: Is the applicant blocked?
+ *                          example: false 
+ *                        social_profiles:
+ *                          type: string
+ *                          description: Applicant's Social Profiles
+ *                          example: LinkedIn account -abcdef 
+ *                        refer_by:
+ *                          type: string
+ *                          description: Reference of the applicant
+ *                          example: XYZ
+ *                        add_to_talent_pool:
+ *                          type: string
+ *                          description: Add to talent pool
+ *                          example: Yes
+ *  
+ */
+/**
+ * @swagger
  * tags:
  *  name: Application
  * /api/v1/application:
@@ -99,7 +179,7 @@ router.get(
  *                          description: Status of the applicant
  *                          example: active
  *                        overall_rating:
- *                          type: string
+ *                          type: Number
  *                          description: Applicant's Overall Rating
  *                          example: 4
  *                        lead_owner:
@@ -199,7 +279,7 @@ router.post(
  *               description: Status of the applicant
  *               example: active
  *             overall_rating:
- *               type: string
+ *               type: Number
  *               description: Applicant's Overall Rating
  *               example: 4
  *             lead_owner:
@@ -259,7 +339,7 @@ router.post(
  *               description: Status of the applicant
  *               example: active
  *             overall_rating:
- *               type: string
+ *               type: Number
  *               description: Applicant's Overall Rating
  *               example: 4
  *             lead_owner:

@@ -8,7 +8,40 @@ const router = express.Router();
 const auth = require("../middleware/auth");
 const Form = require("../models/forms");
 
-
+/**
+ * @swagger
+ * components: 
+ *  schemas: 
+ *   Form:
+ *    type: object
+ *    required: 
+ *      - job
+ *      - field
+ *      - label
+ *      - placeholder
+ *      - is_required
+ *      - order
+ *    properties:
+ *             id:
+ *              type: string
+ *              description: The auto-generated id of the form
+ *             job:
+ *              type: string
+ *              description: The ID of the job
+ *             field:
+ *              type: string
+ *              description: The ID of the field
+ *             label:
+ *              type: string
+ *              description: The label for the form
+ *             placeholder:
+ *               type: string
+ *               description : The placeholder in the form
+ *             is_required:
+ *                type: boolean
+ *                description: required for not
+ *                              
+*/
 /**
  * @swagger
  * tags:
@@ -67,9 +100,24 @@ router.get("/api/v1/form/:id", auth, formController.getFormById);
  *                  schema:
  *                      type: object
  *                      properties:
- *                          role_name:
- *                              type: string
- *                              default: admin
+ *                          id:
+ *                            type: string
+ *                            description: The auto-generated id of the form
+ *                          job:
+ *                            type: string
+ *                            description: The ID of the job
+ *                          field:
+ *                            type: string
+ *                            description: The ID of the field
+ *                          label:
+ *                            type: string
+ *                            description: The label for the form
+ *                          placeholder:
+ *                            type: string
+ *                            description : The placeholder in the form
+ *                          is_required:
+ *                              type: boolean
+ *                              description: required for not
  *      responses:
  *          200:
  *             description: A successful response

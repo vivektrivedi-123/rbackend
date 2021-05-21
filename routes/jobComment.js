@@ -18,7 +18,35 @@ const storage = multer.diskStorage({
 });
 
 const attachments = multer({ storage: storage }).array("attachments", 4);
-
+/**
+ * @swagger
+ * components: 
+ *  schemas: 
+ *   Comment:
+ *    type: object
+ *    required: 
+ *      - application
+ *      - comments
+ *      - attachments
+ *      - status
+ *    properties:
+ *                           id:
+ *                            type: string
+ *                            description: The auto-generated id of the comment
+ *                           application:
+ *                            type: string
+ *                            description: The ID of the application
+ *                           comments:
+ *                            type: string
+ *                            description: The comments for the job
+ *                           attachments:
+ *                            type: string
+ *                            description: The attachments for the comments
+ *                           status:
+ *                            type: boolean
+ *                            description: The status of the comment
+ *                              
+*/
 
 /**
  * @swagger

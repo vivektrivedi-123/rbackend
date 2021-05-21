@@ -7,6 +7,23 @@ const express = require("express");
 const auth = require("../middleware/auth");
 const router = express.Router();
 
+/**
+ * @swagger
+ * components:
+ *  schemas:
+ *   Department:
+ *    type: object
+ *    required:
+ *     - location
+ *     - department_name
+ *    properties:
+ *                          location:
+ *                            type: string
+ *                            description: The location ID
+ *                          department_name:
+ *                            type: string
+ *                            description: The department name
+ */
 
 /**
  * @swagger

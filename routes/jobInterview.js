@@ -11,6 +11,68 @@ const Interview = require("../models/interview");
 
 /**
  * @swagger
+ * components: 
+ *  schemas: 
+ *   Interview:
+ *    type: object
+ *    required: 
+ *      - application
+ *      - stages
+ *      - subject
+ *      - scheduled_date
+ *      - scheduled_time
+ *      - scheduled_timezone
+ *      - duration
+ *      - recommmendations
+ *      - interviewer
+ *      - rating
+ *      - notes
+ *      - overall_comments
+ *      - status
+ *    properties:
+ *                          application:
+ *                              type: string
+ *                              description: ID of the application
+ *                          stages:
+ *                               type: string
+ *                               description: ID of the stage
+ *                          subject:
+ *                               type: string
+ *                               description: Subject of the interview
+ *                          scheduled_date:
+ *                               type: string
+ *                               description: scheduled_date of the interview
+ *                          scheduled_time:
+ *                               type: string
+ *                               description: scheduled_time of the interview
+ *                          scheduled_timezone:
+ *                               type: string
+ *                               description: scheduled_timezone of the interview
+ *                          duration:
+ *                               type: string
+ *                               description: duration of the interview
+ *                          recommendations:
+ *                               type: string
+ *                               description: recommendations of the interview
+ *                          interviewer:
+ *                               type: string
+ *                               description: interviewer of the interview
+ *                          rating:
+ *                               type: Number
+ *                               description: rating of the interview
+ *                          notes:
+ *                               type: string
+ *                               description: notes of the interview
+ *                          overall_comments:
+ *                               type: string
+ *                               description: overall_comments of the Interview
+ *                          status: 
+ *                               type: string
+ *                               description: status of the interview
+ *                              
+*/
+/**
+ * @swagger
  * tags:
  *  name: Interview
  * /api/v1/interview:
@@ -95,7 +157,7 @@ router.get("/api/v1/interview/:id", auth, interviewController.getInterviewById);
  *                               type: string
  *                               description: interviewer of the interview
  *                          rating:
- *                               type: string
+ *                               type: Number
  *                               description: rating of the interview
  *                          notes:
  *                               type: string
@@ -177,7 +239,7 @@ router.post(
  *                               type: string
  *                               description: interviewer of the interview
  *                          rating:
- *                               type: string
+ *                               type: Number
  *                               description: rating of the interview
  *                          notes:
  *                               type: string
@@ -222,7 +284,7 @@ router.post(
  *                               type: string
  *                               description: interviewer of the interview
  *                          rating:
- *                               type: string
+ *                               type: Number
  *                               description: rating of the interview
  *                          notes:
  *                               type: string
@@ -269,7 +331,7 @@ router.post(
  *                               type: string
  *                               description: interviewer of the interview
  *                          rating:
- *                               type: string
+ *                               type: Number
  *                               description: rating of the interview
  *                          notes:
  *                               type: string

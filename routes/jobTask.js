@@ -10,6 +10,49 @@ const Task = require("../models/task");
 
 /**
  * @swagger
+ * components:
+ *  schemas:
+ *   Task:
+ *    type: object
+ *    required:
+ *     - application
+ *     - title
+ *     - description
+ *     - assigned_to
+ *     - due_date
+ *     - due_time
+ *     - remind_before
+ *     - status
+ *    properties:
+ *                          application:
+ *                              type: string
+ *                              description: ID of the application
+ *                          title:
+ *                              type: string
+ *                              description: Title of the task
+ *                          description:
+ *                              type: string
+ *                              description: Description of the task
+ *                          assigned_to:
+ *                              type: string
+ *                              description: Assignment of the task
+ *                          due_date:
+ *                              type: string
+ *                              description: Due date of the task                   
+ *                          due_time:
+ *                              type: string
+ *                              description: Due time of the task
+ *                          remind_before:
+ *                              type: string
+ *                              description: Remind before about the task
+ *                          status:
+ *                              type: string
+ *                              description: Status of the task
+ *         
+ *    
+ */
+/**
+ * @swagger
  * tags:
  *  name:Task
  * /api/v1/task:

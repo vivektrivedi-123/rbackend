@@ -11,9 +11,6 @@ const emailSchema = new mongoose.Schema(
         required: true,
       },
     ],
-    // location: [
-    //   { type: mongoose.Schema.Types.ObjectId, ref: "location", required: true },
-    // ],
     from: { type: String, required: true },
     to: { type: String, required: true },
     body: { type: String, required: true },

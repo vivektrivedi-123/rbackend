@@ -7,7 +7,32 @@ const {
 const auth = require("../middleware/auth");
 const router = express.Router();
 const Field = require("../models/field");
-
+/**
+ * @swagger
+ * components:
+ *  schemas:
+ *   Field:
+ *    type: object
+ *    required:
+ *     - location
+ *     - field_name
+ *     - field_type
+ *     - field_options
+ *    properties:
+ *                          location:
+ *                            type: string
+ *                            description: The location ID
+ *                          field_name:
+ *                            type: string
+ *                            description: Name of the field
+ *                          field_type:
+ *                            type: string
+ *                            description: The field type
+ *                          field_options:
+ *                            type: string
+ *                            description: The options of the field
+ *     
+ */
 
 /**
  * @swagger

@@ -11,6 +11,82 @@ const job = require("../models/job");
 
 /**
  * @swagger
+ * components: 
+ *  schemas: 
+ *   Job:
+ *    type: object
+ *    required: 
+ *      - department
+ *      - category
+ *      - job_title
+ *      - job_type
+ *      - email
+ *      - remote_job
+ *      - job_description
+ *      - experience
+ *      - skills
+ *      - tags
+ *      - min_sal
+ *      - max_sal
+ *      - currency
+ *      - allow_employees
+ *      - status
+ *      - job_code
+ *      - job_slug
+ *    properties:
+ *                          department:
+ *                              type: string
+ *                              description: ID of the department
+ *                          category:
+ *                              type: string
+ *                              description: ID of the category
+ *                          job_title:
+ *                              type: string
+ *                              description: Title of the job
+ *                          job_type:
+ *                              type: string
+ *                              description: Type of the job
+ *                          remote_job:
+ *                              type: string
+ *                              description: Remote Job
+ *                          job_description:
+ *                              type: string
+ *                              description: Description of the job
+ *                          experience:
+ *                              type: string
+ *                              description: Experience in the job
+ *                          skills:
+ *                              type: string
+ *                              description: Skills 
+ *                          tags:
+ *                              type: string
+ *                              description: Tags of the job
+ *                          min_sal:
+ *                              type: Number
+ *                              description: Min_salary of the job
+ *                          max_sal:
+ *                              type: Number
+ *                              description: Max_salary of the job
+ *                          currency:
+ *                              type: string
+ *                              description: Currency of the job
+ *                          allow_employee:
+ *                              type: string
+ *                              description: Allow employees
+ *                          status:
+ *                              type: string
+ *                              description: Status of the job
+ *                          job_code:
+ *                              type: string
+ *                              description: Code of the job
+ *                          job_slug:
+ *                              type: string
+ *                              description: Slug of the job
+ *                              
+*/
+
+/**
+ * @swagger
  * tags:
  *  name: Job
  * /api/v1/job:
@@ -95,10 +171,10 @@ router.get("/api/v1/job/:id", auth, jobController.getJobById);
  *                              type: string
  *                              description: Tags of the job
  *                          min_sal:
- *                              type: string
+ *                              type: Number
  *                              description: Min_salary of the job
  *                          max_sal:
- *                              type: string
+ *                              type: Number
  *                              description: Max_salary of the job
  *                          currency:
  *                              type: string
@@ -190,10 +266,10 @@ router.post(
  *                              type: string
  *                              description: Min_salary of the job
  *                          max_sal:
- *                              type: string
+ *                              type: Number
  *                              description: Max_salary of the job
  *                          currency:
- *                              type: string
+ *                              type: Number
  *                              description: Currency of the job
  *                          allow_employee:
  *                              type: string
@@ -241,10 +317,10 @@ router.post(
  *                              type: string
  *                              description: Tags of the job
  *                          min_sal:
- *                              type: string
+ *                              type: Number
  *                              description: Min_salary of the job
  *                          max_sal:
- *                              type: string
+ *                              type: Number
  *                              description: Max_salary of the job
  *                          currency:
  *                              type: string
@@ -297,10 +373,10 @@ router.post(
  *                              type: string
  *                              description: Tags of the job
  *                          min_sal:
- *                              type: string
+ *                              type: Number
  *                              description: Min_salary of the job
  *                          max_sal:
- *                              type: string
+ *                              type: Number
  *                              description: Max_salary of the job
  *                          currency:
  *                              type: string

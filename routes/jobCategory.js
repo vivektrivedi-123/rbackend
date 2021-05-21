@@ -7,7 +7,31 @@ const {
   validateSchema,
 } = require("../validation/categoryValidation");
 const router = express.Router();
-
+/**
+ * @swagger
+ * components:
+ *  schemas: 
+ *   Category:
+ *    type: object
+ *    required: 
+ *     - location
+ *     - category
+ *     - status
+ *    properties:
+ *                          id:
+ *                            type: string
+ *                            description: The auto-generated id of the role
+ *                          location:
+ *                            type: string
+ *                            description: The ID of the location 
+ *                          category:
+ *                            type: string
+ *                            description: The category in the company
+ *                          status:
+ *                            type: string
+ *                            description: The status of the category
+ *        
+ */
 /**
  * @swagger
  * tags:

@@ -10,6 +10,29 @@ const Stage = require("../models/stage");
 
 /**
  * @swagger
+ * components:
+ *  schemas:
+ *   Stage:
+ *    type: object
+ *    required:
+ *     - job
+ *     - stage
+ *     - status
+ *    properties:
+ *                          job:
+ *                              type: string
+ *                              description: The ID of the job
+ *                          stage:
+ *                               type: string
+ *                               description: Stage of the job
+ *                          status:
+ *                               type: string
+ *                               description: The status of the job
+ *         
+ *    
+ */
+/**
+ * @swagger
  * tags:
  *  name: Stage
  * /api/v1/stage:

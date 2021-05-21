@@ -40,6 +40,54 @@ const upload = multer({
 
 /**
  * @swagger
+ * components:
+ *  schemas: 
+ *   Company:
+ *    type: object
+ *    required:
+ *     - company_name
+ *     - industry
+ *     - company_language
+ *     - date_format
+ *     - employee_portal_name
+ *     - employee_portal_url
+ *     - company_logo
+ *     - favicon
+ *    properties:
+ *                          company_name:
+ *                            type: string
+ *                            description: The company name
+ *                            example: Rudra Innovative Software
+ *                          industry:
+ *                            type: string
+ *                            description: The Industry type
+ *                            example: IT
+ *                          company_language:
+ *                            type: string
+ *                            description: The Language of the company
+ *                            example: English
+ *                          date_format:
+ *                            type: string
+ *                            description: The Date format
+ *                            example: dd/mm/yy
+ *                          employee_portal_name:
+ *                            type: string
+ *                            description: The Employee Portal name
+ *                            example: Apurva
+ *                          employee_portal_url:
+ *                            type: string
+ *                            description: The employee portal URL
+ *                          company_logo:
+ *                            type: string
+ *                            description: The company logo
+ *                            example: logo.jpeg
+ *                          favicon:
+ *                            type: string
+ *                            description: The company favicon
+ *                            example: favicon.jpeg
+ */
+/**
+ * @swagger
  * tags:
  *   name: Company
  * /api/v1/company:

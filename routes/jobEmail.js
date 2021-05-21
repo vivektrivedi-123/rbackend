@@ -10,6 +10,40 @@ const Email = require("../models/email");
 
 /**
  * @swagger
+ * components: 
+ *  schemas: 
+ *   Email:
+ *    type: object
+ *    required: 
+ *      - application
+ *      - from
+ *      - to
+ *      - body
+ *      - status
+ *    properties:
+ *                          id:
+ *                           type: string
+ *                           description: The auto-generated id of the email
+ *                          application:
+ *                           type: string
+ *                           description: The application ID 
+ *                          from:
+ *                           type: string
+ *                           description: The sender of the email
+ *                          to:
+ *                           type: string
+ *                           description: The receiver of the email
+ *                          body:
+ *                           type: string
+ *                           description: The body of the email
+ *                          status:
+ *                           type: string
+ *                           description: The status of the email
+ *                              
+*/
+
+/**
+ * @swagger
  * tags:
  *  name: Email
  * /api/v1/email:
