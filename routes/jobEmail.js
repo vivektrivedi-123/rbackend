@@ -14,6 +14,8 @@ const Email = require("../models/email");
  *  name: Email
  * /api/v1/email:
  *  get:
+ *      security:
+ *        - Bearer: []
  *      tags: [Email]
  *      summary: Get all email
  *      responses:
@@ -27,6 +29,8 @@ router.get("/api/v1/email", auth, emailController.getEmail);
  *  name: Email
  * /api/v1/email/{id}:
  *  get:
+ *   security:
+ *        - Bearer: []
  *   tags: [Email]
  *   summary: Get email by ID
  *   description: Get email data by ID
@@ -51,6 +55,8 @@ router.get("/api/v1/email/:id", auth, emailController.getEmailById);
  *  name: Email
  * /api/v1/email:
  *  post:
+ *      security:
+ *        - Bearer: []
  *      tags: [Email]
  *      summary: Add email
  *      requestBody:
@@ -97,6 +103,8 @@ router.post(
  *  name: Email
  * /api/v1/email/{id}:
  *  put:
+ *   security:
+ *        - Bearer: []
  *   tags: [Email]
  *   summary: update email
  *   description: update email
@@ -189,6 +197,8 @@ router.put("/api/v1/email/:id", auth, emailController.updateEmail);
  *  name: Email
  * /api/v1/email/{id}:
  *  delete:
+ *   security:
+ *        - Bearer: []
  *   tags: [Email]
  *   summary: delete email
  *   description: delete email

@@ -14,6 +14,8 @@ const Options = require("../models/options");
  *  name: Options
  * /api/v1/option:
  *  get:
+ *      security:
+ *        - Bearer: []
  *      tags: [Options]
  *      summary: Get all Options
  *      responses:
@@ -27,6 +29,8 @@ router.get("/api/v1/option", auth, optionsController.getOptions);
  *  name: Options
  * /api/v1/option/{id}:
  *  get:
+ *   security:
+ *        - Bearer: []
  *   tags: [Options]
  *   summary: Get options by ID
  *   description: Get options data by ID
@@ -51,6 +55,8 @@ router.get("/api/v1/option/:id", auth, optionsController.getOptionsById);
  *  name: Options
  * /api/v1/option:
  *  post:
+ *      security:
+ *        - Bearer: []
  *      tags: [Options]
  *      summary: Add option
  *      requestBody:
@@ -85,6 +91,8 @@ router.post(
  *  name: Options
  * /api/v1/option/{id}:
  *  put:
+ *   security:
+ *        - Bearer: []
  *   tags: [Options]
  *   summary: update options
  *   description: update options
@@ -156,6 +164,8 @@ router.put(
  *  name: Options
  * /api/v1/option/{id}:
  *  delete:
+ *   security:
+ *        - Bearer: []
  *   tags: [Options]
  *   summary: delete options
  *   description: delete options

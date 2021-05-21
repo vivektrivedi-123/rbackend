@@ -14,6 +14,8 @@ const Location = require("../models/location");
  *  name: Location
  * /api/v1/location:
  *  get:
+ *      security:
+ *        - Bearer: []
  *      tags: [Location]
  *      summary: Get all locations
  *      responses:
@@ -27,6 +29,8 @@ router.get("/api/v1/location", auth, locationController.getLocation);
  *  name: Location
  * /api/v1/location/{id}:
  *  get:
+ *   security:
+ *        - Bearer: []
  *   tags: [Location]
  *   summary: Get location by ID
  *   description: Get location data by ID
@@ -51,6 +55,8 @@ router.get("/api/v1/location/:id", auth, locationController.getLocationById);
  *  name: Location
  * /api/v1/location:
  *  post:
+ *      security:
+ *        - Bearer: []
  *      tags: [Location]
  *      summary: Add location
  *      requestBody:
@@ -118,6 +124,8 @@ router.post(
  *  name: Location
  * /api/v1/location/{id}:
  *  put:
+ *   security:
+ *        - Bearer: []
  *   tags: [Location]
  *   summary: update location
  *   description: update location
@@ -285,6 +293,8 @@ router.put(
  *  name: Location
  * /api/v1/location/{id}:
  *  delete:
+ *   security:
+ *        - Bearer: []
  *   tags: [Location]
  *   summary: delete location
  *   description: delete location

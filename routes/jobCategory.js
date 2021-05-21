@@ -14,6 +14,8 @@ const router = express.Router();
  *  name: Category
  * /api/v1/category:
  *  get:
+ *      security:
+ *        - Bearer: []
  *      tags: [Category]
  *      summary: Get all categories
  *      responses:
@@ -27,6 +29,8 @@ router.get("/api/v1/category", auth, categoryController.getCategory);
  *  name: Category
  * /api/v1/category/{id}:
  *  get:
+ *   security:
+ *        - Bearer: []
  *   tags: [Category]
  *   summary: Get category by ID
  *   description: Get category data by ID
@@ -51,6 +55,8 @@ router.get("/api/v1/category/:id", auth, categoryController.getCategoryById);
  *  name: Category
  * /api/v1/category:
  *  post:
+ *      security:
+ *        - Bearer: []
  *      tags: [Category]
  *      summary: Add category
  *      requestBody:
@@ -91,6 +97,8 @@ router.post(
  *  name: Category
  * /api/v1/category/{id}:
  *  put:
+ *   security:
+ *        - Bearer: []
  *   tags: [Category]
  *   summary: update category
  *   description: update category
@@ -171,6 +179,8 @@ router.put(
  *  name: Category
  * /api/v1/category/{id}:
  *  delete:
+ *   security:
+ *        - Bearer: []
  *   tags: [Category]
  *   summary: delete category
  *   description: delete category

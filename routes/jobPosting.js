@@ -15,6 +15,8 @@ const job = require("../models/job");
  *  name: Job
  * /api/v1/job:
  *  get:
+ *      security:
+ *        - Bearer: []
  *      tags: [Job]
  *      summary: Get all jobs
  *      responses:
@@ -28,6 +30,8 @@ router.get("/api/v1/job", auth, jobController.getJob);
  *  name: Job
  * /api/v1/job/{id}:
  *  get:
+ *   security:
+ *        - Bearer: []
  *   tags: [Job]
  *   summary: Get job by ID
  *   description: Get job data by ID
@@ -52,6 +56,8 @@ router.get("/api/v1/job/:id", auth, jobController.getJobById);
  *  name: Job
  * /api/v1/job:
  *  post:
+ *      security:
+ *        - Bearer: []
  *      tags: [Job]
  *      summary: Add Job
  *      requestBody:
@@ -129,6 +135,8 @@ router.post(
  *  name: Job
  * /api/v1/job/{id}:
  *  put:
+ *   security:
+ *        - Bearer: []
  *   tags: [Job]
  *   summary: update job
  *   description: update job
@@ -322,6 +330,8 @@ router.put(
  *  name: Job
  * /api/v1/job/{id}:
  *  delete:
+ *   security:
+ *        - Bearer: []
  *   tags: [Job]
  *   summary: delete job
  *   description: delete job

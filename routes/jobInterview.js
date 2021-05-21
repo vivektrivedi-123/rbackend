@@ -15,6 +15,8 @@ const Interview = require("../models/interview");
  *  name: Interview
  * /api/v1/interview:
  *  get:
+ *      security:
+ *        - Bearer: []
  *      tags: [Interview]
  *      summary: Get all Interviews
  *      responses:
@@ -28,6 +30,8 @@ router.get("/api/v1/interview", auth, interviewController.getInterview);
  *  name: Interview
  * /api/v1/interview/{id}:
  *  get:
+ *   security:
+ *        - Bearer: []
  *   tags: [Interview]
  *   summary: Get Interview by ID
  *   description: Get Interview data by ID
@@ -52,6 +56,8 @@ router.get("/api/v1/interview/:id", auth, interviewController.getInterviewById);
  *  name: Interview
  * /api/v1/interview:
  *  post:
+ *      security:
+ *        - Bearer: []
  *      tags: [Interview]
  *      summary: Add Interview
  *      requestBody:
@@ -119,6 +125,8 @@ router.post(
  *  name: Interview
  * /api/v1/interview/{id}:
  *  put:
+ *   security:
+ *        - Bearer: []
  *   tags: [Interview]
  *   summary: update role
  *   description: update role
@@ -286,6 +294,8 @@ router.put(
  *  name: Interview
  * /api/v1/interview/{id}:
  *  delete:
+ *   security:
+ *        - Bearer: []
  *   tags: [Interview]
  *   summary: delete interview
  *   description: delete interview

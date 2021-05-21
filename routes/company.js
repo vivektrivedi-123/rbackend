@@ -44,6 +44,8 @@ const upload = multer({
  *   name: Company
  * /api/v1/company:
  *  get:
+ *      security:
+ *        - Bearer: []
  *      tags: [Company]
  *      summary: Get all companies
  *      responses:
@@ -60,6 +62,8 @@ router.get("/api/v1/company", auth, companyController.getCompany);
  *   name: Company
  * /api/v1/company/{id}:
  *  get:
+ *   security:
+ *        - Bearer: []
  *   tags: [Company]
  *   summary: Get company by ID
  *   description: Get company data by ID
@@ -85,6 +89,8 @@ router.get("/api/v1/company/:id", auth, companyController.getCompanyById);
  *  name: Company
  * /api/v1/company:
  *  post:
+ *      security:
+ *        - Bearer: []
  *      tags: [Company]
  *      summary: Add company
  *      requestBody:
@@ -146,6 +152,8 @@ router.post(
  *  name: Company
  * /api/v1/company/{id}:
  *  put:
+ *   security:
+ *        - Bearer: []
  *   tags : [Company]
  *   summary: update company
  *   description: update company
@@ -293,6 +301,8 @@ router.put(
  *  name: Company
  * /api/v1/company/{id}:
  *  delete:
+ *   security:
+ *        - Bearer: []
  *   tags: [Company]
  *   summary: delete company
  *   description: delete company

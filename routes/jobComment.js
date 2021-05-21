@@ -26,6 +26,8 @@ const attachments = multer({ storage: storage }).array("attachments", 4);
  *  name: Comment
  * /api/v1/comment:
  *  get:
+ *      security:
+ *        - Bearer: []
  *      tags: [Comment]
  *      summary: Get all comments
  *      responses:
@@ -39,6 +41,8 @@ router.get("/api/v1/comment", auth, commentController.getComment);
  *  name: Comment
  * /api/v1/comment/{id}:
  *  get:
+ *   security:
+ *        - Bearer: []
  *   tags: [Comment]
  *   summary: Get comment by ID
  *   description: Get comment data by ID
@@ -63,6 +67,8 @@ router.get("/api/v1/comment/:id", auth, commentController.getCommentById);
  *  name: Comment
  * /api/v1/comment:
  *  post:
+ *      security:
+ *        - Bearer: []
  *      tags: [Comment]
  *      summary: Add comment
  *      requestBody:
@@ -107,6 +113,8 @@ router.post(
  *  name: Comment
  * /api/v1/comment/{id}:
  *  put:
+ *   security:
+ *        - Bearer: []
  *   tags: [Comment]
  *   summary: update comment
  *   description: update comment
@@ -196,6 +204,8 @@ router.put(
  *  name: Comment
  * /api/v1/comment/{id}:
  *  delete:
+ *   security:
+ *        - Bearer: []
  *   tags: [Comment]
  *   summary: delete comment
  *   description: delete comment

@@ -14,6 +14,8 @@ const Role = require("../models/role");
  *  name: Role
  * /api/v1/role:
  *  get:
+ *      security:
+ *        - Bearer: []
  *      tags: [Role]
  *      summary: Get all roles
  *      responses:
@@ -27,6 +29,8 @@ router.get("/api/v1/role", auth, rolesController.getRoles);
  *  name: Role
  * /api/v1/role/{id}:
  *  get:
+ *   security:
+ *        - Bearer: []
  *   tags: [Role]
  *   summary: Get role by ID
  *   description: Get role data by ID
@@ -51,6 +55,8 @@ router.get("/api/v1/role/:id", auth, rolesController.getRolesById);
  *  name: Role
  * /api/v1/role:
  *  post:
+ *      security:
+ *        - Bearer: []
  *      tags: [Role]
  *      summary: Add role
  *      requestBody:
@@ -82,6 +88,8 @@ router.post(
  *  name: Role
  * /api/v1/role/{id}:
  *  put:
+ *   security:
+ *        - Bearer: []
  *   tags: [Role]
  *   summary: update role
  *   description: update role
@@ -144,6 +152,8 @@ router.put(
  *  name: Role
  * /api/v1/role/{id}:
  *  delete:
+ *   security:
+ *        - Bearer: []
  *   tags: [Role]
  *   summary: delete role
  *   description: delete role

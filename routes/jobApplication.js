@@ -14,6 +14,8 @@ const Application = require("../models/application");
  *  name: Application
  * /api/v1/application:
  *  get:
+ *      security:
+ *        - Bearer: []
  *      tags: [Application]
  *      summary: Get all application
  *      responses:
@@ -27,6 +29,8 @@ router.get("/api/v1/application", auth, applicationController.getApplication);
  *  name: Application
  * /api/v1/application/{id}:
  *  get:
+ *   security:
+ *        - Bearer: []
  *   tags: [Application]
  *   summary: Get application by ID
  *   description: Get application data by ID
@@ -55,6 +59,8 @@ router.get(
  *  name: Application
  * /api/v1/application:
  *  post:
+ *      security:
+ *        - Bearer: []
  *      tags: [Application]
  *      summary: Add application
  *      requestBody:
@@ -140,6 +146,8 @@ router.post(
  *  name: Application
  * /api/v1/application/{id}:
  *  put:
+ *   security:
+ *        - Bearer: []
  *   tags: [Application]
  *   summary: update application
  *   description: update application
@@ -352,6 +360,8 @@ router.put(
  *  name: Application
  * /api/v1/application/{id}:
  *  delete:
+ *   security:
+ *        - Bearer: []
  *   tags: [Application]
  *   summary: delete application
  *   description: delete application

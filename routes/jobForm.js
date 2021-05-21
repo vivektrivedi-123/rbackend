@@ -15,6 +15,8 @@ const Form = require("../models/forms");
  *   name: Form
  * /api/v1/form:
  *  get:
+ *      security:
+ *        - Bearer: []
  *      tags: [Form]
  *      summary: Get all form
  *      responses:
@@ -27,7 +29,9 @@ router.get("/api/v1/form", auth, formController.getForm);
  * tags:
  *   name: Form
  * /api/v1/form/{id}:
- *  get:
+ *  get: 
+ *   security:
+ *        - Bearer: []
  *   tags: [Form]
  *   summary: Get form by ID
  *   description: Get form data by ID
@@ -52,6 +56,8 @@ router.get("/api/v1/form/:id", auth, formController.getFormById);
  *   name: Form
  * /api/v1/form:
  *  post:
+ *      security:
+ *        - Bearer: []
  *      tags: [Form]
  *      summary: Add form
  *      requestBody:
@@ -83,6 +89,8 @@ router.post(
  *   name: Form
  * /api/v1/form/{id}:
  *  put:
+ *   security:
+ *        - Bearer: []
  *   tags: [Form]
  *   summary: update form
  *   description: update form
@@ -181,6 +189,8 @@ router.put(
  *   name: Form
  * /api/v1/form/{id}:
  *  delete:
+ *   security:
+ *        - Bearer: []
  *   tags: [Form]
  *   summary: delete form
  *   description: delete form

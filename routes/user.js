@@ -49,6 +49,8 @@ const upload = multer({
  *  name: User
  * /api/v1/user:
  *  get:
+ *      security:
+ *        - Bearer: []
  *      tags: [User]
  *      summary: Get all users
  *      responses:
@@ -64,6 +66,8 @@ router.get("/api/v1/user", auth, userController.getUser);
  *  name: User
  * /api/v1/user/{id}:
  *  get:
+ *   security:
+ *        - Bearer: []
  *   tags: [User]
  *   summary: Get user by ID
  *   description: Get user data by ID
@@ -83,37 +87,16 @@ router.get("/api/v1/user", auth, userController.getUser);
  */
 //get by ID
 router.get("/api/v1/user/:id", auth, userController.getUserById);
-/**
- * @swagger
- * tags:
- *  name: User
- * /api/v1/user/me:
- *  get:
- *   tags: [User]
- *   summary: get user
- *   description: get user data
- *   parameters:
- *    - in: path
- *      name: id
- *      schema:
- *       type: integer
- *      required: true
- *      description: id of the User
- *      example: 2
- *   responses:
- *    200:
- *     description: success
- *    404:
- *     description: Id not found
- */
 //getMe
-router.get("/api/v1/user/me", auth, userController.getMe);
+// router.get("/api/v1/user/me", auth, userController.getMe);
 /**
  * @swagger
  *  tags:
  *  name: Access
  * /api/v1/userLogin:
  *  post:
+ *      security:
+ *        - Bearer: []
  *      tags: [Access]
  *      requestBody:
  *          required: true
@@ -122,6 +105,9 @@ router.get("/api/v1/user/me", auth, userController.getMe);
  *                  schema:
  *                      type: object
  *                      properties:
+ *                          company:
+ *                              type: string
+ *                              description: ID of the company
  *                          email:
  *                              type: string
  *                              default: apurva@gmail.com
@@ -143,6 +129,8 @@ router.post("/api/v1/userLogin", userController.userLogin);
  *  name: User
  * /api/v1/user:
  *  post:
+ *      security:
+ *        - Bearer: []
  *      tags: [User]
  *      summary: Add user
  *      requestBody:
@@ -192,6 +180,8 @@ router.post(
  *  name: User
  * /api/v1/user/{id}:
  *  put:
+ *   security:
+ *        - Bearer: []
  *   tags: [User]
  *   summary: update user
  *   description: update user
@@ -297,6 +287,8 @@ router.put(
  *  name: User
  * /api/v1/user/{id}:
  *  delete:
+ *   security:
+ *        - Bearer: []
  *   tags: [User]
  *   summary: delete user
  *   description: delete user

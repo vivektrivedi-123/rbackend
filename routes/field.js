@@ -15,6 +15,8 @@ const Field = require("../models/field");
  *  name: Field
  * /api/v1/field:
  *  get:
+ *      security:
+ *        - Bearer: []
  *      tags: [Field]
  *      summary: Get all field
  *      responses:
@@ -28,6 +30,8 @@ router.get("/api/v1/field", auth, fieldController.getField);
  *  name: Field
  * /api/v1/field/{id}:
  *  get:
+ *   security:
+ *        - Bearer: []
  *   tags: [Field]
  *   summary: Get field by ID
  *   description: Get field data by ID
@@ -52,6 +56,8 @@ router.get("/api/v1/field/:id", auth, fieldController.getFieldById);
  *  name: Field
  * /api/v1/field:
  *  post:
+ *      security:
+ *        - Bearer: []
  *      tags: [Field]
  *      summary: Add field
  *      requestBody:
@@ -92,6 +98,8 @@ router.post(
  *  name: Field
  * /api/v1/field/{id}:
  *  put:
+ *   security:
+ *        - Bearer: []
  *   tags: [Field]
  *   summary: update field
  *   description: update field
@@ -175,6 +183,8 @@ router.put("/api/v1/field/:id", auth, fieldController.updateField);
  *  name: Field
  * /api/v1/field/{id}:
  *  delete:
+ *   security:
+ *        - Bearer: []
  *   tags: [Field]
  *   summary: delete field
  *   description: delete field

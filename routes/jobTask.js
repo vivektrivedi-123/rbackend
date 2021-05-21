@@ -14,6 +14,8 @@ const Task = require("../models/task");
  *  name:Task
  * /api/v1/task:
  *  get:
+ *      security:
+ *        - Bearer: []
  *      tags: [Task]
  *      summary: Get all tasks
  *      responses:
@@ -27,6 +29,8 @@ router.get("/api/v1/task", auth, taskController.getTask);
  *  name: Task
  * /api/v1/task/{id}:
  *  get:
+ *   security:
+ *        - Bearer: []
  *   tags: [Task]
  *   summary: Get task by ID
  *   description: Get task data by ID
@@ -51,6 +55,8 @@ router.get("/api/v1/task/:id", auth, taskController.getTaskById);
  *  name: Task
  * /api/v1/task:
  *  post:
+ *      security:
+ *        - Bearer: []
  *      tags: [Task]
  *      summary: Add task
  *      requestBody:
@@ -103,6 +109,8 @@ router.post(
  *  name: Task
  * /api/v1/task/{id}:
  *  put:
+ *   security:
+ *        - Bearer: []
  *   tags: [Task]
  *   summary: update task
  *   description: update task
@@ -225,6 +233,8 @@ router.put(
  *  name: Task
  * /api/v1/task/{id}:
  *  delete:
+ *   security:
+ *        - Bearer: []
  *   tags: [Task]
  *   summary: delete task
  *   description: delete task

@@ -23,8 +23,10 @@ const stage = require("./routes/jobStages");
 const task = require("./routes/jobTask");
 const location = require("./routes/location");
 const option = require("./routes/options");
+const basicAuth = require("express-basic-auth");
 const swaggerUi = require("swagger-ui-express");
 const swaggerJsdoc = require("swagger-jsdoc");
+const { JsonWebTokenError } = require("jsonwebtoken");
 const app = express();
 
 const upload = multer({
@@ -34,16 +36,20 @@ const attachments = multer({
   dest: path.join(__dirname, "./attachments"),
 });
 
-
 const options = {
   definition: {
     openapi: "3.0.0",
     components: {
       securitySchemes: {
-        bearerAuth: {
+        Bearer: {
           type: "http",
           scheme: "bearer",
         },
+        security: [
+          {
+            Bearer: [],
+          },
+        ],
       },
     },
     info: {
@@ -65,13 +71,17 @@ const options = {
 };
 
 const specs = swaggerJsdoc(options);
+
+app.use(cors());
 app.use(
   "/api-docs",
+  basicAuth({
+    users: { apurvajaitly: "apurva" },
+    challenge: true,
+  }),
   swaggerUi.serve,
   swaggerUi.setup(specs, { explorer: true })
 );
-app.use(cors());
-
 app.use("/public", express.static(path.join(__dirname, "static")));
 app.use("/upload", express.static("upload"));
 app.use("/attachments", express.static("attachments"));

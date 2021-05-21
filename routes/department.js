@@ -14,6 +14,8 @@ const router = express.Router();
  *  name: Department
  * /api/v1/department:
  *  get:
+ *      security:
+ *        - Bearer: []
  *      tags: [Department]
  *      summary: Get all departments
  *      responses:
@@ -27,6 +29,8 @@ router.get("/api/v1/department", auth, deptController.getDept);
  *  name: Department
  * /api/v1/department/{id}:
  *  get:
+ *   security:
+ *        - Bearer: []
  *   tags: [Department]
  *   summary: Get department by ID
  *   description: Get department data by ID
@@ -52,6 +56,8 @@ router.get("/api/v1/department/:id", auth, deptController.getDeptById);
  *  name: Department
  * /api/v1/department:
  *  post:
+ *      security:
+ *        - Bearer: []
  *      tags: [Department]
  *      summary: Add Department
  *      requestBody:
@@ -87,6 +93,8 @@ router.post(
  *  name: Department
  * /api/v1/department/{id}:
  *  put:
+ *   security:
+ *        - Bearer: []
  *   tags: [Department]
  *   summary: update department
  *   description: update department
@@ -159,6 +167,8 @@ router.put(
  *  name: Department
  * /api/v1/department/{id}:
  *  delete:
+ *   security:
+ *        - Bearer: []
  *   tags: [Department]
  *   summary: delete department
  *   description: delete department

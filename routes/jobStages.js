@@ -14,6 +14,8 @@ const Stage = require("../models/stage");
  *  name: Stage
  * /api/v1/stage:
  *  get:
+ *      security:
+ *        - Bearer: []
  *      tags: [Stage]
  *      summary: Get all stage
  *      responses:
@@ -27,6 +29,8 @@ router.get("/api/v1/stage", auth, stagesController.getStage);
  *  name: Stage
  * /api/v1/stage/{id}:
  *  get:
+ *   security:
+ *        - Bearer: []
  *   tags: [Stage]
  *   summary: Get stage by ID
  *   description: Get stage data by ID
@@ -51,6 +55,8 @@ router.get("/api/v1/stage/:id", auth, stagesController.getStageById);
  *  name: Stage
  * /api/v1/stage:
  *  post:
+ *      security:
+ *        - Bearer: []
  *      tags: [Stage]
  *      summary: Add stage
  *      requestBody:
@@ -89,6 +95,8 @@ router.post(
  *  name: Stage
  * /api/v1/stage/{id}:
  *  put:
+ *   security:
+ *        - Bearer: []
  *   tags: [Stage]
  *   summary: update role
  *   description: update role
@@ -166,6 +174,8 @@ router.put(
  *  name: Stage
  * /api/v1/stage/{id}:
  *  delete:
+ *   security:
+ *        - Bearer: []
  *   tags: [Stage]
  *   summary: delete stage
  *   description: delete stage
