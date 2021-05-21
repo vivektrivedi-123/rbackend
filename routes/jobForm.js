@@ -111,6 +111,8 @@ router.post(
  *      required: true
  *      description: body object
  *      schema:
+ *         type: object
+ *         properties:
  *             id:
  *              type: string
  *              description: The auto-generated id of the form
@@ -133,6 +135,8 @@ router.post(
  *    content:
  *     application/json:
  *      schema:
+ *         type: object
+ *         properties:
  *             id:
  *              type: string
  *              description: The auto-generated id of the form
@@ -157,6 +161,8 @@ router.post(
  *     content:
  *      application/json:
  *       schema:
+ *          type: object
+ *          properties:
  *             id:
  *              type: string
  *              description: The auto-generated id of the form

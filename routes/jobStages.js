@@ -98,8 +98,8 @@ router.post(
  *   security:
  *        - Bearer: []
  *   tags: [Stage]
- *   summary: update role
- *   description: update role
+ *   summary: update stage
+ *   description: update stage
  *   consumes:
  *    - application/json
  *   produces:
@@ -110,7 +110,7 @@ router.post(
  *      schema:
  *       type: integer
  *      required: true
- *      description: id of the role
+ *      description: id of the stage
  *      example: 2
  *    - in: body
  *      name: body
@@ -118,7 +118,7 @@ router.post(
  *      description: body object
  *      schema:
  *        type: object
- *        parameters:
+ *        properties:
  *                          job:
  *                              type: string
  *                              description: The ID of the job
@@ -133,7 +133,7 @@ router.post(
  *     application/json:
  *      schema:
  *       type: object
- *       parameters:
+ *       properties:
  *                          job:
  *                              type: string
  *                              description: The ID of the job
@@ -150,7 +150,7 @@ router.post(
  *      application/json:
  *       schema:
  *        type: object
- *        parameters:
+ *        properties:
  *                          job:
  *                              type: string
  *                              description: The ID of the job
