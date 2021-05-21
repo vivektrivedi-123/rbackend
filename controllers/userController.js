@@ -84,8 +84,11 @@ exports.userLogin = async (req, res, next) => {
           expiresIn: "60m",
         }
       );
-      res.header("Authorization", token).status(200);
-      res.send( token);
+      res
+        .header("Authorization", token)
+        .header("access-control-expose-headers","Authorization")
+        .status(200);
+      res.send(token);
 
       bcrypt.compare(req.body.password, user.password, (err, isvalid) => {
         if (err) {

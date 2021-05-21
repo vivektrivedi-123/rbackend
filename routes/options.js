@@ -7,7 +7,19 @@ const {
 const router = express.Router();
 const auth = require("../middleware/auth");
 const Options = require("../models/options");
-
+/**
+ * @swagger
+ * components:
+ *  schemas:
+ *   Options:
+ *    type: object
+ *    requires:
+ *     - option_key
+ *     - option_value
+ *     - location
+ *    properties:
+ *      
+ */
 /**
  * @swagger
  * tags:

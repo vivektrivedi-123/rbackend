@@ -7,7 +7,19 @@ const {
 const router = express.Router();
 const auth = require("../middleware/auth");
 const Role = require("../models/role");
-
+/**
+ * @swagger
+ * components:
+ *  schemas:
+ *   Role:
+ *    type: object
+ *    required:
+ *     -role_name
+ *    properties:
+ *       role_name:
+ *            type: string
+ *            default: admin
+ */   
 /**
  * @swagger
  * tags:

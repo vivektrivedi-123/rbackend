@@ -42,7 +42,40 @@ const upload = multer({
   },
 }).single("profile_image");
 
-
+/**
+ * @swagger
+ * components: 
+ *  schemas: 
+ *   User:
+ *    type: object
+ *    required: 
+ *      - first_name
+ *      - last_name
+ *      - mobile_number
+ *      - profile_image
+ *      - email
+ *      - password
+ *    properties:
+ *                          first_name:
+ *                              type: string
+ *                              default: Apurva
+ *                          last_name:
+ *                              type: string
+ *                              default: Jaitly
+ *                          mobile_number:
+ *                              type: number
+ *                              default: 8765759456
+ *                          profile_image:
+ *                              type: string
+ *                              default: pic.jpg
+ *                          email:
+ *                              type: string
+ *                              default: apurva@gmail.com
+ *                          password:
+ *                              type: string
+ *                              default: apurva1234
+ *                              
+*/
 /**
  * @swagger
  * tags:
