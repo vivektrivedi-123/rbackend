@@ -47,8 +47,8 @@ exports.addLocation = async (req, res, next) => {
     let locations = new Location(
       _.pick(req.body, [
         "company",
+        "location_name",
         "location_address",
-        "location_street",
         "location_city",
         "location_state",
         "postal_code",
@@ -57,7 +57,6 @@ exports.addLocation = async (req, res, next) => {
         "primary_language",
         "time_zone",
         "date_format",
-        "website",
         "contact",
         "created_by",
         "modified_by",

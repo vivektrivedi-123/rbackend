@@ -159,9 +159,6 @@ router.get("/api/v1/location/:id", auth, locationController.getLocationById);
  *                          date:format:
  *                              type: string
  *                              default: DD/MM/YYYY
- *                          website:
- *                              type: string
- *                              default: rudrainnovativesoftware.com
  *                          contact:
  *                              type: number
  *                              default: 9856472156
@@ -241,9 +238,6 @@ router.post(
  *                          date:format:
  *                              type: string
  *                              default: DD/MM/YYYY
- *                          website:
- *                              type: string
- *                              default: rudrainnovativesoftware.com
  *                          contact:
  *                              type: number
  *                              default: 9856472156
@@ -286,9 +280,6 @@ router.post(
  *                          date:format:
  *                              type: string
  *                              default: DD/MM/YYYY
- *                          website:
- *                              type: string
- *                              default: rudrainnovativesoftware.com
  *                          contact:
  *                              type: number
  *                              default: 9856472156
@@ -333,9 +324,6 @@ router.post(
  *                          date:format:
  *                              type: string
  *                              default: DD/MM/YYYY
- *                          website:
- *                              type: string
- *                              default: rudrainnovativesoftware.com
  *                          contact:
  *                              type: number
  *                              default: 9856472156
