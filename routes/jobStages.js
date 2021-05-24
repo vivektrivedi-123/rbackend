@@ -131,7 +131,7 @@ router.post(
  *    - in: path
  *      name: id
  *      schema:
- *       type: integer
+ *       type: string
  *      required: true
  *      description: id of the stage
  *      example: 2

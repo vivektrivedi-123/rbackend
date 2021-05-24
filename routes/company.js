@@ -144,7 +144,7 @@ router.get("/api/v1/company/:id", auth, companyController.getCompanyById);
  *      requestBody:
  *          required: true
  *          content:
- *              application/json:
+ *              multipart/form-data:
  *                  schema:
  *                      type: object
  *                      properties:
@@ -155,7 +155,7 @@ router.get("/api/v1/company/:id", auth, companyController.getCompanyById);
  *                          industry:
  *                            type: string
  *                            description: The Industry type
- *                            example: IT
+ *                            example: IT Industry
  *                          company_language:
  *                            type: string
  *                            description: The Language of the company
@@ -213,7 +213,7 @@ router.post(
  *    - in: path
  *      name: id
  *      schema:
- *       type: integer
+ *       type: string
  *      required: true
  *      description: id of the company
  *      example: 2
@@ -316,7 +316,7 @@ router.post(
  *             industry:
  *              type: string
  *              description: The Industry type
- *              example: IT
+ *              example: IT industry
  *             company_language:
  *              type: string
  *              description: The Language of the company

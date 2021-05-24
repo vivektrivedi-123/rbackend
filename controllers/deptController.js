@@ -11,11 +11,11 @@ exports.getDept = async (req, res, next) => {
   Department.find()
     .skip(skip)
     .limit(limit)
-    .select("-_id -__v")
+    .select(" -__v")
     .populate({
       path: "location",
-      select: "-_id -__v",
-      populate: { path: "company", select: "-_id -__v" },
+      select: " -__v",
+      populate: { path: "company", select: " -__v" },
     })
     .exec()
     .then((data) => {
@@ -29,11 +29,11 @@ exports.getDept = async (req, res, next) => {
 };
 exports.getDeptById = async (req, res, next) => {
   Department.findById({ _id: req.params.id })
-    .select("-_id -__v")
+    .select(" -__v")
     .populate({
       path: "location",
-      select: "-_id -__v",
-      populate: { path: "company", select: "-_id -__v" },
+      select: " -__v",
+      populate: { path: "company", select: " -__v" },
     })
     .exec()
     .then((data) => {

@@ -143,10 +143,10 @@ router.get("/api/v1/user/:id", auth, userController.getUserById);
  *                              description: ID of the company
  *                          email:
  *                              type: string
- *                              default: apurva@gmail.com
+ *                              default: apurvajaitly@gmail.com
  *                          password:
  *                              type: string
- *                              default: apurva1234
+ *                              default: apurva
  *      responses:
  *          200:
  *              description: Token
@@ -169,10 +169,16 @@ router.post("/api/v1/userLogin", userController.userLogin);
  *      requestBody:
  *          required: true
  *          content:
- *              application/json:
+ *              multipart/form-data:
  *                  schema:
  *                      type: object
  *                      properties:
+ *                          company:
+ *                              type: string
+ *                              description: ID of the company
+ *                          role:
+ *                              type: string
+ *                              description: ID of the role
  *                          first_name:
  *                              type: string
  *                              default: Apurva
@@ -193,7 +199,7 @@ router.post("/api/v1/userLogin", userController.userLogin);
  *                              default: apurva1234
  *      responses:
  *          200:
- *             description: A successful response
+ *             description: Success
  *          default:
  *              description: This is the default response for it
  */
@@ -219,14 +225,14 @@ router.post(
  *   summary: update user
  *   description: update user
  *   consumes:
- *    - application/json
+ *    - multipart/form-data
  *   produces:
- *    - application/json
+ *    - multipart/form-data
  *   parameters:
  *    - in: path
  *      name: id
  *      schema:
- *       type: integer
+ *       type: string
  *      required: true
  *      description: id of the user
  *      example: id
@@ -237,15 +243,21 @@ router.post(
  *      schema:
  *       type: object
  *       properties:
+ *          company:
+ *              type: string
+ *              description: ID of the company
+ *          role:
+ *              type: string
+ *              description: ID of the role
  *          first_name:
- *             type: string
- *             default: Apurva
+ *              type: string
+ *              default: Apurva
  *          last_name:
- *             type: string
- *             default: Jaitly
+ *              type: string
+ *              default: Jaitly
  *          mobile_number:
- *             type: number
- *             default: 9878765689
+ *              type: number
+ *              default: 9878765689
  *          email:
  *              type: string
  *              default: apurva@gmail.com
@@ -253,23 +265,29 @@ router.post(
  *              type: string
  *              default: 1234abcd
  *          profile_image:
- *               type: string
- *               default: abcd.jpeg
+ *              type: string
+ *              default: abcd.jpeg
  *   requestBody:
  *    content:
- *     application/json:
+ *     multipart/form-data:
  *      schema:
  *        type: object
  *        properties:
+ *          company:
+ *              type: string
+ *              description: ID of the company
+ *          role:
+ *              type: string
+ *              description: ID of the role
  *          first_name:
- *             type: string
- *             default: Apurva
+ *              type: string
+ *              default: Apurva
  *          last_name:
- *             type: string
- *             default: Jaitly
+ *              type: string
+ *              default: Jaitly
  *          mobile_number:
- *             type: number
- *             default: 9878765689
+ *              type: number
+ *              default: 9878765689
  *          email:
  *              type: string
  *              default: apurva@gmail.com
@@ -277,16 +295,22 @@ router.post(
  *              type: string
  *              default: 1234abcd
  *          profile_image:
- *               type: string
- *               default: abcd.jpeg
+ *              type: string
+ *              default: abcd.jpeg
  *   responses:
  *    200:
  *     description: success
  *     content:
- *      application/json:
+ *      multipart/form-data:
  *       schema:
  *        type: object
  *        properties:
+ *          company:
+ *             type: string
+ *             description: ID of the company
+ *          role:
+ *             type: string
+ *             description: ID of the role
  *          first_name:
  *             type: string
  *             default: Apurva
@@ -297,14 +321,14 @@ router.post(
  *             type: number
  *             default: 9878765689
  *          email:
- *              type: string
- *              default: apurva@gmail.com
+ *             type: string
+ *             default: apurva@gmail.com
  *          password: 
- *              type: string
- *              default: 1234abcd
+ *             type: string
+ *             default: 1234abcd
  *          profile_image:
- *               type: string
- *               default: abcd.jpeg
+ *             type: string
+ *             default: abcd.jpeg
  */
 //update
 router.put(
