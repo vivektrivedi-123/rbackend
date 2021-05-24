@@ -8,7 +8,7 @@ const locationValidation = () => {
     body("location_state").isLength({ min: 3, max: 20 }),
     body("postal_code").isPostalCode("IN"),
     body("country").isLength({ min: 2, max: 20 }),
-  ];
+ ];
 };
 const validateSchema = (req, res, next) => {
   const errors = validationResult(req);
