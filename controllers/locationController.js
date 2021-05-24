@@ -57,7 +57,6 @@ exports.addLocation = async (req, res, next) => {
         "primary_language",
         "time_zone",
         "date_format",
-        "contact",
         "created_by",
         "modified_by",
       ])

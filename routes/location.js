@@ -159,9 +159,6 @@ router.get("/api/v1/location/:id", auth, locationController.getLocationById);
  *                          date:format:
  *                              type: string
  *                              default: DD/MM/YYYY
- *                          contact:
- *                              type: number
- *                              default: 9856472156
  *      responses:
  *          200:
  *             description: A successful response

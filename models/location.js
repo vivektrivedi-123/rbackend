@@ -19,7 +19,6 @@ const locationSchema = new mongoose.Schema(
     primary_language: { type: String, required: true },
     time_zone: { type: String, required: true },
     date_format: { type: String, required: true },
-    contact: { type: Number, required: true },
     created_by: { type: String },
     modified_by: { type: String },
   },
