@@ -79,13 +79,13 @@ exports.userLogin = async (req, res, next) => {
       email: req.body.email,
       company: req.body.company,
     });
-    if (!user) return res.status(400).send("User does not exists");
+    if (!user) return res.status(404).send("User does not exists");
 
     const validPassword = await bcrypt.compare(
       req.body.password,
       user.password
     );
-    if (!validPassword) return res.status(400).send("Invalid  Password.");
+    if (!validPassword) return res.status(403).send("Invalid  Password.");
 
     const token = jwt.sign({ _id: user.id }, process.env.SECRET_KEY, {
       expiresIn: "60m",
