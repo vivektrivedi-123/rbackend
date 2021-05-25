@@ -86,7 +86,7 @@ exports.updateOptions = async (req, res, next) => {
   );
 
   await update.save();
-  res.status(200).json("Updated successfully");
+  res.status(200).json(update);
 };
 
 exports.deleteOptions = async (req, res, next) => {

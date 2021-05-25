@@ -146,7 +146,7 @@ exports.updateUser = async (req, res, next) => {
     new: true,
   });
   await user.save();
-  res.status(200).send("Updated successfully");
+  res.status(200).json(user);
 };
 
 //delete user

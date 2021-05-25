@@ -45,7 +45,7 @@ exports.updateRoles = async (req, res, next) => {
     new: true,
   });
   await update.save();
-  res.status(200).send("Updated successfully");
+  res.status(200).send(update);
 };
 
 exports.deleteRoles = async (req, res, next) => {

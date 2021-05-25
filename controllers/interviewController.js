@@ -120,7 +120,7 @@ exports.updateInterview = async (req, res, next) => {
     { new: true }
   );
   await update.save();
-  res.status(200).json("Updated successfully");
+  res.status(200).json(update);
 };
 
 exports.deleteInterview = async (req, res, next) => {

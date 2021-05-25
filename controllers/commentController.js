@@ -158,7 +158,7 @@ exports.updateComment = async (req, res, next) => {
     { new: true }
   );
   await update.save();
-  res.status(200).send("updated successfully");
+  res.status(200).send(update);
 };
 
 exports.deleteComment = async (req, res, next) => {

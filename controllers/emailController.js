@@ -146,7 +146,7 @@ exports.updateEmail = async (req, res, next) => {
     new: true,
   });
   await update.save();
-  res.status(200).json("updated Succesfully");
+  res.status(200).json(update);
   
 };
 

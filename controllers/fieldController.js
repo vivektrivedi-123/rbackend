@@ -79,7 +79,7 @@ exports.updateField = async (req, res, next) => {
     new: true,
   });
   await update.save();
-  res.status(200).json("Updated Successfully");
+  res.status(200).json(update);
 };
 
 exports.deleteField = async (req, res, next) => {

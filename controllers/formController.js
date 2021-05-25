@@ -127,7 +127,7 @@ exports.updateForm = async (req, res, next) => {
   });
   await update.save();
 
-  res.status(200).json("Updated successfully");
+  res.status(200).json(update);
 };
 
 exports.deleteForm = async (req, res, next) => {

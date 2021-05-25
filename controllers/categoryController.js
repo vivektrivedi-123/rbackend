@@ -70,7 +70,7 @@ exports.updateCategory = async (req, res, next) => {
     { new: true }
   );
   await update.save();
-  res.json("Updated Succesfully").status(200);
+  res.json(update).status(200);
 
 };
 

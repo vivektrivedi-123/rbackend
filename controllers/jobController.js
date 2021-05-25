@@ -110,7 +110,7 @@ exports.updateJob = async (req, res, next) => {
     new: true,
   });
   await jobs.save();
-  res.status(200).send("updated Successfully");
+  res.status(200).send(update);
 };
 
 exports.deleteJob = async (req, res, next) => {
