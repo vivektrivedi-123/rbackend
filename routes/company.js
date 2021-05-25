@@ -54,6 +54,9 @@ const upload = multer({
  *     - company_logo
  *     - favicon
  *    properties:
+ *                          id:
+ *                            type: string
+ *                            description: Auto-Generated ID of Company
  *                          company_name:
  *                            type: string
  *                            description: The company name
@@ -206,9 +209,9 @@ router.post(
  *   summary: update company
  *   description: update company
  *   consumes:
- *    - application/json
+ *    - multipart/form-data
  *   produces:
- *    - application/json
+ *    - multipart/form-data
  *   parameters:
  *    - in: path
  *      name: id
@@ -224,9 +227,6 @@ router.post(
  *      schema:
  *         type: object
  *         properties:
- *             id:
- *              type: string
- *              description: The auto-generated id of the company
  *             company_name:
  *              type: string
  *              description: The company name
@@ -264,9 +264,6 @@ router.post(
  *      schema:
  *        type: object
  *        properties:
- *             id:
- *              type: string
- *              description: The auto-generated id of the company
  *             company_name:
  *              type: string
  *              description: The company name
@@ -306,9 +303,6 @@ router.post(
  *       schema:
  *         type: object
  *         properties:
- *             id:
- *              type: string
- *              description: The auto-generated id of the company
  *             company_name:
  *              type: string
  *              description: The company name

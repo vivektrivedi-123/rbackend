@@ -100,9 +100,6 @@ router.get("/api/v1/email/:id", auth, emailController.getEmailById);
  *                  schema:
  *                      type: object
  *                      properties:
- *                          id:
- *                           type: string
- *                           description: The auto-generated id of the email
  *                          application:
  *                           type: string
  *                           description: The application ID 
@@ -161,9 +158,6 @@ router.post(
  *      schema:
  *         type: object
  *         properties:
- *             id:
- *              type: string
- *              description: The auto-generated id of the email
  *             application:
  *              type: string
  *              description: The application ID 
@@ -185,9 +179,6 @@ router.post(
  *      schema:
  *         type: object
  *         properties:
- *             id:
- *              type: string
- *              description: The auto-generated id of the email
  *             application:
  *              type: string
  *              description: The application ID 
@@ -211,9 +202,6 @@ router.post(
  *       schema:
  *         type: object
  *         properties:
- *             id:
- *              type: string
- *              description: The auto-generated id of the email
  *             application:
  *              type: string
  *              description: The application ID 

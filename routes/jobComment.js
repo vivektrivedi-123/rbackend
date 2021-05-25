@@ -106,9 +106,7 @@ router.get("/api/v1/comment/:id", auth, commentController.getCommentById);
  *                  schema:
  *                      type: object
  *                      properties:
- *                           id:
- *                            type: string
- *                            description: The auto-generated id of the comment
+
  *                           application:
  *                            type: string
  *                            description: The ID of the application
@@ -165,9 +163,6 @@ router.post(
  *      schema:
  *         type: object
  *         properties:
- *             id:
- *              type: string
- *              description: The auto-generated id of the comment
  *             application:
  *              type: string
  *              description: The ID of the application
@@ -209,9 +204,6 @@ router.post(
  *       schema:
  *          type: object
  *          properties:
- *             id:
- *              type: string
- *              description: The auto-generated id of the comment
  *             application:
  *              type: string
  *              description: The ID of the application

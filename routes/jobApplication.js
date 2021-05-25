@@ -33,7 +33,7 @@ const resume = multer({ storage: storage }).single("resume");
  *     - origin
  *     - tags
  *     - status
- *     - overall_status
+ *     - overall_rating
  *     - lead_owner
  *     - is_deleted
  *     - is_blocked
@@ -43,7 +43,7 @@ const resume = multer({ storage: storage }).single("resume");
  *    properties:
  *                        id:
  *                          type: string
- *                          description: The auto-generated id of the role
+ *                          description: Auto-Generated ID of Application
  *                        job:
  *                          type: string
  *                          description: The job ID
@@ -205,7 +205,7 @@ router.get(
  *                        social_profiles:
  *                          type: string
  *                          description: Applicant's Social Profiles
- *                          example: LinkedIn account -abcdef
+ *                          example: LinkedIn account
  *                        refer_by:
  *                          type: string
  *                          description: Reference of the applicant

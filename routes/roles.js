@@ -16,6 +16,9 @@ const Role = require("../models/role");
  *    required:
  *     -role_name
  *    properties:
+ *       id:
+ *            type: string
+ *            description: Auto-Generated ID of Stages
  *       role_name:
  *            type: string
  *            default: admin

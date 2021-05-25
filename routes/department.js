@@ -17,6 +17,9 @@ const router = express.Router();
  *     - location
  *     - department_name
  *    properties:
+ *                          id:
+ *                            type: string
+ *                            description: Auto-Generated ID of Department
  *                          location:
  *                            type: string
  *                            description: The location ID
@@ -134,9 +137,6 @@ router.post(
  *      schema:
  *        type: object
  *        properties:
- *             id:
- *              type: string
- *              description: The auto-generated id of the department
  *             location:
  *              type: string
  *              description: The location ID
@@ -149,9 +149,6 @@ router.post(
  *      schema:
  *        type: object
  *        properties:
- *             id:
- *              type: string
- *              description: The auto-generated id of the department
  *             location:
  *              type: string
  *              description: The location ID
@@ -166,9 +163,6 @@ router.post(
  *       schema:
  *        type: object
  *        properties:
- *             id:
- *              type: string
- *              description: The auto-generated id of the department
  *             location:
  *              type: string
  *              description: The location ID

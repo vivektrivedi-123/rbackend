@@ -8,7 +8,7 @@ exports.getTask = async (req, res, next) => {
   const skip = parseInt(req.query.skip);
   const limit = parseInt(req.query.limit);
   Task.find()
-    .select("-_id -__v")
+    .select(" -__v")
     .skip(skip)
     .limit(limit)
     .populate({
@@ -58,7 +58,7 @@ exports.getTask = async (req, res, next) => {
 };
 exports.getTaskById = async (req, res, next) => {
   Task.findById({ _id: req.params.id })
-    .select("-_id -__v")
+    .select(" -__v")
     .populate({
       path: "application",
       select: "-_id -__v",

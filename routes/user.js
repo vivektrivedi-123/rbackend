@@ -56,6 +56,9 @@ const upload = multer({
  *      - email
  *      - password
  *    properties:
+ *                          id:
+ *                              type: string
+ *                              description: Auto-Generated ID of User
  *                          first_name:
  *                              type: string
  *                              default: Apurva

@@ -12,7 +12,7 @@ exports.getInterview = async (req, res, next) => {
   Interview.find()
     .skip(skip)
     .limit(limit)
-    .select("-_id -__v")
+    .select(" -__v")
     .populate({
       path: "application",
       select: "-_id -__v",
@@ -64,6 +64,48 @@ exports.getInterview = async (req, res, next) => {
 };
 exports.getInterviewById = async (req, res, next) => {
   Interview.findById({ _id: req.params.id })
+  .skip(skip)
+    .limit(limit)
+    .select(" -__v")
+    .populate({
+      path: "application",
+      select: "-_id -__v",
+      populate: {
+        path: "job",
+        select: "-_id -__v",
+        populate: {
+          path: "department",
+          select: "-_id -__v",
+          populate: {
+            path: "location",
+            select: "-_id -__v",
+            populate: { path: "company", select: "-_id -__v" },
+          },
+        },
+      },
+    })
+    .populate({
+      path: "application",
+      select: "-_id -__v",
+      populate: {
+        path: "job",
+        select: "-_id -__v",
+        populate: { path: "category", select: "-_id -__v -location" },
+      },
+    })
+    .populate({
+      path: "stages",
+      select: "-_id -__v -job",
+    })
+    .populate({
+      path: "application",
+      select: "-_id -__v",
+      populate: {
+        path: "forms",
+        select: "-_id -__v -job ",
+        populate: { path: "field", select: "-_id -__v -location" },
+      },
+    })
 
     .then((data) => {
       res.status(200).json({

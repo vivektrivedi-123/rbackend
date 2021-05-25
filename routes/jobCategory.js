@@ -20,7 +20,7 @@ const router = express.Router();
  *    properties:
  *                          id:
  *                            type: string
- *                            description: The auto-generated id of the role
+ *                            description: The auto-generated id of the Category
  *                          location:
  *                            type: string
  *                            description: The ID of the location 
@@ -90,9 +90,6 @@ router.get("/api/v1/category/:id", auth, categoryController.getCategoryById);
  *                  schema:
  *                      type: object
  *                      properties:
- *                          id:
- *                            type: string
- *                            description: The auto-generated id of the role
  *                          location:
  *                            type: string
  *                            description: The ID of the location 
@@ -163,9 +160,6 @@ router.post(
  *      schema:
  *         type: object
  *         properties:
- *             id:
- *              type: string
- *              description: The auto-generated id of the role
  *             location:
  *              type: string
  *              description: The ID of the location 
@@ -183,9 +177,6 @@ router.post(
  *       schema:
  *          type: object
  *          properties:
- *             id:
- *              type: string
- *              description: The auto-generated id of the role
  *             location:
  *              type: string
  *              description: The ID of the location 

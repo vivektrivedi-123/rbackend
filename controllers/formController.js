@@ -13,7 +13,7 @@ exports.getForm = async (req, res, next) => {
     .skip(skip)
     .limit(limit)
 
-    .select("-_id -__v")
+    .select(" -__v")
     .populate({
       path: "job",
       select: "-_id -__v ",
@@ -48,7 +48,7 @@ exports.getForm = async (req, res, next) => {
 };
 exports.getFormById = async (req, res, next) => {
   Form.findById({ _id: req.params.id })
-    .select("-_id -__v")
+    .select(" -__v")
     .populate({
       path: "job",
       select: "-_id -__v ",

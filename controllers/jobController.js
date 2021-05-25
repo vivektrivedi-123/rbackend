@@ -11,7 +11,7 @@ exports.getJob = async (req, res, next) => {
   Job.find()
     .skip(skip)
     .limit(limit)
-    .select("-_id -__v")
+    .select(" -__v")
     .populate({
       path: "department",
       select: "-_id -__v",
@@ -37,7 +37,7 @@ exports.getJob = async (req, res, next) => {
 };
 exports.getJobById = async (req, res, next) => {
   Job.findById({ _id: req.params.id })
-    .select("-_id -__v")
+    .select(" -__v")
     .populate({
       path: "department",
       select: "-_id -__v",

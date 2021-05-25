@@ -24,7 +24,7 @@ const upload = multer({
 exports.getMe = async (req, res, next) => {
   const user = await User.findById(req.user._id)
     .select("-password")
-    .select("-_id -__v")
+    .select(" -__v")
     .populate("company", "company_name -_id")
     .populate("role", "role_name -_id")
     .exec();
@@ -38,7 +38,7 @@ exports.getUser = async (req, res, next) => {
   User.find()
     .skip(skip)
     .limit(limit)
-    .select("-_id -__v")
+    .select("-__v")
     .populate("company", "company_name -_id")
     .populate("role", "role_name -_id")
     .exec()
@@ -55,7 +55,7 @@ exports.getUser = async (req, res, next) => {
 
 exports.getUserById = async (req, res, next) => {
   User.findById({ _id: req.params.id })
-    .select("-_id -__v")
+    .select(" -__v")
     .populate("company", "company_name -_id")
     .populate("role", "role_name -_id")
     .exec()
@@ -127,7 +127,7 @@ exports.addUser = async (req, res, next) => {
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(user.password, salt);
     await user.save();
-    res.status(200).send("User Added Successfully");
+    res.status(200).json({ message: "User Added Successfully", user });
   } catch (err) {
     res.json(err);
   }

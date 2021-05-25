@@ -30,6 +30,9 @@ const Interview = require("../models/interview");
  *      - overall_comments
  *      - status
  *    properties:
+ *                          id:
+ *                              type: string
+ *                              description : Auto-generated ID of Interview
  *                          application:
  *                              type: string
  *                              description: ID of the application

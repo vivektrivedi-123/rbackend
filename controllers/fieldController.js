@@ -9,7 +9,7 @@ exports.getField = async (req, res, next) => {
   Field.find()
     .skip(skip)
     .limit(limit)
-    .select("-_id -__v")
+    .select(" -__v")
     .populate({
       path: "location",
       select: "-_id -__v",
@@ -28,7 +28,7 @@ exports.getField = async (req, res, next) => {
 
 exports.getFieldById = async (req, res, next) => {
   Field.findById({ _id: req.params.id })
-    .select("-_id -__v")
+    .select(" -__v")
     .populate({
       path: "location",
       select: "-_id -__v",

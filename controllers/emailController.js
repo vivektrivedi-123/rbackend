@@ -12,7 +12,7 @@ exports.getEmail = async (req, res, next) => {
   Email.find()
     .skip(skip)
     .limit(limit)
-    .select("-_id -__v")
+    .select(" -__v")
     .populate({
       path: "application",
       select: "-_id -__v",
@@ -62,7 +62,7 @@ exports.getEmail = async (req, res, next) => {
 };
 exports.getEmailById = async (req, res, next) => {
   Email.findById({ _id: req.params.id })
-    .select("-_id -__v")
+    .select(" -__v")
     .populate({
       path: "application",
       select: "-_id -__v",

@@ -23,7 +23,7 @@ exports.getComment = async (req, res, next) => {
   Comment.find()
     .skip(skip)
     .limit(limit)
-    .select("-_id -__v")
+    .select(" -__v")
     .populate({
       path: "application",
       select: "-_id -__v",
@@ -71,7 +71,7 @@ exports.getComment = async (req, res, next) => {
 };
 exports.getCommentById = async (req, res, next) => {
   Comment.findById({ _id: req.params.id })
-    .select("-_id -__v")
+    .select(" -__v")
     .populate({
       path: "application",
       select: "-_id -__v",

@@ -34,6 +34,9 @@ const job = require("../models/job");
  *      - job_code
  *      - job_slug
  *    properties:
+ *                          id: 
+ *                              type: string
+ *                              description: Auto-generated ID of Job Post
  *                          department:
  *                              type: string
  *                              description: ID of the department

@@ -28,6 +28,9 @@ const Location = require("../models/location");
  *     - website
  *     - contact
  *    properties:
+ *                          id:
+ *                              type: string
+ *                              description: Auto-Generated ID of Location
  *                          company:
  *                              type: string
  *                              default: The ID of the company

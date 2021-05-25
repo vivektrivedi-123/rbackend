@@ -24,7 +24,7 @@ exports.getLocation = async (req, res, next) => {
 };
 exports.getLocationById = async (req, res, next) => {
   let location = await Location.findById({ _id: req.params.id })
-    .select("-_id -__v")
+    .select(" -__v")
     .populate({ path: "company", select: "-_id -__v" })
     .exec()
     .then((data) => {

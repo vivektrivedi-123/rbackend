@@ -24,6 +24,9 @@ const Task = require("../models/task");
  *     - remind_before
  *     - status
  *    properties:
+ *                          id:
+ *                              type: string
+ *                              description: Auto-Generated ID of Task
  *                          application:
  *                              type: string
  *                              description: ID of the application

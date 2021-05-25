@@ -20,7 +20,7 @@ exports.getApplication = async (req, res, next) => {
   Application.find()
     .skip(skip)
     .limit(limit)
-    .select("-_id -__v")
+    .select(" -__v")
     .populate({
       path: "job",
       select: "-_id -__v ",
@@ -65,7 +65,7 @@ exports.getApplication = async (req, res, next) => {
 
 exports.getApplicationById = async (req, res, next) => {
   Application.findById({ _id: req.params.id })
-    .select("-_id -__v")
+    .select(" -__v")
     .populate({
       path: "job",
       select: "-_id -__v ",

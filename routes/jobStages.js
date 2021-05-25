@@ -19,6 +19,9 @@ const Stage = require("../models/stage");
  *     - stage
  *     - status
  *    properties:
+ *                          id:
+ *                              type: string
+ *                              description: Auto-Generated ID of Stages
  *                          job:
  *                              type: string
  *                              description: The ID of the job

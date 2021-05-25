@@ -10,7 +10,7 @@ exports.getOptions = async (req, res, next) => {
   Options.find()
     .limit(limit)
     .skip(skip)
-    .select("-_id -__v")
+    .select(" -__v")
     .populate({
       path: "location",
       select: "-_id -__v",
@@ -28,7 +28,7 @@ exports.getOptions = async (req, res, next) => {
 };
 exports.getOptionsById = async (req, res, next) => {
   Options.findById({ _id: req.params.id })
-    .select("-_id -__v")
+    .select(" -__v")
     .populate({
       path: "location",
       select: "-_id -__v",

@@ -10,7 +10,7 @@ exports.getCategory = async (req, res, next) => {
   let category = await Category.find()
     .skip(skip)
     .limit(limit)
-    .select("-_id -__v")
+    .select(" -__v")
     .populate({
       path: "location",
       select: "-_id -__v",
@@ -25,7 +25,7 @@ exports.getCategory = async (req, res, next) => {
 
 exports.getCategoryById = async (req, res, next) => {
   let category = await Category.findById({ _id: req.params.id })
-    .select("-_id -__v")
+    .select(" -__v")
     .populate({
       path: "location",
       populate: { path: "company", select: "-_id -__v" },
@@ -52,7 +52,7 @@ exports.addCategory = async (req, res, next) => {
       ])
     );
     await categories.save();
-    res.status(200).send("Category Added");
+    res.status(200).json({message:"Category Added", categories});
   }
 };
 
@@ -71,7 +71,6 @@ exports.updateCategory = async (req, res, next) => {
   );
   await update.save();
   res.json(update).status(200);
-
 };
 
 exports.deleteCategory = async (req, res, next) => {

@@ -24,7 +24,7 @@ exports.getCompany = async (req, res, next) => {
   Company.find()
     .skip(skip)
     .limit(limit)
-    .select("-_id -__v")
+    .select(" -__v")
     .exec()
     .then((data) => {
       res.status(200).json({
@@ -37,7 +37,7 @@ exports.getCompany = async (req, res, next) => {
 };
 exports.getCompanyById = async (req, res, next) => {
   Company.findById({ _id: req.params.id })
-    .select("-_id -__v")
+    .select(" -__v")
     .exec()
     .then((data) => {
       res.status(200).json({
@@ -100,7 +100,7 @@ exports.updateCompany = async (req, res, next) => {
     { new: true }
   );
   await update.save();
-  res.send(update).status(200);
+  res.json({message:"Updated Company ",update}).status(200);
 };
 
 exports.deleteCompany = async (req, res, next) => {

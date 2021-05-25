@@ -5,7 +5,7 @@ const _ = require("lodash");
 exports.getRoles = async (req, res, next) => {
   const skip = parseInt(req.query.skip);
   const limit = parseInt(req.query.limit);
-  let role = await Role.find().skip(skip).limit(limit).select("-_id -__v");
+  let role = await Role.find().skip(skip).limit(limit).select(" -__v");
   if (!role) {
     res.status(404).send("Role Not Found");
   } else {
@@ -14,7 +14,7 @@ exports.getRoles = async (req, res, next) => {
 };
 
 exports.getRolesById = async (req, res, next) => {
-  let role = await Role.findById({ _id: req.params.id }).select("-_id -__v");
+  let role = await Role.findById({ _id: req.params.id }).select(" -__v");
   if (!role) {
     res.status(404).send("Role Not Found");
   } else {
@@ -29,7 +29,7 @@ exports.addRoles = async (req, res, next) => {
   // } else {
   let roles = new Role(_.pick(req.body, ["role_name"]));
   await roles.save();
-  res.status(200).send("Role Added ");
+  res.status(200).json({ message: "Role Added ", roles });
   //}
 };
 
