@@ -143,7 +143,7 @@ exports.updateUser = async (req, res, next) => {
     else if (doc === null) res.status(400).send("Invalid Request");
   });
   let user = await User.findByIdAndUpdate({ _id: req.params.id }, req.body);
-  res.status(200).json(user);
+  res.status(200).send("Updated successfully");
   await user.save();
 };
 

@@ -8,9 +8,7 @@ const _ = require("lodash");
 const department = require("../models/department");
 const category = require("../models/category");
 const upload = multer({
-  limits: {
-    fileSize: 1000000,
-  },
+ 
   fileFilter(req, file, cb) {
     if (!file.originalname.match(/\.(jpg|png|JPG|PNG|JPEG|jpeg)$/))
       return cb(new Error("This is not a correct format of the file"));

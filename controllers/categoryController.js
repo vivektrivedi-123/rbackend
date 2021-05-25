@@ -68,7 +68,8 @@ exports.updateCategory = async (req, res, next) => {
     { _id: req.params.id },
     req.body
   );
-  res.json(update).status(200);
+  res.json("Updated Succesfully").status(200);
+  await update.save();
 };
 
 exports.deleteCategory = async (req, res, next) => {

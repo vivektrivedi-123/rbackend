@@ -156,7 +156,8 @@ exports.updateComment = async (req, res, next) => {
     { _id: req.params.id },
     req.body
   );
-  res.status(200).send("updated");
+  res.status(200).send("updated successfully");
+  await update.save();
 };
 
 exports.deleteComment = async (req, res, next) => {

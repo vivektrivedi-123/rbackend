@@ -76,7 +76,8 @@ exports.updateField = async (req, res, next) => {
     else if (doc === null) res.status(400).send("Invalid Request");
   });
   let update = await Field.findByIdAndUpdate({ _id: req.params.id }, req.body);
-  res.status(200).json(update);
+  res.status(200).json("Updated Successfully");
+  await update.save();
 };
 
 exports.deleteField = async (req, res, next) => {

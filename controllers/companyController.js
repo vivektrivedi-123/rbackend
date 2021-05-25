@@ -100,6 +100,7 @@ exports.updateCompany = async (req, res, next) => {
     req.body
   );
   res.send("Updated Succesfully").status(200);
+  await update.save();
 };
 exports.deleteCompany = async (req, res, next) => {
   if (!req.params.id || req.params.id < 0)

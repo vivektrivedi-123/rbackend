@@ -123,7 +123,8 @@ exports.updateForm = async (req, res, next) => {
     else if (doc === null) res.status(400).send("Invalid Request");
   });
   let update = await Form.findByIdAndUpdate({ _id: req.params.id }, req.body);
-  res.status(200).json(update);
+  res.status(200).json("Updated successfully");
+  await update.save();
 };
 
 exports.deleteForm = async (req, res, next) => {

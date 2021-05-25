@@ -42,7 +42,8 @@ exports.updateRoles = async (req, res, next) => {
     else if (doc === null) res.status(400).send("Invalid Request");
   });
   let update = await Role.findByIdAndUpdate({ _id: req.params.id }, req.body);
-  res.status(200).send("updated");
+  res.status(200).send("Updated successfully");
+  await update.save();
 };
 
 exports.deleteRoles = async (req, res, next) => {

@@ -118,7 +118,8 @@ exports.updateInterview = async (req, res, next) => {
     { _id: req.params.id },
     req.body
   );
-  res.status(200).json(update);
+  res.status(200).json("Updated successfully");
+  await update.save();
 };
 
 exports.deleteInterview = async (req, res, next) => {

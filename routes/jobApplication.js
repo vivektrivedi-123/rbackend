@@ -7,6 +7,17 @@ const {
 const router = express.Router();
 const auth = require("../middleware/auth");
 const Application = require("../models/application");
+const multer = require("multer");
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./resume");
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
+  },
+});
+
+const resume = multer({ storage: storage }).single("resume");
 
 /**
  * @swagger
@@ -49,7 +60,7 @@ const Application = require("../models/application");
  *                          example: resume.pdf
  *                        origin:
  *                          type: string
- *                          description: Origin 
+ *                          description: Origin
  *                        tags:
  *                          type: string
  *                          description: Applicant's Tags
@@ -73,11 +84,11 @@ const Application = require("../models/application");
  *                        is_blocked:
  *                          type: boolean
  *                          description: Is the applicant blocked?
- *                          example: false 
+ *                          example: false
  *                        social_profiles:
  *                          type: string
  *                          description: Applicant's Social Profiles
- *                          example: LinkedIn account -abcdef 
+ *                          example: LinkedIn account -abcdef
  *                        refer_by:
  *                          type: string
  *                          description: Reference of the applicant
@@ -86,7 +97,7 @@ const Application = require("../models/application");
  *                          type: string
  *                          description: Add to talent pool
  *                          example: Yes
- *  
+ *
  */
 /**
  * @swagger
@@ -166,7 +177,7 @@ router.get(
  *                          example: resume.pdf
  *                        origin:
  *                          type: string
- *                          description: Origin 
+ *                          description: Origin
  *                        tags:
  *                          type: string
  *                          description: Applicant's Tags
@@ -190,11 +201,11 @@ router.get(
  *                        is_blocked:
  *                          type: boolean
  *                          description: Is the applicant blocked?
- *                          example: false 
+ *                          example: false
  *                        social_profiles:
  *                          type: string
  *                          description: Applicant's Social Profiles
- *                          example: LinkedIn account -abcdef 
+ *                          example: LinkedIn account -abcdef
  *                        refer_by:
  *                          type: string
  *                          description: Reference of the applicant
@@ -203,7 +214,7 @@ router.get(
  *                          type: string
  *                          description: Add to talent pool
  *                          example: Yes
- *                         
+ *
  *      responses:
  *          200:
  *             description: A successful response
@@ -213,6 +224,7 @@ router.get(
 router.post(
   "/api/v1/application",
   auth,
+  resume,
   appValidation(),
   validateSchema,
   applicationController.addApplication
@@ -263,7 +275,7 @@ router.post(
  *               example: resume.pdf
  *             origin:
  *               type: string
- *               description: Origin 
+ *               description: Origin
  *             tags:
  *               type: string
  *               description: Applicant's Tags
@@ -287,11 +299,11 @@ router.post(
  *             is_blocked:
  *               type: boolean
  *               description: Is the applicant blocked?
- *               example: false 
+ *               example: false
  *             social_profiles:
  *               type: string
  *               description: Applicant's Social Profiles
- *               example: LinkedIn account -abcdef 
+ *               example: LinkedIn account -abcdef
  *             refer_by:
  *               type: string
  *               description: Reference of the applicant
@@ -299,7 +311,7 @@ router.post(
  *             add_to_talent_pool:
  *               type: string
  *               description: Add to talent pool
- *               example: Yes 
+ *               example: Yes
  *   requestBody:
  *    content:
  *     multipart/form-data:
@@ -320,7 +332,7 @@ router.post(
  *               example: resume.pdf
  *             origin:
  *               type: string
- *               description: Origin 
+ *               description: Origin
  *             tags:
  *               type: string
  *               description: Applicant's Tags
@@ -344,11 +356,11 @@ router.post(
  *             is_blocked:
  *               type: boolean
  *               description: Is the applicant blocked?
- *               example: false 
+ *               example: false
  *             social_profiles:
  *               type: string
  *               description: Applicant's Social Profiles
- *               example: LinkedIn account -abcdef 
+ *               example: LinkedIn account -abcdef
  *             refer_by:
  *               type: string
  *               description: Reference of the applicant
@@ -356,7 +368,7 @@ router.post(
  *             add_to_talent_pool:
  *               type: string
  *               description: Add to talent pool
- *               example: Yes 
+ *               example: Yes
  *   responses:
  *    200:
  *     description: success
@@ -381,7 +393,7 @@ router.post(
  *               example: resume.pdf
  *             origin:
  *               type: string
- *               description: Origin 
+ *               description: Origin
  *             tags:
  *               type: string
  *               description: Applicant's Tags
@@ -405,11 +417,11 @@ router.post(
  *             is_blocked:
  *               type: boolean
  *               description: Is the applicant blocked?
- *               example: false 
+ *               example: false
  *             social_profiles:
  *               type: string
  *               description: Applicant's Social Profiles
- *               example: LinkedIn account -abcdef 
+ *               example: LinkedIn account -abcdef
  *             refer_by:
  *               type: string
  *               description: Reference of the applicant
@@ -417,11 +429,12 @@ router.post(
  *             add_to_talent_pool:
  *               type: string
  *               description: Add to talent pool
- *               example: Yes 
+ *               example: Yes
  */
 router.put(
   "/api/v1/application/:id",
   auth,
+  resume,
   appValidation(),
   validateSchema,
   applicationController.updateApplication
