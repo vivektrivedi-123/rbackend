@@ -109,7 +109,7 @@ exports.updateStage = async (req, res, next) => {
     else if (doc === null) res.status(400).send("Invalid Request");
   });
   let stage = await Stage.findByIdAndUpdate({ _id: req.params.id }, req.body);
-  res.status(200).json("Updated successfully");
+  res.status(200).json(stage);
   await stage.save();
 };
 exports.deleteStage = async (req, res, next) => {

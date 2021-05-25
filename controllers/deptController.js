@@ -85,8 +85,9 @@ exports.updateDept = async (req, res, next) => {
     { _id: req.params.id },
     req.body
   );
-  res.status(200).json("Department updated");
   await update.save();
+  res.json(update).status(200);
+  
   
 };
 
