@@ -64,8 +64,6 @@ exports.getInterview = async (req, res, next) => {
 };
 exports.getInterviewById = async (req, res, next) => {
   Interview.findById({ _id: req.params.id })
-  .skip(skip)
-    .limit(limit)
     .select(" -__v")
     .populate({
       path: "application",
@@ -106,13 +104,13 @@ exports.getInterviewById = async (req, res, next) => {
         populate: { path: "field", select: "-_id -__v -location" },
       },
     })
-
     .then((data) => {
       res.status(200).json({
         results: data,
       });
     })
     .catch((err) => {
+      console.log(err);
       res.status(404).json(err);
     });
 };

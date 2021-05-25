@@ -2,7 +2,7 @@ const { body, validationResult } = require("express-validator");
 
 const jobValidation = () => {
   return [
-    body("job_title").isLength({ min: 3, max: 15 }),
+    body("job_title").isLength({ min: 3, max: 25 }),
     body("job_type").isLength({ min: 5, max: 20 }),
     body("branch").isLength({ min: 3, max: 20 }),
     body("job_description").isLength({ min: 10, max: 100 }),

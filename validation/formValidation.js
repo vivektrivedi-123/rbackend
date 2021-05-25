@@ -2,7 +2,7 @@ const { body, validationResult } = require("express-validator");
 
 const formValidation = () => {
   return [
-    body("label").isLength({ min: 3, max: 20 }),
+    body("label").isLength({ min: 3, max: 30 }),
     body("placeholder").isLength({ min: 5, max: 50 }),
     body("order").isLength({ min: 5, max: 50 }),
   ];

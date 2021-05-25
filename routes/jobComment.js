@@ -220,6 +220,7 @@ router.post(
 router.put(
   "/api/v1/comment/:id",
   auth,
+  attachments,
   commentValidation(),
   validateSchema,
   commentController.updateComment
