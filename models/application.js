@@ -9,7 +9,7 @@ const applicationSchema = new mongoose.Schema(
     forms: [
       { type: mongoose.Schema.Types.ObjectId, ref: "forms", required: true },
     ],
-    form_values: { type: Number, required: true },
+    form_values: { type: String, required: true },
     resume: { type: String, required: true },
     origin: { type: String, required: true },
     tags: { type: String, required: true },

@@ -146,13 +146,10 @@ router.get(
  *      requestBody:
  *          required: true
  *          content:
- *              application/json:
+ *              multipart/form-data:
  *                  schema:
  *                      type: object
  *                      properties:
- *                        id:
- *                          type: string
- *                          description: The auto-generated id of the role
  *                        job:
  *                          type: string
  *                          description: The job ID
@@ -160,9 +157,9 @@ router.get(
  *                          type: string
  *                          description: The form ID
  *                        form_values:
- *                          type: Number
+ *                          type: string
  *                          description: The value of the form
- *                          example: 1234
+ *                          example: 1234abc
  *                        resume:
  *                          type: string
  *                          description: Applicant's resume
@@ -232,9 +229,9 @@ router.post(
  *   summary: update application
  *   description: update application
  *   consumes:
- *    - application/json
+ *    - multipart/form-data
  *   produces:
- *    - application/json
+ *    - multipart/form-data
  *   parameters:
  *    - in: path
  *      name: id
@@ -250,9 +247,6 @@ router.post(
  *      schema:
  *         type: object
  *         properties:
- *             id:
- *              type: string
- *              description: The auto-generated id of the role
  *             job:
  *              type: string
  *              description: The job ID
@@ -308,11 +302,8 @@ router.post(
  *               example: Yes 
  *   requestBody:
  *    content:
- *     application/json:
+ *     multipart/form-data:
  *      schema:
- *             id:
- *              type: string
- *              description: The auto-generated id of the role
  *             job:
  *              type: string
  *              description: The job ID
@@ -370,13 +361,10 @@ router.post(
  *    200:
  *     description: success
  *     content:
- *      application/json:
+ *      multipart/form-data:
  *       schema:
  *          type: object
  *          properties:
- *             id:
- *              type: string
- *              description: The auto-generated id of the role
  *             job:
  *              type: string
  *              description: The job ID

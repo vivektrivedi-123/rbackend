@@ -68,22 +68,19 @@ exports.addJob = async (req, res, next) => {
   // } else {
     let jobs = new Job(
       _.pick(req.body, [
+        "job_title",
         "department",
         "category",
-        "job_title",
+        "branch",
         "job_type",
         "remote_job",
         "job_description",
         "experience",
-        "skills",
-        "tags",
         "min_sal",
         "max_sal",
         "currency",
         "allow_employees",
-        "status",
-        "job_code",
-        "job_slug",
+        "publish",
         "created_by",
         "modified_by",
       ])

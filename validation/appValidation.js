@@ -2,10 +2,7 @@ const { body, validationResult } = require("express-validator");
 
 const appValidation = () => {
   return [
-    body("form_values").isLength({ min: 2, max: 20 }),
-    body("resume")
-      .isLength({ min: 10, max: 100 })
-      .withMessage("Required Field"),
+    body("form_values").isLength({ min: 5, max: 30 }),
     body("origin").isLength({ min: 5, max: 50 }),
   ];
 };
