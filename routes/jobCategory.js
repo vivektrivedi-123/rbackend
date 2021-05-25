@@ -142,9 +142,6 @@ router.post(
  *      schema:
  *         type: object
  *         properties:
- *             id:
- *              type: string
- *              description: The auto-generated id of the role
  *             location:
  *              type: string
  *              description: The ID of the location 

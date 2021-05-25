@@ -56,6 +56,12 @@ const upload = multer({
  *      - email
  *      - password
  *    properties:
+ *                          company:
+ *                              type: string
+ *                              description: ID of the company
+ *                          role:
+ *                              type: string
+ *                              description: ID of the role
  *                          id:
  *                              type: string
  *                              description: Auto-Generated ID of User

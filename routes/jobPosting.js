@@ -52,6 +52,9 @@ const job = require("../models/job");
  *                          remote_job:
  *                              type: string
  *                              description: Remote Job
+ *                          branch:
+ *                              type: string
+ *                              description: Branch of job
  *                          job_description:
  *                              type: string
  *                              description: Description of the job

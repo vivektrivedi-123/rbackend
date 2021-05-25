@@ -203,9 +203,6 @@ router.post(
  *       schema:
  *          type: object
  *          properties:
- *             id:
- *              type: string
- *              description: The auto-generated id of the form
  *             job:
  *              type: string
  *              description: The ID of the job

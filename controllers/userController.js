@@ -72,35 +72,29 @@ exports.getUserById = async (req, res, next) => {
 };
 exports.userLogin = async (req, res, next) => {
   try {
-    const email = req.body;
-    const company = req.body;
+    const email = req.body.email;
+    const company = req.body.company;
+    const password = req.body.password;
     let user = await User.findOne({
       email: req.body.email,
       company: req.body.company,
     });
-    if (!user) {
-      res.send("User does not exists");
-    } else {
-      const token = jwt.sign(
-        { _id: user.id, role: user.role },
-        process.env.SECRET_KEY,
-        {
-          expiresIn: "60m",
-        }
-      );
-      res
-        .header("Authorization", token)
-        .header("Access-Control-Expose-Headers", "Authorization")
-        .status(200);
-      res.send(token);
+    if (!user) return res.status(400).send("User does not exists");
 
-      bcrypt.compare(req.body.password, user.password, (err, isvalid) => {
-        if (err) {
-          res.status(403).json(err).send("wrong password");
-          console.log(err);
-        }
-      });
-    }
+    const validPassword = await bcrypt.compare(
+      req.body.password,
+      user.password
+    );
+    if (!validPassword) return res.status(400).send("Invalid  Password.");
+
+    const token = jwt.sign({ _id: user.id }, process.env.SECRET_KEY, {
+      expiresIn: "60m",
+    });
+    res
+      .header("Authorization", token)
+      .header("Access-Control-Expose-Headers", "Authorization")
+      .status(200);
+    res.json(token);
   } catch (error) {
     console.log(error);
   }

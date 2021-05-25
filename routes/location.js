@@ -253,7 +253,7 @@ router.post(
  *                          location_address:
  *                              type: string
  *                              default: industrial area
- *                          location_street:
+ *                          location_name:
  *                              type: string
  *                              default: phase 8b
  *                          location_city:
@@ -277,12 +277,10 @@ router.post(
  *                          time_zone:
  *                              type: string
  *                              default: GMT+5:30
- *                          date:format:
+ *                          date_format:
  *                              type: string
  *                              default: DD/MM/YYYY
- *                          contact:
- *                              type: number
- *                              default: 9856472156
+ *                          
  *   responses:
  *    200:
  *     description: success
