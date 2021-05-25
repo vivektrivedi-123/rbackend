@@ -336,6 +336,7 @@ router.post(
 //update
 router.put(
   "/api/v1/user/:id",
+  upload,
   auth,
   userValidation(),
   validateSchema,

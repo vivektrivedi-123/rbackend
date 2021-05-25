@@ -74,7 +74,7 @@ const job = require("../models/job");
  *                              type: string
  *                              description: Currency of the job
  *                          allow_employee:
- *                              type: string
+ *                              type: Boolean
  *                              description: Allow employees
  *                          status:
  *                              type: string
@@ -183,7 +183,7 @@ router.get("/api/v1/job/:id", auth, jobController.getJobById);
  *                              type: string
  *                              description: Currency of the job
  *                          allow_employee:
- *                              type: string
+ *                              type: boolean
  *                              description: Allow employees
  *                          status:
  *                              type: string
@@ -251,7 +251,7 @@ router.post(
  *                              type: string
  *                              description: Type of the job
  *                          remote_job:
- *                              type: string
+ *                              type: boolean
  *                              description: Remote Job
  *                          job_description:
  *                              type: string
@@ -275,7 +275,7 @@ router.post(
  *                              type: Number
  *                              description: Currency of the job
  *                          allow_employee:
- *                              type: string
+ *                              type: Boolean
  *                              description: Allow employees
  *                          status:
  *                              type: string
