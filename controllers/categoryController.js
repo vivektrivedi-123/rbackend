@@ -66,10 +66,12 @@ exports.updateCategory = async (req, res, next) => {
   });
   let update = await Category.findByIdAndUpdate(
     { _id: req.params.id },
-    req.body
+    req.body,
+    { new: true }
   );
-  res.json("Updated Succesfully").status(200);
   await update.save();
+  res.json("Updated Succesfully").status(200);
+
 };
 
 exports.deleteCategory = async (req, res, next) => {

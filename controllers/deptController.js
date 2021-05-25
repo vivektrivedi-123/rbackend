@@ -83,12 +83,11 @@ exports.updateDept = async (req, res, next) => {
   });
   let update = await Department.findByIdAndUpdate(
     { _id: req.params.id },
-    req.body
+    req.body,
+    { new: true }
   );
   await update.save();
   res.json(update).status(200);
-  
-  
 };
 
 exports.deleteDept = async (req, res, next) => {

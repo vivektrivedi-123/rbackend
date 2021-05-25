@@ -8,7 +8,6 @@ const _ = require("lodash");
 const department = require("../models/department");
 const category = require("../models/category");
 const upload = multer({
- 
   fileFilter(req, file, cb) {
     if (!file.originalname.match(/\.(jpg|png|JPG|PNG|JPEG|jpeg)$/))
       return cb(new Error("This is not a correct format of the file"));
@@ -144,9 +143,12 @@ exports.updateApplication = async (req, res, next) => {
   });
   let update = await Application.findByIdAndUpdate(
     { _id: req.params.id },
-    req.body
+    req.body,
+    { new: true }
   );
-  res.json({ message: "Application Updated" }).status(200);
+  await update.save();
+  res.json({ message: "Application Updated", update }).status(200);
+  
 };
 
 exports.deleteApplication = async (req, res, next) => {

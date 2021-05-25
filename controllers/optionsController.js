@@ -81,10 +81,12 @@ exports.updateOptions = async (req, res, next) => {
   });
   let update = await Options.findByIdAndUpdate(
     { _id: req.params.id },
-    req.body
+    req.body,
+    { new: true }
   );
-  res.status(200).json("Updated successfully");
+
   await update.save();
+  res.status(200).json("Updated successfully");
 };
 
 exports.deleteOptions = async (req, res, next) => {

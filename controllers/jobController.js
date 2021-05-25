@@ -66,36 +66,36 @@ exports.addJob = async (req, res, next) => {
   // if (job) {
   //   res.status(409).send("job Already Exists");
   // } else {
-    let jobs = new Job(
-      _.pick(req.body, [
-        "job_title",
-        "department",
-        "category",
-        "branch",
-        "job_type",
-        "remote_job",
-        "job_description",
-        "experience",
-        "min_sal",
-        "max_sal",
-        "currency",
-        "allow_employees",
-        "publish",
-        "created_by",
-        "modified_by",
-      ])
-    );
-    jobs
-      .save()
-      .then((doc) => {
-        res.status(200).json({
-          message: "job Added Successfully",
-          results: doc,
-        });
-      })
-      .catch((err) => {
-        res.status(400).json(err);
+  let jobs = new Job(
+    _.pick(req.body, [
+      "job_title",
+      "department",
+      "category",
+      "branch",
+      "job_type",
+      "remote_job",
+      "job_description",
+      "experience",
+      "min_sal",
+      "max_sal",
+      "currency",
+      "allow_employees",
+      "publish",
+      "created_by",
+      "modified_by",
+    ])
+  );
+  jobs
+    .save()
+    .then((doc) => {
+      res.status(200).json({
+        message: "job Added Successfully",
+        results: doc,
       });
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
   //}
 };
 exports.updateJob = async (req, res, next) => {
@@ -106,9 +106,11 @@ exports.updateJob = async (req, res, next) => {
     if (err) console.log(err);
     else if (doc === null) res.status(400).send("Invalid Request");
   });
-  let jobs = await Job.findByIdAndUpdate({ _id: req.params.id }, req.body);
-  res.status(200).send("updated Successfully");
+  let jobs = await Job.findByIdAndUpdate({ _id: req.params.id }, req.body, {
+    new: true,
+  });
   await jobs.save();
+  res.status(200).send("updated Successfully");
 };
 
 exports.deleteJob = async (req, res, next) => {

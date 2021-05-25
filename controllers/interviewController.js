@@ -116,10 +116,11 @@ exports.updateInterview = async (req, res, next) => {
   });
   let update = await Interview.findByIdAndUpdate(
     { _id: req.params.id },
-    req.body
+    req.body,
+    { new: true }
   );
-  res.status(200).json("Updated successfully");
   await update.save();
+  res.status(200).json("Updated successfully");
 };
 
 exports.deleteInterview = async (req, res, next) => {

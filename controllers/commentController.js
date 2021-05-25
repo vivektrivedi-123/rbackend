@@ -154,10 +154,11 @@ exports.updateComment = async (req, res, next) => {
   });
   let update = await Comment.findByIdAndUpdate(
     { _id: req.params.id },
-    req.body
+    req.body,
+    { new: true }
   );
-  res.status(200).send("updated successfully");
   await update.save();
+  res.status(200).send("updated successfully");
 };
 
 exports.deleteComment = async (req, res, next) => {

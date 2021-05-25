@@ -85,10 +85,11 @@ exports.updateLocation = async (req, res, next) => {
   });
   let update = await Location.findByIdAndUpdate(
     { _id: req.params.id },
-    req.body
+    req.body,
+    { new: true }
   );
-  res.status(200).json("Updated successfully");
   await update.save();
+  res.status(200).json("Updated successfully");
 };
 
 exports.deleteLocation = async (req, res, next) => {

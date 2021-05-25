@@ -94,14 +94,15 @@ exports.updateCompany = async (req, res, next) => {
     if (err) console.log(err);
     else if (doc === null) res.status(400).send("Invalid Request");
   });
-
   let update = await Company.findByIdAndUpdate(
     { _id: req.params.id },
-    req.body
+    req.body,
+    { new: true }
   );
-  res.send("Updated Succesfully").status(200);
   await update.save();
+  res.send(update).status(200);
 };
+
 exports.deleteCompany = async (req, res, next) => {
   if (!req.params.id || req.params.id < 0)
     res.status(400).send("Invalid request");

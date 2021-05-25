@@ -142,9 +142,11 @@ exports.updateUser = async (req, res, next) => {
     if (err) console.log(err);
     else if (doc === null) res.status(400).send("Invalid Request");
   });
-  let user = await User.findByIdAndUpdate({ _id: req.params.id }, req.body);
-  res.status(200).send("Updated successfully");
+  let user = await User.findByIdAndUpdate({ _id: req.params.id }, req.body, {
+    new: true,
+  });
   await user.save();
+  res.status(200).send("Updated successfully");
 };
 
 //delete user
