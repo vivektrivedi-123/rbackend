@@ -34,7 +34,7 @@ const Field = require("../models/field");
  *                          field_options:
  *                            type: string
  *                            description: The options of the field
- *     
+ *
  */
 
 /**
@@ -201,7 +201,13 @@ router.post(
  *              type: string
  *              description: The field_options
  */
-router.put("/api/v1/field/:id", auth, fieldController.updateField);
+router.put(
+  "/api/v1/field/:id",
+  auth,
+  fieldValidation(),
+  validateSchema,
+  fieldController.updateField
+);
 /**
  * @swagger
  * tags:

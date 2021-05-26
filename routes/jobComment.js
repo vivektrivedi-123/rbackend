@@ -102,7 +102,7 @@ router.get("/api/v1/comment/:id", auth, commentController.getCommentById);
  *      requestBody:
  *          required: true
  *          content:
- *              application/json:
+ *              multipart/form-data:
  *                  schema:
  *                      type: object
  *                      properties:
@@ -144,9 +144,9 @@ router.post(
  *   summary: update comment
  *   description: update comment
  *   consumes:
- *    - application/json
+ *    - multipart/form-data
  *   produces:
- *    - application/json
+ *    - multipart/form-data
  *   parameters:
  *    - in: path
  *      name: id
@@ -176,7 +176,7 @@ router.post(
  *              description: The status of the comment 
  *   requestBody:
  *    content:
- *     application/json:
+ *     multipart/form-data:
  *      schema:
  *         type: object
  *         properties:
@@ -196,7 +196,7 @@ router.post(
  *    200:
  *     description: success
  *     content:
- *      application/json:
+ *      multipart/form-data:
  *       schema:
  *          type: object
  *          properties:

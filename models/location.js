@@ -14,7 +14,7 @@ const locationSchema = new mongoose.Schema(
     location_city: { type: String, required: true },
     location_state: { type: String, required: true },
     postal_code: { type: Number, required: true },
-    country: { type: Number, required: true },
+    country: { type: String, required: true },
     currency: { type: String, required: true },
     primary_language: { type: String, required: true },
     time_zone: { type: String, required: true },

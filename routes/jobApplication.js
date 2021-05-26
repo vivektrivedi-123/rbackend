@@ -214,7 +214,6 @@ router.get(
  *                          type: string
  *                          description: Add to talent pool
  *                          example: Yes
- *
  *      responses:
  *          200:
  *             description: A successful response

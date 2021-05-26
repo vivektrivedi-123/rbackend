@@ -16,7 +16,7 @@ const Location = require("../models/location");
  *    required:
  *     - company
  *     - location_address
- *     - location_street
+ *     - location_name
  *     - location_city
  *     - location_state
  *     - postal_code
@@ -25,8 +25,6 @@ const Location = require("../models/location");
  *     - primary_language
  *     - time_zone
  *     - date_format
- *     - website
- *     - contact
  *    properties:
  *                          id:
  *                              type: string
@@ -37,7 +35,7 @@ const Location = require("../models/location");
  *                          location_address:
  *                              type: string
  *                              default: industrial area
- *                          location_street:
+ *                          location_name:
  *                              type: string
  *                              default: phase 8b
  *                          location_city:
@@ -61,15 +59,10 @@ const Location = require("../models/location");
  *                          time_zone:
  *                              type: string
  *                              default: GMT+5:30
- *                          date:format:
+ *                          date_format:
  *                              type: string
  *                              default: DD/MM/YYYY
- *                          website:
- *                              type: string
- *                              default: rudrainnovativesoftware.com
- *                          contact:
- *                              type: number
- *                              default: 9856472156
+
  */
 /**
  * @swagger
@@ -135,7 +128,7 @@ router.get("/api/v1/location/:id", auth, locationController.getLocationById);
  *                          location_address:
  *                              type: string
  *                              default: industrial area
- *                          location_street:
+ *                          location_name:
  *                              type: string
  *                              default: phase 8b
  *                          location_city:
@@ -159,7 +152,7 @@ router.get("/api/v1/location/:id", auth, locationController.getLocationById);
  *                          time_zone:
  *                              type: string
  *                              default: GMT+5:30
- *                          date:format:
+ *                          date_format:
  *                              type: string
  *                              default: DD/MM/YYYY
  *      responses:
@@ -211,7 +204,7 @@ router.post(
  *                          location_address:
  *                              type: string
  *                              default: industrial area
- *                          location_street:
+ *                          location_name:
  *                              type: string
  *                              default: phase 8b
  *                          location_city:
@@ -235,12 +228,9 @@ router.post(
  *                          time_zone:
  *                              type: string
  *                              default: GMT+5:30
- *                          date:format:
+ *                          date_format:
  *                              type: string
  *                              default: DD/MM/YYYY
- *                          contact:
- *                              type: number
- *                              default: 9856472156
  *   requestBody:
  *    content:
  *     application/json:
@@ -295,7 +285,7 @@ router.post(
  *                          location_address:
  *                              type: string
  *                              default: industrial area
- *                          location_street:
+ *                          location_name:
  *                              type: string
  *                              default: phase 8b
  *                          location_city:
@@ -319,12 +309,9 @@ router.post(
  *                          time_zone:
  *                              type: string
  *                              default: GMT+5:30
- *                          date:format:
+ *                          date_format:
  *                              type: string
  *                              default: DD/MM/YYYY
- *                          contact:
- *                              type: number
- *                              default: 9856472156
 */
 router.put(
   "/api/v1/location/:id",

@@ -37,6 +37,9 @@ const Form = require("../models/forms");
  *             placeholder:
  *               type: string
  *               description : The placeholder in the form
+ *             order:
+ *               type: string
+ *               description: Order of the form
  *             is_required:
  *                type: boolean
  *                description: required for not
@@ -115,6 +118,9 @@ router.get("/api/v1/form/:id", auth, formController.getFormById);
  *                          is_required:
  *                              type: boolean
  *                              description: required for not
+ *                          order:
+ *                              type: string
+ *                              description: Order of the form
  *      responses:
  *          200:
  *             description: A successful response
@@ -159,20 +165,23 @@ router.post(
  *         type: object
  *         properties:
  *             job:
- *              type: string
- *              description: The ID of the job
+ *                type: string
+ *                description: The ID of the job
  *             field:
- *              type: string
- *              description: The ID of the field
+ *                type: string
+ *                description: The ID of the field
  *             label:
- *              type: string
- *              description: The label for the form
+ *                type: string
+ *                description: The label for the form
  *             placeholder:
- *               type: string
- *               description : The placeholder in the form
+ *                type: string
+ *                description : The placeholder in the form
  *             is_required:
  *                type: boolean
  *                description: required for not
+ *             order:
+ *                type: string
+ *                description: Order of the form
  *   requestBody:
  *    content:
  *     application/json:
@@ -181,20 +190,23 @@ router.post(
  *         properties:
 
  *             job:
- *              type: string
- *              description: The ID of the job
+ *                type: string
+ *                description: The ID of the job
  *             field:
- *              type: string
- *              description: The ID of the field
+ *                type: string
+ *                description: The ID of the field
  *             label:
- *              type: string
- *              description: The label for the form
+ *                type: string
+ *                description: The label for the form
  *             placeholder:
- *               type: string
- *               description : The placeholder in the form
+ *                type: string
+ *                description : The placeholder in the form
  *             is_required:
  *                type: boolean
  *                description: required for not
+ *             order:
+ *                type: string
+ *                description: Order of the form
  *   responses:
  *    200:
  *     description: success
@@ -204,20 +216,23 @@ router.post(
  *          type: object
  *          properties:
  *             job:
- *              type: string
- *              description: The ID of the job
+ *                type: string
+ *                description: The ID of the job
  *             field:
- *              type: string
- *              description: The ID of the field
+ *                type: string
+ *                description: The ID of the field
  *             label:
- *              type: string
- *              description: The label for the form
+ *                type: string
+ *                description: The label for the form
  *             placeholder:
- *               type: string
- *               description : The placeholder in the form
+ *                type: string
+ *                description : The placeholder in the form
  *             is_required:
  *                type: boolean
  *                description: required for not
+ *             order:
+ *                type: string
+ *                description: Order of the form
  */
 router.put(
   "/api/v1/form/:id",

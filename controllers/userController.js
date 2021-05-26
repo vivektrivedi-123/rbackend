@@ -73,7 +73,7 @@ exports.getUserById = async (req, res, next) => {
 exports.userLogin = async (req, res, next) => {
   try {
     const email = req.body.email;
-    const company = req.body.company;
+    const company = JSON.stringify(req.body.company);
     const password = req.body.password;
     let user = await User.findOne({
       email: req.body.email,
@@ -121,7 +121,7 @@ exports.addUser = async (req, res, next) => {
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(user.password, salt);
     await user.save();
-    res.status(200).json({ message: "User Added Successfully", user });
+    res.status(200).json( user );
   } catch (err) {
     res.json(err);
   }
@@ -140,7 +140,7 @@ exports.updateUser = async (req, res, next) => {
     new: true,
   });
   await user.save();
-  res.status(200).json(user);
+  res.status(200).send(user);
 };
 
 //delete user

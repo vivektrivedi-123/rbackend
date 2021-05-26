@@ -44,11 +44,13 @@ const upload = multer({
 
 /**
  * @swagger
- * components: 
- *  schemas: 
+ * components:
+ *  schemas:
  *   User:
  *    type: object
- *    required: 
+ *    required:
+ *      - company
+ *      - role
  *      - first_name
  *      - last_name
  *      - mobile_number
@@ -83,8 +85,8 @@ const upload = multer({
  *                          password:
  *                              type: string
  *                              default: apurva1234
- *                              
-*/
+ *
+ */
 /**
  * @swagger
  * tags:
@@ -155,7 +157,7 @@ router.get("/api/v1/user/:id", auth, userController.getUserById);
  *                              default: apurvajaitly@gmail.com
  *                          password:
  *                              type: string
- *                              default: apurva
+ *                              default: apurva12
  *      responses:
  *          200:
  *              description: Token
@@ -185,9 +187,11 @@ router.post("/api/v1/userLogin", userController.userLogin);
  *                          company:
  *                              type: string
  *                              description: ID of the company
+ *                              example: 2
  *                          role:
  *                              type: string
  *                              description: ID of the role
+ *                              example: 2
  *                          first_name:
  *                              type: string
  *                              default: Apurva
@@ -195,17 +199,17 @@ router.post("/api/v1/userLogin", userController.userLogin);
  *                              type: string
  *                              default: Jaitly
  *                          mobile_number:
- *                              type: number
+ *                              type: integer
  *                              default: 8765759456
  *                          profile_image:
  *                              type: string
- *                              default: pic.jpg
+ *                              default: logo.jpeg
  *                          email:
  *                              type: string
  *                              default: apurva@gmail.com
  *                          password:
  *                              type: string
- *                              default: apurva1234
+ *                              default: apurva133
  *      responses:
  *          200:
  *             description: Success
@@ -216,8 +220,8 @@ router.post("/api/v1/userLogin", userController.userLogin);
 //post
 router.post(
   "/api/v1/user",
-  upload,
   auth,
+  upload,
   userValidation(),
   validateSchema,
   userController.addUser
@@ -265,14 +269,11 @@ router.post(
  *              type: string
  *              default: Jaitly
  *          mobile_number:
- *              type: number
+ *              type: integer
  *              default: 9878765689
  *          email:
  *              type: string
  *              default: apurva@gmail.com
- *          password: 
- *              type: string
- *              default: 1234abcd
  *          profile_image:
  *              type: string
  *              default: abcd.jpeg
@@ -295,14 +296,11 @@ router.post(
  *              type: string
  *              default: Jaitly
  *          mobile_number:
- *              type: number
+ *              type: integer
  *              default: 9878765689
  *          email:
  *              type: string
  *              default: apurva@gmail.com
- *          password: 
- *              type: string
- *              default: 1234abcd
  *          profile_image:
  *              type: string
  *              default: abcd.jpeg
@@ -327,14 +325,11 @@ router.post(
  *             type: string
  *             default: Jaitly
  *          mobile_number:
- *             type: number
+ *             type: integer
  *             default: 9878765689
  *          email:
  *             type: string
  *             default: apurva@gmail.com
- *          password: 
- *             type: string
- *             default: 1234abcd
  *          profile_image:
  *             type: string
  *             default: abcd.jpeg
@@ -342,8 +337,8 @@ router.post(
 //update
 router.put(
   "/api/v1/user/:id",
-  upload,
   auth,
+  upload,
   userValidation(),
   validateSchema,
   userController.updateUser

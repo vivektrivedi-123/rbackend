@@ -20,19 +20,17 @@ const job = require("../models/job");
  *      - category
  *      - job_title
  *      - job_type
- *      - email
+ *      - branch
  *      - remote_job
  *      - job_description
  *      - experience
  *      - skills
- *      - tags
  *      - min_sal
  *      - max_sal
  *      - currency
  *      - allow_employees
- *      - status
- *      - job_code
- *      - job_slug
+ *      - publish
+
  *    properties:
  *                          id: 
  *                              type: string
@@ -49,12 +47,12 @@ const job = require("../models/job");
  *                          job_type:
  *                              type: string
  *                              description: Type of the job
+ *                          branch:
+ *                              type: string
+ *                              description: Branch of the job
  *                          remote_job:
  *                              type: string
  *                              description: Remote Job
- *                          branch:
- *                              type: string
- *                              description: Branch of job
  *                          job_description:
  *                              type: string
  *                              description: Description of the job
@@ -64,30 +62,21 @@ const job = require("../models/job");
  *                          skills:
  *                              type: string
  *                              description: Skills 
- *                          tags:
- *                              type: string
- *                              description: Tags of the job
  *                          min_sal:
- *                              type: Number
+ *                              type: integer
  *                              description: Min_salary of the job
  *                          max_sal:
- *                              type: Number
+ *                              type: integer
  *                              description: Max_salary of the job
  *                          currency:
  *                              type: string
  *                              description: Currency of the job
- *                          allow_employee:
- *                              type: Boolean
+ *                          allow_employees:
+ *                              type: boolean
  *                              description: Allow employees
- *                          status:
- *                              type: string
- *                              description: Status of the job
- *                          job_code:
- *                              type: string
- *                              description: Code of the job
- *                          job_slug:
- *                              type: string
- *                              description: Slug of the job
+ *                          publish:
+ *                              type: boolean
+ *                              description: Want to publish?
  *                              
 */
 
@@ -161,6 +150,9 @@ router.get("/api/v1/job/:id", auth, jobController.getJobById);
  *                          job_type:
  *                              type: string
  *                              description: Type of the job
+ *                          branch:
+ *                              type: string
+ *                              description: Branch of the job
  *                          remote_job:
  *                              type: string
  *                              description: Remote Job
@@ -173,31 +165,21 @@ router.get("/api/v1/job/:id", auth, jobController.getJobById);
  *                          skills:
  *                              type: string
  *                              description: Skills 
- *                          tags:
- *                              type: string
- *                              description: Tags of the job
  *                          min_sal:
- *                              type: Number
+ *                              type: integer
  *                              description: Min_salary of the job
  *                          max_sal:
- *                              type: Number
+ *                              type: integer
  *                              description: Max_salary of the job
  *                          currency:
  *                              type: string
  *                              description: Currency of the job
- *                          allow_employee:
+ *                          allow_employees:
  *                              type: boolean
  *                              description: Allow employees
- *                          status:
- *                              type: string
- *                              description: Status of the job
- *                          job_code:
- *                              type: string
- *                              description: Code of the job
- *                          job_slug:
- *                              type: string
- *                              description: Slug of the job
- *                   
+ *                          publish:
+ *                              type: boolean
+ *                              description: Want to publish?
  *      responses:
  *          200:
  *             description: A successful response
@@ -253,6 +235,9 @@ router.post(
  *                          job_type:
  *                              type: string
  *                              description: Type of the job
+ *                          branch:
+ *                              type: string
+ *                              description: Branch of the job
  *                          remote_job:
  *                              type: boolean
  *                              description: Remote Job
@@ -265,30 +250,21 @@ router.post(
  *                          skills:
  *                              type: string
  *                              description: Skills 
- *                          tags:
- *                              type: string
- *                              description: Tags of the job
  *                          min_sal:
  *                              type: string
  *                              description: Min_salary of the job
  *                          max_sal:
- *                              type: Number
+ *                              type: integer
  *                              description: Max_salary of the job
  *                          currency:
- *                              type: Number
+ *                              type: integer
  *                              description: Currency of the job
- *                          allow_employee:
- *                              type: Boolean
+ *                          allow_employees:
+ *                              type: boolean
  *                              description: Allow employees
- *                          status:
- *                              type: string
- *                              description: Status of the job
- *                          job_code:
- *                              type: string
- *                              description: Code of the job
- *                          job_slug:
- *                              type: string
- *                              description: Slug of the job
+ *                          publish:
+ *                              type: boolean
+ *                              description: Want to publish?
  *   requestBody:
  *    content:
  *     application/json:
@@ -307,6 +283,9 @@ router.post(
  *                          job_type:
  *                              type: string
  *                              description: Type of the job
+ *                          branch:
+ *                              type: string
+ *                              description: Want to publish?
  *                          remote_job:
  *                              type: string
  *                              description: Remote Job
@@ -319,30 +298,21 @@ router.post(
  *                          skills:
  *                              type: string
  *                              description: Skills 
- *                          tags:
- *                              type: string
- *                              description: Tags of the job
  *                          min_sal:
- *                              type: Number
+ *                              type: integer
  *                              description: Min_salary of the job
  *                          max_sal:
- *                              type: Number
+ *                              type: ineteger
  *                              description: Max_salary of the job
  *                          currency:
  *                              type: string
  *                              description: Currency of the job
- *                          allow_employee:
- *                              type: string
+ *                          allow_employees:
+ *                              type: boolean
  *                              description: Allow employees
- *                          status:
- *                              type: string
- *                              description: Status of the job
- *                          job_code:
- *                              type: string
- *                              description: Code of the job
- *                          job_slug:
- *                              type: string
- *                              description: Slug of the job
+ *                          publish:
+ *                              type: boolean
+ *                              description: Want to Publish?
  *   responses:
  *    200:
  *     description: success
@@ -363,6 +333,9 @@ router.post(
  *                          job_type:
  *                              type: string
  *                              description: Type of the job
+ *                          branch:
+ *                              type: string
+ *                              description: Branch of the job
  *                          remote_job:
  *                              type: string
  *                              description: Remote Job
@@ -375,30 +348,23 @@ router.post(
  *                          skills:
  *                              type: string
  *                              description: Skills 
- *                          tags:
- *                              type: string
- *                              description: Tags of the job
  *                          min_sal:
- *                              type: Number
+ *                              type: integer
  *                              description: Min_salary of the job
  *                          max_sal:
- *                              type: Number
+ *                              type: integer
  *                              description: Max_salary of the job
  *                          currency:
  *                              type: string
  *                              description: Currency of the job
- *                          allow_employee:
- *                              type: string
+ *                          allow_employees:
+ *                              type: boolean
  *                              description: Allow employees
- *                          status:
- *                              type: string
- *                              description: Status of the job
- *                          job_code:
- *                              type: string
- *                              description: Code of the job
- *                          job_slug:
- *                              type: string
- *                              description: Slug of the job */
+ *                          publish:
+ *                              type: boolean
+ *                              description: Want to publish?
+ * 
+ */
 router.put(
   "/api/v1/job/:id",
   auth,

@@ -61,7 +61,7 @@ const Interview = require("../models/interview");
  *                               type: string
  *                               description: interviewer of the interview
  *                          rating:
- *                               type: Number
+ *                               type: integer
  *                               description: rating of the interview
  *                          notes:
  *                               type: string
@@ -160,7 +160,7 @@ router.get("/api/v1/interview/:id", auth, interviewController.getInterviewById);
  *                               type: string
  *                               description: interviewer of the interview
  *                          rating:
- *                               type: Number
+ *                               type: integer
  *                               description: rating of the interview
  *                          notes:
  *                               type: string
