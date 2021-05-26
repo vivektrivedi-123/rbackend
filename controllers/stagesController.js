@@ -71,12 +71,11 @@ exports.getStageById = async (req, res, next) => {
 
     .exec()
     .then((doc, err) => {
-      if (doc)
+      if (doc) {
         res.status(200).json({
           results: doc,
-        }),
-          elseif(err);
-      {
+        });
+      } else {
         res.send("ID does not exists").status(404);
       }
     })

@@ -28,12 +28,11 @@ exports.getLocationById = async (req, res, next) => {
     .populate({ path: "company", select: "-_id -__v" })
     .exec()
     .then((doc, err) => {
-      if (doc)
+      if (doc) {
         res.status(200).json({
           results: doc,
-        }),
-          elseif(err);
-      {
+        });
+      } else {
         res.send("ID does not exists").status(404);
       }
     })

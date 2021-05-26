@@ -76,12 +76,11 @@ exports.getFormById = async (req, res, next) => {
     .populate({ path: "field", select: "-_id -__v -location" })
     .exec()
     .then((doc, err) => {
-      if (doc)
+      if (doc) {
         res.status(200).json({
           results: doc,
-        }),
-          elseif(err);
-      {
+        });
+      } else {
         res.send("ID does not exists").status(404);
       }
     })
