@@ -35,13 +35,20 @@ exports.getFieldById = async (req, res, next) => {
       populate: { path: "company", select: "-_id -__v" },
     })
     .exec()
-    .then((data) => {
-      res.status(200).json({
-        results: data,
-      });
+    .then((doc, err) => {
+      if (doc)
+        res.status(200).json({
+          results: doc,
+        }),
+          elseif(err);
+      {
+        res.send("ID does not exists").status(404);
+      }
     })
+
     .catch((err) => {
-      res.status(400).json(err);
+      console.log(err);
+      res.status(404).json(err);
     });
 };
 exports.addField = async (req, res, next) => {

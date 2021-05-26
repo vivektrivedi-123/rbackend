@@ -59,10 +59,15 @@ exports.getUserById = async (req, res, next) => {
     .populate("company", "company_name -_id")
     .populate("role", "role_name -_id")
     .exec()
-    .then((data) => {
-      res.status(200).json({
-        results: data,
-      });
+    .then((doc, err) => {
+      if (doc)
+        res.status(200).json({
+          results: doc,
+        }),
+          elseif(err);
+      {
+        res.send("ID does not exists").status(404);
+      }
     })
 
     .catch((err) => {
@@ -121,7 +126,7 @@ exports.addUser = async (req, res, next) => {
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(user.password, salt);
     await user.save();
-    res.status(200).json( user );
+    res.status(200).json(user);
   } catch (err) {
     res.json(err);
   }

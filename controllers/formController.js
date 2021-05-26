@@ -75,13 +75,20 @@ exports.getFormById = async (req, res, next) => {
     })
     .populate({ path: "field", select: "-_id -__v -location" })
     .exec()
-    .then((data) => {
-      res.status(200).json({
-        results: data,
-      });
+    .then((doc, err) => {
+      if (doc)
+        res.status(200).json({
+          results: doc,
+        }),
+          elseif(err);
+      {
+        res.send("ID does not exists").status(404);
+      }
     })
+
     .catch((err) => {
-      res.status(400).json(err);
+      console.log(err);
+      res.status(404).json(err);
     });
 };
 exports.addForm = async (req, res, next) => {

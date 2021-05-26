@@ -52,12 +52,19 @@ exports.getJobById = async (req, res, next) => {
       select: "-location -createdAt -updatedAt -_id -__v",
     })
     .exec()
-    .then((data) => {
-      res.status(200).json({
-        results: data,
-      });
+    .then((doc, err) => {
+      if (doc)
+        res.status(200).json({
+          results: doc,
+        }),
+          elseif(err);
+      {
+        res.send("ID does not exists").status(404);
+      }
     })
+
     .catch((err) => {
+      console.log(err);
       res.status(404).json(err);
     });
 };

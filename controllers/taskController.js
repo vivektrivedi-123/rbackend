@@ -95,12 +95,19 @@ exports.getTaskById = async (req, res, next) => {
       },
     })
     .exec()
-    .then((data) => {
-      res.status(200).json({
-        results: data,
-      });
+    .then((doc, err) => {
+      if (doc)
+        res.status(200).json({
+          results: doc,
+        }),
+          elseif(err);
+      {
+        res.send("ID does not exists").status(404);
+      }
     })
+
     .catch((err) => {
+      console.log(err);
       res.status(404).json(err);
     });
 };

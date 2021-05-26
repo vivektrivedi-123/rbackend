@@ -14,11 +14,16 @@ exports.getRoles = async (req, res, next) => {
 };
 
 exports.getRolesById = async (req, res, next) => {
-  let role = await Role.findById({ _id: req.params.id }).select(" -__v");
-  if (!role) {
-    res.status(404).send("Role Not Found");
-  } else {
-    res.status(200).send(role);
+  try {
+    let role = await Role.findById({ _id: req.params.id }).select(" -__v");
+    if (!role) {
+      res.status(404).send("ID does not exists");
+    } else {
+      res.status(200).send(role);
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(404).json(err);
   }
 };
 

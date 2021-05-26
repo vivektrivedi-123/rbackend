@@ -31,29 +31,29 @@ exports.getCategoryById = async (req, res, next) => {
       populate: { path: "company", select: "-_id -__v" },
     });
   if (!category) {
-    res.status(404).send("No Category Found");
+    res.status(404).send("ID does not exists");
   } else {
     res.status(200).send(category);
   }
 };
 
 exports.addCategory = async (req, res, next) => {
-  let category = await Category.findOne({ category: req.body.category });
-  if (category) {
-    res.status(409).send("Category Already Exists");
-  } else {
-    let categories = new Category(
-      _.pick(req.body, [
-        "location",
-        "category",
-        "status",
-        "created_by",
-        "modified_by",
-      ])
-    );
-    await categories.save();
-    res.status(200).json({ message: "Category Added", categories });
-  }
+  // let category = await Category.findOne({ category: req.body.category });
+  // if (category) {
+  //   res.status(409).send("Category Already Exists");
+  // } else {
+  let categories = new Category(
+    _.pick(req.body, [
+      "location",
+      "category",
+      "status",
+      "created_by",
+      "modified_by",
+    ])
+  );
+  await categories.save();
+  res.status(200).json({ message: "Category Added", categories });
+  //}
 };
 
 exports.updateCategory = async (req, res, next) => {
