@@ -1,7 +1,7 @@
 const { body, validationResult } = require("express-validator");
 
 const deptValidation = () => {
-  return [body("department_name").isLength({ min: 5, max: 50 })];
+  return [body("department_name").isLength({ min: 5, max: 30 })];
 };
 const validateSchema = (req, res, next) => {
   const errors = validationResult(req);

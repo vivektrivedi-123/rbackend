@@ -8,10 +8,10 @@ const formSchema = new mongoose.Schema(
     field: [
       { type: mongoose.Schema.Types.ObjectId, ref: "field", required: true },
     ],
-    label: { type: String, required: true },
-    placeholder: { type: String, required: true },
+    label: { type: String, required: true,min: 3, max: 30  },
+    placeholder: { type: String, required: true ,min: 3, max: 30 },
     is_required: { type: Boolean, required: true },
-    order: { type: String, required: true },
+    order: { type: String, required: true ,min: 3, max: 30 },
     created_by: { type: String },
     modified_by: { type: String },
   },

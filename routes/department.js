@@ -170,13 +170,13 @@ router.post(
  *              type: string
  *              description: The department name
  */
-//update
+//put
 router.put(
   "/api/v1/department/:id",
   auth,
   deptValidation(),
   validateSchema,
-  deptController.updateDept
+  deptController.putDept
 );
 /**
  * @swagger
@@ -205,4 +205,11 @@ router.put(
  */
 //delete
 router.delete("/api/v1/department/:id", auth, deptController.deleteDept);
+
+//patch
+router.patch(
+  "/api/v1/department/:id",
+  auth,
+  deptController.patchDept
+);
 module.exports = router;

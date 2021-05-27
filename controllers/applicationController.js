@@ -138,7 +138,26 @@ exports.addApplication = async (req, res, next) => {
       res.status(400).json(err);
     });
 };
-exports.updateApplication = async (req, res, next) => {
+exports.putApplication = async (req, res, next) => {
+  let id = req.params.id;
+  if (!req.params.id || req.params.id < 0)
+    res.status(400).send("Invalid request");
+  Application.findOne({ _id: req.params.id }, function (err, doc) {
+    if (err) console.log(err);
+    else if (doc === null)
+      res.status(400).send("ID in the body is not matching ID in the URL");
+  });
+  let update = await Application.findByIdAndUpdate(
+    { _id: req.params.id },
+    req.body,
+    { new: true }
+  );
+  await update.save();
+  res.json({ message: "Application Updated", update }).status(200);
+  
+};
+
+exports.patchApplication = async (req, res, next) => {
   let id = req.params.id;
   if (!req.params.id || req.params.id < 0)
     res.status(400).send("Invalid request");

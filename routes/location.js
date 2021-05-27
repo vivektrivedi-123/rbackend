@@ -318,7 +318,7 @@ router.put(
   auth,
   locationValidation(),
   validateSchema,
-  locationController.updateLocation
+  locationController.putLocation
 );
 /**
  * @swagger
@@ -346,4 +346,11 @@ router.put(
  *     description: Id not found
  */
 router.delete("/api/v1/location/:id", auth, locationController.deleteLocation);
+
+//patch
+router.patch(
+  "/api/v1/location/:id",
+  auth,
+  locationController.patchLocation
+);
 module.exports = router;

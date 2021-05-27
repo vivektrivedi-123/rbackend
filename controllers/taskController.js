@@ -138,7 +138,7 @@ exports.addTask = async (req, res, next) => {
       res.status(400).json(err);
     });
 };
-exports.updateTask = async (req, res, next) => {
+exports.putTask = async (req, res, next) => {
   let id = req.params.id;
   if (!req.params.id || req.params.id < 0)
     res.status(400).send("Invalid Request");
@@ -153,6 +153,20 @@ exports.updateTask = async (req, res, next) => {
   res.status(200).json(update);
 };
 
+exports.patchTask = async (req, res, next) => {
+  let id = req.params.id;
+  if (!req.params.id || req.params.id < 0)
+    res.status(400).send("Invalid Request");
+  Task.findOne({ _id: req.params.id }, function (err, doc) {
+    if (err) console.log(err);
+    else if (doc === null) res.status(400).send("Invalid Request");
+  });
+  let update = await Task.findByIdAndUpdate({ _id: req.params.id }, req.body, {
+    new: true,
+  });
+  await update.save();
+  res.status(200).json(update);
+};
 exports.deleteTask = async (req, res, next) => {
   if (!req.params.id || req.params.id < 0)
     res.status(400).send("Invalid request");

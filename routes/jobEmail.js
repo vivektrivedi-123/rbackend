@@ -10,11 +10,11 @@ const Email = require("../models/email");
 
 /**
  * @swagger
- * components: 
- *  schemas: 
+ * components:
+ *  schemas:
  *   Email:
  *    type: object
- *    required: 
+ *    required:
  *      - application
  *      - from
  *      - to
@@ -26,7 +26,7 @@ const Email = require("../models/email");
  *                           description: The auto-generated id of the email
  *                          application:
  *                           type: string
- *                           description: The application ID 
+ *                           description: The application ID
  *                          from:
  *                           type: string
  *                           description: The sender of the email
@@ -39,8 +39,8 @@ const Email = require("../models/email");
  *                          status:
  *                           type: string
  *                           description: The status of the email
- *                              
-*/
+ *
+ */
 
 /**
  * @swagger
@@ -102,7 +102,7 @@ router.get("/api/v1/email/:id", auth, emailController.getEmailById);
  *                      properties:
  *                          application:
  *                           type: string
- *                           description: The application ID 
+ *                           description: The application ID
  *                          from:
  *                           type: string
  *                           description: The sender of the email
@@ -123,8 +123,8 @@ router.get("/api/v1/email/:id", auth, emailController.getEmailById);
  */
 router.post(
   "/api/v1/email",
-  emailValidation(),
   auth,
+  emailValidation(),
   validateSchema,
   emailController.addEmail
 );
@@ -160,7 +160,7 @@ router.post(
  *         properties:
  *             application:
  *              type: string
- *              description: The application ID 
+ *              description: The application ID
  *             from:
  *              type: string
  *              description: The sender of the email
@@ -181,7 +181,7 @@ router.post(
  *         properties:
  *             application:
  *              type: string
- *              description: The application ID 
+ *              description: The application ID
  *             from:
  *              type: string
  *              description: The sender of the email
@@ -204,7 +204,7 @@ router.post(
  *         properties:
  *             application:
  *              type: string
- *              description: The application ID 
+ *              description: The application ID
  *             from:
  *              type: string
  *              description: The sender of the email
@@ -218,7 +218,13 @@ router.post(
  *              type: string
  *              description: The status of the email
  */
-router.put("/api/v1/email/:id", auth, emailController.updateEmail);
+router.put(
+  "/api/v1/email/:id",
+  auth,
+  emailValidation(),
+  validateSchema,
+  emailController.putEmail
+);
 /**
  * @swagger
  * tags:
@@ -245,4 +251,10 @@ router.put("/api/v1/email/:id", auth, emailController.updateEmail);
  *     description: Id not found
  */
 router.delete("/api/v1/email/:id", auth, emailController.deleteEmail);
+//patch
+router.put(
+  "/api/v1/email/:id",
+  auth,
+  emailController.patchEmail
+);
 module.exports = router;

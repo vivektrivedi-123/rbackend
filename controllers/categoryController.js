@@ -56,7 +56,23 @@ exports.addCategory = async (req, res, next) => {
   //}
 };
 
-exports.updateCategory = async (req, res, next) => {
+exports.putCategory = async (req, res, next) => {
+  let id = req.params.id;
+  if (!req.params.id || req.params.id < 0)
+    res.status(400).send("Invalid request");
+  Category.findOne({ _id: req.params.id }, (err, doc) => {
+    if (err) console.log(err);
+    else if (doc === null) res.status(400).send("Invalid request");
+  });
+  let update = await Category.findByIdAndUpdate(
+    { _id: req.params.id },
+    req.body,
+    { new: true }
+  );
+  await update.save();
+  res.json(update).status(200);
+};
+exports.patchCategory = async (req, res, next) => {
   let id = req.params.id;
   if (!req.params.id || req.params.id < 0)
     res.status(400).send("Invalid request");

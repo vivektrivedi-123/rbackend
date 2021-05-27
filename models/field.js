@@ -10,9 +10,9 @@ const fieldSchema = new mongoose.Schema(
       },
     ],
 
-    field_name: { type: String, required: true },
-    field_type: { type: String, required: true },
-    field_options: { type: String, required: true },
+    field_name: { type: String, required: true, min: 3, max: 30 },
+    field_type: { type: String, required: true, min: 5, max: 30 },
+    field_options: { type: String, required: true, min: 5, max: 50 },
     created_by: { type: String },
     modified_by: { type: String },
   },

@@ -9,9 +9,9 @@ const applicationSchema = new mongoose.Schema(
     forms: [
       { type: mongoose.Schema.Types.ObjectId, ref: "forms", required: true },
     ],
-    form_values: { type: String, required: true },
+    form_values: { type: String, required: true, min: 3, max: 30 },
     resume: { type: String, required: true },
-    origin: { type: String, required: true },
+    origin: { type: String, required: true, min: 3, max: 50 },
     tags: { type: String, required: true },
     status: { type: String, required: true },
     overall_rating: { type: Number, required: true },

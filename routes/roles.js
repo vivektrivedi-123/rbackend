@@ -165,7 +165,7 @@ router.put(
   auth,
   roleValidation(),
   validateSchema,
-  rolesController.updateRoles
+  rolesController.putRoles
 );
 /**
  * @swagger
@@ -193,4 +193,11 @@ router.put(
  *     description: Id not found
  */
 router.delete("/api/v1/role/:id", auth, rolesController.deleteRoles);
+
+//patch
+router.patch(
+  "/api/v1/role/:id",
+  auth,
+  rolesController.patchRoles
+);
 module.exports = router;

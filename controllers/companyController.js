@@ -91,7 +91,23 @@ exports.addCompany = async (req, res, next) => {
   }
 };
 
-exports.updateCompany = async (req, res, next) => {
+exports.putCompany = async (req, res, next) => {
+  let id = req.params.id;
+  if (!req.params.id || req.params.id < 0)
+    res.status(400).send("Invalid Request");
+  Company.findOne({ _id: req.params.id }, (err, doc) => {
+    if (err) console.log(err);
+    else if (doc === null) res.status(400).send("Invalid Request");
+  });
+  let update = await Company.findByIdAndUpdate(
+    { _id: req.params.id },
+    req.body,
+    { new: true }
+  );
+  await update.save();
+  res.json({message:"Updated Company ",update}).status(200);
+};
+exports.patchCompany = async (req, res, next) => {
   let id = req.params.id;
   if (!req.params.id || req.params.id < 0)
     res.status(400).send("Invalid Request");

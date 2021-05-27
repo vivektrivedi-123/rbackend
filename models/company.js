@@ -1,11 +1,11 @@
 const mongoose = require("mongoose");
 const companySchema = new mongoose.Schema(
   {
-    company_name: { type: String, required: true },
-    industry: { type: String, required: true },
+    company_name: { type: String, required: true ,min: 3, max: 50 },
+    industry: { type: String, required: true,min: 5, max: 20  },
     company_language: { type: String, required: true },
     date_format: { type: String, required: true },
-    employee_portal_name: { type: String, required: true },
+    employee_portal_name: { type: String, required: true,min: 5, max: 50  },
     employee_portal_url: { type: String, required: true },
     company_logo: { type: String, required: true },
     favicon: { type: String, required: true },

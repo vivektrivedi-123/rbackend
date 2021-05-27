@@ -192,7 +192,7 @@ router.put(
   auth,
   stageValidation(),
   validateSchema,
-  stagesController.updateStage
+  stagesController.putStage
 );
 /**
  * @swagger
@@ -221,4 +221,10 @@ router.put(
  */
 router.delete("/api/v1/stage/:id", auth, stagesController.deleteStage);
 
+//patch
+router.patch(
+  "/api/v1/stage/:id",
+  auth,
+  stagesController.patchStage
+);
 module.exports = router;

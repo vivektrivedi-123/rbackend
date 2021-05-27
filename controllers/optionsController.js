@@ -3,7 +3,6 @@ const mongoose = require("mongoose");
 const _ = require("lodash");
 const location = require("../models/location");
 const company = require("../models/company");
-//const PER_PAGE = 5;
 exports.getOptions = async (req, res, next) => {
   const skip = parseInt(req.query.skip);
   const limit = parseInt(req.query.limit);
@@ -77,7 +76,24 @@ exports.addOptions = async (req, res, next) => {
       });
   }
 };
-exports.updateOptions = async (req, res, next) => {
+exports.putOptions = async (req, res, next) => {
+  let id = req.params.id;
+  if (!req.params.id || req.params.id < 0)
+    res.status(400).send("Invalid Request");
+  Options.findOne({ _id: req.params.id }, function (err, doc) {
+    if (err) console.log(err);
+    else if (doc === null) res.status(400).send("Invalid Request");
+  });
+  let update = await Options.findByIdAndUpdate(
+    { _id: req.params.id },
+    req.body,
+    { new: true }
+  );
+
+  await update.save();
+  res.status(200).json(update);
+};
+exports.patchOptions = async (req, res, next) => {
   let id = req.params.id;
   if (!req.params.id || req.params.id < 0)
     res.status(400).send("Invalid Request");

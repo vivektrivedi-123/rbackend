@@ -20,11 +20,11 @@ const storage = multer.diskStorage({
 const attachments = multer({ storage: storage }).array("attachments", 4);
 /**
  * @swagger
- * components: 
- *  schemas: 
+ * components:
+ *  schemas:
  *   Comment:
  *    type: object
- *    required: 
+ *    required:
  *      - application
  *      - comments
  *      - attachments
@@ -45,8 +45,8 @@ const attachments = multer({ storage: storage }).array("attachments", 4);
  *                           status:
  *                            type: boolean
  *                            description: The status of the comment
- *                              
-*/
+ *
+ */
 
 /**
  * @swagger
@@ -173,7 +173,7 @@ router.post(
  *              description: The attachments for the comments
  *             status:
  *              type: boolean
- *              description: The status of the comment 
+ *              description: The status of the comment
  *   requestBody:
  *    content:
  *     multipart/form-data:
@@ -191,7 +191,7 @@ router.post(
  *              description: The attachments for the comments
  *             status:
  *              type: boolean
- *              description: The status of the comment 
+ *              description: The status of the comment
  *   responses:
  *    200:
  *     description: success
@@ -211,7 +211,7 @@ router.post(
  *              description: The attachments for the comments
  *             status:
  *              type: boolean
- *              description: The status of the comment 
+ *              description: The status of the comment
  */
 router.put(
   "/api/v1/comment/:id",
@@ -219,7 +219,7 @@ router.put(
   attachments,
   commentValidation(),
   validateSchema,
-  commentController.updateComment
+  commentController.putComment
 );
 /**
  * @swagger
@@ -247,5 +247,10 @@ router.put(
  *     description: Id not found
  */
 router.delete("/api/v1/comment/:id", auth, commentController.deleteComment);
-
+router.put(
+  "/api/v1/comment/:id",
+  auth,
+  attachments,
+  commentController.patchComment
+);
 module.exports = router;

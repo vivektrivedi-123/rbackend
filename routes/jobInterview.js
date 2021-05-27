@@ -351,7 +351,7 @@ router.put(
   auth,
   interviewValidation(),
   validateSchema,
-  interviewController.updateInterview
+  interviewController.putInterview
 );
 /**
  * @swagger
@@ -382,6 +382,13 @@ router.delete(
   "/api/v1/interview/:id",
   auth,
   interviewController.deleteInterview
+);
+
+//patch
+router.patch(
+  "/api/v1/interview/:id",
+  auth,
+  interviewController.patchInterview
 );
 
 module.exports = router;

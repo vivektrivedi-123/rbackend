@@ -13,7 +13,7 @@ const emailSchema = new mongoose.Schema(
     ],
     from: { type: String, required: true },
     to: { type: String, required: true },
-    body: { type: String, required: true },
+    body: { type: String, required: true ,min: 10, max: 50 },
     status: { type: String, required: true },
     created_by: { type: String },
     modified_by: { type: String },

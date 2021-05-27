@@ -51,7 +51,7 @@ const resume = multer({ storage: storage }).single("resume");
  *                          type: string
  *                          description: The form ID
  *                        form_values:
- *                          type: Number
+ *                          type: string
  *                          description: The value of the form
  *                          example: 1234
  *                        resume:
@@ -70,7 +70,7 @@ const resume = multer({ storage: storage }).single("resume");
  *                          description: Status of the applicant
  *                          example: active
  *                        overall_rating:
- *                          type: Number
+ *                          type: integer
  *                          description: Applicant's Overall Rating
  *                          example: 4
  *                        lead_owner:
@@ -161,65 +161,55 @@ router.get(
  *                  schema:
  *                      type: object
  *                      properties:
- *                        job:
- *                          type: string
- *                          description: The job ID
- *                        forms:
- *                          type: string
- *                          description: The form ID
- *                        form_values:
- *                          type: string
- *                          description: The value of the form
- *                          example: 1234abc
- *                        resume:
- *                          type: string
- *                          description: Applicant's resume
- *                          example: resume.pdf
- *                        origin:
- *                          type: string
- *                          description: Origin
- *                        tags:
- *                          type: string
- *                          description: Applicant's Tags
- *                          example: #node #javascript
- *                        status:
- *                          type: string
- *                          description: Status of the applicant
- *                          example: active
- *                        overall_rating:
- *                          type: Number
- *                          description: Applicant's Overall Rating
- *                          example: 4
- *                        lead_owner:
- *                          type: string
- *                          description: Lead owner of the applicant
- *                          example: Abcdef
- *                        is_deleted:
- *                          type: boolean
- *                          description: Is the applicant deleted?
- *                          example: true
- *                        is_blocked:
- *                          type: boolean
- *                          description: Is the applicant blocked?
- *                          example: false
- *                        social_profiles:
- *                          type: string
- *                          description: Applicant's Social Profiles
- *                          example: LinkedIn account
- *                        refer_by:
- *                          type: string
- *                          description: Reference of the applicant
- *                          example: XYZ
- *                        add_to_talent_pool:
- *                          type: string
- *                          description: Add to talent pool
- *                          example: Yes
+ *                          job:
+ *                            type: string
+ *                            description: The job ID
+ *                          forms:
+ *                            type: string
+ *                            description: The form ID
+ *                          form_values:
+ *                            type: string
+ *                            description: The value of the form
+ *                          resume:
+ *                            type: string
+ *                            description: Applicant's resume
+ *                          origin:
+ *                            type: string
+ *                            description: Origin
+ *                          tags:
+ *                            type: string
+ *                            description: Applicant's Tags
+ *                          status:
+ *                            type: string
+ *                            description: Status of the applicant
+ *                          overall_rating:
+ *                            type: integer
+ *                            description: Applicant's Overall Rating
+ *                          lead_owner:
+ *                            type: string
+ *                            description: Lead owner of the applicant
+ *                          is_deleted:
+ *                            type: boolean
+ *                            description: Is the applicant deleted?
+ *                          is_blocked:
+ *                            type: boolean
+ *                            description: Is the applicant blocked?
+ *                          social_profiles:
+ *                            type: string
+ *                            description: Applicant's Social Profiles
+ *                          refer_by:
+ *                            type: string
+ *                            description: Reference of the applicant
+ *                          add_to_talent_pool:
+ *                            type: string
+ *                            description: Add to talent pool
  *      responses:
  *          200:
  *             description: A successful response
  *          default:
  *              description: This is the default response for it
  */
+
 router.post(
   "/api/v1/application",
   auth,
@@ -228,6 +218,7 @@ router.post(
   validateSchema,
   applicationController.addApplication
 );
+
 /**
  * @swagger
  * tags:
@@ -265,7 +256,7 @@ router.post(
  *              type: string
  *              description: The form ID
  *             form_values:
- *              type: Number
+ *              type: string
  *              description: The value of the form
  *              example: 1234
  *             resume:
@@ -284,7 +275,7 @@ router.post(
  *               description: Status of the applicant
  *               example: active
  *             overall_rating:
- *               type: Number
+ *               type: integer
  *               description: Applicant's Overall Rating
  *               example: 4
  *             lead_owner:
@@ -315,6 +306,8 @@ router.post(
  *    content:
  *     multipart/form-data:
  *      schema:
+ *         type: object
+ *         properties:
  *             job:
  *              type: string
  *              description: The job ID
@@ -322,52 +315,52 @@ router.post(
  *              type: string
  *              description: The form ID
  *             form_values:
- *              type: Number
+ *              type: string
  *              description: The value of the form
  *              example: 1234
  *             resume:
- *               type: string
- *               description: Applicant's resume
- *               example: resume.pdf
+ *              type: string
+ *              description: Applicant's resume
+ *              example: resume.pdf
  *             origin:
- *               type: string
- *               description: Origin
+ *              type: string
+ *              description: Origin
  *             tags:
- *               type: string
- *               description: Applicant's Tags
- *               example: #node #javascript
+ *              type: string
+ *              description: Applicant's Tags
+ *              example: #node #javascript
  *             status:
- *               type: string
- *               description: Status of the applicant
- *               example: active
+ *              type: string
+ *              description: Status of the applicant
+ *              example: active
  *             overall_rating:
- *               type: Number
- *               description: Applicant's Overall Rating
- *               example: 4
+ *              type: integer
+ *              description: Applicant's Overall Rating
+ *              example: 4
  *             lead_owner:
- *               type: string
- *               description: Lead owner of the applicant
- *               example: Abcdef
+ *              type: string
+ *              description: Lead owner of the applicant
+ *              example: Abcdef
  *             is_deleted:
- *               type: boolean
- *               description: Is the applicant deleted?
- *               example: true
+ *              type: boolean
+ *              description: Is the applicant deleted?
+ *              example: true
  *             is_blocked:
- *               type: boolean
- *               description: Is the applicant blocked?
- *               example: false
+ *              type: boolean
+ *              description: Is the applicant blocked?
+ *              example: false
  *             social_profiles:
- *               type: string
- *               description: Applicant's Social Profiles
- *               example: LinkedIn account -abcdef
+ *              type: string
+ *              description: Applicant's Social Profiles
+ *              example: LinkedIn account -abcdef
  *             refer_by:
- *               type: string
- *               description: Reference of the applicant
- *               example: XYZ
+ *              type: string
+ *              description: Reference of the applicant
+ *              example: XYZ
  *             add_to_talent_pool:
- *               type: string
- *               description: Add to talent pool
- *               example: Yes
+ *              type: string
+ *              description: Add to talent pool
+ *              example: Yes
  *   responses:
  *    200:
  *     description: success
@@ -383,7 +376,7 @@ router.post(
  *              type: string
  *              description: The form ID
  *             form_values:
- *              type: Number
+ *              type: integer
  *              description: The value of the form
  *              example: 1234
  *             resume:
@@ -402,7 +395,7 @@ router.post(
  *               description: Status of the applicant
  *               example: active
  *             overall_rating:
- *               type: string
+ *               type: integer
  *               description: Applicant's Overall Rating
  *               example: 4
  *             lead_owner:
@@ -436,7 +429,7 @@ router.put(
   resume,
   appValidation(),
   validateSchema,
-  applicationController.updateApplication
+  applicationController.putApplication
 );
 /**
  * @swagger
@@ -468,5 +461,214 @@ router.delete(
   auth,
   applicationController.deleteApplication
 );
-
+/**
+ * @swagger
+ * tags:
+ *  name: Application
+ * /api/v1/application/{id}:
+ *  patch:
+ *   security:
+ *        - Bearer: []
+ *   tags: [Application]
+ *   summary: update application
+ *   description: update application
+ *   consumes:
+ *    - multipart/form-data
+ *   produces:
+ *    - multipart/form-data
+ *   parameters:
+ *    - in: path
+ *      name: id
+ *      schema:
+ *       type: string
+ *      required: true
+ *      description: id of the application
+ *      example: 2
+ *    - in: body
+ *      name: body
+ *      required: true
+ *      description: body object
+ *      schema:
+ *         type: object
+ *         properties:
+ *             job:
+ *              type: string
+ *              description: The job ID
+ *             forms:
+ *              type: string
+ *              description: The form ID
+ *             form_values:
+ *              type: string
+ *              description: The value of the form
+ *              example: 1234
+ *             resume:
+ *               type: string
+ *               description: Applicant's resume
+ *               example: resume.pdf
+ *             origin:
+ *               type: string
+ *               description: Origin
+ *             tags:
+ *               type: string
+ *               description: Applicant's Tags
+ *               example: #node #javascript
+ *             status:
+ *               type: string
+ *               description: Status of the applicant
+ *               example: active
+ *             overall_rating:
+ *               type: integer
+ *               description: Applicant's Overall Rating
+ *               example: 4
+ *             lead_owner:
+ *               type: string
+ *               description: Lead owner of the applicant
+ *               example: Abcdef
+ *             is_deleted:
+ *               type: boolean
+ *               description: Is the applicant deleted?
+ *               example: true
+ *             is_blocked:
+ *               type: boolean
+ *               description: Is the applicant blocked?
+ *               example: false
+ *             social_profiles:
+ *               type: string
+ *               description: Applicant's Social Profiles
+ *               example: LinkedIn account -abcdef
+ *             refer_by:
+ *               type: string
+ *               description: Reference of the applicant
+ *               example: XYZ
+ *             add_to_talent_pool:
+ *               type: string
+ *               description: Add to talent pool
+ *               example: Yes
+ *   requestBody:
+ *    content:
+ *     multipart/form-data:
+ *      schema:
+ *         type: object
+ *         properties:
+ *             job:
+ *              type: string
+ *              description: The job ID
+ *             forms:
+ *              type: string
+ *              description: The form ID
+ *             form_values:
+ *              type: string
+ *              description: The value of the form
+ *              example: 1234
+ *             resume:
+ *              type: string
+ *              description: Applicant's resume
+ *              example: resume.pdf
+ *             origin:
+ *              type: string
+ *              description: Origin
+ *             tags:
+ *              type: string
+ *              description: Applicant's Tags
+ *              example: #node #javascript
+ *             status:
+ *              type: string
+ *              description: Status of the applicant
+ *              example: active
+ *             overall_rating:
+ *              type: integer
+ *              description: Applicant's Overall Rating
+ *              example: 4
+ *             lead_owner:
+ *              type: string
+ *              description: Lead owner of the applicant
+ *              example: Abcdef
+ *             is_deleted:
+ *              type: boolean
+ *              description: Is the applicant deleted?
+ *              example: true
+ *             is_blocked:
+ *              type: boolean
+ *              description: Is the applicant blocked?
+ *              example: false
+ *             social_profiles:
+ *              type: string
+ *              description: Applicant's Social Profiles
+ *              example: LinkedIn account -abcdef
+ *             refer_by:
+ *              type: string
+ *              description: Reference of the applicant
+ *              example: XYZ
+ *             add_to_talent_pool:
+ *              type: string
+ *              description: Add to talent pool
+ *              example: Yes
+ *   responses:
+ *    200:
+ *     description: success
+ *     content:
+ *      multipart/form-data:
+ *       schema:
+ *          type: object
+ *          properties:
+ *             job:
+ *              type: string
+ *              description: The job ID
+ *             forms:
+ *              type: string
+ *              description: The form ID
+ *             form_values:
+ *              type: integer
+ *              description: The value of the form
+ *              example: 1234
+ *             resume:
+ *               type: string
+ *               description: Applicant's resume
+ *               example: resume.pdf
+ *             origin:
+ *               type: string
+ *               description: Origin
+ *             tags:
+ *               type: string
+ *               description: Applicant's Tags
+ *               example: #node #javascript
+ *             status:
+ *               type: string
+ *               description: Status of the applicant
+ *               example: active
+ *             overall_rating:
+ *               type: integer
+ *               description: Applicant's Overall Rating
+ *               example: 4
+ *             lead_owner:
+ *               type: string
+ *               description: Lead owner of the applicant
+ *               example: Abcdef
+ *             is_deleted:
+ *               type: boolean
+ *               description: Is the applicant deleted?
+ *               example: true
+ *             is_blocked:
+ *               type: boolean
+ *               description: Is the applicant blocked?
+ *               example: false
+ *             social_profiles:
+ *               type: string
+ *               description: Applicant's Social Profiles
+ *               example: LinkedIn account -abcdef
+ *             refer_by:
+ *               type: string
+ *               description: Reference of the applicant
+ *               example: XYZ
+ *             add_to_talent_pool:
+ *               type: string
+ *               description: Add to talent pool
+ *               example: Yes
+ */
+router.patch(
+  "/api/v1/application/:id",
+  auth,
+  resume,
+  applicationController.patchApplication
+);
 module.exports = router;

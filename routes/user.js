@@ -8,7 +8,7 @@ const router = express.Router();
 const swagger = require("swagger-ui-express");
 const auth = require("../middleware/auth");
 const company = require("../models/company");
-const Comp = require("../models/user");
+const user = require("../models/user");
 const role = require("../models/role");
 const multer = require("multer");
 const app = express();
@@ -74,7 +74,7 @@ const upload = multer({
  *                              type: string
  *                              default: Jaitly
  *                          mobile_number:
- *                              type: number
+ *                              type: integer
  *                              default: 8765759456
  *                          profile_image:
  *                              type: string
@@ -334,14 +334,15 @@ router.post(
  *             type: string
  *             default: abcd.jpeg
  */
-//update
+
+//put
 router.put(
   "/api/v1/user/:id",
   auth,
   upload,
   userValidation(),
   validateSchema,
-  userController.updateUser
+  userController.putUser
 );
 /**
  * @swagger
@@ -372,4 +373,11 @@ router.put(
 //delete
 router.delete("/api/v1/user/:id", auth, userController.deleteUser);
 
+//patch
+router.patch(
+  "/api/v1/user/:id",
+  auth,
+  upload,
+  userController.patchUser
+);
 module.exports = router;

@@ -271,7 +271,7 @@ router.put(
   auth,
   taskValidation(),
   validateSchema,
-  taskController.updateTask
+  taskController.putTask
 );
 /**
  * @swagger
@@ -300,4 +300,10 @@ router.put(
  */
 router.delete("/api/v1/task/:id", auth, taskController.deleteTask);
 
+//patch
+router.patch(
+  "/api/v1/task/:id",
+  auth,
+  taskController.patchTask
+);
 module.exports = router;

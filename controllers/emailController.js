@@ -140,7 +140,22 @@ exports.addEmail = async (req, res, next) => {
       res.status(400).json(err);
     });
 };
-exports.updateEmail = async (req, res, next) => {
+exports.putEmail = async (req, res, next) => {
+  let id = req.params.id;
+  if (!req.params.id || req.params.id < 0)
+    res.status(400).send("Invalid Request");
+  Email.findOne({ _id: req.params.id }, function (err, doc) {
+    if (err) console.log(err);
+    else if (doc === null) res.status(400).send("Invalid Request");
+  });
+  let update = await Email.findByIdAndUpdate({ _id: req.params.id }, req.body, {
+    new: true,
+  });
+  await update.save();
+  res.status(200).json(update);
+  
+};
+exports.patchEmail = async (req, res, next) => {
   let id = req.params.id;
   if (!req.params.id || req.params.id < 0)
     res.status(400).send("Invalid Request");

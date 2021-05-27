@@ -206,7 +206,7 @@ router.put(
   auth,
   fieldValidation(),
   validateSchema,
-  fieldController.updateField
+  fieldController.putField
 );
 /**
  * @swagger
@@ -235,4 +235,10 @@ router.put(
  */
 router.delete("/api/v1/field/:id", auth, fieldController.deleteField);
 
+//patch
+router.patch(
+  "/api/v1/field/:id",
+  auth,
+  fieldController.patchField
+);
 module.exports = router;

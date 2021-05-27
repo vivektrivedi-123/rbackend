@@ -370,7 +370,7 @@ router.put(
   auth,
   jobValidation(),
   validateSchema,
-  jobController.updateJob
+  jobController.putJob
 );
 /**
  * @swagger
@@ -399,4 +399,10 @@ router.put(
  */
 router.delete("/api/v1/job/:id", auth, jobController.deleteJob);
 
+//patch
+router.patch(
+  "/api/v1/job/:id",
+  auth,
+  jobController.patchJob
+);
 module.exports = router;

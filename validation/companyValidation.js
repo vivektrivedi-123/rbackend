@@ -5,7 +5,7 @@ const compValidation = () => {
     body("company_name").isLength({ min: 3, max: 50 }),
 
     body("employee_portal_name").isLength({ min: 5, max: 50 }),
-    body("industry").isLength({ min: 5, max: 50 }),
+    body("industry").isLength({ min: 5, max: 20 }),
   ];
 };
 const validateSchema = (req, res, next) => {

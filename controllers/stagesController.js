@@ -106,7 +106,21 @@ exports.addStage = async (req, res, next) => {
       });
   }
 };
-exports.updateStage = async (req, res, next) => {
+exports.putStage = async (req, res, next) => {
+  let id = req.params.id;
+  if (!req.params.id || req.params.id < 0)
+    res.status(400).send("Invalid Request");
+  Stage.findOne({ _id: req.params.id }, (err, doc) => {
+    if (err) console.log(err);
+    else if (doc === null) res.status(400).send("Invalid Request");
+  });
+  let stage = await Stage.findByIdAndUpdate({ _id: req.params.id }, req.body, {
+    new: true,
+  });
+  await stage.save();
+  res.status(200).json(stage);
+};
+exports.patchStage = async (req, res, next) => {
   let id = req.params.id;
   if (!req.params.id || req.params.id < 0)
     res.status(400).send("Invalid Request");

@@ -10,10 +10,10 @@ const router = express.Router();
 /**
  * @swagger
  * components:
- *  schemas: 
+ *  schemas:
  *   Category:
  *    type: object
- *    required: 
+ *    required:
  *     - location
  *     - category
  *     - status
@@ -23,14 +23,14 @@ const router = express.Router();
  *                            description: The auto-generated id of the Category
  *                          location:
  *                            type: string
- *                            description: The ID of the location 
+ *                            description: The ID of the location
  *                          category:
  *                            type: string
  *                            description: The category in the company
  *                          status:
  *                            type: string
  *                            description: The status of the category
- *        
+ *
  */
 /**
  * @swagger
@@ -92,7 +92,7 @@ router.get("/api/v1/category/:id", auth, categoryController.getCategoryById);
  *                      properties:
  *                          location:
  *                            type: string
- *                            description: The ID of the location 
+ *                            description: The ID of the location
  *                          category:
  *                            type: string
  *                            description: The category in the company
@@ -144,7 +144,7 @@ router.post(
  *         properties:
  *             location:
  *              type: string
- *              description: The ID of the location 
+ *              description: The ID of the location
  *             category:
  *              type: string
  *              description: The category in the company
@@ -159,7 +159,7 @@ router.post(
  *         properties:
  *             location:
  *              type: string
- *              description: The ID of the location 
+ *              description: The ID of the location
  *             category:
  *              type: string
  *              description: The category in the company
@@ -176,7 +176,7 @@ router.post(
  *          properties:
  *             location:
  *              type: string
- *              description: The ID of the location 
+ *              description: The ID of the location
  *             category:
  *              type: string
  *              description: The category in the company
@@ -189,7 +189,7 @@ router.put(
   auth,
   categoryValidation(),
   validateSchema,
-  categoryController.updateCategory
+  categoryController.putCategory
 );
 /**
  * @swagger
@@ -217,5 +217,6 @@ router.put(
  *     description: Id not found
  */
 router.delete("/api/v1/category/:id", auth, categoryController.deleteCategory);
+router.patch("/api/v1/category/:id", auth, categoryController.patchCategory);
 
 module.exports = router;

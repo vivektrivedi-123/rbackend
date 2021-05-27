@@ -73,7 +73,21 @@ exports.addField = async (req, res, next) => {
       res.status(400).json(err);
     });
 };
-exports.updateField = async (req, res, next) => {
+exports.putField = async (req, res, next) => {
+  let id = req.params.id;
+  if (!req.params.id || req.params.id < 0)
+    res.status(400).send("Invalid Request");
+  Field.findOne({ _id: req.params.id }, function (err, doc) {
+    if (err) console.log(err);
+    else if (doc === null) res.status(400).send("Invalid Request");
+  });
+  let update = await Field.findByIdAndUpdate({ _id: req.params.id }, req.body, {
+    new: true,
+  });
+  await update.save();
+  res.status(200).json(update);
+};
+exports.patchField = async (req, res, next) => {
   let id = req.params.id;
   if (!req.params.id || req.params.id < 0)
     res.status(400).send("Invalid Request");

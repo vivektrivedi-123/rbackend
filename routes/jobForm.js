@@ -239,7 +239,7 @@ router.put(
   auth,
   formValidation(),
   validateSchema,
-  formController.updateForm
+  formController.putForm
 );
 /**
  * @swagger
@@ -268,4 +268,10 @@ router.put(
  */
 router.delete("/api/v1/form/:id", auth, formController.deleteForm);
 
+//patch
+router.patch(
+  "/api/v1/form/:id",
+  auth,
+  formController.patchForm
+);
 module.exports = router;

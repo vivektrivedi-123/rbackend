@@ -2,9 +2,9 @@ const { body, validationResult } = require("express-validator");
 
 const interviewValidation = () => {
   return [
-    body("duration").isLength({ min: 5, max: 10 }),
-    body("recommendations").isLength({ min: 5 }),
-    body("interviewer").isLength({ min: 5 }),
+    body("duration").isLength({ min: 5, max: 15 }),
+    body("recommendations").isLength({ min: 5,max:50 }),
+    body("interviewer").isLength({ min: 5 ,max: 20}),
     body("notes").isLength({ min: 5, max: 50 }),
   ];
 };

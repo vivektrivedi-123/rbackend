@@ -80,7 +80,23 @@ exports.addLocation = async (req, res, next) => {
       });
   }
 };
-exports.updateLocation = async (req, res, next) => {
+exports.putLocation = async (req, res, next) => {
+  let id = req.params.id;
+  if (!req.params.id || req.params.id < 0)
+    res.status(400).send("Invalid Request");
+  Location.findOne({ _id: req.params.id }, function (err, doc) {
+    if (err) console.log(err);
+    else if (doc === null) res.status(400).send("Invalid Request");
+  });
+  let update = await Location.findByIdAndUpdate(
+    { _id: req.params.id },
+    req.body,
+    { new: true }
+  );
+  await update.save();
+  res.status(200).json(update);
+};
+exports.patchLocation = async (req, res, next) => {
   let id = req.params.id;
   if (!req.params.id || req.params.id < 0)
     res.status(400).send("Invalid Request");

@@ -6,11 +6,13 @@ const multer = require("multer");
 const fs = require("fs");
 const bcrypt = require("bcryptjs");
 const _ = require("lodash");
+const validate = require("express-validator");
 const User = require("../models/user");
 const company = require("../models/company");
 const Role = require("../models/role");
 const user = require("../models/user");
 const role = require("../models/role");
+const { check } = require("express-validator");
 const upload = multer({
   limits: {
     fileSize: 1000000,
@@ -131,8 +133,8 @@ exports.addUser = async (req, res, next) => {
   }
 };
 
-//update user
-exports.updateUser = async (req, res, next) => {
+//put
+exports.putUser = async (req, res, next) => {
   let id = req.params.id;
   if (!req.params.id || req.params.id < 0)
     res.status(400).send("Invalid Request");
@@ -147,6 +149,29 @@ exports.updateUser = async (req, res, next) => {
   res.status(200).send(user);
 };
 
+//patch
+exports.patchUser = async (req, res, next) => {
+  
+  let id = req.params.id;
+  if (!req.params.id || req.params.id < 0)
+    res.status(400).send("Invalid Request");
+  User.findOne({ _id: req.params.id }, (err, doc) => {
+    if (err) console.log(err);
+    else if (doc === null) res.status(400).send("Invalid Request");
+  });
+  let user = await User.findByIdAndUpdate(
+    { _id: req.params.id },
+
+    req.body,
+
+    {
+      new: true,
+    },
+
+  );
+  await user.save();
+  res.status(200).send(user);
+};
 //delete user
 exports.deleteUser = async (req, res, next) => {
   if (!req.params.id || req.params.id < 0)

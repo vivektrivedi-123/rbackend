@@ -149,7 +149,24 @@ exports.addComment = async (req, res, next) => {
       res.status(400).json(err);
     });
 };
-exports.updateComment = async (req, res, next) => {
+exports.putComment = async (req, res, next) => {
+  let id = req.params.id;
+  if (!req.params.id || req.params.id < 0)
+    res.status(400).send("Invalid request");
+  Comment.findOne({ _id: req.params.id }, function (err, doc) {
+    if (err) console.log(err);
+    else if (doc === null)
+      res.status(400).send("ID in the body is not matching ID in the URL");
+  });
+  let update = await Comment.findByIdAndUpdate(
+    { _id: req.params.id },
+    req.body,
+    { new: true }
+  );
+  await update.save();
+  res.status(200).send(update);
+};
+exports.patchComment = async (req, res, next) => {
   let id = req.params.id;
   if (!req.params.id || req.params.id < 0)
     res.status(400).send("Invalid request");

@@ -183,7 +183,7 @@ router.put(
   auth,
   optionsValidation(),
   validateSchema,
-  optionsController.updateOptions
+  optionsController.putOptions
 );
 /**
  * @swagger
@@ -211,4 +211,11 @@ router.put(
  *     description: Id not found
  */
 router.delete("/api/v1/option/:id", auth, optionsController.deleteOptions);
+
+//patch
+router.patch(
+  "/api/v1/option/:id",
+  auth,
+  optionsController.patchOptions
+);
 module.exports = router;

@@ -342,7 +342,7 @@ router.put(
   upload,
   compValidation(),
   validateSchema,
-  companyController.updateCompany
+  companyController.putCompany
 );
 /**
  * @swagger
@@ -372,4 +372,10 @@ router.put(
 //delete
 router.delete("/api/v1/company/:id", auth, companyController.deleteCompany);
 
+router.patch(
+  "/api/v1/company/:id",
+  auth,
+  upload,
+  companyController.putCompany
+);
 module.exports = router;
