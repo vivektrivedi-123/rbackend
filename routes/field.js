@@ -235,6 +235,88 @@ router.put(
  */
 router.delete("/api/v1/field/:id", auth, fieldController.deleteField);
 
+/**
+ * @swagger
+ * tags:
+ *  name: Field
+ * /api/v1/field/{id}:
+ *  patch:
+ *   security:
+ *        - Bearer: []
+ *   tags: [Field]
+ *   summary: update field
+ *   description: update field
+ *   consumes:
+ *    - application/json
+ *   produces:
+ *    - application/json
+ *   parameters:
+ *    - in: path
+ *      name: id
+ *      schema:
+ *       type: string
+ *      required: true
+ *      description: id of the field
+ *      example: 2
+ *    - in: body
+ *      name: body
+ *      required: true
+ *      description: body object
+ *      schema:
+ *         type: object
+ *         properties:
+ *             location:
+ *              type: string
+ *              description: The Location ID
+ *             field_name:
+ *              type: string
+ *              description: The field name
+ *             field_type:
+ *              type: string
+ *              description: The field type
+ *             field_options:
+ *              type: string
+ *              description: The field_options
+ *   requestBody:
+ *    content:
+ *     application/json:
+ *      schema:
+ *         type: object
+ *         properties:
+ *             location:
+ *              type: string
+ *              description: The Location ID
+ *             field_name:
+ *              type: string
+ *              description: The field name
+ *             field_type:
+ *              type: string
+ *              description: The field type
+ *             field_options:
+ *              type: string
+ *              description: The field_options
+ *   responses:
+ *    200:
+ *     description: success
+ *     content:
+ *      application/json:
+ *       schema:
+ *         type: object
+ *         properties:
+ *             location:
+ *              type: string
+ *              description: The Location ID
+ *             field_name:
+ *              type: string
+ *              description: The field name
+ *             field_type:
+ *              type: string
+ *              description: The field type
+ *             field_options:
+ *              type: string
+ *              description: The field_options
+ */
+
 //patch
 router.patch(
   "/api/v1/field/:id",

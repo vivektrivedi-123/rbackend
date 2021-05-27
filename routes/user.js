@@ -373,6 +373,115 @@ router.put(
 //delete
 router.delete("/api/v1/user/:id", auth, userController.deleteUser);
 
+/**
+ * @swagger
+ * tags:
+ *  name: User
+ * /api/v1/user/{id}:
+ *  patch:
+ *   security:
+ *        - Bearer: []
+ *   tags: [User]
+ *   summary: update user
+ *   description: update user
+ *   consumes:
+ *    - multipart/form-data
+ *   produces:
+ *    - multipart/form-data
+ *   parameters:
+ *    - in: path
+ *      name: id
+ *      schema:
+ *       type: string
+ *      required: true
+ *      description: id of the user
+ *      example: id
+ *    - in: body
+ *      name: body
+ *      required: true
+ *      description: body object
+ *      schema:
+ *       type: object
+ *       properties:
+ *          company:
+ *              type: string
+ *              description: ID of the company
+ *          role:
+ *              type: string
+ *              description: ID of the role
+ *          first_name:
+ *              type: string
+ *              default: Apurva
+ *          last_name:
+ *              type: string
+ *              default: Jaitly
+ *          mobile_number:
+ *              type: integer
+ *              default: 9878765689
+ *          email:
+ *              type: string
+ *              default: apurva@gmail.com
+ *          profile_image:
+ *              type: string
+ *              default: abcd.jpeg
+ *   requestBody:
+ *    content:
+ *     multipart/form-data:
+ *      schema:
+ *        type: object
+ *        properties:
+ *          company:
+ *              type: string
+ *              description: ID of the company
+ *          role:
+ *              type: string
+ *              description: ID of the role
+ *          first_name:
+ *              type: string
+ *              default: Apurva
+ *          last_name:
+ *              type: string
+ *              default: Jaitly
+ *          mobile_number:
+ *              type: integer
+ *              default: 9878765689
+ *          email:
+ *              type: string
+ *              default: apurva@gmail.com
+ *          profile_image:
+ *              type: string
+ *              default: abcd.jpeg
+ *   responses:
+ *    200:
+ *     description: success
+ *     content:
+ *      multipart/form-data:
+ *       schema:
+ *        type: object
+ *        properties:
+ *          company:
+ *             type: string
+ *             description: ID of the company
+ *          role:
+ *             type: string
+ *             description: ID of the role
+ *          first_name:
+ *             type: string
+ *             default: Apurva
+ *          last_name:
+ *             type: string
+ *             default: Jaitly
+ *          mobile_number:
+ *             type: integer
+ *             default: 9878765689
+ *          email:
+ *             type: string
+ *             default: apurva@gmail.com
+ *          profile_image:
+ *             type: string
+ *             default: abcd.jpeg
+ */
+
 //patch
 router.patch(
   "/api/v1/user/:id",

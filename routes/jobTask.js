@@ -300,6 +300,124 @@ router.put(
  */
 router.delete("/api/v1/task/:id", auth, taskController.deleteTask);
 
+/**
+ * @swagger
+ * tags:
+ *  name: Task
+ * /api/v1/task/{id}:
+ *  put:
+ *   security:
+ *        - Bearer: []
+ *   tags: [Task]
+ *   summary: update task
+ *   description: update task
+ *   consumes:
+ *    - application/json
+ *   produces:
+ *    - application/json
+ *   parameters:
+ *    - in: path
+ *      name: id
+ *      schema:
+ *       type: string
+ *      required: true
+ *      description: id of the task
+ *      example: 2
+ *    - in: body
+ *      name: body
+ *      required: true
+ *      description: body object
+ *      schema:
+ *       type: object
+ *       properties:
+ *                          application:
+ *                              type: string
+ *                              description: ID of the application
+ *                          title:
+ *                              type: string
+ *                              description: Title of the task
+ *                          description:
+ *                              type: string
+ *                              description: Description of the task
+ *                          assigned_to:
+ *                              type: string
+ *                              description: Assignment of the task
+ *                          due_date:
+ *                              type: string
+ *                              description: Due date of the task                   
+ *                          due_time:
+ *                              type: string
+ *                              description: Due time of the task
+ *                          remind_before:
+ *                              type: string
+ *                              description: Remind before about the task
+ *                          status:
+ *                              type: string
+ *                              description: Status of the task
+ *   requestBody:
+ *    content:
+ *     application/json:
+ *      schema:
+ *       type: object
+ *       properties:
+ *                          application:
+ *                              type: string
+ *                              description: ID of the application
+ *                          title:
+ *                              type: string
+ *                              description: Title of the task
+ *                          description:
+ *                              type: string
+ *                              description: Description of the task
+ *                          assigned_to:
+ *                              type: string
+ *                              description: Assignment of the task
+ *                          due_date:
+ *                              type: string
+ *                              description: Due date of the task                   
+ *                          due_time:
+ *                              type: string
+ *                              description: Due time of the task
+ *                          remind_before:
+ *                              type: string
+ *                              description: Remind before about the task
+ *                          status:
+ *                              type: string
+ *                              description: Status of the task
+ *   responses:
+ *    200:
+ *     description: success
+ *     content:
+ *      application/json:
+ *       schema:
+ *        type: object
+ *        properties:
+ *                          application:
+ *                              type: string
+ *                              description: ID of the application
+ *                          title:
+ *                              type: string
+ *                              description: Title of the task
+ *                          description:
+ *                              type: string
+ *                              description: Description of the task
+ *                          assigned_to:
+ *                              type: string
+ *                              description: Assignment of the task
+ *                          due_date:
+ *                              type: string
+ *                              description: Due date of the task                   
+ *                          due_time:
+ *                              type: string
+ *                              description: Due time of the task
+ *                          remind_before:
+ *                              type: string
+ *                              description: Remind before about the task
+ *                          status:
+ *                              type: string
+ *                              description: Status of the task
+ */
+
 //patch
 router.patch(
   "/api/v1/task/:id",

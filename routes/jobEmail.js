@@ -251,6 +251,98 @@ router.put(
  *     description: Id not found
  */
 router.delete("/api/v1/email/:id", auth, emailController.deleteEmail);
+
+/**
+ * @swagger
+ * tags:
+ *  name: Email
+ * /api/v1/email/{id}:
+ *  patch:
+ *   security:
+ *        - Bearer: []
+ *   tags: [Email]
+ *   summary: update email
+ *   description: update email
+ *   consumes:
+ *    - application/json
+ *   produces:
+ *    - application/json
+ *   parameters:
+ *    - in: path
+ *      name: id
+ *      schema:
+ *       type: string
+ *      required: true
+ *      description: id of the email
+ *      example: 2
+ *    - in: body
+ *      name: body
+ *      required: true
+ *      description: body object
+ *      schema:
+ *         type: object
+ *         properties:
+ *             application:
+ *              type: string
+ *              description: The application ID
+ *             from:
+ *              type: string
+ *              description: The sender of the email
+ *             to:
+ *              type: string
+ *              description: The receiver of the email
+ *             body:
+ *              type: string
+ *              description: The body of the email
+ *             status:
+ *              type: string
+ *              description: The status of the email
+ *   requestBody:
+ *    content:
+ *     application/json:
+ *      schema:
+ *         type: object
+ *         properties:
+ *             application:
+ *              type: string
+ *              description: The application ID
+ *             from:
+ *              type: string
+ *              description: The sender of the email
+ *             to:
+ *              type: string
+ *              description: The receiver of the email
+ *             body:
+ *              type: string
+ *              description: The body of the email
+ *             status:
+ *              type: string
+ *              description: The status of the email
+ *   responses:
+ *    200:
+ *     description: success
+ *     content:
+ *      application/json:
+ *       schema:
+ *         type: object
+ *         properties:
+ *             application:
+ *              type: string
+ *              description: The application ID
+ *             from:
+ *              type: string
+ *              description: The sender of the email
+ *             to:
+ *              type: string
+ *              description: The receiver of the email
+ *             body:
+ *              type: string
+ *              description: The body of the email
+ *             status:
+ *              type: string
+ *              description: The status of the email
+ */
+
 //patch
 router.put(
   "/api/v1/email/:id",

@@ -372,6 +372,146 @@ router.put(
 //delete
 router.delete("/api/v1/company/:id", auth, companyController.deleteCompany);
 
+/**
+ * @swagger
+ * tags:
+ *  name: Company
+ * /api/v1/company/{id}:
+ *  patch:
+ *   security:
+ *        - Bearer: []
+ *   tags : [Company]
+ *   summary: update company
+ *   description: update company
+ *   consumes:
+ *    - multipart/form-data
+ *   produces:
+ *    - multipart/form-data
+ *   parameters:
+ *    - in: path
+ *      name: id
+ *      schema:
+ *       type: string
+ *      required: true
+ *      description: id of the company
+ *      example: 2
+ *    - in: body
+ *      name: body
+ *      required: true
+ *      description: body object
+ *      schema:
+ *         type: object
+ *         properties:
+ *             company_name:
+ *              type: string
+ *              description: The company name
+ *              example: Rudra Innovative Software
+ *             industry:
+ *              type: string
+ *              description: The Industry type
+ *              example: IT
+ *             company_language:
+ *              type: string
+ *              description: The Language of the company
+ *              example: English
+ *             date_format:
+ *              type: string
+ *              description: The Date format
+ *              example: dd/mm/yy
+ *             employee_portal_name:
+ *              type: string
+ *              description: The Employee Portal name
+ *              example: Apurva
+ *             employee_portal_url:
+ *              type: string
+ *              description: The employee portal URL
+ *             company_logo:
+ *              type: string
+ *              description: The company logo
+ *              example: logo.jpeg
+ *             favicon:
+ *              type: string
+ *              description: The company favicon
+ *              example: favicon.jpeg
+ *   requestBody:
+ *    content:
+ *     application/json:
+ *      schema:
+ *        type: object
+ *        properties:
+ *             company_name:
+ *              type: string
+ *              description: The company name
+ *              example: Rudra Innovative Software
+ *             industry:
+ *              type: string
+ *              description: The Industry type
+ *              example: IT
+ *             company_language:
+ *              type: string
+ *              description: The Language of the company
+ *              example: English
+ *             date_format:
+ *              type: string
+ *              description: The Date format
+ *              example: dd/mm/yy
+ *             employee_portal_name:
+ *              type: string
+ *              description: The Employee Portal name
+ *              example: Apurva
+ *             employee_portal_url:
+ *              type: string
+ *              description: The employee portal URL
+ *             company_logo:
+ *              type: string
+ *              description: The company logo
+ *              example: logo.jpeg
+ *             favicon:
+ *              type: string
+ *              description: The company favicon
+ *              example: favicon.jpeg
+ *   responses:
+ *    200:
+ *     description: success
+ *     content:
+ *      application/json:
+ *       schema:
+ *         type: object
+ *         properties:
+ *             company_name:
+ *              type: string
+ *              description: The company name
+ *              example: Rudra Innovative Software
+ *             industry:
+ *              type: string
+ *              description: The Industry type
+ *              example: IT industry
+ *             company_language:
+ *              type: string
+ *              description: The Language of the company
+ *              example: English
+ *             date_format:
+ *              type: string
+ *              description: The Date format
+ *              example: dd/mm/yy
+ *             employee_portal_name:
+ *              type: string
+ *              description: The Employee Portal name
+ *              example: Apurva
+ *             employee_portal_url:
+ *              type: string
+ *              description: The employee portal URL
+ *             company_logo:
+ *              type: string
+ *              description: The company logo
+ *              example: logo.jpeg
+ *             favicon:
+ *              type: string
+ *              description: The company favicon
+ *              example: favicon.jpeg
+ */
+
+//patch
 router.patch(
   "/api/v1/company/:id",
   auth,

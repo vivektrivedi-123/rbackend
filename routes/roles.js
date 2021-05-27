@@ -194,6 +194,70 @@ router.put(
  */
 router.delete("/api/v1/role/:id", auth, rolesController.deleteRoles);
 
+/**
+ * @swagger
+ * tags:
+ *  name: Role
+ * /api/v1/role/{id}:
+ *  patch:
+ *   security:
+ *        - Bearer: []
+ *   tags: [Role]
+ *   summary: update role
+ *   description: update role
+ *   consumes:
+ *    - application/json
+ *   produces:
+ *    - application/json
+ *   parameters:
+ *    - in: path
+ *      name: id
+ *      schema:
+ *       type: string
+ *      required: true
+ *      description: id of the role
+ *      example: 2
+ *    - in: body
+ *      name: body
+ *      required: true
+ *      description: body object
+ *      schema:
+ *         type: object
+ *         properties:
+ *             id:
+ *              type: string
+ *              description: The auto-generated id of the role
+ *             role_name:
+ *              type: string
+ *              description: The role name
+ *   requestBody:
+ *    content:
+ *     application/json:
+ *      schema:
+ *         type: object
+ *         properties:
+ *             id:
+ *              type: string
+ *              description: The auto-generated id of the role
+ *             role_name:
+ *              type: string
+ *              description: The role name         
+ *   responses:
+ *    200:
+ *     description: success
+ *     content:
+ *      application/json:
+ *       schema:
+ *          type: object
+ *          properties:
+ *             id:
+ *              type: string
+ *              description: The auto-generated id of the role
+ *             role_name:
+ *              type: string
+ *              description: The role name
+ */
+
 //patch
 router.patch(
   "/api/v1/role/:id",

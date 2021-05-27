@@ -247,7 +247,91 @@ router.put(
  *     description: Id not found
  */
 router.delete("/api/v1/comment/:id", auth, commentController.deleteComment);
-router.put(
+
+/**
+ * @swagger
+ * tags:
+ *  name: Comment
+ * /api/v1/comment/{id}:
+ *  patch:
+ *   security:
+ *        - Bearer: []
+ *   tags: [Comment]
+ *   summary: update comment
+ *   description: update comment
+ *   consumes:
+ *    - multipart/form-data
+ *   produces:
+ *    - multipart/form-data
+ *   parameters:
+ *    - in: path
+ *      name: id
+ *      schema:
+ *       type: string
+ *      required: true
+ *      description: id of the comment
+ *      example: 2
+ *    - in: body
+ *      name: body
+ *      required: true
+ *      description: body object
+ *      schema:
+ *         type: object
+ *         properties:
+ *             application:
+ *              type: string
+ *              description: The ID of the application
+ *             comments:
+ *              type: string
+ *              description: The comments for the job
+ *             attachments:
+ *              type: string
+ *              description: The attachments for the comments
+ *             status:
+ *              type: boolean
+ *              description: The status of the comment
+ *   requestBody:
+ *    content:
+ *     multipart/form-data:
+ *      schema:
+ *         type: object
+ *         properties:
+ *             application:
+ *              type: string
+ *              description: The ID of the application
+ *             comments:
+ *              type: string
+ *              description: The comments for the job
+ *             attachments:
+ *              type: string
+ *              description: The attachments for the comments
+ *             status:
+ *              type: boolean
+ *              description: The status of the comment
+ *   responses:
+ *    200:
+ *     description: success
+ *     content:
+ *      multipart/form-data:
+ *       schema:
+ *          type: object
+ *          properties:
+ *             application:
+ *              type: string
+ *              description: The ID of the application
+ *             comments:
+ *              type: string
+ *              description: The comments for the job
+ *             attachments:
+ *              type: string
+ *              description: The attachments for the comments
+ *             status:
+ *              type: boolean
+ *              description: The status of the comment
+ */
+
+//patch
+router.patch(
   "/api/v1/comment/:id",
   auth,
   attachments,

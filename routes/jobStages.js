@@ -221,6 +221,79 @@ router.put(
  */
 router.delete("/api/v1/stage/:id", auth, stagesController.deleteStage);
 
+/**
+ * @swagger
+ * tags:
+ *  name: Stage
+ * /api/v1/stage/{id}:
+ *  put:
+ *   security:
+ *        - Bearer: []
+ *   tags: [Stage]
+ *   summary: update stage
+ *   description: update stage
+ *   consumes:
+ *    - application/json
+ *   produces:
+ *    - application/json
+ *   parameters:
+ *    - in: path
+ *      name: id
+ *      schema:
+ *       type: string
+ *      required: true
+ *      description: id of the stage
+ *      example: 2
+ *    - in: body
+ *      name: body
+ *      required: true
+ *      description: body object
+ *      schema:
+ *        type: object
+ *        properties:
+ *                          job:
+ *                              type: string
+ *                              description: The ID of the job
+ *                          stage:
+ *                               type: string
+ *                               description: Stage of the job
+ *                          status:
+ *                               type: string
+ *                               description: The status of the job
+ *   requestBody:
+ *    content:
+ *     application/json:
+ *      schema:
+ *       type: object
+ *       properties:
+ *                          job:
+ *                              type: string
+ *                              description: The ID of the job
+ *                          stage:
+ *                               type: string
+ *                               description: Stage of the job
+ *                          status:
+ *                               type: string
+ *                               description: The status of the job
+ *   responses:
+ *    200:
+ *     description: success
+ *     content:
+ *      application/json:
+ *       schema:
+ *        type: object
+ *        properties:
+ *                          job:
+ *                              type: string
+ *                              description: The ID of the job
+ *                          stage:
+ *                               type: string
+ *                               description: Stage of the job
+ *                          status:
+ *                               type: string
+ *                               description: The status of the job
+ */
+
 //patch
 router.patch(
   "/api/v1/stage/:id",

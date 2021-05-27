@@ -206,6 +206,70 @@ router.put(
 //delete
 router.delete("/api/v1/department/:id", auth, deptController.deleteDept);
 
+/**
+ * @swagger
+ * tags:
+ *  name: Department
+ * /api/v1/department/{id}:
+ *  patch:
+ *   security:
+ *        - Bearer: []
+ *   tags: [Department]
+ *   summary: update department
+ *   description: update department
+ *   consumes:
+ *    - application/json
+ *   produces:
+ *    - application/json
+ *   parameters:
+ *    - in: path
+ *      name: id
+ *      schema:
+ *       type: string
+ *      required: true
+ *      description: id of the department
+ *      example: 2
+ *    - in: body
+ *      name: body
+ *      required: true
+ *      description: body object
+ *      schema:
+ *        type: object
+ *        properties:
+ *             location:
+ *              type: string
+ *              description: The location ID
+ *             department_name:
+ *              type: string
+ *              description: The department name
+ *   requestBody:
+ *    content:
+ *     application/json:
+ *      schema:
+ *        type: object
+ *        properties:
+ *             location:
+ *              type: string
+ *              description: The location ID
+ *             department_name:
+ *              type: string
+ *              description: The department name
+ *   responses:
+ *    200:
+ *     description: success
+ *     content:
+ *      application/json:
+ *       schema:
+ *        type: object
+ *        properties:
+ *             location:
+ *              type: string
+ *              description: The location ID
+ *             department_name:
+ *              type: string
+ *              description: The department name
+ */
+
 //patch
 router.patch(
   "/api/v1/department/:id",

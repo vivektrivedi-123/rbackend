@@ -217,6 +217,81 @@ router.put(
  *     description: Id not found
  */
 router.delete("/api/v1/category/:id", auth, categoryController.deleteCategory);
+
+/**
+ * @swagger
+ * tags:
+ *  name: Category
+ * /api/v1/category/{id}:
+ *  patch:
+ *   security:
+ *        - Bearer: []
+ *   tags: [Category]
+ *   summary: update category
+ *   description: update category
+ *   consumes:
+ *    - application/json
+ *   produces:
+ *    - application/json
+ *   parameters:
+ *    - in: path
+ *      name: id
+ *      schema:
+ *       type: string
+ *      required: true
+ *      description: id of the category
+ *      example: 2
+ *    - in: body
+ *      name: body
+ *      required: true
+ *      description: body object
+ *      schema:
+ *         type: object
+ *         properties:
+ *             location:
+ *              type: string
+ *              description: The ID of the location
+ *             category:
+ *              type: string
+ *              description: The category in the company
+ *             status:
+ *              type: string
+ *              description: The status of the category
+ *   requestBody:
+ *    content:
+ *     application/json:
+ *      schema:
+ *         type: object
+ *         properties:
+ *             location:
+ *              type: string
+ *              description: The ID of the location
+ *             category:
+ *              type: string
+ *              description: The category in the company
+ *             status:
+ *              type: string
+ *              description: The status of the category
+ *   responses:
+ *    200:
+ *     description: success
+ *     content:
+ *      application/json:
+ *       schema:
+ *          type: object
+ *          properties:
+ *             location:
+ *              type: string
+ *              description: The ID of the location
+ *             category:
+ *              type: string
+ *              description: The category in the company
+ *             status:
+ *              type: string
+ *              description: The status of the category
+ */
+
+//patch
 router.patch("/api/v1/category/:id", auth, categoryController.patchCategory);
 
 module.exports = router;

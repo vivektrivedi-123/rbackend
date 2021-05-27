@@ -212,6 +212,79 @@ router.put(
  */
 router.delete("/api/v1/option/:id", auth, optionsController.deleteOptions);
 
+/**
+ * @swagger
+ * tags:
+ *  name: Options
+ * /api/v1/option/{id}:
+ *  patch:
+ *   security:
+ *        - Bearer: []
+ *   tags: [Options]
+ *   summary: update options
+ *   description: update options
+ *   consumes:
+ *    - application/json
+ *   produces:
+ *    - application/json
+ *   parameters:
+ *    - in: path
+ *      name: id
+ *      schema:
+ *       type: string
+ *      required: true
+ *      description: id of the options
+ *      example: 2
+ *    - in: body
+ *      name: body
+ *      required: true
+ *      description: body object
+ *      schema:
+ *         type: object
+ *         properties:
+ *             id:
+ *              type: string
+ *              description: The auto-generated id of the role
+ *             option_key:
+ *              type: number
+ *             option_value:
+ *              type: number
+ *             location:
+ *              type: string
+ *   requestBody:
+ *    content:
+ *     application/json:
+ *      schema:
+ *         type: object
+ *         properties:
+ *             id:
+ *              type: string
+ *              description: The auto-generated id of the role
+ *             option_key:
+ *              type: number
+ *             option_value:
+ *              type: number
+ *             location:
+ *              type: string
+ *   responses:
+ *    200:
+ *     description: success
+ *     content:
+ *      application/json:
+ *       schema:
+ *          type: object
+ *          properties:
+ *             id:
+ *              type: string
+ *              description: The auto-generated id of the role
+ *             option_key:
+ *              type: number
+ *             option_value:
+ *              type: number
+ *             location:
+ *              type: string
+ */
+
 //patch
 router.patch(
   "/api/v1/option/:id",

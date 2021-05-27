@@ -188,7 +188,6 @@ router.post(
  *      schema:
  *         type: object
  *         properties:
-
  *             job:
  *                type: string
  *                description: The ID of the job
@@ -267,6 +266,106 @@ router.put(
  *     description: Id not found
  */
 router.delete("/api/v1/form/:id", auth, formController.deleteForm);
+
+/**
+ * @swagger
+ * tags:
+ *   name: Form
+ * /api/v1/form/{id}:
+ *  patch:
+ *   security:
+ *        - Bearer: []
+ *   tags: [Form]
+ *   summary: update form
+ *   description: update form
+ *   consumes:
+ *    - application/json
+ *   produces:
+ *    - application/json
+ *   parameters:
+ *    - in: path
+ *      name: id
+ *      schema:
+ *       type: string
+ *      required: true
+ *      description: id of the form
+ *      example: 2
+ *    - in: body
+ *      name: body
+ *      required: true
+ *      description: body object
+ *      schema:
+ *         type: object
+ *         properties:
+ *             job:
+ *                type: string
+ *                description: The ID of the job
+ *             field:
+ *                type: string
+ *                description: The ID of the field
+ *             label:
+ *                type: string
+ *                description: The label for the form
+ *             placeholder:
+ *                type: string
+ *                description : The placeholder in the form
+ *             is_required:
+ *                type: boolean
+ *                description: required for not
+ *             order:
+ *                type: string
+ *                description: Order of the form
+ *   requestBody:
+ *    content:
+ *     application/json:
+ *      schema:
+ *         type: object
+ *         properties:
+ *             job:
+ *                type: string
+ *                description: The ID of the job
+ *             field:
+ *                type: string
+ *                description: The ID of the field
+ *             label:
+ *                type: string
+ *                description: The label for the form
+ *             placeholder:
+ *                type: string
+ *                description : The placeholder in the form
+ *             is_required:
+ *                type: boolean
+ *                description: required for not
+ *             order:
+ *                type: string
+ *                description: Order of the form
+ *   responses:
+ *    200:
+ *     description: success
+ *     content:
+ *      application/json:
+ *       schema:
+ *          type: object
+ *          properties:
+ *             job:
+ *                type: string
+ *                description: The ID of the job
+ *             field:
+ *                type: string
+ *                description: The ID of the field
+ *             label:
+ *                type: string
+ *                description: The label for the form
+ *             placeholder:
+ *                type: string
+ *                description : The placeholder in the form
+ *             is_required:
+ *                type: boolean
+ *                description: required for not
+ *             order:
+ *                type: string
+ *                description: Order of the form
+ */
 
 //patch
 router.patch(
