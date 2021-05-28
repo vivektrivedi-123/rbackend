@@ -78,6 +78,7 @@ exports.addJob = async (req, res, next) => {
       "department",
       "category",
       "branch",
+      "skills",
       "job_type",
       "remote_job",
       "job_description",

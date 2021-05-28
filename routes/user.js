@@ -176,7 +176,7 @@ router.post("/api/v1/userLogin", userController.userLogin);
  *      security:
  *        - Bearer: []
  *      tags: [User]
- *      summary: Add user
+ *      summary: Add User
  *      requestBody:
  *          required: true
  *          content:
@@ -187,11 +187,10 @@ router.post("/api/v1/userLogin", userController.userLogin);
  *                          company:
  *                              type: string
  *                              description: ID of the company
- *                              example: 2
  *                          role:
  *                              type: string
  *                              description: ID of the role
- *                              example: 2
+
  *                          first_name:
  *                              type: string
  *                              default: Apurva
@@ -203,16 +202,16 @@ router.post("/api/v1/userLogin", userController.userLogin);
  *                              default: 8765759456
  *                          profile_image:
  *                              type: string
- *                              default: logo.jpeg
+ *                              default: pic.jpg
  *                          email:
  *                              type: string
  *                              default: apurva@gmail.com
  *                          password:
  *                              type: string
- *                              default: apurva133
+ *                              default: apurva1234
  *      responses:
  *          200:
- *             description: Success
+ *             description: A successful response
  *          default:
  *              description: This is the default response for it
  */
@@ -483,10 +482,5 @@ router.delete("/api/v1/user/:id", auth, userController.deleteUser);
  */
 
 //patch
-router.patch(
-  "/api/v1/user/:id",
-  auth,
-  upload,
-  userController.patchUser
-);
+router.patch("/api/v1/user/:id", auth, upload, userController.patchUser);
 module.exports = router;
