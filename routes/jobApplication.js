@@ -144,6 +144,7 @@ router.get(
   auth,
   applicationController.getApplicationById
 );
+
 /**
  * @swagger
  * tags:

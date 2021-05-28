@@ -33,6 +33,7 @@ exports.getMe = async (req, res, next) => {
   res.send(user);
 };
 
+//get
 exports.getUser = async (req, res, next) => {
   const skip = parseInt(req.query.skip);
   const limit = parseInt(req.query.limit);
@@ -55,6 +56,7 @@ exports.getUser = async (req, res, next) => {
     });
 };
 
+//get by ID
 exports.getUserById = async (req, res, next) => {
   User.findById({ _id: req.params.id })
     .select(" -__v")
@@ -76,6 +78,7 @@ exports.getUserById = async (req, res, next) => {
       res.status(404).json(err);
     });
 };
+//user login
 exports.userLogin = async (req, res, next) => {
   try {
     const email = req.body.email;
@@ -142,6 +145,27 @@ exports.putUser = async (req, res, next) => {
     if (err) console.log(err);
     else if (doc === null) res.status(400).send("Invalid Request");
   });
+  let user = await User.findByIdAndUpdate(
+    { _id: req.params.id },
+    { password: 0 },
+    req.body,
+    {
+      new: true,
+    }
+  );
+  await user.save();
+  res.status(200).send(user);
+};
+
+//patch
+exports.patchUser = async (req, res, next) => {
+  let id = req.params.id;
+  if (!req.params.id || req.params.id < 0)
+    res.status(400).send("Invalid Request");
+  User.findOne({ _id: req.params.id }, (err, doc) => {
+    if (err) console.log(err);
+    else if (doc === null) res.status(400).send("Invalid Request");
+  }).select("-password");
   let user = await User.findByIdAndUpdate({ _id: req.params.id }, req.body, {
     new: true,
   });
@@ -149,29 +173,6 @@ exports.putUser = async (req, res, next) => {
   res.status(200).send(user);
 };
 
-//patch
-exports.patchUser = async (req, res, next) => {
-  
-  let id = req.params.id;
-  if (!req.params.id || req.params.id < 0)
-    res.status(400).send("Invalid Request");
-  User.findOne({ _id: req.params.id }, (err, doc) => {
-    if (err) console.log(err);
-    else if (doc === null) res.status(400).send("Invalid Request");
-  });
-  let user = await User.findByIdAndUpdate(
-    { _id: req.params.id },
-
-    req.body,
-
-    {
-      new: true,
-    },
-
-  );
-  await user.save();
-  res.status(200).send(user);
-};
 //delete user
 exports.deleteUser = async (req, res, next) => {
   if (!req.params.id || req.params.id < 0)
