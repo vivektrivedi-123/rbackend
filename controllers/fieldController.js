@@ -12,8 +12,8 @@ exports.getField = async (req, res, next) => {
     .select(" -__v")
     .populate({
       path: "location",
-      select: "-_id -__v",
-      populate: { path: "company", select: "-_id -__v" },
+      select: " -__v",
+      populate: { path: "company", select: " -__v" },
     })
     .exec()
     .then((data) => {
@@ -31,8 +31,8 @@ exports.getFieldById = async (req, res, next) => {
     .select(" -__v")
     .populate({
       path: "location",
-      select: "-_id -__v",
-      populate: { path: "company", select: "-_id -__v" },
+      select: " -__v",
+      populate: { path: "company", select: " -__v" },
     })
     .exec()
     .then((doc, err) => {

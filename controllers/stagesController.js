@@ -15,23 +15,23 @@ exports.getStage = async (req, res, next) => {
     .select(" -__v")
     .populate({
       path: "job",
-      select: "-_id -__v",
+      select: " -__v",
       populate: {
         path: "department",
-        select: "-_id -__v",
+        select: " -__v",
         populate: {
           path: "location ",
-          select: "-_id -__v",
-          populate: { path: "company", select: "-_id -__v" },
+          select: " -__v",
+          populate: { path: "company", select: " -__v" },
         },
       },
     })
     .populate({
       path: "job",
-      select: "-_id -__v ",
+      select: " -__v ",
       populate: {
         path: "category",
-        select: "-_id -__v -location",
+        select: " -__v -location",
       },
     })
     .exec()
@@ -49,23 +49,23 @@ exports.getStageById = async (req, res, next) => {
     .select(" -__v")
     .populate({
       path: "job",
-      select: "-_id -__v",
+      select: " -__v",
       populate: {
         path: "department",
-        select: "-_id -__v",
+        select: " -__v",
         populate: {
           path: "location ",
-          select: "-_id -__v",
-          populate: { path: "company", select: "-_id -__v" },
+          select: " -__v",
+          populate: { path: "company", select: " -__v" },
         },
       },
     })
     .populate({
       path: "job",
-      select: "-_id -__v ",
+      select: " -__v ",
       populate: {
         path: "category",
-        select: "-_id -__v -location",
+        select: " -__v -location",
       },
     })
 

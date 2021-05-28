@@ -16,26 +16,26 @@ exports.getForm = async (req, res, next) => {
     .select(" -__v")
     .populate({
       path: "job",
-      select: "-_id -__v ",
+      select: " -__v ",
       populate: {
         path: "department",
-        select: "-_id -__v",
+        select: " -__v",
         populate: {
           path: "location",
-          select: "-_id -__v",
-          populate: { path: "company", select: "-_id -__v" },
+          select: " -__v",
+          populate: { path: "company", select: " -__v" },
         },
       },
     })
     .populate({
       path: "job",
-      select: "-_id -__v ",
+      select: " -__v ",
       populate: {
         path: "category",
-        select: "-_id -__v -location",
+        select: " -__v -location",
       },
     })
-    .populate({ path: "field", select: "-_id -__v -location" })
+    .populate({ path: "field", select: " -__v -location" })
     .exec()
     .then((data) => {
       res.status(200).json({
@@ -51,29 +51,29 @@ exports.getFormById = async (req, res, next) => {
     .select(" -__v")
     .populate({
       path: "job",
-      select: "-_id -__v ",
+      select: " -__v ",
       populate: {
         path: "department",
-        select: "-_id -__v",
+        select: " -__v",
         populate: {
           path: "location",
-          select: "-_id -__v",
+          select: " -__v",
           populate: {
             path: "company",
-            select: "-_id -__v",
+            select: " -__v",
           },
         },
       },
     })
     .populate({
       path: "job",
-      select: "-_id -__v ",
+      select: " -__v ",
       populate: {
         path: "category",
-        select: "-_id -__v -location",
+        select: " -__v -location",
       },
     })
-    .populate({ path: "field", select: "-_id -__v -location" })
+    .populate({ path: "field", select: " -__v -location" })
     .exec()
     .then((doc, err) => {
       if (doc) {

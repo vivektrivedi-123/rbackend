@@ -11,7 +11,7 @@ exports.getLocation = async (req, res, next) => {
     .limit(limit)
     .skip(skip)
     .select("-__v")
-    .populate({ path: "company", select: "-_id -__v" })
+    .populate({ path: "company", select: " -__v" })
     .exec()
     .then((data) => {
       res.status(200).json({
@@ -25,7 +25,7 @@ exports.getLocation = async (req, res, next) => {
 exports.getLocationById = async (req, res, next) => {
   let location = await Location.findById({ _id: req.params.id })
     .select(" -__v")
-    .populate({ path: "company", select: "-_id -__v" })
+    .populate({ path: "company", select: " -__v" })
     .exec()
     .then((doc, err) => {
       if (doc) {

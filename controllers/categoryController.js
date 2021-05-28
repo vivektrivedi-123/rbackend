@@ -13,8 +13,8 @@ exports.getCategory = async (req, res, next) => {
     .select(" -__v")
     .populate({
       path: "location",
-      select: "-_id -__v",
-      populate: { path: "company", select: "-_id -__v" },
+      select: " -__v",
+      populate: { path: "company", select: " -__v" },
     });
   if (!category) {
     res.status(404).send("No Category Found");
@@ -28,7 +28,7 @@ exports.getCategoryById = async (req, res, next) => {
     .select(" -__v")
     .populate({
       path: "location",
-      populate: { path: "company", select: "-_id -__v" },
+      populate: { path: "company", select: " -__v" },
     });
   if (!category) {
     res.status(404).send("ID does not exists");

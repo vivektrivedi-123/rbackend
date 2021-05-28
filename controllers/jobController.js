@@ -14,16 +14,16 @@ exports.getJob = async (req, res, next) => {
     .select(" -__v")
     .populate({
       path: "department",
-      select: "-_id -__v",
+      select: " -__v",
       populate: {
         path: "location ",
-        select: "-_id -__v",
-        populate: { path: "company", select: "-_id -__v" },
+        select: " -__v",
+        populate: { path: "company", select: " -__v" },
       },
     })
     .populate({
       path: "category",
-      select: "-location -createdAt -updatedAt -_id -__v",
+      select: "-location -createdAt -updatedAt  -__v",
     })
     .exec()
     .then((data) => {
@@ -40,16 +40,16 @@ exports.getJobById = async (req, res, next) => {
     .select(" -__v")
     .populate({
       path: "department",
-      select: "-_id -__v",
+      select: " -__v",
       populate: {
         path: "location ",
-        select: "-_id -__v",
-        populate: { path: "company", select: "-_id -__v" },
+        select: " -__v",
+        populate: { path: "company", select: " -__v" },
       },
     })
     .populate({
       path: "category",
-      select: "-location -createdAt -updatedAt -_id -__v",
+      select: "-location -createdAt -updatedAt  -__v",
     })
     .exec()
     .then((doc, err) => {

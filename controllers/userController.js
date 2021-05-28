@@ -27,8 +27,8 @@ exports.getMe = async (req, res, next) => {
   const user = await User.findById(req.user._id)
     .select("-password")
     .select(" -__v")
-    .populate("company", "company_name -_id")
-    .populate("role", "role_name -_id")
+    .populate("company", "company_name ")
+    .populate("role", "role_name ")
     .exec();
   res.send(user);
 };
@@ -42,8 +42,8 @@ exports.getUser = async (req, res, next) => {
     .skip(skip)
     .limit(limit)
     .select("-__v")
-    .populate("company", "company_name -_id")
-    .populate("role", "role_name -_id")
+    .populate("company", "company_name ")
+    .populate("role", "role_name ")
     .exec()
     .then((data) => {
       res.status(200).json({
@@ -60,8 +60,8 @@ exports.getUser = async (req, res, next) => {
 exports.getUserById = async (req, res, next) => {
   User.findById({ _id: req.params.id })
     .select(" -__v")
-    .populate("company", "company_name -_id")
-    .populate("role", "role_name -_id")
+    .populate("company", "company_name ")
+    .populate("role", "role_name ")
     .exec()
     .then((doc, err) => {
       if (doc) {
