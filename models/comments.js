@@ -11,7 +11,7 @@ const commentsSchema = new mongoose.Schema(
       },
     ],
 
-    comments: { type: String, required: true ,min: 3, max: 50 },
+    comments: { type: String, required: true ,min: 3, max: 80 },
     attachments: { type: String, required: true },
     status: { type: Boolean, required: true },
     created_by: { type: String },
