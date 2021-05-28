@@ -144,6 +144,9 @@ router.get("/api/v1/job/:id", auth, jobController.getJobById);
  *                          category:
  *                              type: string
  *                              description: ID of the category
+ *                          stage:
+ *                              type: string
+ *                              description: ID of the stage
  *                          job_title:
  *                              type: string
  *                              description: Title of the job
@@ -229,6 +232,9 @@ router.post(
  *                          category:
  *                              type: string
  *                              description: ID of the category
+ *                          stage:
+ *                              type: string
+ *                              description: ID of the stage
  *                          job_title:
  *                              type: string
  *                              description: Title of the job
@@ -277,6 +283,9 @@ router.post(
  *                          category:
  *                              type: string
  *                              description: ID of the category
+ *                          stage:
+ *                              type: string
+ *                              description: ID of the stage
  *                          job_title:
  *                              type: string
  *                              description: Title of the job
@@ -327,6 +336,9 @@ router.post(
  *                          category:
  *                              type: string
  *                              description: ID of the category
+ *                          stage:
+ *                              type: string
+ *                              description: ID of the stage
  *                          job_title:
  *                              type: string
  *                              description: Title of the job
@@ -435,6 +447,9 @@ router.delete("/api/v1/job/:id", auth, jobController.deleteJob);
  *                          category:
  *                              type: string
  *                              description: ID of the category
+ *                          stage:
+ *                              type: string
+ *                              description: ID of the stage
  *                          job_title:
  *                              type: string
  *                              description: Title of the job
@@ -483,6 +498,9 @@ router.delete("/api/v1/job/:id", auth, jobController.deleteJob);
  *                          category:
  *                              type: string
  *                              description: ID of the category
+ *                          stage:
+ *                              type: string
+ *                              description: ID of the stage
  *                          job_title:
  *                              type: string
  *                              description: Title of the job
@@ -533,6 +551,9 @@ router.delete("/api/v1/job/:id", auth, jobController.deleteJob);
  *                          category:
  *                              type: string
  *                              description: ID of the category
+ *                          stage:
+ *                              type: string
+ *                              description: ID of the stage
  *                          job_title:
  *                              type: string
  *                              description: Title of the job

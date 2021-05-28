@@ -38,10 +38,7 @@ exports.getCategoryById = async (req, res, next) => {
 };
 
 exports.addCategory = async (req, res, next) => {
-  // let category = await Category.findOne({ category: req.body.category });
-  // if (category) {
-  //   res.status(409).send("Category Already Exists");
-  // } else {
+
   let categories = new Category(
     _.pick(req.body, [
       "location",

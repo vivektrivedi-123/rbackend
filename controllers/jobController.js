@@ -76,10 +76,6 @@ exports.getJobById = async (req, res, next) => {
     });
 };
 exports.addJob = async (req, res, next) => {
-  // let job = await Job.findOne({ job_title: req.body.job_title });
-  // if (job) {
-  //   res.status(409).send("job Already Exists");
-  // } else {
   let jobs = new Job(
     _.pick(req.body, [
       "job_title",

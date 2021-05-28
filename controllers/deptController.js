@@ -52,32 +52,25 @@ exports.getDeptById = async (req, res, next) => {
     });
 };
 exports.addDept = async (req, res, next) => {
-  let dept = await Department.findOne({
-    department_name: req.body.department_name,
-  });
-  if (dept) {
-    res.status(409).send("Department Already Exists");
-  } else {
-    let deptt = new Department(
-      _.pick(req.body, [
-        "location",
-        "department_name",
-        "created_by",
-        "modified_by",
-      ])
-    );
-    await deptt
-      .save()
-      .then((doc) => {
-        res.status(200).json({
-          message: "Department Added Successfully",
-          results: doc,
-        });
-      })
-      .catch((err) => {
-        res.status(400).json(err);
+  let deptt = new Department(
+    _.pick(req.body, [
+      "location",
+      "department_name",
+      "created_by",
+      "modified_by",
+    ])
+  );
+  await deptt
+    .save()
+    .then((doc) => {
+      res.status(200).json({
+        message: "Department Added Successfully",
+        results: doc,
       });
-  }
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
 };
 exports.putDept = async (req, res, next) => {
   let id = req.params.id;

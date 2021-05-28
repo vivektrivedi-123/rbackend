@@ -91,34 +91,29 @@ exports.getFormById = async (req, res, next) => {
     });
 };
 exports.addForm = async (req, res, next) => {
-  let form = await Form.findOne({ label: req.body.label });
-  if (form) {
-    res.status(409).send("Form Already Exists");
-  } else {
-    let forms = new Form(
-      _.pick(req.body, [
-        "job",
-        "field",
-        "label",
-        "placeholder",
-        "is_required",
-        "order",
-        "created_by",
-        "modified_by",
-      ])
-    );
-    forms
-      .save()
-      .then((doc) => {
-        res.status(200).json({
-          message: "Form Added Successfully",
-          results: doc,
-        });
-      })
-      .catch((err) => {
-        res.status(400).json(err);
+  let forms = new Form(
+    _.pick(req.body, [
+      "job",
+      "field",
+      "label",
+      "placeholder",
+      "is_required",
+      "order",
+      "created_by",
+      "modified_by",
+    ])
+  );
+  forms
+    .save()
+    .then((doc) => {
+      res.status(200).json({
+        message: "Form Added Successfully",
+        results: doc,
       });
-  }
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
 };
 exports.putForm = async (req, res, next) => {
   let id = req.params.id;

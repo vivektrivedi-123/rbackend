@@ -86,25 +86,20 @@ exports.getStageById = async (req, res, next) => {
     });
 };
 exports.addStage = async (req, res, next) => {
-  let stage = await Stage.findOne({ stage: req.body.stage });
-  if (stage) {
-    res.status(409).send("Stage Already Exists");
-  } else {
-    let stages = new Stage(
-      _.pick(req.body, ["job", "stage", "status", "created_by", "modified_by"])
-    );
-    stages
-      .save()
-      .then((doc) => {
-        res.status(200).json({
-          message: "Stage Added Successfully",
-          results: doc,
-        });
-      })
-      .catch((err) => {
-        res.status(400).json(err);
+  let stages = new Stage(
+    _.pick(req.body, ["job", "stage", "status", "created_by", "modified_by"])
+  );
+  stages
+    .save()
+    .then((doc) => {
+      res.status(200).json({
+        message: "Stage Added Successfully",
+        results: doc,
       });
-  }
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
 };
 exports.putStage = async (req, res, next) => {
   let id = req.params.id;

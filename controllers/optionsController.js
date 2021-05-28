@@ -50,31 +50,26 @@ exports.getOptionsById = async (req, res, next) => {
     });
 };
 exports.addOptions = async (req, res, next) => {
-  let options = await Options.findOne({ option_value: req.body.option_value });
-  if (options) {
-    res.status(409).send("Option Already Exists");
-  } else {
-    let option = new Options(
-      _.pick(req.body, [
-        "option_key",
-        "option_value",
-        "location",
-        "created_by",
-        "modified_by",
-      ])
-    );
-    option
-      .save()
-      .then((doc) => {
-        res.status(200).json({
-          message: "Option Added Successfully",
-          results: doc,
-        });
-      })
-      .catch((err) => {
-        res.status(400).json(err);
+  let option = new Options(
+    _.pick(req.body, [
+      "option_key",
+      "option_value",
+      "location",
+      "created_by",
+      "modified_by",
+    ])
+  );
+  option
+    .save()
+    .then((doc) => {
+      res.status(200).json({
+        message: "Option Added Successfully",
+        results: doc,
       });
-  }
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
 };
 exports.putOptions = async (req, res, next) => {
   let id = req.params.id;

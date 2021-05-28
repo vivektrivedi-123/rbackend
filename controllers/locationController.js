@@ -43,42 +43,35 @@ exports.getLocationById = async (req, res, next) => {
     });
 };
 exports.addLocation = async (req, res, next) => {
-  let location = await Location.findOne({
-    location_address: req.body.location_address,
-  });
-  if (location) {
-    res.status(409).send("Location Already Exists");
-  } else {
-    let locations = new Location(
-      _.pick(req.body, [
-        "company",
-        "location_name",
-        "location_address",
-        "location_city",
-        "location_state",
-        "postal_code",
-        "country",
-        "currency",
-        "primary_language",
-        "time_zone",
-        "date_format",
-        "created_by",
-        "modified_by",
-      ])
-    );
-    locations
-      .save()
-      .then((doc) => {
-        res.status(200).json({
-          message: "Location Added Successfully",
-          results: doc,
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-        res.status(400).json(err);
+  let locations = new Location(
+    _.pick(req.body, [
+      "company",
+      "location_name",
+      "location_address",
+      "location_city",
+      "location_state",
+      "postal_code",
+      "country",
+      "currency",
+      "primary_language",
+      "time_zone",
+      "date_format",
+      "created_by",
+      "modified_by",
+    ])
+  );
+  locations
+    .save()
+    .then((doc) => {
+      res.status(200).json({
+        message: "Location Added Successfully",
+        results: doc,
       });
-  }
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(400).json(err);
+    });
 };
 exports.putLocation = async (req, res, next) => {
   let id = req.params.id;
