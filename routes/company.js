@@ -335,7 +335,7 @@ router.post(
  *              description: The company favicon
  *              example: favicon.jpeg
  */
-//update
+//put
 router.put(
   "/api/v1/company/:id",
   auth,

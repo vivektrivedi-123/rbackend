@@ -87,6 +87,7 @@ const upload = multer({
  *                              default: apurva1234
  *
  */
+
 /**
  * @swagger
  * tags:
@@ -129,10 +130,13 @@ router.get("/api/v1/user", auth, userController.getUser);
  *    404:
  *     description: Id not found
  */
+
 //get by ID
 router.get("/api/v1/user/:id", auth, userController.getUserById);
+
 //getMe
-// router.get("/api/v1/user/me", auth, userController.getMe);
+router.get("/api/v1/user/me", auth, userController.getMe);
+
 /**
  * @swagger
  *  tags:
@@ -163,7 +167,9 @@ router.get("/api/v1/user/:id", auth, userController.getUserById);
  *              description: Token
  *          default:
  *              description: This is the default response for it
+ * 
  */
+
 //login user
 router.post("/api/v1/userLogin", userController.userLogin);
 
@@ -190,7 +196,6 @@ router.post("/api/v1/userLogin", userController.userLogin);
  *                          role:
  *                              type: string
  *                              description: ID of the role
-
  *                          first_name:
  *                              type: string
  *                              default: Apurva
@@ -483,4 +488,5 @@ router.delete("/api/v1/user/:id", auth, userController.deleteUser);
 
 //patch
 router.patch("/api/v1/user/:id", auth, upload, userController.patchUser);
+
 module.exports = router;

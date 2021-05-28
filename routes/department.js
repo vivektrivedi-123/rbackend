@@ -107,6 +107,7 @@ router.post(
   validateSchema,
   deptController.addDept
 );
+
 /**
  * @swagger
  * tags:

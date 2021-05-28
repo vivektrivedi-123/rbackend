@@ -13,6 +13,10 @@ exports.getJob = async (req, res, next) => {
     .limit(limit)
     .select(" -__v")
     .populate({
+      path: "stages",
+      select: "-job -__v",
+    })
+    .populate({
       path: "department",
       select: " -__v",
       populate: {
@@ -38,6 +42,10 @@ exports.getJob = async (req, res, next) => {
 exports.getJobById = async (req, res, next) => {
   Job.findById({ _id: req.params.id })
     .select(" -__v")
+    .populate({
+      path: "stages",
+      select: "-job -__v",
+    })
     .populate({
       path: "department",
       select: " -__v",
@@ -77,6 +85,7 @@ exports.addJob = async (req, res, next) => {
       "job_title",
       "department",
       "category",
+      "stages",
       "branch",
       "skills",
       "job_type",
@@ -117,7 +126,7 @@ exports.putJob = async (req, res, next) => {
     new: true,
   });
   await update.save();
-  res.status(200).json({message:"Job updated",update});
+  res.status(200).json({ message: "Job updated", update });
 };
 
 exports.patchJob = async (req, res, next) => {
@@ -132,7 +141,7 @@ exports.patchJob = async (req, res, next) => {
     new: true,
   });
   await update.save();
-  res.status(200).json({message:"Job updated",update});
+  res.status(200).json({ message: "Job updated", update });
 };
 exports.deleteJob = async (req, res, next) => {
   if (!req.params.id || req.params.id < 0)

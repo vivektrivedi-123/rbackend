@@ -49,7 +49,7 @@ exports.getStageById = async (req, res, next) => {
     .select(" -__v")
     .populate({
       path: "job",
-      select: " -__v",
+      select: "-stages -__v",
       populate: {
         path: "department",
         select: " -__v",
@@ -62,7 +62,7 @@ exports.getStageById = async (req, res, next) => {
     })
     .populate({
       path: "job",
-      select: " -__v ",
+      select: "-stages  -__v ",
       populate: {
         path: "category",
         select: " -__v -location",
