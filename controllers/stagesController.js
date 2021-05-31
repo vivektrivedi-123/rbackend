@@ -87,7 +87,7 @@ exports.getStageById = async (req, res, next) => {
 };
 exports.addStage = async (req, res, next) => {
   let stages = new Stage(
-    _.pick(req.body, ["job", "stage", "status", "created_by", "modified_by"])
+    _.pick(req.body, ["job", "stage", "steps", "created_by", "modified_by"])
   );
   stages
     .save()
