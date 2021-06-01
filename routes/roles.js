@@ -11,7 +11,7 @@ const Role = require("../models/role");
  * @swagger
  * components:
  *  schemas:
- *   Role:
+ *   Step:
  *    type: object
  *    required:
  *     -role_name

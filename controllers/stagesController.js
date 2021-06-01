@@ -9,13 +9,15 @@ const company = require("../models/company");
 exports.getStage = async (req, res, next) => {
   const skip = parseInt(req.query.skip);
   const limit = parseInt(req.query.limit);
+
   Stage.find()
+    .sort({ step: 1 })
     .skip(skip)
     .limit(limit)
     .select(" -__v")
     .populate({
       path: "job",
-      select: " -__v",
+      select: " -stages -__v",
       populate: {
         path: "department",
         select: " -__v",
@@ -28,11 +30,15 @@ exports.getStage = async (req, res, next) => {
     })
     .populate({
       path: "job",
-      select: " -__v ",
+      select: " -stages -__v ",
       populate: {
         path: "category",
         select: " -__v -location",
       },
+    })
+    .populate({
+      path: "steps",
+      select: "-__v",
     })
     .exec()
     .then((data) => {
@@ -68,7 +74,10 @@ exports.getStageById = async (req, res, next) => {
         select: " -__v -location",
       },
     })
-
+    .populate({
+      path: "steps",
+      select: "-__v",
+    })
     .exec()
     .then((doc, err) => {
       if (doc) {

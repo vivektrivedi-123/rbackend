@@ -42,6 +42,14 @@ exports.getUser = async (req, res, next) => {
     .skip(skip)
     .limit(limit)
     .select("-__v")
+    .populate({
+      path: "stage",
+      select: "-__v -job",
+      populate: {
+        path: "steps",
+        select: "-__v",
+      },
+    })
     .populate("company", "company_name ")
     .populate("role", "role_name ")
     .exec()
@@ -60,6 +68,14 @@ exports.getUser = async (req, res, next) => {
 exports.getUserById = async (req, res, next) => {
   User.findById({ _id: req.params.id })
     .select(" -__v")
+    .populate({
+      path: "stage",
+      select: "-__v -job ",
+      populate: {
+        path: "steps",
+        select: "-__v",
+      },
+    })
     .populate("company", "company_name ")
     .populate("role", "role_name ")
     .exec()
@@ -122,6 +138,7 @@ exports.addUser = async (req, res, next) => {
         "mobile_number",
         "email",
         "password",
+        "stage",
         "created_by",
         "modified_by",
       ])

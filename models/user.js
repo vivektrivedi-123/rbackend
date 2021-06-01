@@ -2,6 +2,8 @@ const mongoose = require("mongoose");
 const fs = require("fs");
 const company = require("./company");
 const role = require("./role");
+const { ObjectID } = require("bson");
+const { ObjectId } = require("bson");
 const userSchema = new mongoose.Schema(
   {
     company: [
@@ -22,8 +24,15 @@ const userSchema = new mongoose.Schema(
     last_name: { type: String, required: true, min: 3, max: 30 },
     mobile_number: { type: Number, required: true, length: 10 },
     email: { type: String, required: true },
-    password: { type: String, required: true, min: 8, max: 20  },
+    password: { type: String, required: true, min: 8, max: 20 },
     profile_image: { type: String, required: true },
+    stage: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "stages",
+        required: true,
+      },
+    ],
     created_by: { type: String },
     modified_by: { type: String },
   },

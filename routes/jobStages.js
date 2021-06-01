@@ -226,7 +226,7 @@ router.delete("/api/v1/stage/:id", auth, stagesController.deleteStage);
  * tags:
  *  name: Stage
  * /api/v1/stage/{id}:
- *  put:
+ *  patch:
  *   security:
  *        - Bearer: []
  *   tags: [Stage]

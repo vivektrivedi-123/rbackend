@@ -9,12 +9,17 @@ exports.getJob = async (req, res, next) => {
   const skip = parseInt(req.query.skip);
   const limit = parseInt(req.query.limit);
   Job.find()
+    .sort({ order: 1 })
     .skip(skip)
     .limit(limit)
     .select(" -__v")
     .populate({
       path: "stages",
       select: "-job -__v",
+      populate: {
+        path: "steps",
+        select: "-__v",
+      },
     })
     .populate({
       path: "department",
@@ -45,6 +50,10 @@ exports.getJobById = async (req, res, next) => {
     .populate({
       path: "stages",
       select: "-job -__v",
+      populate: {
+        path: "steps",
+        select: "-__v",
+      },
     })
     .populate({
       path: "department",
