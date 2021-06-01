@@ -9,7 +9,7 @@ exports.getJob = async (req, res, next) => {
   const skip = parseInt(req.query.skip);
   const limit = parseInt(req.query.limit);
   Job.find()
-    .sort({ order: 1 })
+    .sort({ stage: { _id: 1 } })
     .skip(skip)
     .limit(limit)
     .select(" -__v")

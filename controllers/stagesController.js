@@ -9,9 +9,8 @@ const company = require("../models/company");
 exports.getStage = async (req, res, next) => {
   const skip = parseInt(req.query.skip);
   const limit = parseInt(req.query.limit);
-
   Stage.find()
-    .sort({ step: 1 })
+    .sort({ steps: 1 })
     .skip(skip)
     .limit(limit)
     .select(" -__v")
@@ -50,6 +49,7 @@ exports.getStage = async (req, res, next) => {
       res.status(404).json(err);
     });
 };
+
 exports.getStageById = async (req, res, next) => {
   Stage.findById({ _id: req.params.id })
     .select(" -__v")
@@ -88,12 +88,12 @@ exports.getStageById = async (req, res, next) => {
         res.send("ID does not exists").status(404);
       }
     })
-
     .catch((err) => {
       console.log(err);
       res.status(404).json(err);
     });
 };
+
 exports.addStage = async (req, res, next) => {
   let stages = new Stage(
     _.pick(req.body, ["job", "stage", "steps", "created_by", "modified_by"])
@@ -110,6 +110,7 @@ exports.addStage = async (req, res, next) => {
       res.status(400).json(err);
     });
 };
+
 exports.putStage = async (req, res, next) => {
   let id = req.params.id;
   if (!req.params.id || req.params.id < 0)
@@ -124,6 +125,7 @@ exports.putStage = async (req, res, next) => {
   await stage.save();
   res.status(200).json(stage);
 };
+
 exports.patchStage = async (req, res, next) => {
   let id = req.params.id;
   if (!req.params.id || req.params.id < 0)
@@ -138,6 +140,7 @@ exports.patchStage = async (req, res, next) => {
   await stage.save();
   res.status(200).json(stage);
 };
+
 exports.deleteStage = async (req, res, next) => {
   if (!req.params.id || req.params.id < 0)
     res.status(400).send("Invalid request");

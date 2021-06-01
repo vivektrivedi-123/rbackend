@@ -1,14 +1,21 @@
+const StageData = require("../models/stageData");
 const mongoose = require("mongoose");
-const Step = require("../models/stepStage");
 const _ = require("lodash");
+const location = require("../models/location");
+const job = require("../models/job");
+const department = require("../models/department");
+const company = require("../models/company");
+const stageData = require("../models/stageData");
 
-exports.getStep = async (req, res, next) => {
+exports.getStageData = async (req, res, next) => {
   const skip = parseInt(req.query.skip);
   const limit = parseInt(req.query.limit);
-  Step.find()
-    .sort({ order: 1 })
+  StageData.find()
+    .sort({ steps: 1 })
     .skip(skip)
     .limit(limit)
+    .select(" -__v")
+
     .then((data) => {
       res.status(200).json({
         results: data,
@@ -18,8 +25,9 @@ exports.getStep = async (req, res, next) => {
       res.status(404).json(err);
     });
 };
-exports.getStepById = async (req, res, next) => {
-  Step.findById({ _id: req.params.id })
+
+exports.getStageDataById = async (req, res, next) => {
+  StageData.findById({ _id: req.params.id })
     .select(" -__v")
     .then((doc, err) => {
       if (doc) {
@@ -30,21 +38,21 @@ exports.getStepById = async (req, res, next) => {
         res.send("ID does not exists").status(404);
       }
     })
-
     .catch((err) => {
       console.log(err);
       res.status(404).json(err);
     });
 };
-exports.addStep = async (req, res, next) => {
-  let steps = new Step(
-    _.pick(req.body, ["stepName", "order", "created_by", "modified_by"])
+
+exports.addStageData = async (req, res, next) => {
+  let stages = new StageData(
+    _.pick(req.body, ["stages", "created_by", "modified_by"])
   );
-  steps
+  stages
     .save()
     .then((doc) => {
       res.status(200).json({
-        message: "step Added Successfully",
+        message: "StageData Added Successfully",
         results: doc,
       });
     })
@@ -53,41 +61,52 @@ exports.addStep = async (req, res, next) => {
       res.status(400).json(err);
     });
 };
-exports.putStep = async (req, res, next) => {
+
+exports.putStageData = async (req, res, next) => {
   let id = req.params.id;
   if (!req.params.id || req.params.id < 0)
     res.status(400).send("Invalid Request");
-  Step.findOne({ _id: req.params.id }, (err, doc) => {
+  StageData.findOne({ _id: req.params.id }, (err, doc) => {
     if (err) console.log(err);
     else if (doc === null) res.status(400).send("Invalid Request");
   });
-  let step = await Step.findByIdAndUpdate({ _id: req.params.id }, req.body, {
-    new: true,
-  });
-  await step.save();
-  res.status(200).json(step);
+  let stage = await StageData.findByIdAndUpdate(
+    { _id: req.params.id },
+    req.body,
+    {
+      new: true,
+    }
+  );
+  await stage.save();
+  res.status(200).json(stage);
 };
-exports.patchStep = async (req, res, next) => {
+
+exports.patchStageData = async (req, res, next) => {
   let id = req.params.id;
   if (!req.params.id || req.params.id < 0)
     res.status(400).send("Invalid Request");
-  Step.findOne({ _id: req.params.id }, (err, doc) => {
+  StageData.findOne({ _id: req.params.id }, (err, doc) => {
     if (err) console.log(err);
     else if (doc === null) res.status(400).send("Invalid Request");
   });
-  let step = await Step.findByIdAndUpdate({ _id: req.params.id }, req.body, {
-    new: true,
-  });
-  await step.save();
-  res.status(200).json(step);
+  let stage = await StageData.findByIdAndUpdate(
+    { _id: req.params.id },
+    req.body,
+    {
+      new: true,
+    }
+  );
+  await stage.save();
+  res.status(200).json(stage);
 };
-exports.deleteStep = async (req, res, next) => {
+
+exports.deleteStageData = async (req, res, next) => {
   if (!req.params.id || req.params.id < 0)
     res.status(400).send("Invalid request");
-  Step.findByIdAndRemove({ _id: req.params.id })
+  StageData.findByIdAndRemove({ _id: req.params.id })
     .then((doc) => {
       res.status(200).json({
-        message: "step Deleted Successfully",
+        message: "StageData Deleted Successfully",
       });
     })
     .catch((err) => {
