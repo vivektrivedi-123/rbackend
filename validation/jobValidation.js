@@ -3,13 +3,13 @@ const { body, validationResult } = require("express-validator");
 const jobValidation = () => {
   return [
     body("job_title").isLength({ min: 3, max: 25 }),
-    body("job_type").isLength({ min: 5, max: 20 }),
-    body("branch").isLength({ min: 3, max: 20 }),
+    body("job_type").isLength({ min: 5, max: 50 }),
+    body("branch").isLength({ min: 3, max: 60 }),
     body("job_description").isLength({ min: 10, max: 100 }),
     body("experience").isLength({ min: 5, max: 50 }),
-    body("min_sal").isLength({ min: 5, max: 20 }),
-    body("max_sal").isLength({ min: 5, max: 20 }),
-    body("currency").isLength({ min: 5, max: 50 })
+    body("min_sal").isLength({ min: 5, max: 30 }),
+    body("max_sal").isLength({ min: 5, max: 30 }),
+    body("currency").isLength({ min: 3, max: 50 })
 
   ];
 };
