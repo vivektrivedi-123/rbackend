@@ -9,16 +9,20 @@ exports.getJob = async (req, res, next) => {
   const skip = parseInt(req.query.skip);
   const limit = parseInt(req.query.limit);
   Job.find()
-    
     .skip(skip)
     .limit(limit)
     .select(" -__v")
     .populate({
       path: "stages",
-      select: "-job -__v",
+      select: "-job -__v -createdAt -updatedAt",
       populate: {
-        path: "steps",
-        select: "-__v",
+        path: "stageData",
+        select: "-job -__v -createdAt -updatedAt",
+
+        populate: {
+          path: "stepStage",
+          select: "-__v -createdAt -updatedAt",
+        },
       },
     })
     .populate({
@@ -47,12 +51,18 @@ exports.getJob = async (req, res, next) => {
 exports.getJobById = async (req, res, next) => {
   Job.findById({ _id: req.params.id })
     .select(" -__v")
+    .sort({ stages: 1 })
     .populate({
       path: "stages",
-      select: "-job -__v",
+      select: "-job -__v -createdAt -updatedAt",
       populate: {
-        path: "steps",
-        select: "-__v",
+        path: "stageData",
+        select: "-job -__v -createdAt -updatedAt",
+
+        populate: {
+          path: "stepStage",
+          select: "-__v -createdAt -updatedAt",
+        },
       },
     })
     .populate({
@@ -90,7 +100,7 @@ exports.addJob = async (req, res, next) => {
       "job_title",
       "department",
       "category",
-      "stages",
+      "stageData",
       "branch",
       "skills",
       "job_type",

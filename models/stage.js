@@ -4,7 +4,7 @@ const job = require("./job");
 const stageSchema = new mongoose.Schema(
   {
     job: [{ type: mongoose.Schema.Types.ObjectId, ref: "job", required: true }],
-    steps: [{
+    stepStage: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: "stepStage",
       required: true,

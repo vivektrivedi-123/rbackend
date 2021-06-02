@@ -11,7 +11,11 @@ const jobSchema = new mongoose.Schema(
       { type: mongoose.Schema.Types.ObjectId, ref: "category", required: true },
     ],
     stages: [
-      { type: mongoose.Schema.Types.ObjectId, ref: "stages", required: true },
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "stageData",
+        required: true,
+      },
     ],
     job_title: { type: String, required: true },
     job_type: { type: String, required: true },
