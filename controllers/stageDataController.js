@@ -1,10 +1,7 @@
 const StageData = require("../models/stageData");
 const mongoose = require("mongoose");
 const _ = require("lodash");
-const location = require("../models/location");
 const job = require("../models/job");
-const department = require("../models/department");
-const company = require("../models/company");
 const stageData = require("../models/stageData");
 
 exports.getStageData = async (req, res, next) => {

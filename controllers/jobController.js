@@ -18,7 +18,6 @@ exports.getJob = async (req, res, next) => {
       populate: {
         path: "stageData",
         select: "-job -__v -createdAt -updatedAt",
-
         populate: {
           path: "stepStage",
           select: "-__v -createdAt -updatedAt",
@@ -58,7 +57,6 @@ exports.getJobById = async (req, res, next) => {
       populate: {
         path: "stageData",
         select: "-job -__v -createdAt -updatedAt",
-
         populate: {
           path: "stepStage",
           select: "-__v -createdAt -updatedAt",
@@ -88,7 +86,6 @@ exports.getJobById = async (req, res, next) => {
         res.send("ID does not exists").status(404);
       }
     })
-
     .catch((err) => {
       console.log(err);
       res.status(404).json(err);
@@ -100,7 +97,7 @@ exports.addJob = async (req, res, next) => {
       "job_title",
       "department",
       "category",
-      "stageData",
+      "stages",
       "branch",
       "skills",
       "job_type",
@@ -127,8 +124,8 @@ exports.addJob = async (req, res, next) => {
     .catch((err) => {
       res.status(400).json(err);
     });
-  //}
 };
+
 exports.putJob = async (req, res, next) => {
   let id = req.params.id;
   if (!req.params.id || req.params.id < 0)
@@ -158,6 +155,7 @@ exports.patchJob = async (req, res, next) => {
   await update.save();
   res.status(200).json({ message: "Job updated", update });
 };
+
 exports.deleteJob = async (req, res, next) => {
   if (!req.params.id || req.params.id < 0)
     res.status(400).send("Invalid request");

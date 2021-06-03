@@ -10,9 +10,6 @@ const validate = require("express-validator");
 const User = require("../models/user");
 const company = require("../models/company");
 const Role = require("../models/role");
-const user = require("../models/user");
-const role = require("../models/role");
-const { check } = require("express-validator");
 const upload = multer({
   limits: {
     fileSize: 1000000,
@@ -37,7 +34,7 @@ exports.getMe = async (req, res, next) => {
 exports.getUser = async (req, res, next) => {
   const skip = parseInt(req.query.skip);
   const limit = parseInt(req.query.limit);
-
+  const firstName = req.query.first_name;
   User.find()
     .skip(skip)
     .limit(limit)
@@ -46,7 +43,7 @@ exports.getUser = async (req, res, next) => {
       path: "stage",
       select: "-__v -job",
       populate: {
-        path: "steps",
+        path: "stepStage",
         select: "-__v",
       },
     })
@@ -72,7 +69,7 @@ exports.getUserById = async (req, res, next) => {
       path: "stage",
       select: "-__v -job ",
       populate: {
-        path: "steps",
+        path: "stepStage",
         select: "-__v",
       },
     })

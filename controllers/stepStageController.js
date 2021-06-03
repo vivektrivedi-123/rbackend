@@ -18,6 +18,7 @@ exports.getStep = async (req, res, next) => {
       res.status(404).json(err);
     });
 };
+
 exports.getStepById = async (req, res, next) => {
   Step.findById({ _id: req.params.id })
     .select(" -__v")
@@ -36,6 +37,7 @@ exports.getStepById = async (req, res, next) => {
       res.status(404).json(err);
     });
 };
+
 exports.addStep = async (req, res, next) => {
   let steps = new Step(
     _.pick(req.body, ["stepName", "order", "created_by", "modified_by"])
@@ -53,6 +55,7 @@ exports.addStep = async (req, res, next) => {
       res.status(400).json(err);
     });
 };
+
 exports.putStep = async (req, res, next) => {
   let id = req.params.id;
   if (!req.params.id || req.params.id < 0)
@@ -67,6 +70,7 @@ exports.putStep = async (req, res, next) => {
   await step.save();
   res.status(200).json(step);
 };
+
 exports.patchStep = async (req, res, next) => {
   let id = req.params.id;
   if (!req.params.id || req.params.id < 0)
@@ -81,6 +85,7 @@ exports.patchStep = async (req, res, next) => {
   await step.save();
   res.status(200).json(step);
 };
+
 exports.deleteStep = async (req, res, next) => {
   if (!req.params.id || req.params.id < 0)
     res.status(400).send("Invalid request");
