@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const stageDataSchema = new mongoose.Schema(
   {
+    name: { type: String, required: true },
     stageData: [
       {
         type: mongoose.Schema.Types.ObjectId,

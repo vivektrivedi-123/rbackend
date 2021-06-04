@@ -4,12 +4,9 @@ const job = require("./job");
 const stageSchema = new mongoose.Schema(
   {
     job: [{ type: mongoose.Schema.Types.ObjectId, ref: "job", required: true }],
-    stepStage: [{
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "stepStage",
-      required: true,
-    }],
-    stage: { type: String, required: true },
+    stage: { type: Number, required: true, default: 1 },
+    stepName: { type: String, required: true, default: "Open" },
+    order: { type: Number, required: true, default: 1 },
     created_by: { type: String },
     modified_by: { type: String },
   },

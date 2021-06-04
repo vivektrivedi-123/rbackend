@@ -8,17 +8,13 @@ exports.getStageData = async (req, res, next) => {
   const skip = parseInt(req.query.skip);
   const limit = parseInt(req.query.limit);
   StageData.find()
-    .sort({ steps: 1 })
+    .sort({ stageData: -1 })
     .skip(skip)
     .limit(limit)
     .select(" -__v")
     .populate({
       path: "stageData",
       select: "-job -__v",
-      populate: {
-        path: "stepStage",
-        select: " -job -__v",
-      },
     })
     .exec()
     .then((data) => {
@@ -34,13 +30,10 @@ exports.getStageData = async (req, res, next) => {
 exports.getStageDataById = async (req, res, next) => {
   StageData.findById({ _id: req.params.id })
     .select(" -__v")
+    .sort({ stage: 1 })
     .populate({
       path: "stageData",
       select: "-job -__v",
-      populate: {
-        path: "stepStage",
-        select: " -job -__v",
-      },
     })
     .exec()
     .then((doc, err) => {
@@ -60,7 +53,7 @@ exports.getStageDataById = async (req, res, next) => {
 
 exports.addStageData = async (req, res, next) => {
   let stages = new StageData(
-    _.pick(req.body, ["stageData", "created_by", "modified_by"])
+    _.pick(req.body, ["name", "stageData", "created_by", "modified_by"])
   );
   stages
     .save()
@@ -94,6 +87,13 @@ exports.putStageData = async (req, res, next) => {
   await stage.save();
   res.status(200).json(stage);
 };
+// exports.putStageData = async (req, res, next) => {
+//   let stage = await StageData.findOneAndUpdate(req.body, {
+//     new: true,
+//   });
+//   await stage.save();
+//   res.status(200).json(stage);
+// };
 
 exports.patchStageData = async (req, res, next) => {
   let id = req.params.id;

@@ -50,7 +50,6 @@ exports.getJob = async (req, res, next) => {
 exports.getJobById = async (req, res, next) => {
   Job.findById({ _id: req.params.id })
     .select(" -__v")
-    .sort({ stages: 1 })
     .populate({
       path: "stages",
       select: "-job -__v -createdAt -updatedAt",

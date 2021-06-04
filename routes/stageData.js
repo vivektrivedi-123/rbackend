@@ -189,6 +189,13 @@ router.put(
   validateSchema,
   stageDataController.putStageData
 );
+router.put(
+  "/api/v1/stageData",
+  auth,
+  stageDataValidation(),
+  validateSchema,
+  stageDataController.putStageData
+);
 /**
  * @swagger
  * tags:

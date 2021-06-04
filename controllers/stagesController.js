@@ -3,7 +3,6 @@ const mongoose = require("mongoose");
 const _ = require("lodash");
 const location = require("../models/location");
 const job = require("../models/job");
-
 const department = require("../models/department");
 const company = require("../models/company");
 
@@ -11,7 +10,7 @@ exports.getStage = async (req, res, next) => {
   const skip = parseInt(req.query.skip);
   const limit = parseInt(req.query.limit);
   Stage.find()
-    .sort({ stepStage: 1 })
+    .sort({ order: 1 })
     .skip(skip)
     .limit(limit)
     .select(" -__v")
@@ -53,6 +52,7 @@ exports.getStage = async (req, res, next) => {
 
 exports.getStageById = async (req, res, next) => {
   Stage.findById({ _id: req.params.id })
+    .sort({ order: 1 })
     .select(" -__v")
     .populate({
       path: "job",
@@ -97,7 +97,14 @@ exports.getStageById = async (req, res, next) => {
 
 exports.addStage = async (req, res, next) => {
   let stages = new Stage(
-    _.pick(req.body, ["job", "stage", "stepStage", "created_by", "modified_by"])
+    _.pick(req.body, [
+      "job",
+      "stage",
+      "stepName",
+      "order",
+      "created_by",
+      "modified_by",
+    ])
   );
   stages
     .save()

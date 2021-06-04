@@ -23,7 +23,6 @@ const stage = require("./routes/jobStages");
 const task = require("./routes/jobTask");
 const location = require("./routes/location");
 const option = require("./routes/options");
-const step = require("./routes/stepStage");
 const stageData = require("./routes/stageData");
 const basicAuth = require("express-basic-auth");
 const swaggerUi = require("swagger-ui-express");
@@ -110,7 +109,6 @@ app.use("/", stage);
 app.use("/", task);
 app.use("/", location);
 app.use("/", option);
-app.use("/", step);
 app.use("/", stageData);
 app.use(error);
 
