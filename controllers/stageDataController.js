@@ -96,13 +96,7 @@ exports.putStageData = async (req, res, next) => {
   await stage.save();
   res.status(200).json(stage);
 };
-// exports.putStageData = async (req, res, next) => {
-//   let stage = await StageData.findOneAndUpdate(req.body, {
-//     new: true,
-//   });
-//   await stage.save();
-//   res.status(200).json(stage);
-// };
+
 
 exports.patchStageData = async (req, res, next) => {
   let id = req.params.id;
