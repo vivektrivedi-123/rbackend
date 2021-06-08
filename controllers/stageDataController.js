@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const _ = require("lodash");
 const job = require("../models/job");
 const stageData = require("../models/stageData");
+const stage = require("../models/stage");
 
 exports.getStageData = async (req, res, next) => {
   const skip = parseInt(req.query.skip);
@@ -52,21 +53,29 @@ exports.getStageDataById = async (req, res, next) => {
 };
 
 exports.addStageData = async (req, res, next) => {
-  let stages = new StageData(
-    _.pick(req.body, ["name", "stageData", "created_by", "modified_by"])
-  );
-  stages
-    .save()
-    .then((doc) => {
-      res.status(200).json({
-        message: "StageData Added Successfully",
-        results: doc,
+  let stage = await stageData.findOne({
+    name: req.body.name,
+    stageData: req.body.name,
+  });
+  if (stage) {
+    res.status(409).send("Data Already Exists");
+  } else {
+    let stages = new StageData(
+      _.pick(req.body, ["name", "stageData", "created_by", "modified_by"])
+    );
+    stages
+      .save()
+      .then((doc) => {
+        res.status(200).json({
+          message: "StageData Added Successfully",
+          results: doc,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(400).json(err);
       });
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(400).json(err);
-    });
+  }
 };
 
 exports.putStageData = async (req, res, next) => {
