@@ -54,8 +54,8 @@ exports.getStageDataById = async (req, res, next) => {
 
 exports.addStageData = async (req, res, next) => {
   let stage = await stageData.findOne({
+    stageData: req.body.stageData,
     name: req.body.name,
-    stageData: req.body.name,
   });
   if (stage) {
     res.status(409).send("Data Already Exists");
