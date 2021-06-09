@@ -22,6 +22,35 @@ exports.getCandidate = async (req, res, next) => {
         select: "-__v",
       },
     })
+    .populate({
+      path: "stage",
+      select: "-__v -job ",
+      populate: {
+        path: "stages",
+        select: "-__v",
+      },
+    })
+    .populate({
+      path: "job",
+      select: "-stages -__v",
+      populate: {
+        path: "department",
+        select: " -__v",
+        populate: {
+          path: "location ",
+          select: " -__v",
+          populate: { path: "company", select: " -__v" },
+        },
+      },
+    })
+    .populate({
+      path: "job",
+      select: " -stages -__v ",
+      populate: {
+        path: "category",
+        select: " -__v -location",
+      },
+    })
 
     .exec()
     .then((data) => {
