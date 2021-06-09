@@ -61,7 +61,15 @@ exports.addStageData = async (req, res, next) => {
   //   res.status(409).send("Data Already Exists");
   // } else {
   let stages = new StageData(
-    _.pick(req.body, ["name", "stageData", "created_by", "modified_by"])
+    _.pick(req.body, [
+      "name",
+      "stageData",
+      "stage",
+      "stepName",
+      "order",
+      "created_by",
+      "modified_by",
+    ])
   );
   stages
     .save()

@@ -4,13 +4,21 @@ const stageDataSchema = new mongoose.Schema(
     name: { type: String, required: true },
     stageData: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "stages",
-        required: true,
+        type: new mongoose.Schema({
+          job: [{ type: mongoose.Schema.Types.ObjectId, ref: "job" }],
+
+          stage: { type: Number, required: true, default: 1 },
+
+          stepName: { type: String, required: true, default: "Open" },
+
+          order: { type: Number, required: true, default: 1 },
+
+          created_by: { type: String },
+
+          modified_by: { type: String },
+        }),
       },
     ],
-    created_by: { type: String },
-    modified_by: { type: String },
   },
   { timestamps: true }
 );
