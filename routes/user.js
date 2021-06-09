@@ -167,7 +167,7 @@ router.get("/api/v1/user/me", auth, userController.getMe);
  *              description: Token
  *          default:
  *              description: This is the default response for it
- * 
+ *
  */
 
 //login user

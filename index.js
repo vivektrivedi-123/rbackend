@@ -24,6 +24,7 @@ const task = require("./routes/jobTask");
 const location = require("./routes/location");
 const option = require("./routes/options");
 const stageData = require("./routes/stageData");
+const candidate = require("./routes/candidate");
 const basicAuth = require("express-basic-auth");
 const swaggerUi = require("swagger-ui-express");
 const swaggerJsdoc = require("swagger-jsdoc");
@@ -110,6 +111,7 @@ app.use("/", task);
 app.use("/", location);
 app.use("/", option);
 app.use("/", stageData);
+app.use("/", candidate);
 app.use(error);
 
 mongoose

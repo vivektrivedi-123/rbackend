@@ -2,8 +2,6 @@ const mongoose = require("mongoose");
 const fs = require("fs");
 const company = require("./company");
 const role = require("./role");
-const { ObjectID } = require("bson");
-const { ObjectId } = require("bson");
 const userSchema = new mongoose.Schema(
   {
     company: [

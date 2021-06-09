@@ -10,7 +10,7 @@ exports.getStage = async (req, res, next) => {
   const skip = parseInt(req.query.skip);
   const limit = parseInt(req.query.limit);
   Stage.find()
-    .sort({ order: 1 })
+    .sort({ stage: 1, order: 1 })
     .skip(skip)
     .limit(limit)
     .select(" -__v")
@@ -54,6 +54,13 @@ exports.getStageById = async (req, res, next) => {
   Stage.findById({ _id: req.params.id })
     .sort({ order: 1 })
     .select(" -__v")
+    .populate({
+      path: "stageData",
+      select: "__v",
+      populate: {
+        path: "stages",
+      },
+    })
     .populate({
       path: "job",
       select: "-stages -__v",
@@ -99,6 +106,7 @@ exports.addStage = async (req, res, next) => {
   let stages = new Stage(
     _.pick(req.body, [
       "job",
+      "stageData",
       "stage",
       "stepName",
       "order",

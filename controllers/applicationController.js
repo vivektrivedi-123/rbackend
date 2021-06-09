@@ -18,6 +18,7 @@ exports.getApplication = async (req, res, next) => {
   const skip = parseInt(req.query.skip);
   const limit = parseInt(req.query.limit);
   Application.find()
+    .query({ form_values })
     .skip(skip)
     .limit(limit)
     .select(" -__v")
@@ -154,7 +155,6 @@ exports.putApplication = async (req, res, next) => {
   );
   await update.save();
   res.json({ message: "Application Updated", update }).status(200);
-  
 };
 
 exports.patchApplication = async (req, res, next) => {
@@ -173,7 +173,6 @@ exports.patchApplication = async (req, res, next) => {
   );
   await update.save();
   res.json({ message: "Application Updated", update }).status(200);
-  
 };
 
 exports.deleteApplication = async (req, res, next) => {

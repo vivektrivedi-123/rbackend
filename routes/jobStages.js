@@ -31,8 +31,8 @@ const Stage = require("../models/stage");
  *                          status:
  *                               type: string
  *                               description: The status of the job
- *         
- *    
+ *
+ *
  */
 /**
  * @swagger
@@ -101,7 +101,7 @@ router.get("/api/v1/stage/:id", auth, stagesController.getStageById);
  *                          status:
  *                               type: string
  *                               description: The status of the job
- * 
+ *
  *      responses:
  *          200:
  *             description: A successful response
@@ -295,9 +295,5 @@ router.delete("/api/v1/stage/:id", auth, stagesController.deleteStage);
  */
 
 //patch
-router.patch(
-  "/api/v1/stage/:id",
-  auth,
-  stagesController.patchStage
-);
+router.patch("/api/v1/stage/:id", auth, stagesController.patchStage);
 module.exports = router;

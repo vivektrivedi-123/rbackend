@@ -15,19 +15,18 @@ const Stage = require("../models/stageData");
  *   StageData:
  *    type: object
  *    required:
- *     
+ *     - name
  *     - stageData
- *     
  *    properties:
- *                          id:
+ *                          name:
  *                              type: string
- *                              description: Auto-Generated ID of Stages
+ *                              description: Name of the Stage
  *                          StageData:
  *                              type: string
  *                              description: The ID of the job
- *                          
- *         
- *    
+ *
+ *
+ *
  */
 /**
  * @swagger
@@ -87,16 +86,12 @@ router.get("/api/v1/stageData/:id", auth, stageDataController.getStageDataById);
  *                  schema:
  *                      type: object
  *                      properties:
- *                          job:
+ *                          name:
  *                              type: string
- *                              description: The ID of the job
- *                          stage:
+ *                              description: The name of the Stage Data
+ *                          stageData:
  *                               type: string
- *                               description: Stage of the job
- *                          status:
- *                               type: string
- *                               description: The status of the job
- * 
+ *                               description: ID of the Stages
  *      responses:
  *          200:
  *             description: A successful response
@@ -221,7 +216,11 @@ router.put(
  *    404:
  *     description: Id not found
  */
-router.delete("/api/v1/stageData/:id", auth, stageDataController.deleteStageData);
+router.delete(
+  "/api/v1/stageData/:id",
+  auth,
+  stageDataController.deleteStageData
+);
 
 /**
  * @swagger
@@ -297,9 +296,5 @@ router.delete("/api/v1/stageData/:id", auth, stageDataController.deleteStageData
  */
 
 //patch
-router.patch(
-  "/api/v1/stageData/:id",
-  auth,
-  stageDataController.patchStageData
-);
+router.patch("/api/v1/stageData/:id", auth, stageDataController.patchStageData);
 module.exports = router;
