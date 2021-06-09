@@ -6,65 +6,7 @@ const validate = require("express-validator");
 const Candidate = require("../models/candidate");
 const company = require("../models/company");
 
-//get
-exports.getCandidate = async (req, res, next) => {
-  const skip = parseInt(req.query.skip);
-  const limit = parseInt(req.query.limit);
-  Candidate.find()
-    .skip(skip)
-    .limit(limit)
-    .select("-__v")
-    .populate({
-      path: "stage",
-      select: "-__v -job",
-      populate: {
-        path: "stepStage",
-        select: "-__v",
-      },
-    })
-    .populate({
-      path: "stage",
-      select: "-__v -job ",
-      populate: {
-        path: "stages",
-        select: "-__v",
-      },
-    })
-    .populate({
-      path: "job",
-      select: "-stages -__v",
-      populate: {
-        path: "department",
-        select: " -__v",
-        populate: {
-          path: "location ",
-          select: " -__v",
-          populate: { path: "company", select: " -__v" },
-        },
-      },
-    })
-    .populate({
-      path: "job",
-      select: " -stages -__v ",
-      populate: {
-        path: "category",
-        select: " -__v -location",
-      },
-    })
-
-    .exec()
-    .then((data) => {
-      res.status(200).json({
-        results: data,
-      });
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(404).json(err);
-    });
-};
-
-//get by ID
+//get candidate by ID
 exports.getCandidateById = async (req, res, next) => {
   Candidate.findById({ _id: req.params.id })
     .select(" -__v")

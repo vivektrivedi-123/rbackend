@@ -43,23 +43,6 @@ const app = express();
  * @swagger
  * tags:
  *  name: Candidate
- * /api/v1/candidate:
- *  get:
- *      security:
- *        - Bearer: []
- *      tags: [User]
- *      summary: Get all users
- *      responses:
- *          default:
- *              description: This is the default response for it
- */
-
-//get all
-router.get("/api/v1/candidate", auth, candidateController.getCandidate);
-/**
- * @swagger
- * tags:
- *  name: Candidate
  * /api/v1/candidate/{id}:
  *  get:
  *   security:
