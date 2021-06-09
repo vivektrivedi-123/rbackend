@@ -18,19 +18,20 @@ const userSchema = new mongoose.Schema(
         required: true,
       },
     ],
+    stage: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "stageData",
+        required: true,
+      },
+    ],
     first_name: { type: String, required: true, trim: true, min: 3, max: 30 },
     last_name: { type: String, required: true, min: 3, max: 30 },
     mobile_number: { type: Number, required: true, length: 10 },
     email: { type: String, required: true },
     password: { type: String, required: true, min: 8, max: 20 },
     profile_image: { type: String, required: true },
-    stage: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "stages",
-        required: true,
-      },
-    ],
+
     created_by: { type: String },
     modified_by: { type: String },
   },

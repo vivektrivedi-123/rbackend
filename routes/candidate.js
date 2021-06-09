@@ -204,12 +204,12 @@ router.put(
 /**
  * @swagger
  * tags:
- *  name: User
- * /api/v1/user/{id}:
+ *  name: Candidate
+ * /api/v1/candidate/{id}:
  *  delete:
  *   security:
  *        - Bearer: []
- *   tags: [User]
+ *   tags: [Candidate]
  *   summary: delete candiate
  *   description: delete candidate
  *   parameters:
@@ -241,7 +241,7 @@ router.delete(
  *  patch:
  *   security:
  *        - Bearer: []
- *   tags: [User]
+ *   tags: [Candidate]
  *   summary: update candidate
  *   description: update candidate
  *   consumes:

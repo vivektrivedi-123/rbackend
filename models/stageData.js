@@ -2,10 +2,16 @@ const mongoose = require("mongoose");
 const stageDataSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
-    stageData: [
+    stages: [
       {
         type: new mongoose.Schema({
-          job: [{ type: mongoose.Schema.Types.ObjectId, ref: "job" }],
+          job: [
+            {
+              type: mongoose.Schema.Types.ObjectId,
+              ref: "job",
+              required: true,
+            },
+          ],
 
           stage: { type: Number, required: true, default: 1 },
 

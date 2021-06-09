@@ -69,8 +69,10 @@ exports.getUserById = async (req, res, next) => {
       path: "stage",
       select: "-__v -job ",
       populate: {
-        path: "stepStage",
-        select: "-__v",
+        path: "stageData",
+        populate: {
+          path: "stages",
+        },
       },
     })
     .populate("company", "company_name ")

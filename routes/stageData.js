@@ -16,27 +16,28 @@ const Stage = require("../models/stageData");
  *    type: object
  *    required:
  *     - name
- *     - stageData
+ *     - stages
+ *     - stage
+ *     - stepName
+ *     - order
  *    properties:
- *                          name:
- *                              type: string
- *                              description: Name of the Stage
- *                          StageData:
- *                              type: string
- *                              description: The ID of the job
- *
- *
+ *              name:
+ *                type: string
+ *                description: Nmae of the Stage Data
+ *              stages:
+ *                type: string
+ *                description:
  *
  */
 /**
  * @swagger
  * tags:
- *  name: Stage
- * /api/v1/stage:
+ *  name: StageData
+ * /api/v1/stageData:
  *  get:
  *      security:
  *        - Bearer: []
- *      tags: [Stage]
+ *      tags: [StageData]
  *      summary: Get all stage
  *      responses:
  *          default:
@@ -46,12 +47,12 @@ router.get("/api/v1/stageData", auth, stageDataController.getStageData);
 /**
  * @swagger
  * tags:
- *  name: Stage
- * /api/v1/stage/{id}:
+ *  name: StageData
+ * /api/v1/stageData/{id}:
  *  get:
  *   security:
  *        - Bearer: []
- *   tags: [Stage]
+ *   tags: [StageData]
  *   summary: Get stage by ID
  *   description: Get stage data by ID
  *   parameters:
@@ -72,13 +73,13 @@ router.get("/api/v1/stageData/:id", auth, stageDataController.getStageDataById);
 /**
  * @swagger
  * tags:
- *  name: Stage
- * /api/v1/stage:
+ *  name: StageData
+ * /api/v1/stageData:
  *  post:
  *      security:
  *        - Bearer: []
- *      tags: [Stage]
- *      summary: Add stage
+ *      tags: [StageData]
+ *      summary: Add stageData
  *      requestBody:
  *          required: true
  *          content:
@@ -108,14 +109,14 @@ router.post(
 /**
  * @swagger
  * tags:
- *  name: Stage
- * /api/v1/stage/{id}:
+ *  name: StageData
+ * /api/v1/stageData/{id}:
  *  put:
  *   security:
  *        - Bearer: []
- *   tags: [Stage]
- *   summary: update stage
- *   description: update stage
+ *   tags: [StageData]
+ *   summary: update stageData
+ *   description: update stageData
  *   consumes:
  *    - application/json
  *   produces:
@@ -126,7 +127,7 @@ router.post(
  *      schema:
  *       type: string
  *      required: true
- *      description: id of the stage
+ *      description: id of the stageData
  *      example: 2
  *    - in: body
  *      name: body
@@ -184,24 +185,18 @@ router.put(
   validateSchema,
   stageDataController.putStageData
 );
-router.put(
-  "/api/v1/stageData",
-  auth,
-  stageDataValidation(),
-  validateSchema,
-  stageDataController.putStageData
-);
+
 /**
  * @swagger
  * tags:
- *  name: Stage
- * /api/v1/stage/{id}:
+ *  name: StageData
+ * /api/v1/stageData/{id}:
  *  delete:
  *   security:
  *        - Bearer: []
- *   tags: [Stage]
- *   summary: delete stage
- *   description: delete stage
+ *   tags: [StageData]
+ *   summary: delete stageData
+ *   description: delete stageData
  *   parameters:
  *    - in: path
  *      name: id
@@ -225,12 +220,12 @@ router.delete(
 /**
  * @swagger
  * tags:
- *  name: Stage
- * /api/v1/stage/{id}:
+ *  name: StageData
+ * /api/v1/stageData/{id}:
  *  patch:
  *   security:
  *        - Bearer: []
- *   tags: [Stage]
+ *   tags: [StageData]
  *   summary: update stage
  *   description: update stage
  *   consumes:

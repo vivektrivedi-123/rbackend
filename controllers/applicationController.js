@@ -18,7 +18,6 @@ exports.getApplication = async (req, res, next) => {
   const skip = parseInt(req.query.skip);
   const limit = parseInt(req.query.limit);
   Application.find()
-    .query({ form_values })
     .skip(skip)
     .limit(limit)
     .select(" -__v")
