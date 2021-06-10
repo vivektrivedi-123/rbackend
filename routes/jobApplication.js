@@ -222,7 +222,7 @@ router.get(
  *                      description: Add to talent pool
  *                      example: Yes
  *      responses:
- *          200: 
+ *          200:
  *             description: Success
  *          default:
  *              description: This is the default response for it

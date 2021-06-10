@@ -20,10 +20,10 @@ const form = require("./routes/jobForm");
 const interview = require("./routes/jobInterview");
 const job = require("./routes/jobPosting");
 const stage = require("./routes/jobStages");
+const stageData = require("./routes/stageData");
 const task = require("./routes/jobTask");
 const location = require("./routes/location");
 const option = require("./routes/options");
-const stageData = require("./routes/stageData");
 const candidate = require("./routes/candidate");
 const basicAuth = require("express-basic-auth");
 const swaggerUi = require("swagger-ui-express");
@@ -63,6 +63,13 @@ const options = {
         url: "https://spdx.org/licenses/MIT.html",
       },
     },
+    contact: [
+      {
+        name: "Rudra Innovative Software",
+        url: "https://www.rudrainnovative.com/",
+        email: "info@rudrainnovative.com",
+      },
+    ],
     servers: [
       {
         url: "http://localhost:3001",
@@ -107,10 +114,10 @@ app.use("/", form);
 app.use("/", interview);
 app.use("/", job);
 app.use("/", stage);
+app.use("/", stageData);
 app.use("/", task);
 app.use("/", location);
 app.use("/", option);
-app.use("/", stageData);
 app.use("/", candidate);
 app.use(error);
 

@@ -344,9 +344,5 @@ router.delete("/api/v1/email/:id", auth, emailController.deleteEmail);
  */
 
 //patch
-router.put(
-  "/api/v1/email/:id",
-  auth,
-  emailController.patchEmail
-);
+router.put("/api/v1/email/:id", auth, emailController.patchEmail);
 module.exports = router;

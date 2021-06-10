@@ -17,16 +17,24 @@ const Stage = require("../models/stageData");
  *    required:
  *     - name
  *     - stages
+ *     - job
  *     - stage
  *     - stepName
  *     - order
  *    properties:
  *              name:
  *                type: string
- *                description: Nmae of the Stage Data
+ *                description: Name of the Stage Data
  *              stages:
- *                type: string
- *                description:
+ *                type: array
+ *                job:
+ *                  type: string
+ *                stage:
+ *                  type: integer
+ *                stepName:
+ *                  type: string
+ *                order:
+ *                  type: integer
  *
  */
 /**
@@ -59,7 +67,7 @@ router.get("/api/v1/stageData", auth, stageDataController.getStageData);
  *    - in: path
  *      name: id
  *      schema:
- *       type: string
+ *       type: array
  *      required: true
  *      description: id of the stage
  *      example: id
@@ -85,14 +93,21 @@ router.get("/api/v1/stageData/:id", auth, stageDataController.getStageDataById);
  *          content:
  *              application/json:
  *                  schema:
- *                      type: object
+ *                      type: array
  *                      properties:
- *                          name:
- *                              type: string
- *                              description: The name of the Stage Data
- *                          stageData:
- *                               type: string
- *                               description: ID of the Stages
+ *                         name:
+ *                           type: string
+ *                           description: Nmae of the Stage Data
+ *                         stages:
+ *                           type: array
+ *                           job:
+ *                             type: string
+ *                           stage:
+ *                             type: integer
+ *                           stepName:
+ *                             type: string
+ *                           order:
+ *                             type: integer
  *      responses:
  *          200:
  *             description: A successful response
@@ -125,7 +140,7 @@ router.post(
  *    - in: path
  *      name: id
  *      schema:
- *       type: string
+ *       type: array
  *      required: true
  *      description: id of the stageData
  *      example: 2
@@ -136,30 +151,38 @@ router.post(
  *      schema:
  *        type: object
  *        properties:
- *                          job:
+ *                          name:
+ *                            type: string
+ *                            description: Name of the Stage Data
+ *                          stages:
+ *                            type: array
+ *                            job:
  *                              type: string
- *                              description: The ID of the job
- *                          stage:
- *                               type: string
- *                               description: Stage of the job
- *                          status:
- *                               type: string
- *                               description: The status of the job
+ *                            stage:
+ *                              type: integer
+ *                            stepName:
+ *                              type: string
+ *                            order:
+ *                              type: integer
  *   requestBody:
  *    content:
  *     application/json:
  *      schema:
  *       type: object
  *       properties:
- *                          job:
+ *                          name:
+ *                            type: string
+ *                            description: Name of the Stage Data
+ *                          stages:
+ *                            type: array
+ *                            job:
  *                              type: string
- *                              description: The ID of the job
- *                          stage:
- *                               type: string
- *                               description: Stage of the job
- *                          status:
- *                               type: string
- *                               description: The status of the job
+ *                            stage:
+ *                              type: integer
+ *                            stepName:
+ *                              type: string
+ *                            order:
+ *                              type: integer
  *   responses:
  *    200:
  *     description: success
@@ -168,15 +191,19 @@ router.post(
  *       schema:
  *        type: object
  *        properties:
- *                          job:
+ *                          name:
+ *                            type: string
+ *                            description: Name of the Stage Data
+ *                          stages:
+ *                            type: array
+ *                            job:
  *                              type: string
- *                              description: The ID of the job
- *                          stage:
- *                               type: string
- *                               description: Stage of the job
- *                          status:
- *                               type: string
- *                               description: The status of the job
+ *                            stage:
+ *                              type: integer
+ *                            stepName:
+ *                              type: string
+ *                            order:
+ *                              type: integer
  */
 router.put(
   "/api/v1/stageData/:id",
@@ -247,30 +274,38 @@ router.delete(
  *      schema:
  *        type: object
  *        properties:
- *                          job:
+ *                          name:
+ *                            type: string
+ *                            description: Name of the Stage Data
+ *                          stages:
+ *                            type: array
+ *                            job:
  *                              type: string
- *                              description: The ID of the job
- *                          stage:
- *                               type: string
- *                               description: Stage of the job
- *                          status:
- *                               type: string
- *                               description: The status of the job
+ *                            stage:
+ *                              type: integer
+ *                            stepName:
+ *                              type: string
+ *                            order:
+ *                              type: integer
  *   requestBody:
  *    content:
  *     application/json:
  *      schema:
  *       type: object
  *       properties:
- *                          job:
+ *                          name:
+ *                            type: string
+ *                            description: Name of the Stage Data
+ *                          stages:
+ *                            type: array
+ *                            job:
  *                              type: string
- *                              description: The ID of the job
- *                          stage:
- *                               type: string
- *                               description: Stage of the job
- *                          status:
- *                               type: string
- *                               description: The status of the job
+ *                            stage:
+ *                              type: integer
+ *                            stepName:
+ *                              type: string
+ *                            order:
+ *                              type: integer
  *   responses:
  *    200:
  *     description: success
@@ -279,15 +314,19 @@ router.delete(
  *       schema:
  *        type: object
  *        properties:
- *                          job:
+ *                          name:
+ *                            type: string
+ *                            description: Name of the Stage Data
+ *                          stages:
+ *                            type: array
+ *                            job:
  *                              type: string
- *                              description: The ID of the job
- *                          stage:
- *                               type: string
- *                               description: Stage of the job
- *                          status:
- *                               type: string
- *                               description: The status of the job
+ *                            stage:
+ *                              type: integer
+ *                            stepName:
+ *                              type: string
+ *                            order:
+ *                              type: integer
  */
 
 //patch

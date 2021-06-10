@@ -41,7 +41,7 @@ const upload = multer({
 /**
  * @swagger
  * components:
- *  schemas: 
+ *  schemas:
  *   Company:
  *    type: object
  *    required:
@@ -512,10 +512,5 @@ router.delete("/api/v1/company/:id", auth, companyController.deleteCompany);
  */
 
 //patch
-router.patch(
-  "/api/v1/company/:id",
-  auth,
-  upload,
-  companyController.putCompany
-);
+router.patch("/api/v1/company/:id", auth, upload, companyController.putCompany);
 module.exports = router;
