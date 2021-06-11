@@ -4,13 +4,7 @@ const company = require("./company");
 const job = require("./job");
 const candidateSchema = new mongoose.Schema(
   {
-    candidate_name: {
-      type: String,
-      required: true,
-      trim: true,
-      min: 3,
-      max: 30,
-    },
+    candidate_name: { type: String, required: true, min: 3, max: 30 },
     applied_for: { type: String, required: true, min: 3, max: 30 },
     owner: { type: String, required: true, length: 20 },
     applied_date: { type: String, required: true },
@@ -18,7 +12,7 @@ const candidateSchema = new mongoose.Schema(
     stage: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "stages",
+        ref: "stageData",
         required: true,
       },
     ],

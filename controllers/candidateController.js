@@ -1,21 +1,21 @@
 const express = require("express");
-const jwt = require("jsonwebtoken");
-const mongoose = require("mongoose");
 const _ = require("lodash");
 const validate = require("express-validator");
 const Candidate = require("../models/candidate");
-const company = require("../models/company");
-
+const stageData = require("../models/stageData");
 //get candidate by ID
 exports.getCandidateById = async (req, res, next) => {
   Candidate.findById({ _id: req.params.id })
     .select(" -__v")
     .populate({
       path: "stage",
-      select: "-__v -job ",
+      select: "-__v",
       populate: {
-        path: "stages",
-        select: "-__v",
+        path: "stageData",
+        select: "-job -__v",
+        populate: {
+          path: "stages",
+        },
       },
     })
     .populate({
@@ -55,36 +55,6 @@ exports.getCandidateById = async (req, res, next) => {
       res.status(404).json(err);
     });
 };
-//Candidate login
-// exports.CandidateLogin = async (req, res, next) => {
-//   try {
-//     const email = req.body.email;
-//     const company = JSON.stringify(req.body.company);
-//     const password = req.body.password;
-//     let candidate = await Candidate.findOne({
-//       email: req.body.email,
-//       company: req.body.company,
-//     });
-//     if (!Candidate) return res.status(404).send("Candidate does not exists");
-
-//     const validPassword = await bcrypt.compare(
-//       req.body.password,
-//       Candidate.password
-//     );
-//     if (!validPassword) return res.status(403).send("Invalid  Password.");
-
-//     const token = jwt.sign({ _id: Candidate.id }, process.env.SECRET_KEY, {
-//       expiresIn: "60m",
-//     });
-//     res
-//       .header("Authorization", token)
-//       .header("Access-Control-Expose-Headers", "Authorization")
-//       .status(200);
-//     res.json(token);
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
 
 //add Candidate
 exports.addCandidate = async (req, res, next) => {

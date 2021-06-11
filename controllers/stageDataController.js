@@ -2,7 +2,6 @@ const StageData = require("../models/stageData");
 const mongoose = require("mongoose");
 const _ = require("lodash");
 const job = require("../models/job");
-const stageData = require("../models/stageData");
 const stage = require("../models/stage");
 
 exports.getStageData = async (req, res, next) => {
@@ -53,9 +52,9 @@ exports.getStageDataById = async (req, res, next) => {
 };
 
 exports.addStageData = async (req, res, next) => {
-  let stage = await stageData.findOne({ stageData: [{ name: "Default" }] });
+  let stage = await StageData.findOne({ name: req.body.name });
   if (stage) {
-    res.status(409).send("Default data Already Exists");
+    res.status(409).send("Data Already Exists");
   } else {
     let stages = new StageData(
       _.pick(req.body, [

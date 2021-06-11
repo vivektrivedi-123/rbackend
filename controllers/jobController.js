@@ -18,10 +18,6 @@ exports.getJob = async (req, res, next) => {
       populate: {
         path: "stageData",
         select: "-job -__v -createdAt -updatedAt",
-        populate: {
-          path: "stepStage",
-          select: "-__v -createdAt -updatedAt",
-        },
       },
     })
     .populate({
@@ -56,10 +52,6 @@ exports.getJobById = async (req, res, next) => {
       populate: {
         path: "stageData",
         select: "-job -__v -createdAt -updatedAt",
-        populate: {
-          path: "stepStage",
-          select: "-__v -createdAt -updatedAt",
-        },
       },
     })
     .populate({
