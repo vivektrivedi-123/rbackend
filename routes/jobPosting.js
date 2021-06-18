@@ -6,6 +6,7 @@ const {
   jobValidation,
   validateSchema,
 } = require("../validation/jobValidation");
+const isValid = require("../middleware/validID")
 const router = express.Router();
 const job = require("../models/job");
 
@@ -120,7 +121,7 @@ router.get("/api/v1/job", auth, jobController.getJob);
  *    404:
  *     description: Id not found
  */
-router.get("/api/v1/job/:id", auth, jobController.getJobById);
+router.get("/api/v1/job/:id", auth, isValid, jobController.getJobById);
 /**
  * @swagger
  * tags:
@@ -379,7 +380,7 @@ router.post(
  */
 router.put(
   "/api/v1/job/:id",
-  auth,
+  auth, isValid,
   jobValidation(),
   validateSchema,
   jobController.putJob
@@ -409,7 +410,7 @@ router.put(
  *    404:
  *     description: Id not found
  */
-router.delete("/api/v1/job/:id", auth, jobController.deleteJob);
+router.delete("/api/v1/job/:id", auth, isValid, jobController.deleteJob);
 
 /**
  * @swagger
@@ -594,5 +595,5 @@ router.delete("/api/v1/job/:id", auth, jobController.deleteJob);
  */
 
 //patch
-router.patch("/api/v1/job/:id", auth, jobController.patchJob);
+router.patch("/api/v1/job/:id", auth, isValid, jobController.patchJob);
 module.exports = router;

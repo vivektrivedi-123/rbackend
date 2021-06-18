@@ -6,6 +6,7 @@ const {
 } = require("../validation/emailValidation");
 const router = express.Router();
 const auth = require("../middleware/auth");
+const isValid = require("../middleware/validID")
 const Email = require("../models/email");
 
 /**
@@ -82,7 +83,7 @@ router.get("/api/v1/email", auth, emailController.getEmail);
  *    404:
  *     description: Id not found
  */
-router.get("/api/v1/email/:id", auth, emailController.getEmailById);
+router.get("/api/v1/email/:id", auth, isValid, emailController.getEmailById);
 /**
  * @swagger
  * tags:
@@ -220,7 +221,7 @@ router.post(
  */
 router.put(
   "/api/v1/email/:id",
-  auth,
+  auth, isValid,
   emailValidation(),
   validateSchema,
   emailController.putEmail
@@ -250,7 +251,7 @@ router.put(
  *    404:
  *     description: Id not found
  */
-router.delete("/api/v1/email/:id", auth, emailController.deleteEmail);
+router.delete("/api/v1/email/:id", auth, isValid, emailController.deleteEmail);
 
 /**
  * @swagger
@@ -344,5 +345,5 @@ router.delete("/api/v1/email/:id", auth, emailController.deleteEmail);
  */
 
 //patch
-router.put("/api/v1/email/:id", auth, emailController.patchEmail);
+router.put("/api/v1/email/:id", auth, isValid, emailController.patchEmail);
 module.exports = router;

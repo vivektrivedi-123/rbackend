@@ -6,6 +6,7 @@ const {
   categoryValidation,
   validateSchema,
 } = require("../validation/categoryValidation");
+const isValid = require("../middleware/validID")
 const router = express.Router();
 /**
  * @swagger
@@ -72,7 +73,7 @@ router.get("/api/v1/category", auth, categoryController.getCategory);
  *    404:
  *     description: Id not found
  */
-router.get("/api/v1/category/:id", auth, categoryController.getCategoryById);
+router.get("/api/v1/category/:id", auth, isValid, categoryController.getCategoryById);
 /**
  * @swagger
  * tags:
@@ -186,7 +187,7 @@ router.post(
  */
 router.put(
   "/api/v1/category/:id",
-  auth,
+  auth, isValid,
   categoryValidation(),
   validateSchema,
   categoryController.putCategory
@@ -216,7 +217,7 @@ router.put(
  *    404:
  *     description: Id not found
  */
-router.delete("/api/v1/category/:id", auth, categoryController.deleteCategory);
+router.delete("/api/v1/category/:id", auth, isValid, categoryController.deleteCategory);
 
 /**
  * @swagger
@@ -292,6 +293,6 @@ router.delete("/api/v1/category/:id", auth, categoryController.deleteCategory);
  */
 
 //patch
-router.patch("/api/v1/category/:id", auth, categoryController.patchCategory);
+router.patch("/api/v1/category/:id", auth,isValid, categoryController.patchCategory);
 
 module.exports = router;

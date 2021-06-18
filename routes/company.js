@@ -8,6 +8,7 @@ const {
 const path = require("path");
 const router = express.Router();
 const auth = require("../middleware/auth");
+const isValid = require("../middleware/validID")
 const isAdmin = require("../middleware/admin");
 const Company = require("../models/company");
 const multer = require("multer");
@@ -18,7 +19,7 @@ const storage = multer.diskStorage({
   },
 
   filename: (req, file, cb) => {
-    cb(null, file.fieldname);
+    cb(null, file.originalname);
   },
 });
 
@@ -28,7 +29,10 @@ const upload = multer({
     if (
       file.mimetype == "image/png" ||
       file.mimetype == "image/jpg" ||
-      file.mimetype == "image/jpeg"
+      file.mimetype == "image/jpeg" ||
+      file.mimetype == "image/PNG" ||
+      file.mimetype == "image/JPG" ||
+      file.mimetype == "image/JPEG"
     ) {
       cb(null, true);
     } else {
@@ -106,7 +110,7 @@ const upload = multer({
  *              description: Bad Request
  */
 //get all
-router.get("/api/v1/company", auth, companyController.getCompany);
+router.get("/api/v1/company",auth, companyController.getCompany);
 /**
  * @swagger
  * tags:
@@ -133,7 +137,7 @@ router.get("/api/v1/company", auth, companyController.getCompany);
  *     description: Id not found
  */
 //get by ID
-router.get("/api/v1/company/:id", auth, companyController.getCompanyById);
+router.get("/api/v1/company/:id", auth, isValid, companyController.getCompanyById);
 /**
  * @swagger
  * tags:
@@ -338,7 +342,7 @@ router.post(
 //put
 router.put(
   "/api/v1/company/:id",
-  auth,
+  auth,isValid,
   upload,
   compValidation(),
   validateSchema,
@@ -370,7 +374,7 @@ router.put(
  *     description: Id not found
  */
 //delete
-router.delete("/api/v1/company/:id", auth, companyController.deleteCompany);
+router.delete("/api/v1/company/:id", auth,isValid, companyController.deleteCompany);
 
 /**
  * @swagger
@@ -512,5 +516,5 @@ router.delete("/api/v1/company/:id", auth, companyController.deleteCompany);
  */
 
 //patch
-router.patch("/api/v1/company/:id", auth, upload, companyController.putCompany);
+router.patch("/api/v1/company/:id", auth, upload, isValid, companyController.putCompany);
 module.exports = router;

@@ -6,6 +6,7 @@ const {
 } = require("../validation/locationValidation");
 const router = express.Router();
 const auth = require("../middleware/auth");
+const isValid = require("../middleware/validID")
 const Location = require("../models/location");
 /**
  * @swagger
@@ -104,7 +105,7 @@ router.get("/api/v1/location", auth, locationController.getLocation);
  *    404:
  *     description: Id not found
  */
-router.get("/api/v1/location/:id", auth, locationController.getLocationById);
+router.get("/api/v1/location/:id", auth, isValid, locationController.getLocationById);
 /**
  * @swagger
  * tags:
@@ -315,7 +316,7 @@ router.post(
 */
 router.put(
   "/api/v1/location/:id",
-  auth,
+  auth, isValid,
   locationValidation(),
   validateSchema,
   locationController.putLocation
@@ -345,7 +346,7 @@ router.put(
  *    404:
  *     description: Id not found
  */
-router.delete("/api/v1/location/:id", auth, locationController.deleteLocation);
+router.delete("/api/v1/location/:id", auth, isValid ,locationController.deleteLocation);
 
 /**
  * @swagger
@@ -496,7 +497,7 @@ router.delete("/api/v1/location/:id", auth, locationController.deleteLocation);
 //patch
 router.patch(
   "/api/v1/location/:id",
-  auth,
+  auth, isValid,
   locationController.patchLocation
 );
 module.exports = router;

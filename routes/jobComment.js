@@ -8,6 +8,7 @@ const router = express.Router();
 const auth = require("../middleware/auth");
 const Comment = require("../models/comments");
 const multer = require("multer");
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "./attachments");
@@ -62,7 +63,7 @@ const attachments = multer({ storage: storage }).array("attachments", 4);
  *          default:
  *              description: This is the default response for it
  */
-router.get("/api/v1/comment", auth, commentController.getComment);
+router.get("/api/v1/comment",  commentController.getComment);
 /**
  * @swagger
  * tags:

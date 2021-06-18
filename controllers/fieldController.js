@@ -1,4 +1,3 @@
-const express = require("express");
 const mongoose = require("mongoose");
 const _ = require("lodash");
 const Field = require("../models/field");
@@ -50,6 +49,7 @@ exports.getFieldById = async (req, res, next) => {
       res.status(404).json(err);
     });
 };
+
 exports.addField = async (req, res, next) => {
   let fields = new Field(
     _.pick(req.body, [
@@ -73,45 +73,48 @@ exports.addField = async (req, res, next) => {
       res.status(400).json(err);
     });
 };
+
 exports.putField = async (req, res, next) => {
-  let id = req.params.id;
-  if (!req.params.id || req.params.id < 0)
-    res.status(400).send("Invalid Request");
   Field.findOne({ _id: req.params.id }, function (err, doc) {
     if (err) console.log(err);
     else if (doc === null) res.status(400).send("Invalid Request");
   });
-  let update = await Field.findByIdAndUpdate({ _id: req.params.id }, req.body, {
-    new: true,
-  });
-  await update.save();
-  res.status(200).json(update);
+  try {
+    let update = await Field.findByIdAndUpdate({ _id: req.params.id }, req.body, {
+      new: true,
+    });
+    await update.save();
+    res.status(200).json(update);
+  } catch (error) {
+    res.status(500).json({message:error.message})
+  }
 };
+
 exports.patchField = async (req, res, next) => {
-  let id = req.params.id;
-  if (!req.params.id || req.params.id < 0)
-    res.status(400).send("Invalid Request");
   Field.findOne({ _id: req.params.id }, function (err, doc) {
     if (err) console.log(err);
     else if (doc === null) res.status(400).send("Invalid Request");
   });
-  let update = await Field.findByIdAndUpdate({ _id: req.params.id }, req.body, {
-    new: true,
-  });
-  await update.save();
-  res.status(200).json(update);
+  try {
+    let update = await Field.findByIdAndUpdate({ _id: req.params.id }, req.body, {
+      new: true,
+    });
+    await update.save();
+    res.status(200).json(update); 
+  } catch (error) {
+    res.status(500).json({message:error.message})
+  }
 };
 
 exports.deleteField = async (req, res, next) => {
-  if (!req.params.id || req.params.id < 0)
-    res.status(400).send("Invalid request");
-  Field.findByIdAndRemove({ _id: req.params.id })
-    .then((doc) => {
-      res.status(200).json({
-        message: "Field Deleted Successfully",
-      });
-    })
-    .catch((err) => {
-      res.status(404).json(err);
-    });
+  try {
+    let field = await Field.findByIdAndDelete({_id:req.params.id})
+    if(field){
+      res.status(200).json({message:"field deleted successfully"})
+    } else{
+      res.status(400).json({message:"field not found"})
+    }
+  } catch (error) {
+    res.status(500).json({message:error.message})
+  }
 };

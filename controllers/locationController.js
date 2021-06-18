@@ -1,4 +1,3 @@
-const express = require("express");
 const mongoose = require("mongoose");
 const _ = require("lodash");
 const company = require("../models/company");
@@ -22,6 +21,7 @@ exports.getLocation = async (req, res, next) => {
       res.status(404).json(err);
     });
 };
+
 exports.getLocationById = async (req, res, next) => {
   let location = await Location.findById({ _id: req.params.id })
     .select(" -__v")
@@ -42,6 +42,7 @@ exports.getLocationById = async (req, res, next) => {
       res.status(404).json(err);
     });
 };
+
 exports.addLocation = async (req, res, next) => {
   let locations = new Location(
     _.pick(req.body, [
@@ -73,49 +74,52 @@ exports.addLocation = async (req, res, next) => {
       res.status(400).json(err);
     });
 };
+
 exports.putLocation = async (req, res, next) => {
-  let id = req.params.id;
-  if (!req.params.id || req.params.id < 0)
-    res.status(400).send("Invalid Request");
   Location.findOne({ _id: req.params.id }, function (err, doc) {
     if (err) console.log(err);
     else if (doc === null) res.status(400).send("Invalid Request");
   });
-  let update = await Location.findByIdAndUpdate(
-    { _id: req.params.id },
-    req.body,
-    { new: true }
-  );
-  await update.save();
-  res.status(200).json(update);
+  try {
+    let update = await Location.findByIdAndUpdate(
+      { _id: req.params.id },
+      req.body,
+      { new: true }
+    );
+    await update.save();
+    res.status(200).json(update);
+  } catch (error) {
+    res.status(500).json({message:error.message})
+  }
 };
+
 exports.patchLocation = async (req, res, next) => {
-  let id = req.params.id;
-  if (!req.params.id || req.params.id < 0)
-    res.status(400).send("Invalid Request");
   Location.findOne({ _id: req.params.id }, function (err, doc) {
     if (err) console.log(err);
     else if (doc === null) res.status(400).send("Invalid Request");
   });
-  let update = await Location.findByIdAndUpdate(
-    { _id: req.params.id },
-    req.body,
-    { new: true }
-  );
-  await update.save();
-  res.status(200).json(update);
+   try {
+    let update = await Location.findByIdAndUpdate(
+      { _id: req.params.id },
+      req.body,
+      { new: true }
+    );
+    await update.save();
+    res.status(200).json(update);
+   } catch (error) {
+     res.status(500).json({message:error.message})
+   }
 };
 
 exports.deleteLocation = async (req, res, next) => {
-  if (!req.params.id || req.params.id < 0)
-    res.status(400).send("Invalid request");
-  Location.findByIdAndRemove({ _id: req.params.id })
-    .then((doc) => {
-      res.status(200).json({
-        message: "Location Deleted Successfully",
-      });
-    })
-    .catch((err) => {
-      res.status(404).json(err);
-    });
+  try {
+    let location = await Location.findByIdAndDelete({_id:req.params.id})
+    if(location){
+      res.status(200).json({message:"location deleted successfully"})
+    } else{
+      res.status(400).json({message:"location not found"})
+    }
+  } catch (error) {
+    res.status(500).json({message:error.message})
+  }
 };

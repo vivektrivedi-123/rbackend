@@ -11,6 +11,7 @@ const company = require("../models/company");
 const user = require("../models/user");
 const role = require("../models/role");
 const multer = require("multer");
+const isValid = require("../middleware/validID")
 const app = express();
 app.use(express.json());
 
@@ -132,10 +133,8 @@ router.get("/api/v1/user", auth, userController.getUser);
  */
 
 //get by ID
-router.get("/api/v1/user/:id", auth, userController.getUserById);
+router.get("/api/v1/user/:id", auth, isValid, userController.getUserById);
 
-//getMe
-router.get("/api/v1/user/me", auth, userController.getMe);
 
 /**
  * @swagger
@@ -224,7 +223,7 @@ router.post("/api/v1/userLogin", userController.userLogin);
 //post
 router.post(
   "/api/v1/user",
-  auth,
+  
   upload,
   userValidation(),
   validateSchema,
@@ -342,7 +341,7 @@ router.post(
 //put
 router.put(
   "/api/v1/user/:id",
-  auth,
+  auth, isValid,
   upload,
   userValidation(),
   validateSchema,
@@ -375,7 +374,7 @@ router.put(
  */
 
 //delete
-router.delete("/api/v1/user/:id", auth, userController.deleteUser);
+router.delete("/api/v1/user/:id", auth, isValid, userController.deleteUser);
 
 /**
  * @swagger
@@ -487,6 +486,6 @@ router.delete("/api/v1/user/:id", auth, userController.deleteUser);
  */
 
 //patch
-router.patch("/api/v1/user/:id", auth, upload, userController.patchUser);
+router.patch("/api/v1/user/:id", auth, upload,isValid, userController.patchUser);
 
 module.exports = router;

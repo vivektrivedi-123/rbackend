@@ -6,6 +6,7 @@ const {
 } = require("../validation/optionsValidation");
 const router = express.Router();
 const auth = require("../middleware/auth");
+const isValid = require("../middleware/validID")
 const Options = require("../models/options");
 /**
  * @swagger
@@ -180,7 +181,7 @@ router.post(
  */
 router.put(
   "/api/v1/option/:id",
-  auth,
+  auth, isValid,
   optionsValidation(),
   validateSchema,
   optionsController.putOptions
@@ -210,7 +211,7 @@ router.put(
  *    404:
  *     description: Id not found
  */
-router.delete("/api/v1/option/:id", auth, optionsController.deleteOptions);
+router.delete("/api/v1/option/:id", auth, isValid, optionsController.deleteOptions);
 
 /**
  * @swagger
@@ -288,7 +289,7 @@ router.delete("/api/v1/option/:id", auth, optionsController.deleteOptions);
 //patch
 router.patch(
   "/api/v1/option/:id",
-  auth,
+  auth, isValid,
   optionsController.patchOptions
 );
 module.exports = router;

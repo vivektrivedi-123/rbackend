@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const _ = require("lodash");
 const location = require("../models/location");
 const company = require("../models/company");
+
 exports.getOptions = async (req, res, next) => {
   const skip = parseInt(req.query.skip);
   const limit = parseInt(req.query.limit);
@@ -25,6 +26,7 @@ exports.getOptions = async (req, res, next) => {
       res.status(404).json(err);
     });
 };
+
 exports.getOptionsById = async (req, res, next) => {
   Options.findById({ _id: req.params.id })
     .select(" -__v")
@@ -49,6 +51,7 @@ exports.getOptionsById = async (req, res, next) => {
       res.status(404).json(err);
     });
 };
+
 exports.addOptions = async (req, res, next) => {
   let option = new Options(
     _.pick(req.body, [
@@ -71,51 +74,53 @@ exports.addOptions = async (req, res, next) => {
       res.status(400).json(err);
     });
 };
+
 exports.putOptions = async (req, res, next) => {
-  let id = req.params.id;
-  if (!req.params.id || req.params.id < 0)
-    res.status(400).send("Invalid Request");
   Options.findOne({ _id: req.params.id }, function (err, doc) {
     if (err) console.log(err);
     else if (doc === null) res.status(400).send("Invalid Request");
   });
-  let update = await Options.findByIdAndUpdate(
-    { _id: req.params.id },
-    req.body,
-    { new: true }
-  );
-
-  await update.save();
-  res.status(200).json(update);
+  try {
+    let update = await Options.findByIdAndUpdate(
+      { _id: req.params.id },
+      req.body,
+      { new: true }
+    );
+    await update.save();
+    res.status(200).json(update);
+  } catch (error) {
+    res.status(500).json({message:error.message})
+  }
 };
+    
+
 exports.patchOptions = async (req, res, next) => {
-  let id = req.params.id;
-  if (!req.params.id || req.params.id < 0)
-    res.status(400).send("Invalid Request");
   Options.findOne({ _id: req.params.id }, function (err, doc) {
     if (err) console.log(err);
     else if (doc === null) res.status(400).send("Invalid Request");
   });
-  let update = await Options.findByIdAndUpdate(
-    { _id: req.params.id },
-    req.body,
-    { new: true }
-  );
-
-  await update.save();
-  res.status(200).json(update);
+  try {
+    let update = await Options.findByIdAndUpdate(
+      { _id: req.params.id },
+      req.body,
+      { new: true }
+    );
+    await update.save();
+    res.status(200).json(update);
+  } catch (error) {
+    res.status(500).json({message:error.message})
+  }
 };
 
 exports.deleteOptions = async (req, res, next) => {
-  if (!req.params.id || req.params.id < 0)
-    res.status(400).send("Invalid request");
-  Options.findByIdAndRemove({ _id: req.params.id })
-    .then((doc) => {
-      res.status(200).json({
-        message: "Option Deleted Successfully",
-      });
-    })
-    .catch((err) => {
-      res.status(404).json(err);
-    });
+  try {
+    let option = await Options.findByIdAndDelete({_id:req.params.id})
+    if(option){
+      res.status(200).json({message:"option deleted successfully"})
+    } else{
+      res.status(400).json({message:"option not found"})
+    }
+  } catch (error) {
+    res.status(500).json({message:error.message})
+  }
 };

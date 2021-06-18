@@ -115,47 +115,48 @@ exports.addForm = async (req, res, next) => {
       res.status(400).json(err);
     });
 };
+
 exports.putForm = async (req, res, next) => {
-  let id = req.params.id;
-  if (!req.params.id || req.params.id < 0)
-    res.status(400).send("Invalid Request");
   Form.findOne({ _id: req.params.id }, function (err, doc) {
     if (err) console.log(err);
     else if (doc === null) res.status(400).send("Invalid Request");
   });
-  let update = await Form.findByIdAndUpdate({ _id: req.params.id }, req.body, {
-    new: true,
-  });
-  await update.save();
-
-  res.status(200).json(update);
+  try {
+    let update = await Form.findByIdAndUpdate({ _id: req.params.id }, req.body, {
+      new: true,
+    });
+    await update.save();
+    res.status(200).json(update);
+  } catch (error) {
+    res.status(500).json({message:error.message})
+  }
 };
+
 exports.patchForm = async (req, res, next) => {
-  let id = req.params.id;
-  if (!req.params.id || req.params.id < 0)
-    res.status(400).send("Invalid Request");
   Form.findOne({ _id: req.params.id }, function (err, doc) {
     if (err) console.log(err);
     else if (doc === null) res.status(400).send("Invalid Request");
   });
-  let update = await Form.findByIdAndUpdate({ _id: req.params.id }, req.body, {
-    new: true,
-  });
-  await update.save();
-
-  res.status(200).json(update);
+  try {
+    let update = await Form.findByIdAndUpdate({ _id: req.params.id }, req.body, {
+      new: true,
+    });
+    await update.save();
+    res.status(200).json(update);
+  } catch (error) {
+    res.status(500).json({message:error.message})
+  }
 };
 
 exports.deleteForm = async (req, res, next) => {
-  if (!req.params.id || req.params.id < 0)
-    res.status(400).send("Invalid request");
-  Form.findByIdAndRemove({ _id: req.params.id })
-    .then((doc) => {
-      res.status(200).json({
-        message: "Form Deleted Successfully",
-      });
-    })
-    .catch((err) => {
-      res.status(404).json(err);
-    });
+  try {
+    let form = await Form.findByIdAndDelete({_id:req.params.id})
+    if(form){
+      res.status(200).json({message:"form deleted successfully"})
+    } else{
+      res.status(400).json({message:"form not found"})
+    }
+  } catch (error) {
+    res.status(500).json({message:error.message})
+  }
 };

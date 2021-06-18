@@ -6,6 +6,7 @@ const {
 } = require("../validation/stageDataValidation");
 const router = express.Router();
 const auth = require("../middleware/auth");
+const isValid = require("../middleware/validID")
 const Stage = require("../models/stageData");
 
 /**
@@ -77,7 +78,7 @@ router.get("/api/v1/stageData", auth, stageDataController.getStageData);
  *    404:
  *     description: Id not found
  */
-router.get("/api/v1/stageData/:id", auth, stageDataController.getStageDataById);
+router.get("/api/v1/stageData/:id", auth, isValid, stageDataController.getStageDataById);
 /**
  * @swagger
  * tags:
@@ -207,7 +208,7 @@ router.post(
  */
 router.put(
   "/api/v1/stageData/:id",
-  auth,
+  auth, isValid,
   stageDataValidation(),
   validateSchema,
   stageDataController.putStageData
@@ -240,7 +241,7 @@ router.put(
  */
 router.delete(
   "/api/v1/stageData/:id",
-  auth,
+  auth, isValid,
   stageDataController.deleteStageData
 );
 
@@ -330,5 +331,5 @@ router.delete(
  */
 
 //patch
-router.patch("/api/v1/stageData/:id", auth, stageDataController.patchStageData);
+router.patch("/api/v1/stageData/:id", auth, isValid, stageDataController.patchStageData);
 module.exports = router;

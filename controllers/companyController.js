@@ -1,21 +1,6 @@
 const Company = require("../models/company");
 const mongoose = require("mongoose");
-const multer = require("multer");
 const _ = require("lodash");
-const upload = multer({
-  fileFilter(req, file, cb) {
-    if (!file.originalname.match(/\.(jpg|png|JPG|PNG|JPEG|jpeg)$/))
-      return cb(new Error("This is not a correct format of the file"));
-    cb(undefined, true);
-  },
-});
-const favicon = multer({
-  fileFilter(req, file, cb) {
-    if (!file.originalname.match(/\.(jpg|png|JPG|PNG|JPEG|jpeg)$/))
-      return cb(new Error("This is not a correct format of the file"));
-    cb(undefined, true);
-  },
-});
 
 exports.getCompany = async (req, res, next) => {
   const skip = parseInt(req.query.skip);
@@ -35,6 +20,7 @@ exports.getCompany = async (req, res, next) => {
       res.status(404).json(err);
     });
 };
+
 exports.getCompanyById = async (req, res, next) => {
   Company.findById({ _id: req.params.id })
     .select(" -__v")
@@ -53,13 +39,14 @@ exports.getCompanyById = async (req, res, next) => {
       res.status(404).json(err);
     });
 };
+
 exports.addCompany = async (req, res, next) => {
   let comp = await Company.findOne({ company_name: req.body.company_name });
   if (comp) {
     res.status(409).send("Company Already Exists");
   } else {
-    let logo = JSON.stringify(req.files);
-    let favicon = JSON.stringify(req.files);
+    let logo = JSON.stringify(req.files.company_logo[0].path);
+    let favicon = JSON.stringify(req.files.favicon[0].path);
     let company = await new Company(
       _.pick(req.body, [
         "company_name",
@@ -68,8 +55,6 @@ exports.addCompany = async (req, res, next) => {
         "date_format",
         "employee_portal_name",
         "employee_portal_url",
-        "company_logo",
-        "favicon",
         "created_by",
         "modified_by",
       ])
@@ -92,49 +77,67 @@ exports.addCompany = async (req, res, next) => {
 };
 
 exports.putCompany = async (req, res, next) => {
-  let id = req.params.id;
-  if (!req.params.id || req.params.id < 0)
-    res.status(400).send("Invalid Request");
   Company.findOne({ _id: req.params.id }, (err, doc) => {
     if (err) console.log(err);
     else if (doc === null) res.status(400).send("Invalid Request");
   });
-  let update = await Company.findByIdAndUpdate(
-    { _id: req.params.id },
-    req.body,
-    { new: true }
-  );
+  try {
+    let logo = JSON.stringify(req.files.company_logo[0].path);
+  let favicon = JSON.stringify(req.files.favicon[0].path);
+  let update = await Company.findByIdAndUpdate({ _id: req.params.id },{
+   company_name :req.body.company_name,
+   industry:req.body.industry,
+   company_language:req.body.company_language,
+   date_format:req.body.date_format,
+   employee_portal_name:req.body.employee_portal_name,
+   employee_portal_url:req.body.employee_portal_url,
+   company_logo:logo,
+   favicon:favicon
+  },
+    { new: true });
+
   await update.save();
   res.json({message:"Updated Company ",update}).status(200);
+  } catch (error) {
+    res.status(500).json({message:error.message})
+  }
 };
+
 exports.patchCompany = async (req, res, next) => {
-  let id = req.params.id;
-  if (!req.params.id || req.params.id < 0)
-    res.status(400).send("Invalid Request");
   Company.findOne({ _id: req.params.id }, (err, doc) => {
     if (err) console.log(err);
     else if (doc === null) res.status(400).send("Invalid Request");
   });
-  let update = await Company.findByIdAndUpdate(
-    { _id: req.params.id },
-    req.body,
-    { new: true }
-  );
-  await update.save();
-  res.json({message:"Updated Company ",update}).status(200);
+  try {
+    let logo = JSON.stringify(req.files.company_logo[0].path);
+    let favicon = JSON.stringify(req.files.favicon[0].path);
+    let update = await Company.findByIdAndUpdate({ _id: req.params.id },{
+     company_name :req.body.company_name,
+     industry:req.body.industry,
+     company_language:req.body.company_language,
+     date_format:req.body.date_format,
+     employee_portal_name:req.body.employee_portal_name,
+     employee_portal_url:req.body.employee_portal_url,
+     company_logo:logo,
+     favicon:favicon
+    },
+      { new: true });
+    await update.save();
+    res.json({message:"Updated Company ",update}).status(200);
+  } catch (error) {
+    res.status(500).json({message:error.message})
+  }
 };
 
 exports.deleteCompany = async (req, res, next) => {
-  if (!req.params.id || req.params.id < 0)
-    res.status(400).send("Invalid request");
-  Company.findByIdAndRemove({ _id: req.params.id })
-    .then((doc) => {
-      res.status(200).json({
-        message: "Company Deleted Successfully",
-      });
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(404).json(err);
-    });
+ try {
+   let company = await Company.findByIdAndDelete({_id:req.params.id})
+   if(company) {
+     res.status(200).json({message:"company deleted successfully"})
+   } else{
+     res.status(400).json({message:"company not found"})
+   }
+ } catch (error) {
+   res.status(500).json({message:error.message})
+ }
 };

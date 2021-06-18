@@ -1,34 +1,10 @@
-const express = require("express");
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
-const flash = require("flash");
-const multer = require("multer");
-const fs = require("fs");
 const bcrypt = require("bcryptjs");
 const _ = require("lodash");
-const validate = require("express-validator");
 const User = require("../models/user");
 const company = require("../models/company");
 const Role = require("../models/role");
-const upload = multer({
-  limits: {
-    fileSize: 1000000,
-  },
-  fileFilter(req, file, cb) {
-    if (!file.originalname.match(/\.(jpg|png|JPG|PNG|JPEG|jpeg)$/))
-      return cb(new Error("This is not a correct format of the file"));
-    cb(undefined, true);
-  },
-});
-exports.getMe = async (req, res, next) => {
-  const user = await User.findById(req.user._id)
-    .select("-password")
-    .select(" -__v")
-    .populate("company", "company_name ")
-    .populate("role", "role_name ")
-    .exec();
-  res.send(user);
-};
 
 //get
 exports.getUser = async (req, res, next) => {
@@ -112,7 +88,7 @@ exports.userLogin = async (req, res, next) => {
     if (!validPassword) return res.status(403).send("Invalid  Password.");
 
     const token = jwt.sign({ _id: user.id }, process.env.SECRET_KEY, {
-      expiresIn: "60m",
+      expiresIn: "10h",
     });
     res
       .header("Authorization", token)
@@ -148,58 +124,70 @@ exports.addUser = async (req, res, next) => {
     await user.save();
     res.status(200).json(user);
   } catch (err) {
-    res.json(err);
+    res.status(500).json({message:error.message});
   }
 };
 
 //put
 exports.putUser = async (req, res, next) => {
-  let id = req.params.id;
-  if (!req.params.id || req.params.id < 0)
-    res.status(400).send("Invalid Request");
   User.findOne({ _id: req.params.id }, (err, doc) => {
     if (err) console.log(err);
     else if (doc === null) res.status(400).send("Invalid Request");
   });
-  let user = await User.findByIdAndUpdate(
-    { _id: req.params.id },
-    { password: 0 },
-    req.body,
+  try {
+    let image = JSON.stringify(req.file.path);
+  let user = await User.findByIdAndUpdate({ _id: req.params.id },
     {
-      new: true,
-    }
+      first_name:req.body.first_name,
+      last_name:req.body.last_name,
+      mobile_number:req.body.mobile_number,
+      email:req.body.email,
+      profile_image:image
+    },
+    {new: true}
   );
   await user.save();
   res.status(200).send(user);
+  } catch (error) {
+    res.status(500).json({message:error.message})
+  }
 };
 
 //patch
 exports.patchUser = async (req, res, next) => {
-  let id = req.params.id;
-  if (!req.params.id || req.params.id < 0)
-    res.status(400).send("Invalid Request");
   User.findOne({ _id: req.params.id }, (err, doc) => {
     if (err) console.log(err);
     else if (doc === null) res.status(400).send("Invalid Request");
   }).select("-password");
-  let user = await User.findByIdAndUpdate({ _id: req.params.id }, req.body, {
-    new: true,
-  });
+  try {
+    let image = JSON.stringify(req.file.path);
+  let user = await User.findByIdAndUpdate({ _id: req.params.id },
+    {
+      first_name:req.body.first_name,
+      last_name:req.body.last_name,
+      mobile_number:req.body.mobile_number,
+      email:req.body.email,
+      profile_image:image
+    },
+    {new: true}
+  );
   await user.save();
   res.status(200).send(user);
+  } catch (error) {
+    res.status(500).json({message:error.message})
+  }
 };
 
 //delete user
 exports.deleteUser = async (req, res, next) => {
-  if (!req.params.id || req.params.id < 0)
-    res.status(400).send("Invalid request");
-  User.findByIdAndRemove({ _id: req.params.id })
-    .then((doc) => {
-      res.status(200).json({
-        message: "User Deleted Successfully",
-      });
-    })
-    .catch((err) => {
-      res.status(404).json(err);
-    });
+ try {
+   const user = await User.findByIdAndDelete({_id:req.params.id})
+   if(user) {
+    res.status(200).json({message:"user deleted successfully"})
+   } else {
+     res.status(400).json({message:"user not found"})
+   } 
+ } catch (error) {
+   res.status(500).json({message:error.message})
+ }
 };

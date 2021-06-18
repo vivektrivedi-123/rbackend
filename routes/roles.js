@@ -6,6 +6,7 @@ const {
 } = require("../validation/rolesValidation");
 const router = express.Router();
 const auth = require("../middleware/auth");
+const isValid = require("../middleware/validID")
 const Role = require("../models/role");
 /**
  * @swagger
@@ -63,7 +64,7 @@ router.get("/api/v1/role", auth, rolesController.getRoles);
  *    404:
  *     description: Id not found
  */
-router.get("/api/v1/role/:id", auth, rolesController.getRolesById);
+router.get("/api/v1/role/:id", auth, isValid, rolesController.getRolesById);
 /**
  * @swagger
  * tags:
@@ -162,7 +163,7 @@ router.post(
  */
 router.put(
   "/api/v1/role/:id",
-  auth,
+  auth, isValid,
   roleValidation(),
   validateSchema,
   rolesController.putRoles
@@ -192,7 +193,7 @@ router.put(
  *    404:
  *     description: Id not found
  */
-router.delete("/api/v1/role/:id", auth, rolesController.deleteRoles);
+router.delete("/api/v1/role/:id", auth, isValid, rolesController.deleteRoles);
 
 /**
  * @swagger
@@ -261,7 +262,7 @@ router.delete("/api/v1/role/:id", auth, rolesController.deleteRoles);
 //patch
 router.patch(
   "/api/v1/role/:id",
-  auth,
+  auth, isValid,
   rolesController.patchRoles
 );
 module.exports = router;

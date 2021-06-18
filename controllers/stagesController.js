@@ -9,36 +9,35 @@ const company = require("../models/company");
 exports.getStage = async (req, res, next) => {
   const skip = parseInt(req.query.skip);
   const limit = parseInt(req.query.limit);
-  Stage.find()
-    .sort({ stage: 1, order: 1 })
+  Stage.find().sort({ stage: 1, order: 1 })
     .skip(skip)
     .limit(limit)
     .select(" -__v")
-    .populate({
-      path: "stage",
-      select: " -__v",
-      //   populate: {
-      //     path: "department",
-      //     select: " -__v",
-      //     populate: {
-      //       path: "location ",
-      //       select: " -__v",
-      //       populate: { path: "company", select: " -__v" },
-      //     },
-      //   },
-      // })
-      // .populate({
-      //   path: "job",
-      //   select: " -stages -__v ",
-      //   populate: {
-      //     path: "category",
-      //     select: " -__v -location",
-      //   },
-      // })
-      // .populate({
-      //   path: "stepStage",
-      //   select: "-__v",
-    })
+    // .populate({
+    //   path: "stage",
+    //   select: " -__v",
+    //   //   populate: {
+    //   //     path: "department",
+    //   //     select: " -__v",
+    //   //     populate: {
+    //   //       path: "location ",
+    //   //       select: " -__v",
+    //   //       populate: { path: "company", select: " -__v" },
+    //   //     },
+    //   //   },
+    //   // })
+    //   // .populate({
+    //   //   path: "job",
+    //   //   select: " -stages -__v ",
+    //   //   populate: {
+    //   //     path: "category",
+    //   //     select: " -__v -location",
+    //   //   },
+    //   // })
+    //   // .populate({
+    //   //   path: "stepStage",
+    //   //   select: "-__v",
+    // })
     .exec()
     .then((data) => {
       res.status(200).json({
@@ -128,45 +127,46 @@ exports.addStage = async (req, res, next) => {
 };
 
 exports.putStage = async (req, res, next) => {
-  let id = req.params.id;
-  if (!req.params.id || req.params.id < 0)
-    res.status(400).send("Invalid Request");
   Stage.findOne({ _id: req.params.id }, (err, doc) => {
     if (err) console.log(err);
     else if (doc === null) res.status(400).send("Invalid Request");
   });
-  let stage = await Stage.findByIdAndUpdate({ _id: req.params.id }, req.body, {
-    new: true,
-  });
-  await stage.save();
-  res.status(200).json(stage);
+  try {
+    let stage = await Stage.findByIdAndUpdate({ _id: req.params.id }, req.body, {
+      new: true
+    });
+    await stage.save();
+    res.status(200).json(stage);
+  } catch (error) {
+    res.status(500).json({message:error.message})
+  }
 };
 
 exports.patchStage = async (req, res, next) => {
-  let id = req.params.id;
-  if (!req.params.id || req.params.id < 0)
-    res.status(400).send("Invalid Request");
   Stage.findOne({ _id: req.params.id }, (err, doc) => {
     if (err) console.log(err);
     else if (doc === null) res.status(400).send("Invalid Request");
   });
-  let stage = await Stage.findByIdAndUpdate({ _id: req.params.id }, req.body, {
-    new: true,
-  });
-  await stage.save();
-  res.status(200).json(stage);
+  try {
+    let stage = await Stage.findByIdAndUpdate({ _id: req.params.id }, req.body, {
+      new: true
+    });
+    await stage.save();
+    res.status(200).json(stage);
+  } catch (error) {
+    res.status(500).json({message:error.message})
+  }
 };
 
 exports.deleteStage = async (req, res, next) => {
-  if (!req.params.id || req.params.id < 0)
-    res.status(400).send("Invalid request");
-  Stage.findByIdAndRemove({ _id: req.params.id })
-    .then((doc) => {
-      res.status(200).json({
-        message: "Stage Deleted Successfully",
-      });
-    })
-    .catch((err) => {
-      res.status(404).json(err);
-    });
+  try {
+    let stage = await Stage.findByIdAndDelete({_id:req.params.id})
+    if(stage){
+      res.status(200).json({message:"stage deleted successfully"})
+    } else{
+      res.status(400).json({message:"stage not found"})
+    }
+  } catch (error) {
+    res.status(500).json({message:error.message})
+  }
 };

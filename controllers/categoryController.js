@@ -7,7 +7,8 @@ const company = require("../models/company");
 exports.getCategory = async (req, res, next) => {
   const skip = parseInt(req.query.skip);
   const limit = parseInt(req.query.limit);
-  let category = await Category.find()
+  try {
+    let category = await Category.find()
     .skip(skip)
     .limit(limit)
     .select(" -__v")
@@ -21,10 +22,14 @@ exports.getCategory = async (req, res, next) => {
   } else {
     res.status(200).send(category);
   }
+  } catch (error) {
+    res.status(500).json({message:error.message})
+  }
 };
 
 exports.getCategoryById = async (req, res, next) => {
-  let category = await Category.findById({ _id: req.params.id })
+  try {
+    let category = await Category.findById({ _id: req.params.id })
     .select(" -__v")
     .populate({
       path: "location",
@@ -35,67 +40,74 @@ exports.getCategoryById = async (req, res, next) => {
   } else {
     res.status(200).send(category);
   }
+  } catch (error) {
+    res.status(500).json({message:error.message})
+  }
 };
 
 exports.addCategory = async (req, res, next) => {
-
-  let categories = new Category(
-    _.pick(req.body, [
-      "location",
-      "category",
-      "status",
-      "created_by",
-      "modified_by",
-    ])
-  );
-  await categories.save();
-  res.status(200).json({ message: "Category Added", categories });
-  //}
+  try {
+    let categories = new Category(
+      _.pick(req.body, [
+        "location",
+        "category",
+        "status",
+        "created_by",
+        "modified_by",
+      ])
+    );
+    await categories.save();
+    res.status(200).json({ message: "Category Added", categories });
+  } catch (error) {
+    res.status(500).json({message:error.message})
+  }
 };
 
 exports.putCategory = async (req, res, next) => {
-  let id = req.params.id;
-  if (!req.params.id || req.params.id < 0)
-    res.status(400).send("Invalid request");
   Category.findOne({ _id: req.params.id }, (err, doc) => {
     if (err) console.log(err);
     else if (doc === null) res.status(400).send("Invalid request");
   });
-  let update = await Category.findByIdAndUpdate(
-    { _id: req.params.id },
-    req.body,
-    { new: true }
-  );
-  await update.save();
-  res.json(update).status(200);
+  try {
+    let update = await Category.findByIdAndUpdate(
+      { _id: req.params.id },
+      req.body,
+      { new: true }
+    );
+    await update.save();
+    res.json(update).status(200);
+  } catch (error) {
+    res.status(500).json({message:error.message})
+  }
 };
+
 exports.patchCategory = async (req, res, next) => {
-  let id = req.params.id;
-  if (!req.params.id || req.params.id < 0)
-    res.status(400).send("Invalid request");
   Category.findOne({ _id: req.params.id }, (err, doc) => {
     if (err) console.log(err);
     else if (doc === null) res.status(400).send("Invalid request");
   });
-  let update = await Category.findByIdAndUpdate(
-    { _id: req.params.id },
-    req.body,
-    { new: true }
-  );
-  await update.save();
-  res.json(update).status(200);
+  try {
+    let update = await Category.findByIdAndUpdate(
+      { _id: req.params.id },
+      req.body,
+      { new: true }
+    );
+    await update.save();
+    res.json(update).status(200);
+  } catch (error) {
+    res.status(500).json({message:error.message})
+  } 
 };
 
 exports.deleteCategory = async (req, res, next) => {
-  if (!req.params.id || req.params.id < 0)
-    res.status(400).send("Invalid request");
-  Category.findByIdAndRemove({ _id: req.params.id })
-    .then((doc) => {
-      res.status(200).json({
-        message: "Category Deleted Successfully",
-      });
-    })
-    .catch((err) => {
-      res.status(404).json(err);
-    });
+  try {
+    let category = await Category.findByIdAndDelete({_id:req.params.id})
+    if(category){
+      res.status(200).json({message:"category deleted successfully"})
+    } else{
+      res.status(400).json({message:"category not found"})
+    }
+  } catch (error) {
+    res.status(500).json({message:error.message})
+  }
 };

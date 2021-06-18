@@ -4,6 +4,7 @@ const {
   taskValidation,
   validateSchema,
 } = require("../validation/taskValidation");
+const isValid = require("../middleware/validID")
 const router = express.Router();
 const auth = require("../middleware/auth");
 const Task = require("../models/task");
@@ -94,7 +95,7 @@ router.get("/api/v1/task", auth, taskController.getTask);
  *    404:
  *     description: Id not found
  */
-router.get("/api/v1/task/:id", auth, taskController.getTaskById);
+router.get("/api/v1/task/:id", auth,isValid, taskController.getTaskById);
 /**
  * @swagger
  * tags:
@@ -268,7 +269,7 @@ router.post(
  */
 router.put(
   "/api/v1/task/:id",
-  auth,
+  auth, isValid,
   taskValidation(),
   validateSchema,
   taskController.putTask
@@ -298,7 +299,7 @@ router.put(
  *    404:
  *     description: Id not found
  */
-router.delete("/api/v1/task/:id", auth, taskController.deleteTask);
+router.delete("/api/v1/task/:id", auth, isValid, taskController.deleteTask);
 
 /**
  * @swagger
@@ -421,7 +422,7 @@ router.delete("/api/v1/task/:id", auth, taskController.deleteTask);
 //patch
 router.patch(
   "/api/v1/task/:id",
-  auth,
+  auth, isValid,
   taskController.patchTask
 );
 module.exports = router;

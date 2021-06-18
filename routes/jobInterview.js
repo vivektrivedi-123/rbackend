@@ -7,6 +7,7 @@ const {
 const _ = require("lodash");
 const router = express.Router();
 const auth = require("../middleware/auth");
+const isValid = require("../middleware/validID")
 const Interview = require("../models/interview");
 
 /**
@@ -114,7 +115,7 @@ router.get("/api/v1/interview", auth, interviewController.getInterview);
  *    404:
  *     description: Id not found
  */
-router.get("/api/v1/interview/:id", auth, interviewController.getInterviewById);
+router.get("/api/v1/interview/:id", auth,isValid, interviewController.getInterviewById);
 /**
  * @swagger
  * tags:
@@ -348,7 +349,7 @@ router.post(
  */
 router.put(
   "/api/v1/interview/:id",
-  auth,
+  auth, isValid,
   interviewValidation(),
   validateSchema,
   interviewController.putInterview
@@ -380,7 +381,7 @@ router.put(
  */
 router.delete(
   "/api/v1/interview/:id",
-  auth,
+  auth, isValid,
   interviewController.deleteInterview
 );
 
@@ -550,7 +551,7 @@ router.delete(
 //patch
 router.patch(
   "/api/v1/interview/:id",
-  auth,
+  auth, isValid,
   interviewController.patchInterview
 );
 

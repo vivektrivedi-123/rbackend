@@ -5,6 +5,7 @@ const {
 } = require("../validation/deptValidation");
 const express = require("express");
 const auth = require("../middleware/auth");
+const isValid = require("../middleware/validID")
 const router = express.Router();
 
 /**
@@ -69,7 +70,7 @@ router.get("/api/v1/department", auth, deptController.getDept);
  *     description: Id not found
  */
 //get all
-router.get("/api/v1/department/:id", auth, deptController.getDeptById);
+router.get("/api/v1/department/:id", auth, isValid, deptController.getDeptById);
 /**
  * @swagger
  * tags:
@@ -174,7 +175,7 @@ router.post(
 //put
 router.put(
   "/api/v1/department/:id",
-  auth,
+  auth, isValid,
   deptValidation(),
   validateSchema,
   deptController.putDept
@@ -205,7 +206,7 @@ router.put(
  *     description: Id not found
  */
 //delete
-router.delete("/api/v1/department/:id", auth, deptController.deleteDept);
+router.delete("/api/v1/department/:id", auth,isValid, deptController.deleteDept);
 
 /**
  * @swagger
@@ -274,7 +275,7 @@ router.delete("/api/v1/department/:id", auth, deptController.deleteDept);
 //patch
 router.patch(
   "/api/v1/department/:id",
-  auth,
+  auth, isValid,
   deptController.patchDept
 );
 module.exports = router;

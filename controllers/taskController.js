@@ -139,44 +139,47 @@ exports.addTask = async (req, res, next) => {
     });
 };
 exports.putTask = async (req, res, next) => {
-  let id = req.params.id;
-  if (!req.params.id || req.params.id < 0)
-    res.status(400).send("Invalid Request");
   Task.findOne({ _id: req.params.id }, function (err, doc) {
     if (err) console.log(err);
     else if (doc === null) res.status(400).send("Invalid Request");
   });
-  let update = await Task.findByIdAndUpdate({ _id: req.params.id }, req.body, {
-    new: true,
-  });
-  await update.save();
-  res.status(200).json(update);
+  try {
+    let update = await Task.findByIdAndUpdate({ _id: req.params.id }, req.body, {
+      new: true
+    });
+    await update.save();
+    res.status(200).json(update);
+  } catch (error) {
+    res.status(500).json({message:error.message})
+  }
 };
+  
 
 exports.patchTask = async (req, res, next) => {
-  let id = req.params.id;
-  if (!req.params.id || req.params.id < 0)
-    res.status(400).send("Invalid Request");
   Task.findOne({ _id: req.params.id }, function (err, doc) {
     if (err) console.log(err);
     else if (doc === null) res.status(400).send("Invalid Request");
   });
-  let update = await Task.findByIdAndUpdate({ _id: req.params.id }, req.body, {
-    new: true,
-  });
-  await update.save();
-  res.status(200).json(update);
-};
-exports.deleteTask = async (req, res, next) => {
-  if (!req.params.id || req.params.id < 0)
-    res.status(400).send("Invalid request");
-  Task.findByIdAndRemove({ _id: req.params.id })
-    .then((doc) => {
-      res.status(200).json({
-        message: "Task Deleted Successfully",
-      });
-    })
-    .catch((err) => {
-      res.status(404).json(err);
+  try {
+    let update = await Task.findByIdAndUpdate({ _id: req.params.id }, req.body, {
+      new: true
     });
+    await update.save();
+    res.status(200).json(update);
+  } catch (error) {
+    res.status(500).json({message:error.message})
+  }
+};
+
+exports.deleteTask = async (req, res, next) => {
+ try {
+   let task = await Task.findByIdAndDelete({_id:req.params.id})
+   if(task){
+     res.status(200).json({message:"task deleted successfully"})
+   } else{
+     res.status(400).json({message:"task not found"})
+   }
+ } catch (error) {
+   res.status(500).json({message:error.message})
+ }
 };

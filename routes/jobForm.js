@@ -5,6 +5,7 @@ const {
   validateSchema,
 } = require("../validation/formValidation");
 const router = express.Router();
+const isValid = require("../middleware/validID")
 const auth = require("../middleware/auth");
 const Form = require("../models/forms");
 
@@ -85,7 +86,7 @@ router.get("/api/v1/form", auth, formController.getForm);
  *    404:
  *     description: Id not found
  */
-router.get("/api/v1/form/:id", auth, formController.getFormById);
+router.get("/api/v1/form/:id", auth, isValid, formController.getFormById);
 /**
  * @swagger
  * tags:
@@ -235,7 +236,7 @@ router.post(
  */
 router.put(
   "/api/v1/form/:id",
-  auth,
+  auth, isValid,
   formValidation(),
   validateSchema,
   formController.putForm
@@ -265,7 +266,7 @@ router.put(
  *    404:
  *     description: Id not found
  */
-router.delete("/api/v1/form/:id", auth, formController.deleteForm);
+router.delete("/api/v1/form/:id", auth, isValid, formController.deleteForm);
 
 /**
  * @swagger
@@ -370,7 +371,7 @@ router.delete("/api/v1/form/:id", auth, formController.deleteForm);
 //patch
 router.patch(
   "/api/v1/form/:id",
-  auth,
+  auth, isValid,
   formController.patchForm
 );
 module.exports = router;

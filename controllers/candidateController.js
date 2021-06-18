@@ -1,4 +1,3 @@
-const express = require("express");
 const _ = require("lodash");
 const validate = require("express-validator");
 const Candidate = require("../models/candidate");
@@ -81,55 +80,57 @@ exports.addCandidate = async (req, res, next) => {
 
 //put
 exports.putCandidate = async (req, res, next) => {
-  let id = req.params.id;
-  if (!req.params.id || req.params.id < 0)
-    res.status(400).send("Invalid Request");
   Candidate.findOne({ _id: req.params.id }, (err, doc) => {
     if (err) console.log(err);
     else if (doc === null) res.status(400).send("Invalid Request");
   });
-  let candidate = await Candidate.findByIdAndUpdate(
-    { _id: req.params.id },
-    req.body,
-    {
-      new: true,
-    }
-  );
-  await candidate.save();
-  res.status(200).send(candidate);
+  try {
+    let candidate = await Candidate.findByIdAndUpdate(
+      { _id: req.params.id },
+      req.body,
+      {
+        new: true,
+      }
+    );
+    await candidate.save();
+    res.status(200).send(candidate); 
+  } catch (error) {
+    res.status(500).json({message:error.message})
+  }
+  
 };
 
 //patch
 exports.patchCandidate = async (req, res, next) => {
-  let id = req.params.id;
-  if (!req.params.id || req.params.id < 0)
-    res.status(400).send("Invalid Request");
   Candidate.findOne({ _id: req.params.id }, (err, doc) => {
     if (err) console.log(err);
     else if (doc === null) res.status(400).send("Invalid Request");
   });
-  let candidate = await Candidate.findByIdAndUpdate(
-    { _id: req.params.id },
-    req.body,
-    {
-      new: true,
-    }
-  );
-  await candidate.save();
-  res.status(200).send(candidate);
+  try {
+    let candidate = await Candidate.findByIdAndUpdate(
+      { _id: req.params.id },
+      req.body,
+      {
+        new: true,
+      }
+    );
+    await candidate.save();
+    res.status(200).send(candidate);
+  } catch (error) {
+    res.status(500).json({message:error.message})
+  } 
 };
 
 //delete Candidate
 exports.deleteCandidate = async (req, res, next) => {
-  if (!req.params.id || req.params.id < 0)
-    res.status(400).send("Invalid request");
-  Candidate.findByIdAndRemove({ _id: req.params.id })
-    .then((doc) => {
-      res.status(200).json({
-        message: "Candidate Deleted Successfully",
-      });
-    })
-    .catch((err) => {
-      res.status(404).json(err);
-    });
+  try {
+    const candidate = await Candidate.findByIdAndDelete({_id:req.params.id})
+    if(candidate){
+      res.status(200).json({message:"Candidate deleted successfully"})
+    } else{
+      res.status(400).json({message:"candidate not found !"})
+    }
+  } catch (error) {
+   res.status(500).json({message:error.message})
+  }
 };

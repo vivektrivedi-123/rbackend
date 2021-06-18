@@ -5,6 +5,7 @@ const department = require("../models/department");
 const category = require("../models/category");
 const location = require("../models/location");
 const company = require("../models/company");
+
 exports.getJob = async (req, res, next) => {
   const skip = parseInt(req.query.skip);
   const limit = parseInt(req.query.limit);
@@ -43,6 +44,7 @@ exports.getJob = async (req, res, next) => {
       res.status(404).json(err);
     });
 };
+
 exports.getJobById = async (req, res, next) => {
   Job.findById({ _id: req.params.id })
     .select(" -__v")
@@ -82,6 +84,7 @@ exports.getJobById = async (req, res, next) => {
       res.status(404).json(err);
     });
 };
+
 exports.addJob = async (req, res, next) => {
   let jobs = new Job(
     _.pick(req.body, [
@@ -118,45 +121,45 @@ exports.addJob = async (req, res, next) => {
 };
 
 exports.putJob = async (req, res, next) => {
-  let id = req.params.id;
-  if (!req.params.id || req.params.id < 0)
-    res.status(404).send("Invalid Request");
   Job.findOne({ _id: req.params.id }, function (err, doc) {
     if (err) console.log(err);
     else if (doc === null) res.status(400).send("Invalid Request");
   });
-  let update = await Job.findByIdAndUpdate({ _id: req.params.id }, req.body, {
-    new: true,
-  });
-  await update.save();
-  res.status(200).json({ message: "Job updated", update });
+  try {
+    let update = await Job.findByIdAndUpdate({ _id: req.params.id }, 
+      req.body, 
+      { new: true});
+    await update.save();
+    res.status(200).json({ message: "Job updated", update });
+  } catch (error) {
+    res.status(500).json({message:error.message})
+  }
 };
 
 exports.patchJob = async (req, res, next) => {
-  let id = req.params.id;
-  if (!req.params.id || req.params.id < 0)
-    res.status(404).send("Invalid Request");
   Job.findOne({ _id: req.params.id }, function (err, doc) {
     if (err) console.log(err);
     else if (doc === null) res.status(400).send("Invalid Request");
   });
-  let update = await Job.findByIdAndUpdate({ _id: req.params.id }, req.body, {
-    new: true,
-  });
-  await update.save();
-  res.status(200).json({ message: "Job updated", update });
+  try {
+    let update = await Job.findByIdAndUpdate({ _id: req.params.id },
+      req.body, 
+      {new: true}
+    );
+    await update.save();
+    res.status(200).json({ message: "Job updated", update });
+  } catch (error) {
+    res.status(500).json({message:error.message})
+  }
 };
 
 exports.deleteJob = async (req, res, next) => {
-  if (!req.params.id || req.params.id < 0)
-    res.status(400).send("Invalid request");
-  Job.findByIdAndRemove({ _id: req.params.id })
-    .then((doc) => {
-      res.status(200).json({
-        message: "job Deleted Successfully",
-      });
-    })
-    .catch((err) => {
-      res.status(404).json(err);
-    });
+  try {
+    let job = await Job.findByIdAndDelete({_id:req.params.id})
+    if(job){
+      res.status(200).json({message:"job deleted successfully"})
+    }
+  } catch (error) {
+    res.status(500).json({message:error.message})
+  }
 };

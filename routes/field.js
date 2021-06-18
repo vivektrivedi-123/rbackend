@@ -5,6 +5,7 @@ const {
   validateSchema,
 } = require("../validation/fieldValidation");
 const auth = require("../middleware/auth");
+const isValid = require("../middleware/validID")
 const router = express.Router();
 const Field = require("../models/field");
 /**
@@ -77,7 +78,7 @@ router.get("/api/v1/field", auth, fieldController.getField);
  *    404:
  *     description: Id not found
  */
-router.get("/api/v1/field/:id", auth, fieldController.getFieldById);
+router.get("/api/v1/field/:id", auth, isValid, fieldController.getFieldById);
 /**
  * @swagger
  * tags:
@@ -203,7 +204,7 @@ router.post(
  */
 router.put(
   "/api/v1/field/:id",
-  auth,
+  auth, isValid,
   fieldValidation(),
   validateSchema,
   fieldController.putField
@@ -233,7 +234,7 @@ router.put(
  *    404:
  *     description: Id not found
  */
-router.delete("/api/v1/field/:id", auth, fieldController.deleteField);
+router.delete("/api/v1/field/:id", auth,isValid, fieldController.deleteField);
 
 /**
  * @swagger
@@ -320,7 +321,7 @@ router.delete("/api/v1/field/:id", auth, fieldController.deleteField);
 //patch
 router.patch(
   "/api/v1/field/:id",
-  auth,
+  auth, isValid,
   fieldController.patchField
 );
 module.exports = router;

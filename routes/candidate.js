@@ -7,6 +7,7 @@ const {
 const router = express.Router();
 const swagger = require("swagger-ui-express");
 const auth = require("../middleware/auth");
+const isValid = require("../middleware/validID")
 const company = require("../models/company");
 const app = express();
 
@@ -66,7 +67,7 @@ const app = express();
  */
 
 //get by ID
-router.get("/api/v1/candidate/:id", auth, candidateController.getCandidateById);
+router.get("/api/v1/candidate/:id", auth,isValid, candidateController.getCandidateById);
 
 /**
  * @swagger
@@ -195,8 +196,8 @@ router.post(
 
 //put
 router.put(
-  "/api/v1/candidate/:id",
-  auth,
+  "/api/v1/candidate/:id", 
+  auth, isValid,
   candidateValidation(),
   validateSchema,
   candidateController.patchCandidate
@@ -229,7 +230,7 @@ router.put(
 //delete
 router.delete(
   "/api/v1/candidate/:id",
-  auth,
+  auth, isValid,
   candidateController.deleteCandidate
 );
 
@@ -317,6 +318,6 @@ router.delete(
  */
 
 //patch
-router.patch("/api/v1/candidate/:id", auth, candidateController.patchCandidate);
+router.patch("/api/v1/candidate/:id", auth, isValid, candidateController.patchCandidate);
 
 module.exports = router;

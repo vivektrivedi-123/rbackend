@@ -91,14 +91,14 @@ app.use(
   swaggerUi.serve,
   swaggerUi.setup(specs, { explorer: true })
 );
-app.use("/public", express.static(path.join(__dirname, "static")));
-app.use("/upload", express.static("upload"));
-app.use("/attachments", express.static("attachments"));
-app.use(
-  bodyparser.urlencoded({
-    extended: true,
-  })
-);
+app.use("/upload", express.static("./upload"));
+app.use("/attachments", express.static("./attachments"));
+app.use("/resume", express.static("./resume"));
+// app.use(
+//   bodyparser.urlencoded({
+//     extended: true,
+//   })
+// );
 app.use(express.json());
 
 app.use("/", company);

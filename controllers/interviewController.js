@@ -62,6 +62,7 @@ exports.getInterview = async (req, res, next) => {
       res.status(404).json(err);
     });
 };
+
 exports.getInterviewById = async (req, res, next) => {
   Interview.findById({ _id: req.params.id })
     .select(" -__v")
@@ -120,6 +121,7 @@ exports.getInterviewById = async (req, res, next) => {
       res.status(404).json(err);
     });
 };
+
 exports.addInterview = async (req, res, next) => {
   let interview = new Interview(
     _.pick(req.body, [
@@ -152,48 +154,53 @@ exports.addInterview = async (req, res, next) => {
       res.status(400).json(err);
     });
 };
+
 exports.putInterview = async (req, res, next) => {
-  let id = req.params.id;
-  if (!req.params.id || req.params.id < 0)
-    res.status(400).send("Invalid Request");
   Interview.findOne({ _id: req.params.id }, function (err, doc) {
     if (err) console.log(err);
     else if (doc === null) res.status(400).send("Invalid Request");
   });
-  let update = await Interview.findByIdAndUpdate(
-    { _id: req.params.id },
-    req.body,
-    { new: true }
-  );
-  await update.save();
-  res.status(200).json(update);
+  try {
+    let update = await Interview.findByIdAndUpdate(
+      { _id: req.params.id },
+      req.body,
+      { new: true }
+    );
+    await update.save();
+    res.status(200).json(update);
+  } catch (error) {
+    res.status(500).json({message:error.message})
+  }
 };
+  
+
 exports.patchInterview = async (req, res, next) => {
-  let id = req.params.id;
-  if (!req.params.id || req.params.id < 0)
-    res.status(400).send("Invalid Request");
   Interview.findOne({ _id: req.params.id }, function (err, doc) {
     if (err) console.log(err);
     else if (doc === null) res.status(400).send("Invalid Request");
   });
-  let update = await Interview.findByIdAndUpdate(
-    { _id: req.params.id },
-    req.body,
-    { new: true }
-  );
-  await update.save();
-  res.status(200).json(update);
+  try {
+    let update = await Interview.findByIdAndUpdate(
+      { _id: req.params.id },
+      req.body,
+      { new: true }
+    );
+    await update.save();
+    res.status(200).json(update);
+  } catch (error) {
+    res.status(500).json({message:error.message})
+  }
 };
+
 exports.deleteInterview = async (req, res, next) => {
-  if (!req.params.id || req.params.id < 0)
-    res.status(400).send("Invalid request");
-  Interview.findByIdAndRemove({ _id: req.params.id })
-    .then((doc) => {
-      res.status(200).json({
-        message: "Interview Deleted Successfully",
-      });
-    })
-    .catch((err) => {
-      res.status(404).json(err);
-    });
+  try {
+    let interview = await Interview.findByIdAndDelete({_id:req.params.id})
+    if(interview){
+      res.status(200).json({message:"interview deleted successfully"})
+    } else{
+      res.status(400).json({message:"interview not found"})
+    }
+  } catch (error) {
+    res.status(500).json({message:error.message})
+  }
 };

@@ -1,19 +1,11 @@
-const express = require("express");
 const mongoose = require("mongoose");
 const forms = require("../models/forms");
 const job = require("../models/job");
 const Application = require("../models/application");
-const multer = require("multer");
 const _ = require("lodash");
 const department = require("../models/department");
 const category = require("../models/category");
-const upload = multer({
-  fileFilter(req, file, cb) {
-    if (!file.originalname.match(/\.(jpg|png|JPG|PNG|JPEG|jpeg)$/))
-      return cb(new Error("This is not a correct format of the file"));
-    cb(undefined, true);
-  },
-});
+
 exports.getApplication = async (req, res, next) => {
   const skip = parseInt(req.query.skip);
   const limit = parseInt(req.query.limit);
@@ -103,6 +95,7 @@ exports.getApplicationById = async (req, res, next) => {
       res.status(404).json(err);
     });
 };
+
 exports.addApplication = async (req, res, next) => {
   let resume = JSON.stringify(req.file.path);
   let applications = await new Application(
@@ -138,52 +131,83 @@ exports.addApplication = async (req, res, next) => {
       res.status(400).json(err);
     });
 };
+
 exports.putApplication = async (req, res, next) => {
-  let id = req.params.id;
-  if (!req.params.id || req.params.id < 0)
-    res.status(400).send("Invalid request");
   Application.findOne({ _id: req.params.id }, function (err, doc) {
-    if (err) console.log(err);
+    if (err) return res.status(400).json({message:"application is allready exist"})
     else if (doc === null)
       res.status(400).send("ID in the body is not matching ID in the URL");
   });
-  let update = await Application.findByIdAndUpdate(
-    { _id: req.params.id },
-    req.body,
+  try {
+    let resume = JSON.stringify(req.file.path);
+  let update = await Application.findByIdAndUpdate({ _id: req.params.id },
+    {
+      form_values:req.body.form_values,
+      origin:req.body.origin,
+      tags:req.body.tags,
+      status:req.body.status,
+      overall_rating:req.body.overall_rating,
+      lead_owner:req.body.lead_owner,
+      is_deleted:req.body.is_deleted,
+      is_blocked:req.body.is_blocked,
+      social_profiles:req.body.social_profiles,
+      refer_by:req.body.refer_by,
+      add_to_talent_pool:req.body.add_to_talent_pool,
+      resume:resume
+    },
     { new: true }
   );
   await update.save();
-  res.json({ message: "Application Updated", update }).status(200);
+  res.status(200).json({ message: "Application Updated", update });
+  } catch (error) {
+    res.status(500).json({message:error.message})
+  }
 };
+  
 
 exports.patchApplication = async (req, res, next) => {
-  let id = req.params.id;
-  if (!req.params.id || req.params.id < 0)
-    res.status(400).send("Invalid request");
   Application.findOne({ _id: req.params.id }, function (err, doc) {
     if (err) console.log(err);
     else if (doc === null)
       res.status(400).send("ID in the body is not matching ID in the URL");
   });
-  let update = await Application.findByIdAndUpdate(
-    { _id: req.params.id },
-    req.body,
-    { new: true }
-  );
-  await update.save();
-  res.json({ message: "Application Updated", update }).status(200);
+  try {
+    let resume = JSON.stringify(req.file.path);
+    let update = await Application.findByIdAndUpdate({ _id: req.params.id },
+      {
+        form_values:req.body.form_values,
+        origin:req.body.origin,
+        tags:req.body.tags,
+        status:req.body.status,
+        overall_rating:req.body.overall_rating,
+        lead_owner:req.body.lead_owner,
+        is_deleted:req.body.is_deleted,
+        is_blocked:req.body.is_blocked,
+        social_profiles:req.body.social_profiles,
+        refer_by:req.body.refer_by,
+        add_to_talent_pool:req.body.add_to_talent_pool,
+        resume:resume
+      },
+      { new: true }
+    );
+    await update.save();
+    res.json({ message: "Application Updated", update }).status(200);
+  } catch (error) {
+    res.status(500).json({message:error.message})
+  }
+ 
 };
 
+
 exports.deleteApplication = async (req, res, next) => {
-  if (!req.params.id || req.params.id < 0)
-    res.status(400).send("Invalid request");
-  Application.findByIdAndRemove({ _id: req.params.id })
-    .then((doc) => {
-      res.status(200).json({
-        message: "Application Deleted Successfully",
-      });
-    })
-    .catch((err) => {
-      res.status(404).json(err);
-    });
+ try {
+   const application = await Application.findByIdAndDelete({_id:req.params.id})
+   if(application){
+     res.status(200).json({message:"application deleted successfully"})
+   } else{
+     res.status(400).json({message:"application not found !"})
+   }
+ } catch (error) {
+  res.status(500).json({message:error.message})
+ }
 };

@@ -6,8 +6,10 @@ const {
 } = require("../validation/appValidation");
 const router = express.Router();
 const auth = require("../middleware/auth");
+const isValid = require("../middleware/validID")
 const Application = require("../models/application");
 const multer = require("multer");
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "./resume");
@@ -147,7 +149,7 @@ router.get("/api/v1/application", auth, applicationController.getApplication);
 //get by ID
 router.get(
   "/api/v1/application/:id",
-  auth,
+  auth, isValid,
   applicationController.getApplicationById
 );
 
@@ -446,6 +448,7 @@ router.post(
 router.put(
   "/api/v1/application/:id",
   auth,
+  isValid,
   resume,
   appValidation(),
   validateSchema,
@@ -481,7 +484,7 @@ router.put(
 //delete
 router.delete(
   "/api/v1/application/:id",
-  auth,
+  auth,isValid,
   applicationController.deleteApplication
 );
 
@@ -693,7 +696,7 @@ router.delete(
 //patch
 router.patch(
   "/api/v1/application/:id",
-  auth,
+  auth, isValid,
   resume,
   applicationController.patchApplication
 );
