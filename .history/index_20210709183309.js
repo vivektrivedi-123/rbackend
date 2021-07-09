@@ -126,4 +126,4 @@ mongoose
   .then(() => console.log("connected to database"))
   .catch((err) => console.log(err));
 
-app.listen(4242, () => console.log(`listening on port 3001... `));
+app.listen(4204, () => console.log(`listening on port 3001... `));
