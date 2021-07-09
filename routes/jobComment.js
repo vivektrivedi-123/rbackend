@@ -63,7 +63,7 @@ const attachments = multer({ storage: storage }).array("attachments", 4);
  *          default:
  *              description: This is the default response for it
  */
-router.get("/api/v1/comment",  commentController.getComment);
+router.get("/api/v1/comment",auth,  commentController.getComment);
 /**
  * @swagger
  * tags:

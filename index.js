@@ -30,14 +30,6 @@ const swaggerUi = require("swagger-ui-express");
 const swaggerJsdoc = require("swagger-jsdoc");
 const { JsonWebTokenError } = require("jsonwebtoken");
 const app = express();
-
-const upload = multer({
-  dest: path.join(__dirname, "./upload"),
-});
-const attachments = multer({
-  dest: path.join(__dirname, "./attachments"),
-});
-
 const options = {
   definition: {
     openapi: "3.0.0",
@@ -91,9 +83,9 @@ app.use(
   swaggerUi.serve,
   swaggerUi.setup(specs, { explorer: true })
 );
-app.use("/upload", express.static("./upload"));
-app.use("/attachments", express.static("./attachments"));
-app.use("/resume", express.static("./resume"));
+app.use("/upload", express.static("upload"));
+app.use("/attachments", express.static("attachments"));
+app.use("/resume", express.static("resume"));
 // app.use(
 //   bodyparser.urlencoded({
 //     extended: true,

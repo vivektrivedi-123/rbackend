@@ -5,6 +5,7 @@ const _ = require("lodash");
 const User = require("../models/user");
 const company = require("../models/company");
 const Role = require("../models/role");
+const { findOne } = require("../models/company");
 
 //get
 exports.getUser = async (req, res, next) => {
@@ -102,8 +103,12 @@ exports.userLogin = async (req, res, next) => {
 
 //add user
 exports.addUser = async (req, res, next) => {
+  let user = await User.findOne({ email: req.body.email });
+  if (user) {
+      return res.status(400).send('That user already exisits!');
+  }else{
   try {
-    let image = JSON.stringify(req.file.path);
+    let image = req.file.path;
     let user = new User(
       _.pick(req.body, [
         "company",
@@ -126,6 +131,7 @@ exports.addUser = async (req, res, next) => {
   } catch (err) {
     res.status(500).json({message:error.message});
   }
+}
 };
 
 //put
@@ -135,7 +141,7 @@ exports.putUser = async (req, res, next) => {
     else if (doc === null) res.status(400).send("Invalid Request");
   });
   try {
-    let image = JSON.stringify(req.file.path);
+    let image = req.file.path;
   let user = await User.findByIdAndUpdate({ _id: req.params.id },
     {
       first_name:req.body.first_name,

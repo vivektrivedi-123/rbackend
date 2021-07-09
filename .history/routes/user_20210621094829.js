@@ -105,7 +105,7 @@ const upload = multer({
  */
 
 //get all
-router.get("/api/v1/user",auth,  userController.getUser);
+router.get("/api/v1/user", auth, userController.getUser);
 /**
  * @swagger
  * tags:

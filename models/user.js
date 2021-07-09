@@ -27,7 +27,7 @@ const userSchema = new mongoose.Schema(
     ],
     first_name: { type: String, required: true, trim: true, min: 3, max: 30 },
     last_name: { type: String, required: true, min: 3, max: 30 },
-    mobile_number: { type: Number, required: true, length: 10 },
+    mobile_number: { type: Number, required: true, length: 10,unique:true },
     email: { type: String, required: true },
     password: { type: String, required: true, min: 8, max: 20 },
     profile_image: { type: String, required: true },

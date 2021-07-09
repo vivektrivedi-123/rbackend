@@ -45,8 +45,8 @@ exports.addCompany = async (req, res, next) => {
   if (comp) {
     res.status(409).send("Company Already Exists");
   } else {
-    let logo = JSON.stringify(req.files.company_logo[0].path);
-    let favicon = JSON.stringify(req.files.favicon[0].path);
+    let logo = req.files.company_logo[0].path;
+    let favicon = req.files.favicon[0].path;
     let company = await new Company(
       _.pick(req.body, [
         "company_name",
@@ -82,8 +82,8 @@ exports.putCompany = async (req, res, next) => {
     else if (doc === null) res.status(400).send("Invalid Request");
   });
   try {
-    let logo = JSON.stringify(req.files.company_logo[0].path);
-  let favicon = JSON.stringify(req.files.favicon[0].path);
+    let logo = req.files.company_logo[0].path;
+  let favicon = req.files.favicon[0].path;
   let update = await Company.findByIdAndUpdate({ _id: req.params.id },{
    company_name :req.body.company_name,
    industry:req.body.industry,
