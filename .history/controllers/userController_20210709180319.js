@@ -95,7 +95,7 @@ exports.userLogin = async (req, res, next) => {
       .header("Authorization", token)
       .header("Access-Control-Expose-Headers", "Authorization")
       .status(200);
-    res.json({"Lgin succesfully" :token});
+    res.json(,token);
   } catch (error) {
     console.log(error);
   }
